@@ -1,0 +1,33 @@
+#popup_container {
+	BORDER-RIGHT: #E78D58 5px solid; BORDER-TOP: #E78D58 5px solid; MIN-WIDTH: 300px; FONT-SIZE: 12px; BACKGROUND: #fff; MAX-WIDTH: 600px; BORDER-LEFT: #E78D58 5px solid; COLOR: #000; BORDER-BOTTOM: #E78D58 5px solid; FONT-FAMILY: Arial, sans-serif; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px
+}
+#popup_title {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; BACKGROUND: url(images/title.gif) #E78D58 repeat-x 50% top; MARGIN: 0em;  CURSOR: default; COLOR: #ffffff; LINE-HEIGHT: 3em; PADDING-TOP: 0em; TEXT-ALIGN: center
+}
+#popup_content {
+	PADDING-RIGHT: 1.75em; PADDING-LEFT: 1.75em; BACKGROUND: url(images/info.gif) no-repeat 16px 16px; PADDING-BOTTOM: 2em; MARGIN: 0em; PADDING-TOP: 1em
+}
+.alert#popup_content {
+	BACKGROUND-IMAGE: url(images/info.gif)
+}
+.confirm#popup_content {
+	BACKGROUND-IMAGE: url(images/important.gif)
+}
+.prompt#popup_content {
+	BACKGROUND-IMAGE: url(images/help.gif)
+}
+#popup_message {
+	/*PADDING-LEFT: 48px;*/
+	line-height: 22px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	text-align: center;
+}
+#popup_panel {
+	MARGIN: 1em 0em 0em; TEXT-ALIGN: center
+}
+#popup_prompt {
+	MARGIN: 0.5em 0em
+}
+#popup_ok{ width: 70px; height: 30px; line-height: 30px; background: #888888; color: #ffffff; text-align: center; cursor: pointer; margin: 0 10px;}
+#popup_cancel{ width: 70px; height: 30px; line-height: 30px; background: #888888; color: #ffffff; text-align: center; cursor: pointer; margin: 0 10px;}

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-4.1.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+           http://cxf.apache.org/jaxws
+           http://cxf.apache.org/schemas/jaxws.xsd
+           http://www.springframework.org/schema/jee
+           http://www.springframework.org/schema/jee/spring-jee-4.1.xsd">
+           
+	
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+	   <!--  <property name="maxActive" value="32" />--> 
+		<property name="maxIdle" value="8" />
+		<!--<property name="maxWait" value="15000" />--> 
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<property name="numTestsPerEvictionRun" value="3" />
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<!--<property name="whenExhaustedAction" value="1" />-->
+	</bean>
+	<bean id="jedisConnFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		destroy-method="destroy">
+		<property name="poolConfig" ref="jedisPoolConfig" />
+		<property name="usePool" value="true" />
+		<property name="hostName" value="192.168.1.168" />
+		<property name="port" value="26379" />
+		<property name="timeout" value="15000" />
+	 	<!--指定redis数据库（可选）-->
+		<!--<property name="database" value="${redis.dbIndex}"/>-->
+
+	</bean>
+	
+	<!--<bean id="redisSentinelConfiguration"
+          class="org.springframework.data.redis.connection.RedisSentinelConfiguration">
+          <property name="master">
+             <bean class="org.springframework.data.redis.connection.RedisNode">
+                  <property name="name" value="mymaster"></property>
+              </bean>
+          </property>
+          <property name="sentinels">
+              <set>
+                 <bean class="org.springframework.data.redis.connection.RedisNode">
+                     <constructor-arg index="0" value="192.168.5.116" />
+                     <constructor-arg index="1" value="26379" />                    
+                 </bean>
+             </set>
+         </property>
+     </bean>
+	
+	
+	 <bean id="jedisConnFactory"
+         class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+         <constructor-arg ref="redisSentinelConfiguration" />   
+         
+         <property name="poolConfig" ref="jedisPoolConfig" />
+		 
+              
+     </bean>-->
+	
+
+	<bean id="stringobjRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+		<property name="connectionFactory" ref="jedisConnFactory" />
+		
+
+	</bean>
+</beans>

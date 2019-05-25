@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.WeiXinMapper">
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.weixin.WeiXin">
+		<id column="WEIXIN_ID" property="weiXinId" jdbcType="VARCHAR" />
+		<result column="AUTOCONTENT" property="autoContent"
+			jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime"
+			jdbcType="TIMESTAMP" />
+		<result column="UPDATE_TIME" property="updateTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<!-- 分页信息 -->
+	<sql id="pagination_condition">
+		limit ${firstResult},${rows}
+	</sql>
+	<!--后台sql -->
+
+
+	<!-- 通过ID查找对象 -->
+	<select id="queryWeixinById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * 
+		from wechat_autoreply where 1=1 and WEIXIN_ID = #{weiXinId};
+	</select>	
+
+
+	<!--前端2.0活动收藏显示 -->
+	<select id="queryWeiXinByCondition" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT * from wechat_autoreply where 1=1
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</select>
+
+	<select id="queryWeiXinCountByCondition" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		SELECT count(*) from wechat_autoreply where 1=1
+	</select>
+  <update id="editWeiXinById" parameterType="com.sun3d.why.model.weixin.WeiXin">
+		update wechat_autoreply
+		<set>
+			<if test="autoContent != null">
+				AUTOCONTENT =
+				#{autoContent,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME =
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where  WEIXIN_ID = #{weiXinId,jdbcType=VARCHAR}
+	</update>
+	<select id="queryWeiXin" resultMap="BaseResultMap">
+		SELECT * from wechat_autoreply where 1=1
+	</select>
+</mapper>

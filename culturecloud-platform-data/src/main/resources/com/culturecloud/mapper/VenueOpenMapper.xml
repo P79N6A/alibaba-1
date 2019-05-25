@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.culturecloud.dao.openrs.VenueOpenApiMapper" >
+
+
+  <resultMap id="BaseResultMap" type="com.culturecloud.dao.dto.openrs.VenueOpenDTO" >
+    
+    <result column="venueIsReserve" property="venueIsReserve" jdbcType="VARCHAR" />
+    <result column="venueIsDel" property="venueIsDel" jdbcType="VARCHAR" />
+    <result column="venueIsFree" property="venueIsFree" jdbcType="VARCHAR" />
+    <result column="venueType" property="venueType" jdbcType="VARCHAR" />
+    <result column="venueId" property="venueId" jdbcType="VARCHAR" />
+    <result column="venueState" property="venueState" jdbcType="INTEGER" />
+    
+    <result column="venueName" property="venueName" jdbcType="VARCHAR" />
+    <result column="venueAddress" property="venueAddress" jdbcType="VARCHAR" />
+    <result column="venueArea" property="venueArea" jdbcType="VARCHAR" />
+    <result column="updateTime" property="updateTime" jdbcType="VARCHAR" />
+    <result column="venueCreateUser" property="venueCreateUser" jdbcType="VARCHAR" />
+    <result column="venueIconUrl" property="venueIconUrl" jdbcType="VARCHAR" />
+    <result column="extTagName" property="extTagName" jdbcType="VARCHAR" />
+    <result column="extTagSubName" property="extTagSubName" jdbcType="VARCHAR" />
+    <result column="extRoomCount" property="extRoomCount" jdbcType="VARCHAR" />
+    <result column="extActivityCount" property="extActivityCount" jdbcType="VARCHAR" />
+    <result column="trafficMod" property="trafficMod" jdbcType="VARCHAR" />
+    <result column="extBusinessName" property="extBusinessName" jdbcType="VARCHAR" />
+    <result column="extRoomImg" property="extRoomImg" jdbcType="VARCHAR" />
+    
+    <result column="venueLon" property="venueLon" jdbcType="VARCHAR" />
+    <result column="venueLat" property="venueLat" jdbcType="VARCHAR" />
+
+	<result column="VENUE_MOBILE" property="venueMobile" jdbcType="VARCHAR" />
+	
+	<result column="venueOrderCount" property="venueOrderCount" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap id="VenueResultMap" type="com.culturecloud.dao.dto.openrs.CmsVenue" >
+    <id column="VENUE_ID" property="venueId" jdbcType="VARCHAR" />
+    <result column="VENUE_NAME" property="venueName" jdbcType="VARCHAR" />
+    <result column="VENUE_ICON_URL" property="venueIconUrl" jdbcType="VARCHAR" />
+    <result column="VENUE_LON" property="venueLon" jdbcType="DOUBLE" />
+    <result column="VENUE_LAT" property="venueLat" jdbcType="DOUBLE" />
+    <result column="VENUE_PROVINCE" property="venueProvince" jdbcType="VARCHAR" />
+    <result column="VENUE_CITY" property="venueCity" jdbcType="VARCHAR" />
+    <result column="VENUE_AREA" property="venueArea" jdbcType="VARCHAR" />
+    <result column="VENUE_ADDRESS" property="venueAddress" jdbcType="VARCHAR" />
+    <result column="VENUE_OPEN_TIME" property="venueOpenTime" jdbcType="VARCHAR" />
+    <result column="VENUE_TYPE" property="venueType" jdbcType="VARCHAR" />
+    <result column="VENUE_LINKMAN" property="venueLinkman" jdbcType="VARCHAR" />
+    <result column="VENUE_SITES" property="venueSites" jdbcType="VARCHAR" />
+    <result column="VENUE_MAIL" property="venueMail" jdbcType="VARCHAR" />
+    <result column="VENUE_TEL" property="venueTel" jdbcType="VARCHAR" />
+    <result column="VENUE_MOBILE" property="venueMobile" jdbcType="VARCHAR" />
+    <result column="VENUE_IS_FREE" property="venueIsFree" jdbcType="INTEGER" />
+    <result column="VENUE_PRICE" property="venuePrice" jdbcType="VARCHAR" />
+    <result column="VENUE_BUSINESS" property="venueBusiness" jdbcType="VARCHAR" />
+    <result column="VENUE_IS_VOICE" property="venueIsVoice" jdbcType="INTEGER" />
+    <result column="VENUE_VOICE_URL" property="venueVoiceUrl" jdbcType="VARCHAR" />
+    <result column="VENUE_IS_VIDEO" property="venueIsVideo" jdbcType="INTEGER" />
+    <result column="VENUE_VIDEO_URL" property="venueVideoUrl" jdbcType="VARCHAR" />
+    <result column="VENUE_IS_ROAM" property="venueIsRoam" jdbcType="INTEGER" />
+    <result column="VENUE_ROAM_URL" property="venueRoamUrl" jdbcType="VARCHAR" />
+    <result column="VENUE_IS_DEL" property="venueIsDel" jdbcType="INTEGER" />
+    <result column="VENUE_STATE" property="venueState" jdbcType="INTEGER" />
+    <result column="VENUE_CREATE_TIME" property="venueCreateTime" jdbcType="TIMESTAMP" />
+    <result column="VENUE_UPDATE_TIME" property="venueUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="VENUE_CREATE_USER" property="venueCreateUser" jdbcType="VARCHAR" />
+    <result column="VENUE_UPDATE_USER" property="venueUpdateUser" jdbcType="VARCHAR" />
+    <result column="VENUE_IS_RESERVE" property="venueIsReserve" jdbcType="INTEGER" />
+    <result column="VENUE_END_TIME" property="venueEndTime" jdbcType="VARCHAR" />
+    <result column="VENUE_MON" property="venueMon" jdbcType="VARCHAR" />
+    <result column="VENUE_TUE" property="venueTue" jdbcType="VARCHAR" />
+    <result column="VENUE_WED" property="venueWed" jdbcType="VARCHAR" />
+    <result column="VENUE_THU" property="venueThu" jdbcType="VARCHAR" />
+    <result column="VENUE_FRI" property="venueFri" jdbcType="VARCHAR" />
+    <result column="VENUE_SAT" property="venueSat" jdbcType="VARCHAR" />
+    <result column="VENUE_SUN" property="venueSun" jdbcType="VARCHAR" />
+    <result column="MANAGER_ID" property="managerId" jdbcType="VARCHAR" />
+    <result column="OPEN_NOTICE" property="openNotice" jdbcType="VARCHAR" />
+    <result column="VENUE_HAS_ROOM" property="venueHasRoom" jdbcType="INTEGER" />
+    <result column="VENUE_HAS_ANTIQUE" property="venueHasAntique" jdbcType="INTEGER" />
+    <result column="SYS_ID" property="sysId" jdbcType="VARCHAR" />
+    <result column="SYS_NO" property="sysNo" jdbcType="VARCHAR" />
+    <result column="VENUE_HAS_METRO" property="venueHasMetro" jdbcType="INTEGER" />
+    <result column="VENUE_HAS_BUS" property="venueHasBus" jdbcType="INTEGER" />
+    <result column="VENUE_METRO_TEXT" property="venueMetroText" jdbcType="VARCHAR" />
+    <result column="VENUE_BUS_TEXT" property="venueBusText" jdbcType="VARCHAR" />
+    <result column="VENUE_STARS" property="venueStars" jdbcType="VARCHAR" />
+    <result column="VENUE_IS_RECOMMEND" property="venueIsRecommend" jdbcType="INTEGER" />
+    <result column="VENUE_RECOMMEND_TIME" property="venueRecommendTime" jdbcType="TIMESTAMP" />
+    <result column="VENUE_DEPT_ID" property="venueDeptId" jdbcType="VARCHAR" />
+    <result column="VENUE_DEPT_LABEL" property="venueDeptLabel" jdbcType="VARCHAR" />
+    <result column="VENUE_PRICE_NOTICE" property="venuePriceNotice" jdbcType="VARCHAR" />
+    <result column="VENUE_SORT" property="venueSort" jdbcType="INTEGER" />
+
+    <result column="VENUE_MEMO" property="venueMemo" jdbcType="VARCHAR" />
+    <result column="VENUE_CROWD" property="venueCrowd" jdbcType="VARCHAR" />
+    <result column="VENUE_MOOD" property="venueMood" jdbcType="VARCHAR" />
+    <result column="VENUE_DEPT" property="venueDept" jdbcType="VARCHAR" />
+    <result column="VENUE_REMARK" property="venueRemark" jdbcType="VARCHAR" />
+    <result column="VENUE_PANORAMA" property="venuePanorama" jdbcType="VARCHAR" />
+    <result column="VENUE_FACILITY" property="venueFacility" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectByPrimaryKey" resultMap="VenueResultMap" parameterType="java.lang.String" >
+    select *
+    from cms_venue
+    where VENUE_ID = #{venueId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getVenues" resultMap="BaseResultMap" parameterType="java.lang.String" >
+ 	SELECT
+		a.VENUE_IS_RESERVE AS venueIsReserve,
+		a.VENUE_IS_DEL AS venueIsDel,
+		a.VENUE_IS_FREE AS venueIsFree,
+		a.VENUE_TYPE AS venueType,
+		a.VENUE_ID AS venueId,
+		a.VENUE_NAME AS venueName,
+		a.VENUE_ADDRESS AS venueAddress,
+		<if test="areaSource == null">
+			a.VENUE_AREA AS venueArea,
+		</if>
+		a.VENUE_MOBILE as venueMobile,
+		a.VENUE_UPDATE_TIME AS updateTime,
+		CONCAT(
+			"${staticServerUrl}",
+			a.VENUE_ICON_URL
+		) AS venueIconUrl,
+		b.TAG_NAME AS extTagName,
+		CONCAT(
+			a.VENUE_HAS_BUS,
+			',',
+			a.VENUE_HAS_METRO
+		) AS trafficMod,
+		a.VENUE_STATE AS venueState,
+		sd.DICT_NAME AS extBusinessName,
+		CONCAT(
+			"${staticServerUrl}",
+			cr.ROOM_PIC_URL
+		) AS extRoomImg,
+		a.VENUE_LON AS venueLon,
+		a.VENUE_LAT AS venueLat
+	FROM cms_venue AS a
+	LEFT JOIN cms_tag AS b ON a.VENUE_TYPE = b.TAG_ID
+	LEFT JOIN sys_dict AS sd ON a.VENUE_MOOD = sd.DICT_ID
+	LEFT JOIN cms_room AS cr ON a.VENUE_ID = cr.ROOM_VENUE_ID
+	WHERE 1=1
+		<if test="areaSource != null">
+			AND a.VENUE_UPDATE_USER IN (
+				SELECT
+					b.USER_ID
+				FROM
+					sys_user AS b
+				WHERE
+					b.USER_DEPT_PATH like CONCAT('%','${areaSource}','%' )
+				AND b.USER_ISDISPLAY = 1
+				AND b.USER_STATE = 1
+			)
+		</if>
+		<if test="updateTime != null">
+			AND a.VENUE_UPDATE_TIME &gt;= #{updateTime,jdbcType=VARCHAR}  
+		</if>
+  </select>
+ 
+  <select id="queryAppActivityCountByVenueId" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select count(*) 
+        from (SELECT a.ACTIVITY_ID
+		    from cms_activity a
+		    LEFT JOIN cms_activity_venue_relevance v on a.ACTIVITY_ID=v.ACTIVITY_ID
+		    LEFT JOIN cms_activity_event ce on a.ACTIVITY_ID=ce.ACTIVITY_ID
+	        WHERE 1=1
+	            AND v.VENUE_ID = #{venueId,jdbcType=VARCHAR}
+	            AND a.ACTIVITY_IS_DEL = 1
+	            AND a.ACTIVITY_STATE = 6
+	            <!-- 子站不显示支付活动 -->
+	            AND a.ACTIVITY_IS_FREE != 3
+	        GROUP BY a.ACTIVITY_ID
+	        HAVING CONVERT ( substring( GROUP_CONCAT( DISTINCT ce.event_date_time ORDER BY
+	        ce.event_date_time DESC),1,16),CHAR) >= DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i')
+	    ) b
+  </select>
+  
+  <select id="queryAppRoomCountByVenueId" resultType="java.lang.Integer" parameterType="java.lang.String">
+        <!-- select count(roomCount>0) 
+        from (SELECT
+		    cr.SYS_NO,
+		    cr.ROOM_ID,
+		    cr.ROOM_NAME,
+		    cr.ROOM_AREA,
+		    cr.ROOM_CAPACITY,
+		    cr.ROOM_PIC_URL,
+		    count(if(rb.BOOK_STATUS=1,true,null)) as roomCount
+    		FROM cms_room cr
+		    LEFT JOIN cms_venue cv ON cr.ROOM_VENUE_ID = cv.VENUE_ID
+		    LEFT JOIN cms_room_book rb ON cr.ROOM_ID = rb.ROOM_ID
+    		WHERE cr.ROOM_IS_DEL = 1 and cr.ROOM_STATE=6 AND cv.VENUE_ID = #{venueId,jdbcType=VARCHAR} AND rb.CUR_DATE >= CURDATE()
+    		GROUP BY cr.ROOM_ID
+    	) b -->
+    	select count(1)
+	    from cms_room cr
+	    left join cms_venue cv on cr.room_venue_id = cv.venue_id
+	    where cr.ROOM_IS_DEL = 1 and cr.ROOM_STATE=6 AND cv.VENUE_ID = #{venueId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getVenueCommentCount" resultType="java.lang.Integer" parameterType="java.lang.String" >
+	SELECT count(*)
+	FROM cms_comment c
+	INNER JOIN cms_venue v on c.COMMENT_RK_ID = v.VENUE_ID
+	<if test="areaSource != null">
+		and v.VENUE_UPDATE_USER in 
+			(select b.USER_ID from sys_user as b where b.USER_DEPT_PATH like CONCAT('%','${areaSource}','%' ) and b.USER_ISDISPLAY=1 and b.USER_STATE=1)
+	</if>
+	WHERE DATE_FORMAT(c.COMMENT_TIME, '%Y-%m-%d') = #{commentTime,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getVenuePublishCount" resultType="java.lang.Integer" parameterType="java.lang.String" >
+	select count(*)
+    from cms_venue as v 
+	where 1=1
+	<if test="areaSource != null">
+		and v.VENUE_UPDATE_USER in (select b.USER_ID from sys_user as b where b.USER_DEPT_PATH like CONCAT('%','${areaSource}','%' ) and b.USER_ISDISPLAY=1 and b.USER_STATE=1) 
+	</if>
+	and DATE_FORMAT(v.VENUE_CREATE_TIME, '%Y-%m-%d') = #{publishTime,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getVenueOrderCount" resultType="java.util.Map" parameterType="java.lang.String">
+	SELECT
+		v.venue_id as venueId,
+		v.venue_name as venueName,
+		COUNT(*) as venueOrderCount
+	FROM
+		cms_activity_order_detail aod
+	INNER JOIN cms_activity_order ao ON ao.ACTIVITY_ORDER_ID = aod.ACTIVITY_ORDER_ID AND DATE_FORMAT(ao.ORDER_CREATE_TIME,'%Y-%m') = #{updateTime,jdbcType=VARCHAR}
+	INNER JOIN cms_activity_venue_relevance vr ON vr.ACTIVITY_ID = ao.ACTIVITY_ID
+	INNER JOIN cms_venue v ON v.VENUE_ID = vr.VENUE_ID
+	INNER JOIN sys_user su ON su.USER_ID = v.VENUE_UPDATE_USER
+	WHERE su.USER_DEPT_PATH like CONCAT('%','${areaSource}','%' ) and b.USER_ISDISPLAY=1 and b.USER_STATE=1
+	group by v.venue_id
+  </select>
+</mapper>

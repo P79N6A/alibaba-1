@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/all_title_id"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/activity_title_height"
+    android:background="@color/activity_bg_color"
+    >
+    
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_title_height"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical" >
+
+        <RelativeLayout
+            android:id="@+id/title_left_layout"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerVertical="true" >
+
+            <ImageView
+                android:id="@+id/title_left"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="12dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@color/transparent"
+                android:src="@drawable/sh_icon_user" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/title_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:singleLine="true"
+            android:text="@string/title_content_text"
+            android:textColor="@color/black"
+            android:textSize="@dimen/title_text_size" />
+
+        <ImageView
+            android:id="@+id/title_right"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="12dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/select_title_button"
+            android:src="@drawable/sel_light_switch"
+            android:visibility="gone"
+            />
+    </RelativeLayout>
+    
+
+</RelativeLayout>

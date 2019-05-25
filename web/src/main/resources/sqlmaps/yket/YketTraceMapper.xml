@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.YketTraceMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.bean.yket.YketTrace" >
+    <result column="trace_id" property="traceId" jdbcType="VARCHAR" />
+    <result column="trace_type" property="traceType" jdbcType="INTEGER" />
+    <result column="object_id" property="objectId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <insert id="insert" parameterType="com.sun3d.why.model.bean.yket.YketTrace" >
+    insert into yket_trace (trace_id, trace_type, object_id, 
+      user_id, create_time)
+    values (#{traceId,jdbcType=VARCHAR}, #{traceType,jdbcType=INTEGER}, #{objectId,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sun3d.why.model.bean.yket.YketTrace" >
+    insert into yket_trace
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="traceId != null" >
+        trace_id,
+      </if>
+      <if test="traceType != null" >
+        trace_type,
+      </if>
+      <if test="objectId != null" >
+        object_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="traceId != null" >
+        #{traceId,jdbcType=VARCHAR},
+      </if>
+      <if test="traceType != null" >
+        #{traceType,jdbcType=INTEGER},
+      </if>
+      <if test="objectId != null" >
+        #{objectId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="listTraceByUserId" resultType="com.sun3d.why.model.vo.yket.MyTraceInfoVo">
+  SELECT DISTINCT
+	trace_type,
+	object_id,
+	yc.course_name as courseName,
+	yc.course_id as courseId,
+	yc.course_img_url as courseImgUrl
+FROM
+	yket_trace yt
+LEFT JOIN yket_course yc ON yc.course_id = yt.object_id
+WHERE yt.trace_type = 1 
+	  	AND   
+	  yt.user_id = #{userId,jdbcType=VARCHAR}
+	  order by yt.create_time desc 
+  </select>
+</mapper>

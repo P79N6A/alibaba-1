@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CnwdEntryFormMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.cnwd.CnwdEntryForm" >
+    <id column="ENTRY_ID" property="entryId" jdbcType="VARCHAR" />
+    <result column="AGENCY_NAME" property="agencyName" jdbcType="VARCHAR" />
+    <result column="AGENCY_TYPE" property="agencyType" jdbcType="VARCHAR" />
+    <result column="TEAM_NAME" property="teamName" jdbcType="VARCHAR" />
+    <result column="DATE_OF_ESTABLISHMENT" property="dateOfEstablishment" jdbcType="VARCHAR" />
+    <result column="MEMBER_NUMBER" property="memberNumber" jdbcType="INTEGER" />
+    <result column="AVG_AGE" property="avgAge" jdbcType="INTEGER" />
+    <result column="LEADER_NAME" property="leaderName" jdbcType="VARCHAR" />
+    <result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="FAXAPHONE" property="faxaphone" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="MATCH_TYPE" property="matchType" jdbcType="VARCHAR" />
+    <result column="PROGRAM_NAME" property="programName" jdbcType="VARCHAR" />
+    <result column="PROGRAM_DURATION" property="programDuration" jdbcType="VARCHAR" />
+    <result column="PRODUCER_AND_ID" property="producerAndId" jdbcType="VARCHAR" />
+    <result column="PARTICIPATING_NUMBER" property="participatingNumber" jdbcType="INTEGER" />
+    <result column="CHECK_STATUS" property="checkStatus" jdbcType="INTEGER" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="ENTRY_INDEX" property="entryIndex" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.sun3d.why.model.cnwd.CnwdEntryForm" extends="BaseResultMap" >
+    <result column="TEAM_PROFILE" property="teamProfile" jdbcType="LONGVARCHAR" />
+    <result column="VIDEO_URL" property="videoUrl" jdbcType="LONGVARCHAR" />
+    <result column="VIDEO_COVER_IMG" property="videoCoverImg" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ENTRY_ID, AGENCY_NAME, AGENCY_TYPE, TEAM_NAME, DATE_OF_ESTABLISHMENT, MEMBER_NUMBER, 
+    AVG_AGE, LEADER_NAME, TELEPHONE, EMAIL, FAXAPHONE, ADDRESS, MATCH_TYPE, PROGRAM_NAME, 
+    PROGRAM_DURATION, PRODUCER_AND_ID, PARTICIPATING_NUMBER, CHECK_STATUS, CREATE_USER, 
+    CREATE_TIME, UPDATE_USER, UPDATE_TIME,ENTRY_INDEX
+  </sql>
+  <sql id="Blob_Column_List" >
+    TEAM_PROFILE, VIDEO_URL, VIDEO_COVER_IMG
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from cnwd_entryform
+    where ENTRY_ID = #{entryId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cnwd_entryform
+    where ENTRY_ID = #{entryId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sun3d.why.model.cnwd.CnwdEntryForm" >
+    insert into cnwd_entryform (ENTRY_ID, AGENCY_NAME, AGENCY_TYPE, 
+      TEAM_NAME, DATE_OF_ESTABLISHMENT, MEMBER_NUMBER, 
+      AVG_AGE, LEADER_NAME, TELEPHONE, 
+      EMAIL, FAXAPHONE, ADDRESS, 
+      MATCH_TYPE, PROGRAM_NAME, PROGRAM_DURATION, 
+      PRODUCER_AND_ID, PARTICIPATING_NUMBER, CHECK_STATUS, 
+      CREATE_USER, CREATE_TIME, UPDATE_USER, 
+      UPDATE_TIME, ENTRY_INDEX,TEAM_PROFILE, VIDEO_URL, 
+      VIDEO_COVER_IMG)
+    values (#{entryId,jdbcType=VARCHAR}, #{agencyName,jdbcType=VARCHAR}, #{agencyType,jdbcType=VARCHAR}, 
+      #{teamName,jdbcType=VARCHAR}, #{dateOfEstablishment,jdbcType=VARCHAR}, #{memberNumber,jdbcType=INTEGER}, 
+      #{avgAge,jdbcType=INTEGER}, #{leaderName,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{faxaphone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{matchType,jdbcType=VARCHAR}, #{programName,jdbcType=VARCHAR}, #{programDuration,jdbcType=VARCHAR}, 
+      #{producerAndId,jdbcType=VARCHAR}, #{participatingNumber,jdbcType=INTEGER}, #{checkStatus,jdbcType=INTEGER}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP},#{ENTRY_INDEX,jdbcType=INTEGER} ,#{teamProfile,jdbcType=LONGVARCHAR}, #{videoUrl,jdbcType=LONGVARCHAR}, 
+      #{videoCoverImg,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sun3d.why.model.cnwd.CnwdEntryForm" >
+    insert into cnwd_entryform
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="entryId != null" >
+        ENTRY_ID,
+      </if>
+      <if test="agencyName != null" >
+        AGENCY_NAME,
+      </if>
+      <if test="agencyType != null" >
+        AGENCY_TYPE,
+      </if>
+      <if test="teamName != null" >
+        TEAM_NAME,
+      </if>
+      <if test="dateOfEstablishment != null" >
+        DATE_OF_ESTABLISHMENT,
+      </if>
+      <if test="memberNumber != null" >
+        MEMBER_NUMBER,
+      </if>
+      <if test="avgAge != null" >
+        AVG_AGE,
+      </if>
+      <if test="leaderName != null" >
+        LEADER_NAME,
+      </if>
+      <if test="telephone != null" >
+        TELEPHONE,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="faxaphone != null" >
+        FAXAPHONE,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="matchType != null" >
+        MATCH_TYPE,
+      </if>
+      <if test="programName != null" >
+        PROGRAM_NAME,
+      </if>
+      <if test="programDuration != null" >
+        PROGRAM_DURATION,
+      </if>
+      <if test="producerAndId != null" >
+        PRODUCER_AND_ID,
+      </if>
+      <if test="participatingNumber != null" >
+        PARTICIPATING_NUMBER,
+      </if>
+      <if test="checkStatus != null" >
+        CHECK_STATUS,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="ENTRY_INDEX != null" >
+        ENTRY_INDEX,
+      </if>
+      <if test="teamProfile != null" >
+        TEAM_PROFILE,
+      </if>
+      <if test="videoUrl != null" >
+        VIDEO_URL,
+      </if>
+      <if test="videoCoverImg != null" >
+        VIDEO_COVER_IMG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="entryId != null" >
+        #{entryId,jdbcType=VARCHAR},
+      </if>
+      <if test="agencyName != null" >
+        #{agencyName,jdbcType=VARCHAR},
+      </if>
+      <if test="agencyType != null" >
+        #{agencyType,jdbcType=VARCHAR},
+      </if>
+      <if test="teamName != null" >
+        #{teamName,jdbcType=VARCHAR},
+      </if>
+      <if test="dateOfEstablishment != null" >
+        #{dateOfEstablishment,jdbcType=VARCHAR},
+      </if>
+      <if test="memberNumber != null" >
+        #{memberNumber,jdbcType=INTEGER},
+      </if>
+      <if test="avgAge != null" >
+        #{avgAge,jdbcType=INTEGER},
+      </if>
+      <if test="leaderName != null" >
+        #{leaderName,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="faxaphone != null" >
+        #{faxaphone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="matchType != null" >
+        #{matchType,jdbcType=VARCHAR},
+      </if>
+      <if test="programName != null" >
+        #{programName,jdbcType=VARCHAR},
+      </if>
+      <if test="programDuration != null" >
+        #{programDuration,jdbcType=VARCHAR},
+      </if>
+      <if test="producerAndId != null" >
+        #{producerAndId,jdbcType=VARCHAR},
+      </if>
+      <if test="participatingNumber != null" >
+        #{participatingNumber,jdbcType=INTEGER},
+      </if>
+      <if test="checkStatus != null" >
+        #{checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="entryIndex != null" >
+        #{entryIndex,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="teamProfile != null" >
+        #{teamProfile,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="videoUrl != null" >
+        #{videoUrl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="videoCoverImg != null" >
+        #{videoCoverImg,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sun3d.why.model.cnwd.CnwdEntryForm" >
+    update cnwd_entryform
+    <set >
+      <if test="agencyName != null" >
+        AGENCY_NAME = #{agencyName,jdbcType=VARCHAR},
+      </if>
+      <if test="agencyType != null" >
+        AGENCY_TYPE = #{agencyType,jdbcType=VARCHAR},
+      </if>
+      <if test="teamName != null" >
+        TEAM_NAME = #{teamName,jdbcType=VARCHAR},
+      </if>
+      <if test="dateOfEstablishment != null" >
+        DATE_OF_ESTABLISHMENT = #{dateOfEstablishment,jdbcType=VARCHAR},
+      </if>
+      <if test="memberNumber != null" >
+        MEMBER_NUMBER = #{memberNumber,jdbcType=INTEGER},
+      </if>
+      <if test="avgAge != null" >
+        AVG_AGE = #{avgAge,jdbcType=INTEGER},
+      </if>
+      <if test="leaderName != null" >
+        LEADER_NAME = #{leaderName,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="faxaphone != null" >
+        FAXAPHONE = #{faxaphone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="matchType != null" >
+        MATCH_TYPE = #{matchType,jdbcType=VARCHAR},
+      </if>
+      <if test="programName != null" >
+        PROGRAM_NAME = #{programName,jdbcType=VARCHAR},
+      </if>
+      <if test="programDuration != null" >
+        PROGRAM_DURATION = #{programDuration,jdbcType=VARCHAR},
+      </if>
+      <if test="producerAndId != null" >
+        PRODUCER_AND_ID = #{producerAndId,jdbcType=VARCHAR},
+      </if>
+      <if test="participatingNumber != null" >
+        PARTICIPATING_NUMBER = #{participatingNumber,jdbcType=INTEGER},
+      </if>
+      <if test="checkStatus != null" >
+        CHECK_STATUS = #{checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="entryIndex != null" >
+        ENTRY_INDEX = #{entryIndex,jdbcType=INTEGER},
+      </if>
+      <if test="teamProfile != null" >
+        TEAM_PROFILE = #{teamProfile,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="videoUrl != null" >
+        VIDEO_URL = #{videoUrl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="videoCoverImg != null" >
+        VIDEO_COVER_IMG = #{videoCoverImg,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ENTRY_ID = #{entryId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sun3d.why.model.cnwd.CnwdEntryForm" >
+    update cnwd_entryform
+    set AGENCY_NAME = #{agencyName,jdbcType=VARCHAR},
+      AGENCY_TYPE = #{agencyType,jdbcType=VARCHAR},
+      TEAM_NAME = #{teamName,jdbcType=VARCHAR},
+      DATE_OF_ESTABLISHMENT = #{dateOfEstablishment,jdbcType=VARCHAR},
+      MEMBER_NUMBER = #{memberNumber,jdbcType=INTEGER},
+      AVG_AGE = #{avgAge,jdbcType=INTEGER},
+      LEADER_NAME = #{leaderName,jdbcType=VARCHAR},
+      TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      FAXAPHONE = #{faxaphone,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      MATCH_TYPE = #{matchType,jdbcType=VARCHAR},
+      PROGRAM_NAME = #{programName,jdbcType=VARCHAR},
+      PROGRAM_DURATION = #{programDuration,jdbcType=VARCHAR},
+      PRODUCER_AND_ID = #{producerAndId,jdbcType=VARCHAR},
+      PARTICIPATING_NUMBER = #{participatingNumber,jdbcType=INTEGER},
+      CHECK_STATUS = #{checkStatus,jdbcType=INTEGER},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      ENTRY_INDEX = #{entryIndex,jdbcType=INTEGER},
+      TEAM_PROFILE = #{teamProfile,jdbcType=LONGVARCHAR},
+      VIDEO_URL = #{videoUrl,jdbcType=LONGVARCHAR},
+      VIDEO_COVER_IMG = #{videoCoverImg,jdbcType=LONGVARCHAR}
+    where ENTRY_ID = #{entryId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sun3d.why.model.cnwd.CnwdEntryForm" >
+    update cnwd_entryform
+    set AGENCY_NAME = #{agencyName,jdbcType=VARCHAR},
+      AGENCY_TYPE = #{agencyType,jdbcType=VARCHAR},
+      TEAM_NAME = #{teamName,jdbcType=VARCHAR},
+      DATE_OF_ESTABLISHMENT = #{dateOfEstablishment,jdbcType=VARCHAR},
+      MEMBER_NUMBER = #{memberNumber,jdbcType=INTEGER},
+      AVG_AGE = #{avgAge,jdbcType=INTEGER},
+      LEADER_NAME = #{leaderName,jdbcType=VARCHAR},
+      TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      FAXAPHONE = #{faxaphone,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      MATCH_TYPE = #{matchType,jdbcType=VARCHAR},
+      PROGRAM_NAME = #{programName,jdbcType=VARCHAR},
+      PROGRAM_DURATION = #{programDuration,jdbcType=VARCHAR},
+      PRODUCER_AND_ID = #{producerAndId,jdbcType=VARCHAR},
+      PARTICIPATING_NUMBER = #{participatingNumber,jdbcType=INTEGER},
+      CHECK_STATUS = #{checkStatus,jdbcType=INTEGER},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      ENTRY_INDEX = #{entryIndex,jdbcType=INTEGER},
+    where ENTRY_ID = #{entryId,jdbcType=VARCHAR}
+  </update>
+    <!--后台节目信息条数-->
+  <select id="queryCnwdEntryformCountByCondition" resultType="java.lang.Integer" parameterType="java.util.Map">
+    SELECT count(*)
+    from  cnwd_entryform  
+    where 1=1
+     <if test="programName != null">
+      AND  PROGRAM_NAME like #{programName,jdbcType=VARCHAR}
+    </if>
+    <if test="teamName != null" >
+      and TEAM_NAME like #{teamName,jdbcType=VARCHAR}
+    </if>
+    <if test="matchType != null">
+      and MATCH_TYPE = #{matchType,jdbcType=VARCHAR}
+    </if>
+    <if test="checkStatus != null">
+      and CHECK_STATUS = #{checkStatus,jdbcType=INTEGER}
+    </if>
+    <if test="entryIndex != null">
+      and ENTRY_INDEX = #{entryIndex,jdbcType=INTEGER}
+    </if>
+    and CHECK_STATUS >=1
+  </select>
+  <!--后台节目列表-->
+  <select id="queryCnwdEntryformListByCondition" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
+    SELECT  
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from  cnwd_entryform 
+    where 1=1
+    <if test="programName != null">
+      AND  PROGRAM_NAME like #{programName,jdbcType=VARCHAR}
+    </if>
+    <if test="teamName != null" >
+      and TEAM_NAME like #{teamName,jdbcType=VARCHAR}
+    </if>
+    <if test="matchType != null">
+      and MATCH_TYPE = #{matchType,jdbcType=VARCHAR}
+    </if>
+    <if test="checkStatus != null">
+      and CHECK_STATUS = #{checkStatus,jdbcType=INTEGER}
+    </if>
+    <if test="entryIndex != null">
+      and ENTRY_INDEX = #{entryIndex,jdbcType=INTEGER}
+    </if>
+    and CHECK_STATUS >=1
+    order by CREATE_TIME desc
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+   <select id="queryEntryFormBycreateUser" resultMap="ResultMapWithBLOBs"  parameterType="com.sun3d.why.model.cnwd.CnwdEntryForm">
+    SELECT 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from  cnwd_entryform  c
+    where 1=1 
+    <if test="createUser != null">
+      and c.CREATE_USER = #{createUser,jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CcpJiazhouInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CcpJiazhouInfo" >
+    <id column="JIAZHOUINFO_ID" property="jiazhouInfoId" jdbcType="VARCHAR" />   
+    <result column="JIAZHOUINFO_TITLE" property="jiazhouInfoTitle" jdbcType="VARCHAR" />
+    <result column="AUTHOR_NAME" property="authorName" jdbcType="VARCHAR" />
+    <result column="PUBLISHER_NAME" property="publisherName" jdbcType="VARCHAR" />
+    <result column="JIAZHOUINFO_SORT" property="jiazhouInfoSort" jdbcType="VARCHAR" />
+    <result column="JIAZHOUINFO_TAGS" property="jiazhouInfoTags" jdbcType="VARCHAR" />    
+    <result column="SHARE_TITLE" property="shareTitle" jdbcType="VARCHAR" />
+    <result column="SHARE_SUMMARY" property="shareSummary" jdbcType="VARCHAR" />
+    <result column="JIAZHOUINFO_ICON_URL" property="jiazhouInfoIconUrl" jdbcType="VARCHAR" />
+    <result column="SHARE_ICON_URL" property="shareIconUrl" jdbcType="VARCHAR" />
+    <result column="SHARE_COUNT" property="shareCount" jdbcType="INTEGER" />
+    <result column="BROWSE_COUNT" property="browseCount" jdbcType="INTEGER" />
+    <result column="JIAZHOUINFO_CREATE_TIME" property="jiazhouInfoCreateTime" jdbcType="TIMESTAMP" />
+    <result column="JIAZHOUINFO_UPDATE_TIME" property="jiazhouInfoUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="JIAZHOUINFO_CREATE_USER" property="jiazhouInfoCreateUser" jdbcType="VARCHAR" />
+    <result column="JIAZHOUINFO_UPDATE_USER" property="jiazhouInfoUpdateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.sun3d.why.model.CcpJiazhouInfo" extends="BaseResultMap" >
+    <result column="JIAZHOUINFO_CONTENT" property="jiazhouInfoContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    JIAZHOUINFO_ID, JIAZHOUINFO_SORT,JIAZHOUINFO_TAGS, JIAZHOUINFO_TITLE, AUTHOR_NAME, PUBLISHER_NAME,
+    SHARE_TITLE, SHARE_SUMMARY, SHARE_COUNT, BROWSE_COUNT,
+    JIAZHOUINFO_ICON_URL, SHARE_ICON_URL,JIAZHOUINFO_CREATE_TIME,
+    JIAZHOUINFO_UPDATE_TIME, JIAZHOUINFO_CREATE_USER, JIAZHOUINFO_UPDATE_USER
+  </sql>
+  <sql id="Blob_Column_List" >
+    JIAZHOUINFO_CONTENT
+  </sql>
+  
+  <!--咨查询资讯列表总条数-->
+  <select id="jiazhouInfoListCount" parameterType="java.util.Map"
+          resultType="java.lang.Integer" >
+    select
+    COUNT(*)
+    from ccp_jiazhou_info
+  </select>
+  
+  <!--查询资讯列表信息-->
+  <select id="jiazhouInfoList" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    	,t.TAG_NAME tagName
+      FROM
+	ccp_jiazhou_info j
+         LEFT JOIN cms_tag t ON t.TAG_ID = j.JIAZHOUINFO_SORT
+    WHERE 1=1
+    <if test="jiazhouInfoTitle != null">
+      AND JIAZHOUINFO_TITLE like #{jiazhouInfoTitle,jdbcType=INTEGER}
+    </if>
+    order by JIAZHOUINFO_UPDATE_TIME desc
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+  
+  <!--根据Id查询资讯信息-->
+   <select id="selectByJiazhouInfoId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ccp_jiazhou_info
+    where JIAZHOUINFO_ID = #{jiazhouInfoId,jdbcType=VARCHAR}
+  </select>
+  
+   <!--* 新增资讯-->
+    <insert id="insertJiazhouInfo" parameterType="com.sun3d.why.model.CcpJiazhouInfo" >
+    insert ccp_jiazhou_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jiazhouInfoId != null" >
+        JIAZHOUINFO_ID,
+      </if>
+      <if test="jiazhouInfoSort != null" >
+        JIAZHOUINFO_SORT,
+      </if>
+      <if test="jiazhouInfoTags != null" >
+        JIAZHOUINFO_TAGS,
+      </if>
+      <if test="jiazhouInfoTitle != null" >
+        JIAZHOUINFO_TITLE,
+      </if>
+      <if test="authorName != null" >
+        AUTHOR_NAME,
+      </if>
+      <if test="publisherName != null" >
+        PUBLISHER_NAME,
+      </if>
+      <if test="shareTitle != null" >
+        SHARE_TITLE,
+      </if>
+      <if test="shareSummary != null" >
+        SHARE_SUMMARY,
+      </if>
+      <if test="shareCount != null" >
+        SHARE_COUNT,
+      </if>
+      <if test="browseCount != null" >
+        BROWSE_COUNT,
+      </if>
+      <if test="jiazhouInfoIconUrl != null" >
+        JIAZHOUINFO_ICON_URL,
+      </if>
+      <if test="shareIconUrl != null" >
+        SHARE_ICON_URL,
+      </if>
+      <if test="jiazhouInfoCreateTime != null" >
+        JIAZHOUINFO_CREATE_TIME,
+      </if>
+      <if test="jiazhouInfoUpdateTime != null" >
+        JIAZHOUINFO_UPDATE_TIME,
+      </if>
+      <if test="jiazhouInfoCreateUser != null" >
+        JIAZHOUINFO_CREATE_USER,
+      </if>
+      <if test="jiazhouInfoUpdateUser != null" >
+        JIAZHOUINFO_UPDATE_USER,
+      </if>
+      <if test="jiazhouInfoContent != null" >
+        JIAZHOUINFO_CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jiazhouInfoId != null" >
+        #{jiazhouInfoId,jdbcType=VARCHAR},
+      </if>
+      <if test="jiazhouInfoSort != null" >
+        #{jiazhouInfoSort,jdbcType=VARCHAR},
+      </if>
+      <if test="jiazhouInfoTags != null" >
+        #{jiazhouInfoTags,jdbcType=VARCHAR},
+      </if>
+      <if test="jiazhouInfoTitle != null" >
+        #{jiazhouInfoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="authorName != null" >
+        #{authorName,jdbcType=VARCHAR},
+      </if>
+      <if test="publisherName != null" >
+        #{publisherName,jdbcType=VARCHAR},
+      </if>
+      <if test="shareTitle != null" >
+        #{shareTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="shareSummary != null" >
+        #{shareSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="shareCount != null" >
+        #{shareCount,jdbcType=INTEGER},
+      </if>
+      <if test="browseCount != null" >
+        #{browseCount,jdbcType=INTEGER},
+      </if>
+      <if test="jiazhouInfoIconUrl != null" >
+        #{jiazhouInfoIconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="shareIconUrl != null" >
+        #{shareIconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="jiazhouInfoCreateTime != null" >
+        #{jiazhouInfoCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jiazhouInfoUpdateTime != null" >
+        #{jiazhouInfoUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jiazhouInfoCreateUser != null" >
+        #{jiazhouInfoCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="jiazhouInfoUpdateUser != null" >
+        #{jiazhouInfoUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="jiazhouInfoContent != null" >
+        #{jiazhouInfoContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+   <!--* 更新资讯-->
+  <update id="updateJiazhouInfo" parameterType="com.sun3d.why.model.ManagementInformation" >
+    update ccp_jiazhou_info
+    <set >
+     <if test="jiazhouInfoSort != null" >
+        JIAZHOUINFO_SORT = #{jiazhouInfoSort,jdbcType=VARCHAR},
+      </if>
+      <if test="jiazhouInfoTags != null" >
+        JIAZHOUINFO_TAGS = #{jiazhouInfoTags,jdbcType=VARCHAR},
+      </if>
+      <if test="jiazhouInfoTitle != null" >
+        JIAZHOUINFO_TITLE = #{jiazhouInfoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="authorName != null" >
+        AUTHOR_NAME = #{authorName,jdbcType=VARCHAR},
+      </if>
+      <if test="publisherName != null" >
+        PUBLISHER_NAME = #{publisherName,jdbcType=VARCHAR},
+      </if>
+      <if test="shareTitle != null" >
+        SHARE_TITLE = #{shareTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="shareSummary != null" >
+        SHARE_SUMMARY = #{shareSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="shareCount != null" >
+        SHARE_COUNT = #{shareCount,jdbcType=INTEGER},
+      </if>
+      <if test="browseCount != null" >
+        BROWSE_COUNT = #{browseCount,jdbcType=INTEGER},
+      </if>
+      <if test="jiazhouInfoIconUrl != null" >
+        JIAZHOUINFO_ICON_URL = #{jiazhouInfoIconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="shareIconUrl != null" >
+        SHARE_ICON_URL = #{shareIconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="jiazhouInfoCreateTime != null" >
+        JIAZHOUINFO_CREATE_TIME = #{jiazhouInfoCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jiazhouInfoUpdateTime != null" >
+        JIAZHOUINFO_UPDATE_TIME = #{jiazhouInfoUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jiazhouInfoCreateUser != null" >
+        JIAZHOUINFO_CREATE_USER = #{jiazhouInfoCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="jiazhouInfoUpdateUser != null" >
+        JIAZHOUINFO_UPDATE_USER = #{jiazhouInfoUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="jiazhouInfoContent != null" >
+        JIAZHOUINFO_CONTENT = #{jiazhouInfoContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where JIAZHOUINFO_ID = #{jiazhouInfoId,jdbcType=VARCHAR}
+  </update>
+  
+    <!--* 删除资讯-->
+  <delete id="delJiazhouInfo" parameterType="java.lang.String" >
+  	delete
+    from 
+    	ccp_jiazhou_info
+    where JIAZHOUINFO_ID = #{jiazhouInfoId,jdbcType=VARCHAR}
+  </delete>
+</mapper>

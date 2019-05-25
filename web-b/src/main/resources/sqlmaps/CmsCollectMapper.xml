@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsCollectMapper">
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsCollect">
+		<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+		<result column="RELATE_ID" property="relateId" jdbcType="VARCHAR" />
+		<result column="TYPE" property="type" jdbcType="INTEGER" />
+	</resultMap>
+
+
+	<sql id="Base_Column_List">
+		USER_ID, RELATE_ID, TYPE
+	</sql>
+	<!-- 分页信息 -->
+	<sql id="pagination_condition">
+		limit ${firstResult},${rows}
+	</sql>
+
+
+	<!--前端2.0删除收藏-->
+	<delete id="deleteCollectByCondition" parameterType="com.sun3d.why.model.CmsCollect">
+		delete from CMS_COLLECT
+		where 1=1
+		 <if test="userId != null">
+		 	and USER_ID = #{userId,jdbcType=VARCHAR}
+		 </if>
+		 <if test="relateId != null">
+			and RELATE_ID = #{relateId,jdbcType=VARCHAR}
+		 </if>
+		<if test="type != null">
+			and TYPE = #{type,jdbcType=INTEGER}
+		</if>
+	</delete>
+	
+	<insert id="insert" parameterType="com.sun3d.why.model.CmsCollect">
+		insert into CMS_COLLECT (USER_ID, RELATE_ID, TYPE
+		)
+		values (#{userId,jdbcType=VARCHAR}, #{relateId,jdbcType=VARCHAR},
+		#{type,jdbcType=INTEGER}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.sun3d.why.model.CmsCollect">
+		insert into CMS_COLLECT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="relateId != null">
+				RELATE_ID,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="relateId != null">
+				#{relateId,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+
+	<select id="checkCollect" parameterType="com.sun3d.why.model.CmsCollect" resultType="java.lang.Integer">
+		select count(*) from CMS_COLLECT where 1=1
+		 <if test="cmsCollect.userId!=null">
+		 and USER_ID = #{cmsCollect.userId,jdbcType=VARCHAR}
+		 </if>
+		 <if test="cmsCollect.relateId != null">
+			and 	RELATE_ID = #{cmsCollect.relateId,jdbcType=VARCHAR}
+			</if>
+			<if test="cmsCollect.type != null">
+			and 	TYPE = #{cmsCollect.type,jdbcType=INTEGER}
+			</if>
+   </select>
+
+
+	<select id="getHotNum" resultType="java.lang.Integer" parameterType="com.sun3d.why.model.CmsCollect">
+		select count(1) from cms_collect
+		WHERE RELATE_ID = #{relateId} AND TYPE = #{type}
+	</select>
+
+	<select id="queryByCmsCollect" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.CmsCollect">
+		select * from cms_collect
+		WHERE 1=1
+		<if test="userId != null">
+			and user_id=	#{userId,jdbcType=VARCHAR}
+		</if>
+		<if test="relateId != null">
+			and relate_id=	#{relateId,jdbcType=VARCHAR}
+		</if>
+		<if test="type != null">
+			and type=	#{type,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+	<select id="queryCountByCmsCollect" resultType="integer" parameterType="com.sun3d.why.model.CmsCollect">
+		select count(*) from cms_collect
+		WHERE 1=1
+		<if test="userId != null">
+			and user_id=	#{userId,jdbcType=VARCHAR}
+		</if>
+		<if test="relateId != null">
+			and relate_id=	#{relateId,jdbcType=VARCHAR}
+		</if>
+		<if test="type != null">
+			and type=	#{type,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+	<select id="isHadCollect" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+		select count(*) from cms_collect
+		WHERE 1=1
+		<if test="userId != null">
+		 and user_id=	#{userId,jdbcType=VARCHAR}
+		</if>
+		<if test="relateId != null">
+		and relate_id=	#{relateId,jdbcType=VARCHAR}
+		</if>
+		<if test="type != null">
+		and type=	#{type,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+	<!--app添加收藏 -->
+	<insert id="insertCollect" parameterType="java.util.Map">
+		insert into CMS_COLLECT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="relateId != null">
+				RELATE_ID,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="relateId != null">
+				#{relateId,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<!--app取消收藏活动 -->
+	<delete id="deleteUserCollectByCondition" parameterType="java.util.Map">
+		delete from CMS_COLLECT
+		where 1=1
+		<if test="userId != null">
+			and USER_ID = #{userId,jdbcType=VARCHAR}
+		</if>
+		<if test="relateId != null">
+			and RELATE_ID = #{relateId,jdbcType=VARCHAR}
+		</if>
+		<if test="type != null">
+			and TYPE = #{type,jdbcType=INTEGER}
+		</if>
+	</delete>
+</mapper>

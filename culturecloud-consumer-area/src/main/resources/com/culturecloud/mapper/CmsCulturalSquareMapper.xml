@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.culturecloud.dao.square.CmsCulturalSquareMapper" >
+  <resultMap id="BaseResultMap" type="com.culturecloud.dao.dto.CmsCulturalSquareActivityDTO" >
+    <result column="activityId" property="activityId" jdbcType="VARCHAR" />
+    <result column="activityName" property="activityName" jdbcType="VARCHAR" />
+    <result column="userNickName" property="userNickName" jdbcType="VARCHAR" />
+    <result column="activityTime" property="activityTime" jdbcType="VARCHAR" />
+    <result column="activityIcon" property="activityIcon" jdbcType="VARCHAR" />
+    <result column="activityAddress" property="activityAddress" jdbcType="VARCHAR" />
+    <result column="activityStart" property="activityStart" jdbcType="VARCHAR" />
+    <result column="activityEnd" property="activityEnd" jdbcType="VARCHAR" />
+    <result column="dictName" property="dictName" jdbcType="VARCHAR" />
+    <result column="venueName" property="venueName" jdbcType="VARCHAR" />
+    <result column="activityCode" property="activityCode" jdbcType="VARCHAR" />
+    <result column="venueId" property="venueId" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="CityResultMap" type="com.culturecloud.dao.dto.CmsCulturalSquareCityImgDTO" >
+    <result column="userNickName" property="userNickName" jdbcType="VARCHAR" />
+    <result column="headUrl" property="headUrl" jdbcType="VARCHAR" />
+    <result column="cityUrl" property="cityUrl" jdbcType="VARCHAR" />
+    <result column="cityContent" property="cityContent" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="VARCHAR" />
+    <result column="cityImgId" property="cityImgId" jdbcType="VARCHAR" />
+    <result column="userId" property="userId" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="SceneResultMap" type="com.culturecloud.dao.dto.CmsCulturalSquareSceneImgDTO" >
+    <result column="userNickName" property="userNickName" jdbcType="VARCHAR" />
+    <result column="headUrl" property="headUrl" jdbcType="VARCHAR" />
+    <result column="sceneUrl" property="sceneUrl" jdbcType="VARCHAR" />
+    <result column="sceneContent" property="sceneContent" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="VARCHAR" />
+    <result column="sceneImgId" property="sceneImgId" jdbcType="VARCHAR" />
+    <result column="userId" property="userId" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="NyResultMap" type="com.culturecloud.dao.dto.CmsCulturalSquareNyImgDTO" >
+    <result column="userNickName" property="userNickName" jdbcType="VARCHAR" />
+    <result column="headUrl" property="headUrl" jdbcType="VARCHAR" />
+    <result column="nyUrl" property="nyUrl" jdbcType="VARCHAR" />
+    <result column="nyContent" property="nyContent" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="VARCHAR" />
+    <result column="nyImgId" property="nyImgId" jdbcType="VARCHAR" />
+    <result column="userId" property="userId" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="LiveResultMap" type="com.culturecloud.dao.dto.CmsCulturalSquareLiveImgDTO" >
+    <result column="userNickName" property="userNickName" jdbcType="VARCHAR" />
+    <result column="headUrl" property="headUrl" jdbcType="VARCHAR" />
+    <result column="liveUrl" property="liveUrl" jdbcType="VARCHAR" />
+    <result column="liveContent" property="liveContent" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="VARCHAR" />
+    <result column="liveImgId" property="liveImgId" jdbcType="VARCHAR" />
+    <result column="startTime" property="startTime" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+
+  
+  <select id="getActivity" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select a.ACTIVITY_ID as activityId,a.ACTIVITY_NAME as activityName,b.USER_NICK_NAME as userNickName,
+	a.ACTIVITY_CREATE_TIME as activityTime,a.ACTIVITY_ICON_URL as activityIcon,a.ACTIVITY_ADDRESS as activityAddress,
+	a.ACTIVITY_START_TIME as activityStart,a.ACTIVITY_END_TIME as activityEnd,sd.dict_name as dictName,cv.venue_name as venueName,a.CREATE_ACTIVITY_CODE as activityCode,
+	cv.venue_id as venueId  
+ 	from cms_activity as a left join sys_user as b on a.ACTIVITY_CREATE_USER=b.USER_ID 
+ 	LEFT JOIN cms_activity_venue_relevance cavr ON a.activity_id = cavr.activity_id
+        LEFT JOIN cms_venue cv ON cavr.venue_id = cv.venue_id
+        LEFT JOIN sys_dict sd ON a.activity_location = sd.dict_id
+         LEFT JOIN sys_dict ss ON a.ratings_info = ss.dict_id 
+ 	where a.ACTIVITY_ID=#{activityId} and (ss.dict_name='A' or ss.dict_name='B') and a.ACTIVITY_STATE=6 order by ACTIVITY_CREATE_TIME desc 
+  </select>
+  
+  <select id="getActivityByImg" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select a.ACTIVITY_ID as activityId,a.ACTIVITY_NAME as activityName,b.USER_NICK_NAME as userNickName,
+	a.ACTIVITY_CREATE_TIME as activityTime,a.ACTIVITY_ICON_URL as activityIcon,a.ACTIVITY_ADDRESS as activityAddress,
+	a.ACTIVITY_START_TIME as activityStart,a.ACTIVITY_END_TIME as activityEnd,sd.dict_name as dictName,cv.venue_name as venueName,a.CREATE_ACTIVITY_CODE as activityCode,
+	cv.venue_id as venueId   
+ 	from cms_activity as a left join sys_user as b on a.ACTIVITY_CREATE_USER=b.USER_ID 
+ 	LEFT JOIN cms_activity_venue_relevance cavr ON a.activity_id = cavr.activity_id
+        LEFT JOIN cms_venue cv ON cavr.venue_id = cv.venue_id
+        LEFT JOIN sys_dict sd ON a.activity_location = sd.dict_id
+         LEFT JOIN sys_dict ss ON a.ratings_info = ss.dict_id 
+ 	where a.ACTIVITY_ICON_URL=#{activityImg}  order by ACTIVITY_CREATE_TIME desc 
+  </select>
+  
+  
+  <select id="getActivityById" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select a.ACTIVITY_ID as activityId,a.ACTIVITY_NAME as activityName,b.USER_NICK_NAME as userNickName,
+	a.ACTIVITY_CREATE_TIME as activityTime,a.ACTIVITY_ICON_URL as activityIcon,a.ACTIVITY_ADDRESS as activityAddress,
+	a.ACTIVITY_START_TIME as activityStart,a.ACTIVITY_END_TIME as activityEnd,sd.dict_name as dictName,cv.venue_name as venueName,a.CREATE_ACTIVITY_CODE as activityCode   
+ 	from cms_activity as a left join sys_user as b on a.ACTIVITY_CREATE_USER=b.USER_ID 
+ 	LEFT JOIN cms_activity_venue_relevance cavr ON a.activity_id = cavr.activity_id
+        LEFT JOIN cms_venue cv ON cavr.venue_id = cv.venue_id
+        LEFT JOIN sys_dict sd ON a.activity_location = sd.dict_id 
+ 	where a.ACTIVITY_ID=#{activityId} order by ACTIVITY_CREATE_TIME desc 
+  </select>
+  
+  
+  <select id="getCityImg" resultMap="CityResultMap" parameterType="java.lang.String">
+  	select b.USER_NAME as userNickName,b.USER_HEAD_IMG_URL as headUrl,a.CITY_IMG_URL as cityUrl,a.CITY_IMG_CONTENT as cityContent,a.CREATE_TIME as createTime,
+  	a.CITY_IMG_ID as cityImgId,a.USER_ID as userId   
+	from ccp_city_img as a left join cms_terminal_user as b on a.USER_ID=b.USER_ID where a.CITY_IMG_URL = #{cityImgUrl}
+  </select>
+  
+   <select id="getSceneImg" resultMap="SceneResultMap" parameterType="java.lang.String">
+  	select b.USER_NAME as userNickName,b.USER_HEAD_IMG_URL as headUrl,a.SCENE_IMG_URL as sceneUrl,a.SCENE_IMG_CONTENT as sceneContent,
+  	a.CREATE_TIME as createTime,a.SCENE_IMG_ID as sceneImgId,a.USER_ID as userId  
+	from ccp_scene_img as a left join cms_terminal_user as b on a.USER_ID=b.USER_ID  where a.SCENE_IMG_URL=#{sceneImgUrl}
+  </select>
+  
+  <select id="getNyImg" resultMap="NyResultMap" parameterType="java.lang.String">
+  	select b.USER_NAME as userNickName,b.USER_HEAD_IMG_URL as headUrl,a.NY_IMG_URL as nyUrl,a.NY_IMG_CONTENT as nyContent,
+  	a.CREATE_TIME as createTime,a.NY_IMG_ID as nyImgId,a.USER_ID as userId  
+	from ccp_ny_img as a left join cms_terminal_user as b on a.USER_ID=b.USER_ID  where a.NY_IMG_URL=#{nyImgUrl}
+  </select>
+  
+  <select id="getLive" resultMap="LiveResultMap" parameterType="java.lang.String">
+  	select b.USER_NICK_NAME as userNickName,b.USER_HEAD_IMG_URL as headUrl,a.live_cover_img as liveUrl,a.live_title as liveContent,a.live_create_time as createTime,a.live_activity_id as liveImgId
+  	,a.live_start_time as startTime   
+	from ccp_live_activity as a left join sys_user as b on a.live_create_user=b.USER_ID  where a.live_activity_id=#{liveActivityId}
+  </select>
+  
+  
+  
+  
+  
+  
+</mapper>

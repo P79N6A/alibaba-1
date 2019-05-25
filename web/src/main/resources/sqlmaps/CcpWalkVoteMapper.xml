@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ccp.CcpWalkVoteMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ccp.CcpWalkVote" >
+    <id column="WALK_VOTE_ID" property="walkVoteId" jdbcType="VARCHAR" />
+    <result column="WALK_IMG_ID" property="walkImgId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    WALK_VOTE_ID, WALK_IMG_ID, USER_ID, CREATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_walk_vote
+    where WALK_VOTE_ID = #{walkVoteId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_walk_vote
+    where WALK_VOTE_ID = #{walkVoteId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.ccp.CcpWalkVote" >
+    insert into ccp_walk_vote
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      WALK_VOTE_ID,
+      <if test="walkImgId != null" >
+        WALK_IMG_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{walkVoteId,jdbcType=VARCHAR},
+      <if test="walkImgId != null" >
+        #{walkImgId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.ccp.CcpWalkVote" >
+    update ccp_walk_vote
+    <set >
+      <if test="walkImgId != null" >
+        WALK_IMG_ID = #{walkImgId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where WALK_VOTE_ID = #{walkVoteId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryTodayVoteCount" resultType="java.lang.Integer" parameterType="com.sun3d.why.model.ccp.CcpWalkVote" >
+    select count(*)
+    from ccp_walk_vote
+    where USER_ID = #{userId} and DATE_FORMAT(CREATE_TIME, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d') and WALK_IMG_ID = #{walkImgId}
+  </select>
+</mapper>

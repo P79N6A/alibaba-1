@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ccp.CcpCityVoteMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ccp.CcpCityVote" >
+    <id column="CITY_VOTE_ID" property="cityVoteId" jdbcType="VARCHAR" />
+    <result column="CITY_IMG_ID" property="cityImgId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="CITY_TYPE" property="cityType" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    CITY_VOTE_ID, CITY_IMG_ID, USER_ID, CITY_TYPE, CREATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_city_vote
+    where CITY_VOTE_ID = #{cityVoteId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_city_vote
+    where CITY_VOTE_ID = #{cityVoteId,jdbcType=VARCHAR}
+  </delete>
+  
+  <delete id="deleteByCondition" parameterType="com.sun3d.why.model.ccp.CcpCityVote" >
+    delete from ccp_city_vote
+    where CITY_IMG_ID = #{cityImgId} and CITY_TYPE = #{cityType}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.ccp.CcpCityVote" >
+    insert into ccp_city_vote
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      CITY_VOTE_ID,
+      <if test="cityImgId != null" >
+        CITY_IMG_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="cityType != null" >
+        CITY_TYPE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{cityVoteId,jdbcType=VARCHAR},
+      <if test="cityImgId != null" >
+        #{cityImgId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="cityType != null" >
+        #{cityType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.ccp.CcpCityVote" >
+    update ccp_city_vote
+    <set >
+      <if test="cityImgId != null" >
+        CITY_IMG_ID = #{cityImgId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="cityType != null" >
+        CITY_TYPE = #{cityType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where CITY_VOTE_ID = #{cityVoteId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryTodayVoteCount" resultType="java.lang.Integer" parameterType="com.sun3d.why.model.ccp.CcpCityVote" >
+    select count(*)
+    from ccp_city_vote
+    where USER_ID = #{userId} and DATE_FORMAT(CREATE_TIME, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')
+  </select>
+</mapper>

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.culturecloud.dao.heritage.CcpHeritageMapper" >
+  <resultMap id="BaseResultMap" type="com.culturecloud.model.bean.heritage.CcpHeritage" >
+    <id column="HERITAGE_ID" property="heritageId" jdbcType="VARCHAR" />
+    <result column="HERITAGE_NAME" property="heritageName" jdbcType="VARCHAR" />
+    <result column="HERITAGE_COVER_IMG" property="heritageCoverImg" jdbcType="VARCHAR" />
+    <result column="HERITAGE_TYPE" property="heritageType" jdbcType="VARCHAR" />
+    <result column="HERITAGE_LEVEL" property="heritageLevel" jdbcType="VARCHAR" />
+    <result column="HERITAGE_AREA" property="heritageArea" jdbcType="VARCHAR" />
+    <result column="HERITAGE_DYNASTY" property="heritageDynasty" jdbcType="VARCHAR" />
+    <result column="HERITAGE_INTRODUCE" property="heritageIntroduce" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseResultResMap" type="com.culturecloud.model.response.heritage.CcpHeritageResVO" >
+    <id column="HERITAGE_ID" property="heritageId" jdbcType="VARCHAR" />
+    <result column="HERITAGE_NAME" property="heritageName" jdbcType="VARCHAR" />
+    <result column="HERITAGE_COVER_IMG" property="heritageCoverImg" jdbcType="VARCHAR" />
+    <result column="HERITAGE_TYPE" property="heritageType" jdbcType="VARCHAR" />
+    <result column="HERITAGE_LEVEL" property="heritageLevel" jdbcType="VARCHAR" />
+    <result column="HERITAGE_AREA" property="heritageArea" jdbcType="VARCHAR" />
+    <result column="HERITAGE_DYNASTY" property="heritageDynasty" jdbcType="VARCHAR" />
+    <result column="HERITAGE_INTRODUCE" property="heritageIntroduce" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    
+    <result column="HERITAGE_IMG" property="heritageImg" jdbcType="VARCHAR" />
+    <result column="HERITAGE_IS_WANT" property="heritageIsWant" jdbcType="VARCHAR" />
+    <result column="HERITAGE_WANT_COUNT" property="heritageWantCount" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    HERITAGE_ID, HERITAGE_NAME, HERITAGE_COVER_IMG, HERITAGE_TYPE, HERITAGE_LEVEL, HERITAGE_AREA, HERITAGE_DYNASTY, 
+    HERITAGE_INTRODUCE, CREATE_TIME, CREATE_USER, UPDATE_TIME, UPDATE_USER
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_heritage
+    where HERITAGE_ID = #{heritageId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_heritage
+    where HERITAGE_ID = #{heritageId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.culturecloud.model.request.heritage.CcpHeritageReqVO" >
+    insert into ccp_heritage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      HERITAGE_ID,
+      <if test="heritageName != null" >
+        HERITAGE_NAME,
+      </if>
+      <if test="heritageCoverImg != null" >
+        HERITAGE_COVER_IMG,
+      </if>
+      <if test="heritageType != null" >
+        HERITAGE_TYPE,
+      </if>
+      <if test="heritageLevel != null" >
+        HERITAGE_LEVEL,
+      </if>
+      <if test="heritageArea != null" >
+        HERITAGE_AREA,
+      </if>
+      <if test="heritageDynasty != null" >
+        HERITAGE_DYNASTY,
+      </if>
+      <if test="heritageIntroduce != null" >
+        HERITAGE_INTRODUCE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{heritageId,jdbcType=VARCHAR},
+      <if test="heritageName != null" >
+        #{heritageName,jdbcType=VARCHAR},
+      </if>
+      <if test="heritageCoverImg != null" >
+        #{heritageCoverImg,jdbcType=VARCHAR},
+      </if>
+      <if test="heritageType != null" >
+        #{heritageType,jdbcType=VARCHAR},
+      </if>
+      <if test="heritageLevel != null" >
+        #{heritageLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="heritageArea != null" >
+        #{heritageArea,jdbcType=VARCHAR},
+      </if>
+      <if test="heritageDynasty != null" >
+        #{heritageDynasty,jdbcType=VARCHAR},
+      </if>
+      <if test="heritageIntroduce != null" >
+        #{heritageIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.culturecloud.model.request.heritage.CcpHeritageReqVO" >
+    update ccp_heritage
+    <set >
+      <if test="heritageName != null" >
+        HERITAGE_NAME = #{heritageName,jdbcType=VARCHAR},
+      </if>
+      <if test="heritageCoverImg != null" >
+        HERITAGE_COVER_IMG = #{heritageCoverImg,jdbcType=VARCHAR},
+      </if>
+      <if test="heritageType != null" >
+        HERITAGE_TYPE = #{heritageType,jdbcType=VARCHAR},
+      </if>
+      <if test="heritageLevel != null" >
+        HERITAGE_LEVEL = #{heritageLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="heritageArea != null" >
+        HERITAGE_AREA = #{heritageArea,jdbcType=VARCHAR},
+      </if>
+      <if test="heritageDynasty != null" >
+        HERITAGE_DYNASTY = #{heritageDynasty,jdbcType=VARCHAR},
+      </if>
+      <if test="heritageIntroduce != null" >
+        HERITAGE_INTRODUCE = #{heritageIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where HERITAGE_ID = #{heritageId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectCcpHeritageList" resultMap="BaseResultResMap" parameterType="com.culturecloud.model.request.heritage.CcpHeritageReqVO" >
+    SELECT	
+		ch.HERITAGE_ID,
+		ch.HERITAGE_NAME, 
+		ch.HERITAGE_AREA,
+		ch.HERITAGE_COVER_IMG,
+		sdd.DICT_NAME AS HERITAGE_DYNASTY,
+		sdl.DICT_NAME AS HERITAGE_LEVEL,
+		sdt.DICT_NAME AS HERITAGE_TYPE,
+	  	ch.HERITAGE_INTRODUCE,
+		ch.CREATE_TIME,
+		u.USER_ACCOUNT AS CREATE_USER
+	FROM ccp_heritage ch
+	LEFT JOIN sys_user u ON ch.CREATE_USER = u.USER_ID
+	LEFT JOIN sys_dict sdd ON ch.HERITAGE_DYNASTY = sdd.DICT_ID
+	LEFT JOIN sys_dict sdl ON ch.HERITAGE_LEVEL = sdl.DICT_ID
+	LEFT JOIN sys_dict sdt ON ch.HERITAGE_TYPE = sdt.DICT_ID
+	WHERE 1=1
+	<if test="heritageName!=null and heritageName!=''">
+	    AND ch.HERITAGE_NAME like CONCAT('%',#{heritageName},'%')
+    </if>
+	GROUP BY ch.HERITAGE_ID
+	ORDER BY ch.CREATE_TIME DESC
+  </select>
+  
+  <select id="selectCcpHeritageById" resultMap="BaseResultResMap" parameterType="com.culturecloud.model.request.heritage.CcpHeritageReqVO" >
+    SELECT	
+		ch.HERITAGE_ID,
+		ch.HERITAGE_NAME, 
+		ch.HERITAGE_AREA,
+		ch.HERITAGE_COVER_IMG,
+		sdd.DICT_NAME AS HERITAGE_DYNASTY,
+		sdl.DICT_NAME AS HERITAGE_LEVEL,
+		sdt.DICT_NAME AS HERITAGE_TYPE,
+	  	ch.HERITAGE_INTRODUCE,
+		ch.CREATE_TIME,
+		u.USER_ACCOUNT AS CREATE_USER,
+		<if test="userId!=null">
+            (SELECT count(*)
+            FROM cms_user_wantgo cau
+            WHERE cau.RELATE_ID = #{heritageId}
+            AND cau.USER_ID = #{userId}
+            ) AS HERITAGE_IS_WANT,
+        </if>
+		GROUP_CONCAT(DISTINCT chi.HERITAGE_IMG_URL SEPARATOR ',') AS HERITAGE_IMG,
+		(select count(*) from cms_user_wantgo d where d.relate_id = ch.HERITAGE_ID and d.relate_type = 4) as HERITAGE_WANT_COUNT
+	FROM ccp_heritage ch
+	LEFT JOIN sys_user u ON ch.CREATE_USER = u.USER_ID
+	LEFT JOIN sys_dict sdd ON ch.HERITAGE_DYNASTY = sdd.DICT_ID
+	LEFT JOIN sys_dict sdl ON ch.HERITAGE_LEVEL = sdl.DICT_ID
+	LEFT JOIN sys_dict sdt ON ch.HERITAGE_TYPE = sdt.DICT_ID
+	LEFT JOIN ccp_heritage_img chi ON ch.HERITAGE_ID = chi.HERITAGE_ID
+	WHERE ch.HERITAGE_ID = #{heritageId}
+	GROUP BY ch.HERITAGE_ID
+	ORDER BY ch.CREATE_TIME DESC
+  </select>
+  
+  <select id="selectHeritageById" resultMap="BaseResultResMap" parameterType="com.culturecloud.model.request.heritage.CcpHeritageReqVO" >
+    SELECT	
+		ch.HERITAGE_ID,
+		ch.HERITAGE_NAME, 
+		ch.HERITAGE_AREA,
+		ch.HERITAGE_COVER_IMG,
+		ch.HERITAGE_DYNASTY,
+		ch.HERITAGE_LEVEL,
+		ch.HERITAGE_TYPE,
+	  	ch.HERITAGE_INTRODUCE,
+		ch.CREATE_TIME,
+		u.USER_ACCOUNT AS CREATE_USER,
+		GROUP_CONCAT(DISTINCT chi.HERITAGE_IMG_URL SEPARATOR ',') AS HERITAGE_IMG
+	FROM ccp_heritage ch
+	LEFT JOIN sys_user u ON ch.CREATE_USER = u.USER_ID
+	LEFT JOIN ccp_heritage_img chi ON ch.HERITAGE_ID = chi.HERITAGE_ID
+	WHERE ch.HERITAGE_ID = #{heritageId}
+	GROUP BY ch.HERITAGE_ID
+	ORDER BY ch.CREATE_TIME DESC
+  </select>
+</mapper>

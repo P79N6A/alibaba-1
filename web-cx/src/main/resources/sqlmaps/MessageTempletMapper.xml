@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.MessageTempletMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.MessageTemplet" >
+    <id column="MESSAGE_ID" property="messageId" jdbcType="VARCHAR" />
+    <result column="MESSAGE_TYPE" property="messageType" jdbcType="VARCHAR" />
+   <!-- <result column="MESSAGE_TARGET_USER" property="messageTargetUser" jdbcType="VARCHAR" />-->
+    <result column="MESSAGE_CREATE_USER" property="messageCreateUser" jdbcType="VARCHAR" />
+    <result column="MESSAGE_CREATE_TIME" property="messageCreateTime" jdbcType="TIMESTAMP" />
+    <result column="MESSAGE_UPDATE_USER" property="messageUpdateUser" jdbcType="VARCHAR" />
+    <result column="MESSAGE_UPDATE_TIME" property="messageUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="MESSAGE_STATE" property="messageState" jdbcType="INTEGER" />
+    <result column="MESSAGE_CONTENT" property="messageContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+
+
+  <!-- 分页信息 -->
+  <sql id="pagination_condition">
+    limit ${firstResult},${rows}
+  </sql>
+
+  <select id="queryMessageTempletByCondition" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.MessageTemplet" >
+
+    SELECT
+      s.MESSAGE_ID,
+      s.MESSAGE_CONTENT,
+      s.MESSAGE_CREATE_TIME,
+      sd.DICT_NAME  MESSAGE_TYPE
+    FROM sys_message_templet s JOIN
+      sys_dict sd
+    ON  s.MESSAGE_TYPE = sd.DICT_ID
+    ORDER  BY s.MESSAGE_CREATE_TIME DESC
+
+    <if test="firstResult != null">
+      LIMIT ${firstResult},${rows}
+    </if>
+
+  </select>
+
+  <select id="queryMessageTemplet" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.MessageTemplet" >
+
+        SELECT
+        s.MESSAGE_ID,
+        s.MESSAGE_CONTENT,
+        s.MESSAGE_CREATE_TIME,
+        sd.DICT_ID MESSAGE_TYPE
+        FROM sys_message_templet s JOIN
+        sys_dict sd
+        ON  s.MESSAGE_TYPE = sd.DICT_ID
+        <where>
+          <if test="messageType!=null">
+            sd.DICT_NAME=#{messageType}
+          </if>
+        </where>
+
+  </select>
+
+  <select id="queryMessageTempletCountByCondition" resultType="java.lang.Integer"
+          parameterType="com.sun3d.why.model.CmsActivity">
+      SELECT count(*) from sys_message_templet
+  </select>
+
+  <select id="queryMessageById" resultMap="BaseResultMap"
+          parameterType="java.lang.String">
+
+      select
+      MESSAGE_ID,
+      MESSAGE_CONTENT,
+      MESSAGE_TYPE
+      FROM sys_message_templet
+      WHERE MESSAGE_ID = #{messageId,jdbcType=VARCHAR}
+
+  </select>
+
+<!--      select
+  MESSAGE_ID,
+  MESSAGE_CONTENT,
+  MESSAGE_TYPE,
+  FROM sys_message_templet
+  WHERE MESSAGE_ID = #{messageId,jdbcType=VARCHAR}-->
+
+  <insert id="addMessageTemplet" parameterType="com.sun3d.why.model.MessageTemplet" >
+    insert into sys_message_templet
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="messageId != null" >
+        MESSAGE_ID,
+      </if>
+      <if test="messageType != null" >
+        MESSAGE_TYPE,
+      </if>
+
+      <if test="messageCreateUser != null" >
+        MESSAGE_CREATE_USER,
+      </if>
+      <if test="messageCreateTime != null" >
+        MESSAGE_CREATE_TIME,
+      </if>
+      <if test="messageUpdateUser != null" >
+        MESSAGE_UPDATE_USER,
+      </if>
+      <if test="messageUpdateTime != null" >
+        MESSAGE_UPDATE_TIME,
+      </if>
+      <if test="messageState != null" >
+        MESSAGE_STATE,
+      </if>
+      <if test="messageContent != null" >
+        MESSAGE_CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="messageId != null" >
+        #{messageId,jdbcType=VARCHAR},
+      </if>
+      <if test="messageType != null" >
+        #{messageType,jdbcType=VARCHAR},
+      </if>
+
+      <if test="messageCreateUser != null" >
+        #{messageCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="messageCreateTime != null" >
+        #{messageCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="messageUpdateUser != null" >
+        #{messageUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="messageUpdateTime != null" >
+        #{messageUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="messageState != null" >
+        #{messageState,jdbcType=INTEGER},
+      </if>
+      <if test="messageContent != null" >
+        #{messageContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+
+  <update id="editMessageTemplet" parameterType="com.sun3d.why.model.MessageTemplet" >
+    update sys_message_templet
+    <set >
+      <if test="messageType != null" >
+        MESSAGE_TYPE = #{messageType,jdbcType=VARCHAR},
+      </if>
+
+      <if test="messageCreateUser != null" >
+        MESSAGE_CREATE_USER = #{messageCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="messageCreateTime != null" >
+        MESSAGE_CREATE_TIME = #{messageCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="messageUpdateUser != null" >
+        MESSAGE_UPDATE_USER = #{messageUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="messageUpdateTime != null" >
+        MESSAGE_UPDATE_TIME = #{messageUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="messageState != null" >
+        MESSAGE_STATE = #{messageState,jdbcType=INTEGER},
+      </if>
+      <if test="messageContent != null" >
+        MESSAGE_CONTENT = #{messageContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where MESSAGE_ID = #{messageId,jdbcType=VARCHAR}
+  </update>
+
+  <update id="deleteMessageById"  parameterType="java.lang.String">
+     UPDATE  sys_message_templet SET  messageState=2
+     WHERE MESSAGE_ID = #{messageId,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

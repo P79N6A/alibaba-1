@@ -1,0 +1,342 @@
+*{ -webkit-tap-highlight-color: transparent; /* For some Androids */ }
+html,
+body {
+	height: 100%;
+}
+
+.main {
+	width: 750px;
+	margin: auto;
+	height: 100%;
+}
+
+.swiper-container {
+	width: 100%;
+	height: 100%;
+}
+
+.swiper-slide {
+	position: relative;
+}
+
+
+/*金山*/
+
+.swiper-slide {
+	position: relative;
+}
+
+.content-downpage {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	text-align: center;
+}
+
+.content-downpage img {
+	margin: auto;
+}
+
+.qingwenyi-1 {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.jinshan-1 p {
+	line-height: 16px;
+	font-size: 12px;
+}
+
+.content-1-1 {
+	/*background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-size: cover;
+	-moz-background-size: cover;
+	-webkit-background-size: cover;*/
+	width: 100%;
+	height: 100%;
+}
+
+
+/*首页封面*/
+
+.active-1-title {
+	text-align: center;
+	margin-top: 90px;
+}
+
+.active-1-banner {
+	text-align: center;
+	margin-top: 50px;
+}
+
+.free-icon {
+	text-align: center;
+}
+
+.active-bottom {
+	margin-top: 10px;
+	text-align: center;
+}
+
+.active-bottom1 {
+	font-size: 34px;
+	width: 350px;
+	margin: auto;
+	border-bottom: 1px solid #000000;
+	padding-bottom: 5px;
+}
+
+.active-bottom2 {
+	margin-top: 10px;
+	display: inline-block;
+}
+
+.active-bottom2 p {
+	font-size: 28px;
+	margin-left: 10px;
+}
+
+.first-next {
+	position: relative;
+	text-align: center;
+	height: 50px;
+}
+
+.first-next-arrow {
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+}
+
+.active-1-logo {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+}
+
+
+/*END*/
+
+.active-p1-banner {
+	position: relative;
+	text-align: center;
+	margin-top: 20px;
+}
+
+.banner-botton {
+	z-index: 10;
+	position: absolute;
+	right: 30px;
+	bottom: -42px;
+}
+
+.banner-ps {
+	background: url(../image/ps.png) no-repeat;
+	position: absolute;
+	right: 30px;
+	top: 30px;
+	font-size: 36px;
+	padding: 10px 20px 10px 20px;
+	color: #f5f0e5;
+	border-radius: 10px;
+}
+
+.banner-menu {
+	display: none;
+	z-index: 1;
+	position: absolute;
+	top: 455px;
+	right: 100px;
+	width: 290px;
+	background-color: #fff;
+}
+
+.banner-menu-botton {
+	background-color: #f3f3f3;
+	margin: 13px auto;
+	line-height: 75px;
+	width: 270px;
+	height: 75px;
+	font-size: 34px;
+	text-align: center;
+}
+
+.banner-menu-botton-bg {
+	background-color: #7279a0!important;
+	color: #fff!important;
+}
+
+.end-title {
+	font-size: 55px;
+	text-align: center;
+	margin-top: 90px;
+}
+
+.active-detail {
+	padding: 30px;
+	margin-top: 10px;
+}
+
+.active-detail-title {
+	font-size: 36px;
+	font-weight: bold;
+}
+
+.active-detail-tag {
+	margin-top: 10px;
+	font-size: 34px;
+	color: #6678ac;
+}
+
+.active-detail-tag li {
+	margin-right: 5px;
+	float: left;
+}
+
+.a-i {
+	margin-top: 10px;
+	float: left;
+	display: block;
+}
+
+.a-p {
+	margin-left: 20px;
+	float: left;
+	width: 640px;
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
+.active-detail-place {
+	font-size: 32px;
+	margin-top: 10px;
+}
+
+.active-detail-time {
+	font-size: 32px;
+	margin-top: 10px;
+}
+
+.active-detail-tips {
+	font-size: 32px;
+	margin-top: 50px;
+	text-indent: 2em;
+	color: #666666;
+	word-wrap: break-word;
+    word-break: break-all;
+}
+
+.active-detail-next {
+	position: absolute;
+	bottom: 130px;
+	width: 100%;
+	text-align: center;
+}
+
+.active-menu {
+	border-top: 1px solid #ccc;
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100px;
+	background-color: #f1f1f1;
+}
+
+.active-menu-1 {
+	font-size: 30px;
+	float: left;
+	width: 189px;
+	height: 80px;
+	margin-top: 10px;
+	border-right: 1px solid #cfcfcf;
+	background: url(../image/favorite.png) no-repeat 45px 25px;
+	color:#666666;
+}
+
+.active-menu-1>p {
+	margin-top: 25px;
+	margin-left: 90px;
+}
+
+.active-menu-2 {
+	float: left;
+	width: 104px;
+	height: 80px;
+	margin-top: 10px;
+	border-right: 1px solid #cfcfcf;
+	background: url(../image/keep.png) no-repeat 30px 20px;
+}
+
+.active-menu-3 {
+	float: left;
+	width: 105px;
+	height: 80px;
+	margin-top: 10px;
+	background: url(../image/share.png) no-repeat 35px 20px;
+}
+
+.active-menu-4 {
+	float: left;
+	width: 350px;
+	height: 100%;
+}
+
+.active-menu-4 button[type=button] {
+	color: #fff;
+	font-size: 45px;
+	background-color: #7279a0;
+	width: 100%;
+	height: 100%;
+	border: none;
+	box-shadow: none;
+}
+
+
+/*末页*/
+
+.end-botton-list {
+	margin-top: 50px;
+	text-align: center;
+}
+
+.end-botton-list-bottom {
+	margin-bottom: 10px;
+}
+
+.end-er {
+	text-align: center;
+	margin-top: 60px;
+}
+
+.end-tip {
+	margin-top: 20px;
+	font-size: 26px;
+	text-align: center;
+}
+/*END*/
+
+
+/*分享 收藏*/
+
+.wx-share {
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+	display: none;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
+
+.wx-keep {
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+	display: none;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}

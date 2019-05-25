@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.AppAdvertRecommendRferMapper">
+    <resultMap id="BaseResultMap" type="com.sun3d.why.model.AppAdvertRecommendRfer">
+        <result column="advert_id" property="advertId" jdbcType="VARCHAR"/>
+        <result column="advert_url" property="advertUrl" jdbcType="VARCHAR"/>
+        <result column="advert_img_url" property="advertImgUrl" jdbcType="VARCHAR"/>
+        <result column="advert_sort" property="advertSort" jdbcType="INTEGER"/>
+        <result column="advert_refer_id" property="advertReferId" jdbcType="VARCHAR"/>
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="update_by" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <select id="selectAdvertIndex" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        *
+        from app_advert_recommend_rfer
+        where advert_refer_id=#{advertReferId,jdbcType=VARCHAR}
+    </select>
+    <update id="editCmsAdvert" parameterType="com.sun3d.why.model.CmsAdvert">
+        UPDATE CMS_ADVERT
+        <set>
+            <if test="advertId != null">
+                advert_id= #{advertId,jdbcType=VARCHAR},
+            </if>
+            <if test="advertUrl != null">
+                advert_url= #{advertUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advertImgUrl != null">
+                advert_img_url= #{advertImgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advertSort != null">
+                advert_sort= #{advertSort,jdbcType=VARCHAR},
+            </if>
+            <if test="advertReferId != null">
+                advert_refer_id= #{advertReferId,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+                create_by= #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateBy != null">
+                update_by= #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time= #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time= #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        WHERE ADVERT_ID = #{advertId,jdbcType=VARCHAR}
+    </update>
+    <insert id="addAdvertRfer" parameterType="com.sun3d.why.model.AppAdvertRecommendRfer">
+        insert into app_advert_recommend_rfer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="advertId != null">
+                advert_id,
+            </if>
+            <if test="advertUrl != null">
+                advert_url,
+            </if>
+            <if test="advertImgUrl != null">
+                advert_img_url,
+            </if>
+            <if test="advertSort != null">
+                advert_sort,
+            </if>
+            <if test="advertReferId != null">
+                advert_refer_id,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="advertId != null">
+                #{advertId,jdbcType=VARCHAR},
+            </if>
+            <if test="advertUrl != null">
+                #{advertUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advertImgUrl != null">
+                #{advertImgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advertSort != null">
+                #{advertSort,jdbcType=INTEGER},
+            </if>
+            <if test="advertReferId != null">
+                #{advertReferId,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <delete id="delete" parameterType="java.lang.String">
+        delete from app_advert_recommend_rfer
+        where advert_refer_id = #{advertReferId,jdbcType=VARCHAR}
+    </delete>
+</mapper>

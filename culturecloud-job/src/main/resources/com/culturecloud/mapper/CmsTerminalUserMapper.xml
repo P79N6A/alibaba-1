@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.culturecloud.dao.common.CmsTerminalUserMapper" >
+  <resultMap id="BaseResultMap" type="com.culturecloud.model.bean.common.CmsTerminalUser" >
+    <id column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_PWD" property="userPwd" jdbcType="VARCHAR" />
+    <result column="USER_NICK_NAME" property="userNickName" jdbcType="VARCHAR" />
+    <result column="USER_EMAIL" property="userEmail" jdbcType="VARCHAR" />
+    <result column="USER_SEX" property="userSex" jdbcType="INTEGER" />
+    <result column="USER_AGE" property="userAge" jdbcType="INTEGER" />
+    <result column="USE_ADDRESS" property="useAddress" jdbcType="VARCHAR" />
+    <result column="USER_HEAD_IMG_URL" property="userHeadImgUrl" jdbcType="VARCHAR" />
+    <result column="USER_IMEI" property="userImei" jdbcType="VARCHAR" />
+    <result column="USER_IMSI" property="userImsi" jdbcType="VARCHAR" />
+    <result column="USER_EQUIPMENT_ID" property="userEquipmentId" jdbcType="VARCHAR" />
+    <result column="USER_GPS" property="userGps" jdbcType="VARCHAR" />
+    <result column="USER_IP" property="userIp" jdbcType="VARCHAR" />
+    <result column="USER_MAC" property="userMac" jdbcType="VARCHAR" />
+    <result column="USER_MOBILE_TYPE" property="userMobileType" jdbcType="VARCHAR" />
+    <result column="USER_INTERNETWAY" property="userInternetway" jdbcType="VARCHAR" />
+    <result column="USER_SITE_ID" property="userSiteId" jdbcType="VARCHAR" />
+    <result column="SNSTYPE" property="snstype" jdbcType="INTEGER" />
+    <result column="OPER_ID" property="operId" jdbcType="VARCHAR" />
+    <result column="ACCESS_TOKEN" property="accessToken" jdbcType="VARCHAR" />
+    <result column="EXPIRES_IN" property="expiresIn" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="USER_DEVICE_TOKEN" property="userDeviceToken" jdbcType="VARCHAR" />
+    <result column="USER_IS_LOGIN" property="userIsLogin" jdbcType="INTEGER" />
+    <result column="USER_IS_DISABLE" property="userIsDisable" jdbcType="INTEGER" />
+    <result column="USER_BIRTH" property="userBirth" jdbcType="DATE" />
+    <result column="USER_TELEPHONE" property="userTelephone" jdbcType="VARCHAR" />
+    <result column="USER_MOBILE_NO" property="userMobileNo" jdbcType="VARCHAR" />
+    <result column="USER_QQ" property="userQq" jdbcType="VARCHAR" />
+    <result column="USER_REMARK" property="userRemark" jdbcType="VARCHAR" />
+    <result column="REGISTER_CODE" property="registerCode" jdbcType="VARCHAR" />
+    <result column="USER_PROVINCE" property="userProvince" jdbcType="VARCHAR" />
+    <result column="USER_CITY" property="userCity" jdbcType="VARCHAR" />
+    <result column="USER_AREA" property="userArea" jdbcType="VARCHAR" />
+    <result column="USER_TYPE" property="userType" jdbcType="INTEGER" />
+    <result column="USER_CARD_NO" property="userCardNo" jdbcType="VARCHAR" />
+    <result column="COMMENT_STATUS" property="commentStatus" jdbcType="INTEGER" />
+    <result column="LAST_LOGIN_TIME" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="LOGIN_TYPE" property="loginType" jdbcType="INTEGER" />
+
+    <result column="USER_IDCARD_PHOTO_URL" property="idCardPhotoUrl" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+  <resultMap type="com.culturecloud.dao.dto.common.CmsTerminalUserDto" id="BaseResultDtoMap" extends="BaseResultMap">
+  
+  </resultMap>
+
+  <!--根据id查询会员-->
+  <select id="queryTerminalUserById" resultMap="BaseResultDtoMap" parameterType="java.lang.String" >
+    select *
+    from cms_terminal_user
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </select>
+
+
+</mapper>

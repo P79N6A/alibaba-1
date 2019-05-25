@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsCulturalOrderEventMapper" >
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsCulturalOrderEvent" >
+		<id column="cultural_order_event_id" property="culturalOrderEventId" jdbcType="VARCHAR" />
+		<result column="cultural_order_id" property="culturalOrderId" jdbcType="VARCHAR" />
+		<result column="cultural_order_event_date" property="culturalOrderEventDate" jdbcType="DATE" />
+		<result column="cultural_order_event_time" property="culturalOrderEventTime" jdbcType="VARCHAR" />
+		<result column="event_ticket_num" property="eventTicketNum" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<select id="queryCulturalOrderEventByCulturalOrderId" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT 
+		(SELECT COUNT(*) FROM cms_cultural_order_order ccoo 
+			WHERE ccoo.cultural_order_event_id = ccoe.cultural_order_event_id
+				AND ccoo.cultural_order_order_status in (0,1)) as usedTicketNum,
+		<if test="userId != null">
+		IF(EXISTS(SELECT 1 FROM cms_cultural_order_order ccoo 
+		WHERE ccoo.cultural_order_event_id = ccoe.cultural_order_event_id
+		AND ccoo.user_id = #{userId,jdbcType=VARCHAR}
+		AND ccoo.cultural_order_order_status in (0,1)),1,0) as userHasOrder,
+		</if>
+		ccoe.*
+		FROM cms_cultural_order_event ccoe
+		WHERE ccoe.cultural_order_id = #{culturalOrderId,jdbcType=VARCHAR}
+		ORDER BY cultural_order_event_date asc,cultural_order_event_time asc
+	</select>
+	
+	<select id="queryCulturalOrderEventById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT ccoe.*,
+		(SELECT COUNT(*) FROM cms_cultural_order_order ccoo 
+			WHERE ccoo.cultural_order_event_id = ccoe.cultural_order_event_id
+				AND ccoo.cultural_order_order_status in (0,1)) as usedTicketNum
+		FROM cms_cultural_order_event ccoe
+		WHERE ccoe.cultural_order_event_id = #{culturalOrderEventId,jdbcType=VARCHAR}
+	</select>
+</mapper>

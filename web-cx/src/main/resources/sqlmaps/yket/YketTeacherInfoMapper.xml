@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.YketTeacherInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.bean.yket.YketTeacherInfo" >
+    <result column="teacher_id" property="teacherId" jdbcType="VARCHAR" />
+    <result column="course_id" property="courseId" jdbcType="VARCHAR" />
+    <result column="teacher_name" property="teacherName" jdbcType="VARCHAR" />
+    <result column="teacher_title" property="teacherTitle" jdbcType="VARCHAR" />
+    <result column="teacher_intro" property="teacherIntro" jdbcType="VARCHAR" />
+    <result column="teacher_header_img" property="teacherHeaderImg" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+  </resultMap>
+  <insert id="insert" parameterType="com.sun3d.why.model.bean.yket.YketTeacherInfo" >
+    insert into yket_teacher_info (teacher_id, course_id, teacher_name, 
+      teacher_title, teacher_intro, teacher_header_img, 
+      create_time, create_user, update_time, 
+      update_user, deleted)
+    values (#{teacherId,jdbcType=VARCHAR}, #{courseId,jdbcType=VARCHAR}, #{teacherName,jdbcType=VARCHAR}, 
+      #{teacherTitle,jdbcType=VARCHAR}, #{teacherIntro,jdbcType=VARCHAR}, #{teacherHeaderImg,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sun3d.why.model.bean.yket.YketTeacherInfo" >
+    insert into yket_teacher_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="teacherId != null" >
+        teacher_id,
+      </if>
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="teacherName != null" >
+        teacher_name,
+      </if>
+      <if test="teacherTitle != null" >
+        teacher_title,
+      </if>
+      <if test="teacherIntro != null" >
+        teacher_intro,
+      </if>
+      <if test="teacherHeaderImg != null" >
+        teacher_header_img,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherName != null" >
+        #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherTitle != null" >
+        #{teacherTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherIntro != null" >
+        #{teacherIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherHeaderImg != null" >
+        #{teacherHeaderImg,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectForUpdate" resultMap="BaseResultMap">
+  select
+       teacher_id, course_id, teacher_name, 
+      teacher_title, teacher_intro, teacher_header_img, 
+      create_time, create_user, update_time, 
+      update_user, deleted 
+  from  yket_teacher_info
+      where  teacher_id=#{teacherId,jdbcType=VARCHAR}  
+  </select>
+   <select id="selectYketTeacherInfo" resultMap="BaseResultMap">
+  select
+       teacher_id, course_id, teacher_name, 
+      teacher_title, teacher_intro, teacher_header_img, 
+      create_time, create_user, update_time, 
+      update_user, deleted 
+  from  yket_teacher_info
+      where  teacher_id=#{teacherId,jdbcType=VARCHAR} for update
+  </select>
+  
+   <update id="updateTeacherInfo" parameterType="com.sun3d.why.model.bean.yket.YketTeacherInfo" >
+    update yket_teacher_info
+    <set >
+        teacher_name = #{teacherName,jdbcType=VARCHAR},
+        teacher_title = #{teacherTitle,jdbcType=VARCHAR},
+        teacher_intro = #{teacherIntro,jdbcType=VARCHAR},
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+        teacher_header_img = #{teacherHeaderImg,jdbcType=VARCHAR},
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where teacher_id = #{teacherId,jdbcType=VARCHAR}
+  </update>
+  
+  
+</mapper>

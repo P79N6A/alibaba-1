@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.culturecloud.dao.openrs.BpInfoOpenApiMapper" >
+	<resultMap id="BaseResultMap" type="com.culturecloud.dao.dto.openrs.BpInfoOpenDTO">
+		<id column="BEIPIAOINFO_ID" jdbcType="VARCHAR" property="beipiaoinfoId" />
+		<result column="BEIPIAOINFO_TITLE" jdbcType="VARCHAR" property="beipiaoinfoTitle" />
+		<result column="BEIPIAOINFO_HOMEPAGE" jdbcType="VARCHAR" property="beipiaoinfoHomepage" />
+		<result column="BEIPIAOINFO_TAG" jdbcType="VARCHAR" property="beipiaoinfoTag" />
+		<result column="PUBLISHER_NAME" jdbcType="VARCHAR" property="publisherName" />
+		<result column="BEIPIAOINFO_VIDEO" jdbcType="VARCHAR" property="beipiaoinfoVideo" />
+		<result column="BEIPIAOINFO_CREATE_TIME" jdbcType="TIMESTAMP" property="beipiaoinfoCreateTime" />
+		<result column="BEIPIAOINFO_UPDATE_TIME" jdbcType="TIMESTAMP" property="beipiaoinfoUpdateTime" />
+		<result column="BEIPIAOINFO_CREATE_USER" jdbcType="VARCHAR" property="beipiaoinfoCreateUser" />
+		<result column="BEIPIAOINFO_UPDATE_USER" jdbcType="VARCHAR" property="beipiaoinfoUpdateUser" />
+		<result column="BEIPIAOINFO_STATUS" jdbcType="VARCHAR" property="beipiaoinfoStatus" />
+		<result column="BEIPIAOINFO_NUMBER" jdbcType="VARCHAR" property="beipiaoinfoNumber" />
+		<result column="BEIPIAOINFO_SHOWTYPE" jdbcType="VARCHAR" property="beipiaoinfoShowtype" />
+		<result column="BEIPIAOINFO_IMAGES" jdbcType="LONGVARCHAR" property="beipiaoinfoImages" />
+		<result column="BEIPIAOINFO_CONTENT" jdbcType="LONGVARCHAR" property="beipiaoinfoContent" />
+		<result column="BEIPIAOINFO_DETAILS" jdbcType="LONGVARCHAR" property="beipiaoinfoDetails" />
+		<result column="PARENT_TAG_INFO" property="parentTagInfo" jdbcType="VARCHAR" />
+		<result column="user_info" property="userInfo" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="getBpInfos" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+			BI.BEIPIAOINFO_ID, 
+			BI.BEIPIAOINFO_TITLE,
+			BI.BEIPIAOINFO_HOMEPAGE,
+			BI.BEIPIAOINFO_TAG, 
+			BI.PUBLISHER_NAME,
+			BI.BEIPIAOINFO_VIDEO, 
+			BI.BEIPIAOINFO_STATUS, 
+			BI.BEIPIAOINFO_NUMBER, 
+			BI.BEIPIAOINFO_SHOWTYPE,
+			BI.BEIPIAOINFO_CREATE_USER,
+			BI.BEIPIAOINFO_UPDATE_USER,
+			BI.BEIPIAOINFO_CREATE_TIME,
+			BI.BEIPIAOINFO_UPDATE_TIME,
+			BI.BEIPIAOINFO_IMAGES,
+			BI.BEIPIAOINFO_CONTENT,
+			BI.BEIPIAOINFO_DETAILS,
+			BIT_P.TAG_NAME AS PARENT_TAG_INFO
+		FROM bp_info AS BI
+		LEFT JOIN BP_INFO_TAG AS BIT ON BI.BEIPIAOINFO_TAG = BIT.TAG_ID
+		LEFT JOIN BP_INFO_TAG AS BIT_P ON BIT.TAG_PARENT_ID = BIT_P.TAG_ID
+		WHERE 1=1
+		<if test="areaSource != null">
+			AND BI.BEIPIAOINFO_CREATE_USER in 
+			(select b.USER_ID from sys_user as b where b.USER_DEPT_PATH like CONCAT('%','${areaSource}','%' ) and b.USER_ISDISPLAY=1 and b.USER_STATE=1)
+		</if>
+		<if test="updateTime != null">
+			and BI.BEIPIAOINFO_UPDATE_TIME &gt;=#{updateTime,jdbcType=VARCHAR}
+		</if>
+	</select>
+</mapper>

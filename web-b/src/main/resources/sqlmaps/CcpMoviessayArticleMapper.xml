@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ccp.CcpMoviessayArticleMapper" >
+  
+  
+  
+  
+  
+  <resultMap id="BaseResultMap" type="com.culturecloud.model.bean.moviessay.CcpMoviessayArticle" >
+    <id column="article_id" property="articleId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="movie_name" property="movieName" jdbcType="VARCHAR" />
+    <result column="article_type" property="articleType" jdbcType="INTEGER" />
+    <result column="theme_type" property="themeType" jdbcType="INTEGER" />
+    <result column="article_is_del" property="articleIsDel" jdbcType="INTEGER" />
+    <result column="article_title" property="articleTitle" jdbcType="VARCHAR" />
+    <result column="article_create_time" property="articleCreateTime" jdbcType="TIMESTAMP" />
+    <result column="article_like" property="articleLike" jdbcType="INTEGER" />
+  </resultMap>
+  
+  
+  
+  <resultMap id="ResultMapWithBLOBs" type="com.culturecloud.model.bean.moviessay.CcpMoviessayArticle" extends="BaseResultMap" >
+    <result column="article_text" property="articleText" jdbcType="LONGVARCHAR" />
+  </resultMap> 
+  
+  
+  <resultMap type="com.sun3d.why.model.ccp.CcpMoviessayArticleDto" id="BaseResultDtoMap" extends="ResultMapWithBLOBs">
+  	<result column="user_real_name" property="userRealName" jdbcType="VARCHAR" />
+  	<result column="user_moblie_no" property="userMoblieNo" jdbcType="VARCHAR" />
+  	
+  </resultMap>
+
+ 
+ 
+ 
+ 
+ 
+  <sql id="Base_Column_List" >
+    article_id, 
+    user_id, 
+    movie_name,
+    article_type, 
+    theme_type, 
+    article_is_del, 
+    article_title, 
+    article_create_time, 
+    article_like
+  </sql>
+  
+  
+  
+  
+  
+  <sql id="Blob_Column_List" >
+    article_text
+  </sql>
+  
+  
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_moviessay_article
+    where article_id = #{articleId,jdbcType=VARCHAR}
+  </delete>
+  
+  
+  
+  
+  <insert id="insert" parameterType="com.culturecloud.model.bean.moviessay.CcpMoviessayArticle" >
+    insert into ccp_moviessay_article (article_id, user_id, article_type, movie_name,
+      theme_type, article_is_del, article_title, 
+      article_create_time, article_like, article_text
+      )
+    values (#{articleId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{articleType,jdbcType=INTEGER}, 
+      #{movieName,jdbcType=VARCHAR},#{themeType,jdbcType=INTEGER}, #{articleIsDel,jdbcType=INTEGER},
+      #{articleTitle,jdbcType=VARCHAR}, #{articleCreateTime,jdbcType=TIMESTAMP}, #{articleLike,jdbcType=INTEGER},
+      #{articleText,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+
+
+  
+  
+  
+  
+  	<!-- 获取到文章的总记录数 -->
+    <select id="queryMovieArticleCount" resultType="java.lang.Integer" parameterType="java.util.Map"> 
+	   select count(*)
+	  	  from ccp_moviessay_article cma
+	  	  left join ccp_moviessay_user cmu on cma.user_id=cmu.user_id
+	  	  where 1=1
+	  	  <if test="articleType != null" >
+	        and cma.article_type = #{articleType,jdbcType=INTEGER}
+	      </if>
+	      <if test="userRealName != null" >
+	        and cmu.user_real_name like #{userRealName,jdbcType=VARCHAR}
+	     </if>
+	     <if test="userMoblieNo != null" >
+	        and cmu.user_moblie_no like #{userMoblieNo,jdbcType=VARCHAR}
+	     </if>
+	     <if test="articleIsDel != null" >
+	        and cma.article_is_del = #{articleIsDel,jdbcType=INTEGER}
+	      </if>
+	      <if test="themeType != null">
+	      	 and cma.theme_type = #{themeType,jdbcType=INTEGER}
+	      </if>
+	 </select>
+  
+  	
+  
+  
+  	<!-- 查询记录信息 -->
+	 <select id="queryMoviessayArticleByList" resultMap="BaseResultDtoMap" parameterType="java.util.Map">
+	  	 select 
+		  	 cma.article_title,
+		  	 cma.article_id,
+		  	 cma.article_text,
+		  	 cma.article_create_time,
+		  	 cma.article_is_del,
+		  	 cma.article_like,
+		  	 cma.theme_type,
+		  	 cmu.user_real_name,
+		  	 cmu.user_moblie_no
+	  	 from 
+	  	 ccp_moviessay_article cma
+	  	 	left join ccp_moviessay_user cmu on cma.user_id=cmu.user_id
+	  	 where 1=1 
+		  	 <if test="articleType != null" >
+		         and cma.article_type = #{articleType,jdbcType=INTEGER}
+		     </if>
+		     <if test="themeType != null">
+		      	 and cma.theme_type = #{themeType,jdbcType=INTEGER}
+		      </if>
+		     <if test="userRealName != null" >
+		         and cmu.user_real_name like #{userRealName,jdbcType=VARCHAR}
+		     </if>
+		     <if test="userMoblieNo != null" >
+		         and cmu.user_moblie_no like #{userMoblieNo,jdbcType=VARCHAR}
+		     </if>
+		     <if test="articleIsDel != null" >
+		         and cma.article_is_del = #{articleIsDel,jdbcType=INTEGER}
+		      </if>
+		     order by cma.article_create_time desc
+		     <if test="firstResult != null">
+				 limit ${firstResult},${rows}
+			</if>
+  	</select>
+  
+  
+  
+  
+  	  <select id="selectByPrimaryKey" resultMap="BaseResultDtoMap" parameterType="java.lang.String" >
+		    select 
+		    <include refid="Base_Column_List" />
+		    ,
+		    <include refid="Blob_Column_List" />
+		    from ccp_moviessay_article
+		    where article_id = #{articleId,jdbcType=VARCHAR}
+	  </select>
+  
+  
+  	  
+  	  
+  	   <update id="updateByPrimaryKeySelective" parameterType="com.sun3d.why.model.ccp.CcpMoviessayArticleDto" >
+		    update ccp_moviessay_article
+		    <set >
+		      <if test="userId != null" >
+		        user_id = #{userId,jdbcType=VARCHAR},
+		      </if>
+		      <if test="articleType != null" >
+		        article_type = #{articleType,jdbcType=INTEGER},
+		      </if>
+		      <if test="articleIsDel != null" >
+		        article_is_del = #{articleIsDel,jdbcType=INTEGER},
+		      </if>
+		      <if test="articleTitle != null" >
+		        article_title = #{articleTitle,jdbcType=VARCHAR},
+		      </if>
+		      <if test="articleCreateTime != null" >
+		        article_create_time = #{articleCreateTime,jdbcType=TIMESTAMP},
+		      </if>
+		      <if test="articleLike != null" >
+		        article_like = #{articleLike,jdbcType=INTEGER},
+		      </if>
+		      <if test="articleText != null" >
+		        article_text = #{articleText,jdbcType=LONGVARCHAR},
+		      </if>
+		      <if test="themeType!= null" >
+		        theme_type = #{themeType,jdbcType=INTEGER},
+		      </if>
+		    </set>
+		    where article_id = #{articleId,jdbcType=VARCHAR}
+	 </update>
+  
+  
+  
+  
+  
+  	<!-- 查询文章的详情 -->
+    <select id="queryMoviessayArticleDetail" resultMap="BaseResultDtoMap">
+  
+	   select a.*
+	   <if test="loginUser != null">
+	   		,IF((SELECT COUNT(l.article_id) FROM ccp_moviessay_like l WHERE l.article_id = a.article_id and l.user_id=#{loginUser} and l.create_date = CURRENT_DATE)>0,1,0) as isLike
+	   </if>
+	  	,u.USER_NAME AS userName
+		,u.USER_HEAD_IMG_URL AS userHeadImgUrl
+	    from ccp_moviessay_article a
+	    left join cms_terminal_user u on u.user_id = a.user_id
+	    where article_id =#{articleId}
+    </select>
+  
+  
+  
+  
+  
+  	<select id="checkMessage" resultMap="BaseResultDtoMap" parameterType="java.lang.String">
+	  	  select 
+		  	 cma.article_title,
+		  	 cma.article_id,
+		  	 cma.article_text,
+		  	 cma.article_create_time,
+		  	 cma.article_is_del,
+		  	 cma.article_like,
+		  	 cmu.user_real_name,
+		  	 cmu.user_moblie_no
+		  	 from 
+		  	 ccp_moviessay_article cma
+		  	 left join ccp_moviessay_user cmu on cma.user_id=cmu.user_id
+		  	 where 1=1 and cma.article_id=#{articleId,jdbcType=VARCHAR}
+		 </select>
+</mapper>

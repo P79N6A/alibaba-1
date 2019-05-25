@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.YketCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.bean.yket.YketComment" >
+    <id column="comment_id" property="commentId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="comment_type" property="commentType" jdbcType="INTEGER" />
+    <result column="object_id" property="objectId" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="comment_img_urls" property="commentImgUrls" jdbcType="VARCHAR" />
+    <result column="check_status" property="checkStatus" jdbcType="INTEGER" />
+    <result column="top_flag" property="topFlag" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+  </resultMap>
+ <resultMap type="com.sun3d.why.model.vo.yket.CommentListVo" id="commentListVoMap" extends="BaseResultMap">
+   <result column="USER_NAME" property="userNickName" jdbcType="VARCHAR" />
+    <result column="USER_HEAD_IMG_URL" property="userHeadImgUrl" jdbcType="VARCHAR" />
+  </resultMap> 
+  <resultMap id="CommentResultMap" type="com.sun3d.why.model.vo.yket.YketCommentVo" extends="BaseResultMap"> 
+  	<result column="USER_NICK_NAME" property="userNickName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    comment_id, user_id, comment_type, object_id, content, comment_img_urls, check_status, 
+    top_flag, create_time, update_time, update_user
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from yket_comment
+    where comment_id = #{commentId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from yket_comment
+    where comment_id = #{commentId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sun3d.why.model.bean.yket.YketComment" >
+    insert into yket_comment (comment_id, user_id, comment_type, 
+      object_id, content, comment_img_urls, 
+      check_status, top_flag, create_time, 
+      update_time, update_user)
+    values (#{commentId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{commentType,jdbcType=INTEGER}, 
+      #{objectId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{commentImgUrls,jdbcType=VARCHAR}, 
+      #{checkStatus,jdbcType=INTEGER}, #{topFlag,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sun3d.why.model.bean.yket.YketComment" >
+    insert into yket_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commentId != null" >
+        comment_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="commentType != null" >
+        comment_type,
+      </if>
+      <if test="objectId != null" >
+        object_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="commentImgUrls != null" >
+        comment_img_urls,
+      </if>
+      <if test="checkStatus != null" >
+        check_status,
+      </if>
+      <if test="topFlag != null" >
+        top_flag,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commentId != null" >
+        #{commentId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="commentType != null" >
+        #{commentType,jdbcType=INTEGER},
+      </if>
+      <if test="objectId != null" >
+        #{objectId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="commentImgUrls != null" >
+        #{commentImgUrls,jdbcType=VARCHAR},
+      </if>
+      <if test="checkStatus != null" >
+        #{checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="topFlag != null" >
+        #{topFlag,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sun3d.why.model.bean.yket.YketComment" >
+    update yket_comment
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="commentType != null" >
+        comment_type = #{commentType,jdbcType=INTEGER},
+      </if>
+      <if test="objectId != null" >
+        object_id = #{objectId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="commentImgUrls != null" >
+        comment_img_urls = #{commentImgUrls,jdbcType=VARCHAR},
+      </if>
+      <if test="checkStatus != null" >
+        check_status = #{checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="topFlag != null" >
+        top_flag = #{topFlag,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where comment_id = #{commentId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sun3d.why.model.bean.yket.YketComment" >
+    update yket_comment
+    set user_id = #{userId,jdbcType=VARCHAR},
+      comment_type = #{commentType,jdbcType=INTEGER},
+      object_id = #{objectId,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      comment_img_urls = #{commentImgUrls,jdbcType=VARCHAR},
+      check_status = #{checkStatus,jdbcType=INTEGER},
+      top_flag = #{topFlag,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR}
+    where comment_id = #{commentId,jdbcType=VARCHAR}
+  </update>
+    <select id="queryCommentByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	 select 
+  	 yc.comment_id, 
+  	 yc.user_id, 
+  	 yc.comment_type, 
+  	 yc.object_id, 
+  	 yc.content, 
+  	 yc.check_status, 
+     yc.top_flag, 
+     yc.create_time,
+     ctu.USER_NICK_NAME,
+     ctu.USER_HEAD_IMG_URL
+     from yket_comment yc
+     left join cms_terminal_user ctu on yc.user_id=ctu.user_id 
+     where 1=1
+     <if test="userId != null" >
+       and ctu.user_id = #{userId,jdbcType=VARCHAR}
+     </if>
+     <if test="objectId != null" >
+       and yc.object_id = #{objectId,jdbcType=VARCHAR}
+     </if>
+     <if test="commentType!=null">
+       and yc.comment_type=#{commentType,jdbcType=VARCHAR}
+     </if>
+     order by yc.create_time desc
+     <if test="firstResult != null">
+		limit ${firstResult},${rows}
+	 </if>
+  </select>	
+  <select id="queryCommentByCondition4Front" resultMap="commentListVoMap" parameterType="java.util.Map">
+  	 select 
+  	 yc.comment_id, 
+  	 yc.user_id, 
+  	 yc.comment_type, 
+  	 yc.object_id, 
+  	 yc.content, 
+  	 yc.check_status, 
+     yc.top_flag, 
+     yc.create_time,
+     ctu.USER_NAME,
+     ctu.USER_HEAD_IMG_URL
+     from yket_comment yc
+     left join cms_terminal_user ctu on yc.user_id=ctu.user_id 
+     where yc.check_status=0 
+     <if test="userId != null" >
+       and ctu.user_id = #{userId,jdbcType=VARCHAR}
+     </if>
+     <if test="objectId != null" >
+       and yc.object_id = #{objectId,jdbcType=VARCHAR}
+     </if>
+     <if test="commentType!=null">
+       and yc.comment_type=#{commentType,jdbcType=VARCHAR}
+     </if>
+     order by yc.create_time desc
+     <if test="firstResult != null">
+		limit ${firstResult},${rows}
+	 </if>
+  </select>	
+  <select id="queryCommentList" resultMap="CommentResultMap" parameterType="java.util.Map">
+  	 select 
+  	 yc.comment_id, 
+  	 yc.user_id, 
+  	 yc.comment_type, 
+  	 yc.content, 
+  	 yc.check_status, 
+     yc.top_flag, 
+     yc.create_time,
+     ctu.USER_NAME as USER_NICK_NAME 
+     from yket_comment yc
+  	 left join cms_terminal_user ctu on yc.user_id=ctu.user_id 
+  	 where yc.check_status=0
+  	 <if test="objectId != null" >
+       and yc.object_id = #{objectId,jdbcType=VARCHAR}
+     </if>
+     <if test="commentType != null" >
+       and yc.comment_type = #{commentType,jdbcType=INTEGER}
+     </if>
+  	 GROUP BY yc.create_time desc
+  	 <if test="firstResult != null">
+		limit ${firstResult},${rows}
+	 </if>
+  </select>
+  <select id="countComment" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	 select count(*)
+  	 from yket_comment yc
+  	 where yc.check_status=0 
+  	 <if test="objectId != null" >
+       and yc.object_id = #{objectId,jdbcType=VARCHAR}
+     </if>
+     <if test="commentType != null" >
+       and yc.comment_type = #{commentType,jdbcType=INTEGER}
+     </if>
+  </select>	
+  <update id="update" parameterType="com.sun3d.why.model.bean.yket.YketComment" >
+    update yket_comment set top_flag = #{topFlag}
+  </update>
+   <select id="getPickUpComment" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	 select 
+  	 yc.comment_id, 
+  	 yc.user_id, 
+  	 yc.comment_type, 
+  	 yc.object_id, 
+  	 yc.content, 
+     yc.top_flag, 
+     yc.create_time 
+     from yket_comment yc
+      where yc.top_flag=1
+     <if test="objectId != null" >
+       and yc.object_id = #{objectId,jdbcType=VARCHAR}
+     </if>
+     <if test="commentType!=null">
+       and yc.comment_type=#{commentType,jdbcType=VARCHAR}
+     </if>
+     limit 1      
+  </select>	
+</mapper>

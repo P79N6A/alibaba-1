@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sun3d.why.dao.CcpAssociationRecruitMapper">
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CcpAssociationRecruit">
+    <id column="RECRUIT_ID" jdbcType="VARCHAR" property="recruitId" />
+    <result column="ASSN_ID" jdbcType="VARCHAR" property="assnId" />
+    <result column="RECRUIT_NUMBER" jdbcType="INTEGER" property="recruitNumber" />
+    <result column="APPLY_NUMBER" jdbcType="INTEGER" property="applyNumber" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="UPDATE_USER" jdbcType="VARCHAR" property="updateUser" />
+    <result column="RECRUIT_START_TIME" jdbcType="TIMESTAMP" property="recruitStartTime" />
+    <result column="RECRUIT_END_TIME" jdbcType="TIMESTAMP" property="recruitEndTime" />
+    <result column="RECRUIT_REQUIRMENT" jdbcType="VARCHAR" property="recruitRequirment" />
+    <result column="RECRUIT_STATUS" jdbcType="INTEGER" property="recruitStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    RECRUIT_ID, ASSN_ID, RECRUIT_NUMBER, APPLY_NUMBER, CREATE_TIME, CREATE_USER, UPDATE_TIME, 
+    UPDATE_USER, RECRUIT_START_TIME, RECRUIT_END_TIME, RECRUIT_REQUIRMENT, RECRUIT_STATUS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_association_recruit
+    where RECRUIT_ID = #{recruitId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ccp_association_recruit
+    where RECRUIT_ID = #{recruitId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sun3d.why.model.CcpAssociationRecruit">
+    insert into ccp_association_recruit (RECRUIT_ID, ASSN_ID, RECRUIT_NUMBER, 
+      APPLY_NUMBER, CREATE_TIME, CREATE_USER, 
+      UPDATE_TIME, UPDATE_USER, RECRUIT_START_TIME, 
+      RECRUIT_END_TIME, RECRUIT_REQUIRMENT, RECRUIT_STATUS
+      )
+    values (#{recruitId,jdbcType=VARCHAR}, #{assnId,jdbcType=VARCHAR}, #{recruitNumber,jdbcType=INTEGER}, 
+      #{applyNumber,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, #{recruitStartTime,jdbcType=TIMESTAMP}, 
+      #{recruitEndTime,jdbcType=TIMESTAMP}, #{recruitRequirment,jdbcType=VARCHAR}, #{recruitStatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sun3d.why.model.CcpAssociationRecruit">
+    insert into ccp_association_recruit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recruitId != null">
+        RECRUIT_ID,
+      </if>
+      <if test="assnId != null">
+        ASSN_ID,
+      </if>
+      <if test="recruitNumber != null">
+        RECRUIT_NUMBER,
+      </if>
+      <if test="applyNumber != null">
+        APPLY_NUMBER,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="createUser != null">
+        CREATE_USER,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="updateUser != null">
+        UPDATE_USER,
+      </if>
+      <if test="recruitStartTime != null">
+        RECRUIT_START_TIME,
+      </if>
+      <if test="recruitEndTime != null">
+        RECRUIT_END_TIME,
+      </if>
+      <if test="recruitRequirment != null">
+        RECRUIT_REQUIRMENT,
+      </if>
+      <if test="recruitStatus != null">
+        RECRUIT_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recruitId != null">
+        #{recruitId,jdbcType=VARCHAR},
+      </if>
+      <if test="assnId != null">
+        #{assnId,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitNumber != null">
+        #{recruitNumber,jdbcType=INTEGER},
+      </if>
+      <if test="applyNumber != null">
+        #{applyNumber,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitStartTime != null">
+        #{recruitStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recruitEndTime != null">
+        #{recruitEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recruitRequirment != null">
+        #{recruitRequirment,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitStatus != null">
+        #{recruitStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sun3d.why.model.CcpAssociationRecruit">
+    update ccp_association_recruit
+    <set>
+      <if test="assnId != null">
+        ASSN_ID = #{assnId,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitNumber != null">
+        RECRUIT_NUMBER = #{recruitNumber,jdbcType=INTEGER},
+      </if>
+      <if test="applyNumber != null">
+        APPLY_NUMBER = #{applyNumber,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitStartTime != null">
+        RECRUIT_START_TIME = #{recruitStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recruitEndTime != null">
+        RECRUIT_END_TIME = #{recruitEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recruitRequirment != null">
+        RECRUIT_REQUIRMENT = #{recruitRequirment,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitStatus != null">
+        RECRUIT_STATUS = #{recruitStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where RECRUIT_ID = #{recruitId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sun3d.why.model.CcpAssociationRecruit">
+    update ccp_association_recruit
+    set ASSN_ID = #{assnId,jdbcType=VARCHAR},
+      RECRUIT_NUMBER = #{recruitNumber,jdbcType=INTEGER},
+      APPLY_NUMBER = #{applyNumber,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      RECRUIT_START_TIME = #{recruitStartTime,jdbcType=TIMESTAMP},
+      RECRUIT_END_TIME = #{recruitEndTime,jdbcType=TIMESTAMP},
+      RECRUIT_REQUIRMENT = #{recruitRequirment,jdbcType=VARCHAR},
+      RECRUIT_STATUS = #{recruitStatus,jdbcType=INTEGER}
+    where RECRUIT_ID = #{recruitId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectRecruitByMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_association_recruit
+    where 1=1 and RECRUIT_STATUS !=3
+    <if test="assnId != null">
+		AND ASSN_ID = #{assnId,jdbcType=VARCHAR}
+	</if>
+	<if test="ifcan != null">
+		AND RECRUIT_END_TIME > now() AND APPLY_NUMBER!=RECRUIT_NUMBER
+	</if>
+	order by CREATE_TIME desc
+  </select>
+  <select id="selectByAssnId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_association_recruit
+    where RECRUIT_END_TIME > now() AND APPLY_NUMBER!=RECRUIT_NUMBER and RECRUIT_STATUS !=3
+	AND ASSN_ID = #{assnId,jdbcType=VARCHAR}
+	order by CREATE_TIME desc
+  </select>
+</mapper>

@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsActivitySeatMapper">
+    <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsActivitySeat">
+        <id column="ACTIVITY_SEAT_ID" jdbcType="VARCHAR" property="activitySeatId"/>
+        <result column="SEAT_PRICE" jdbcType="DECIMAL" property="seatPrice"/>
+        <result column="SEAT_STATUS" jdbcType="INTEGER" property="seatStatus"/>
+        <result column="SEAT_IS_SOLD" jdbcType="INTEGER" property="seatIsSold"/>
+        <result column="TICKET" jdbcType="INTEGER" property="ticket"/>
+        <result column="ACTIVITY_ID" jdbcType="VARCHAR" property="activityId"/>
+        <result column="EVENT_ID" jdbcType="VARCHAR" property="eventId"/>
+        <result column="SEAT_ROW" jdbcType="INTEGER" property="seatRow"/>
+        <result column="SEAT_COLUMN" jdbcType="INTEGER" property="seatColumn"/>
+        <result column="SEAT_AREA" jdbcType="VARCHAR" property="seatArea"/>
+        <result column="SEAT_CODE" jdbcType="VARCHAR" property="seatCode"/>
+        <result column="SEAT_VAL" jdbcType="VARCHAR" property="seatVal"/>
+        <result column="SEAT_CREATE_USER" jdbcType="VARCHAR" property="seatCreateUser"/>
+        <result column="SEAT_UPDATE_USER" jdbcType="VARCHAR" property="seatUpdateUser"/>
+        <result column="SEAT_CREATE_TIME" jdbcType="TIMESTAMP" property="seatCreateTime"/>
+        <result column="SEAT_UPDATE_TIME" jdbcType="TIMESTAMP" property="seatUpdateTime"/>
+        <result column="SEAT_ID" jdbcType="VARCHAR" property="seatId"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+    ACTIVITY_SEAT_ID, SEAT_PRICE, SEAT_STATUS, SEAT_IS_SOLD, TICKET, ACTIVITY_ID, SEAT_ID,SEAT_CODE,SEAT_ROW,
+    SEAT_COLUMN,SEAT_AREA,SEAT_CODE,SEAT_UPDATE_TIME,SEAT_VAL
+
+  </sql>
+    <insert id="addActivitySeat" parameterType="com.sun3d.why.model.CmsActivitySeat">
+        insert into cms_activity_seat
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="activitySeatId != null">
+                ACTIVITY_SEAT_ID,
+            </if>
+            <if test="seatPrice != null">
+                SEAT_PRICE,
+            </if>
+            <if test="seatStatus != null">
+                SEAT_STATUS,
+            </if>
+            <if test="seatIsSold != null">
+                SEAT_IS_SOLD,
+            </if>
+            <if test="ticket != null">
+                TICKET,
+            </if>
+            <if test="activityId != null">
+                ACTIVITY_ID,
+            </if>
+            <if test="seatId != null">
+                SEAT_ID,
+            </if>
+            <if test="seatArea != null">
+                SEAT_AREA,
+            </if>
+            <if test="seatRow != null">
+                SEAT_ROW,
+            </if>
+            <if test="seatColumn != null">
+                SEAT_COLUMN,
+            </if>
+            <if test="seatCode != null">
+                SEAT_CODE,
+            </if>
+            <if test="seatCreateTime != null">
+                SEAT_CREATE_TIME,
+            </if>
+            <if test="seatCreateUser != null">
+                SEAT_CREATE_USER,
+            </if>
+            <if test="seatUpdateTime != null">
+                SEAT_UPDATE_TIME,
+            </if>
+            <if test="seatUpdateUser != null">
+                SEAT_UPDATE_USER,
+            </if>
+            <if test="seatVal != null">
+                SEAT_VAL,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="activitySeatId != null">
+                #{activitySeatId,jdbcType=VARCHAR},
+            </if>
+            <if test="seatPrice != null">
+                #{seatPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="seatStatus != null">
+                #{seatStatus,jdbcType=INTEGER},
+            </if>
+            <if test="seatIsSold != null">
+                #{seatIsSold,jdbcType=INTEGER},
+            </if>
+            <if test="ticket != null">
+                #{ticket,jdbcType=INTEGER},
+            </if>
+            <if test="activityId != null">
+                #{activityId,jdbcType=VARCHAR},
+            </if>
+            <if test="seatId != null">
+                #{seatId,jdbcType=VARCHAR},
+            </if>
+            <if test="seatArea != null">
+                #{seatArea,jdbcType=VARCHAR},
+            </if>
+            <if test="seatRow != null">
+                #{seatRow,jdbcType=INTEGER},
+            </if>
+            <if test="seatColumn != null">
+                #{seatColumn,jdbcType=INTEGER},
+            </if>
+            <if test="seatCode != null">
+                #{seatCode,jdbcType=VARCHAR},
+            </if>
+            <if test="seatCreateTime != null">
+                #{seatCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="seatCreateUser != null">
+                #{seatCreateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="seatUpdateTime != null">
+                #{seatUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="seatUpdateUser != null">
+                #{seatUpdateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="seatVal != null">
+                #{seatVal,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="editByActivitySeat" parameterType="map">
+        update cms_activity_seat
+        <set>
+            <if test="activitySeatId != null">
+                ACTIVITY_SEAT_ID = #{activitySeatId,jdbcType=VARCHAR},
+            </if>
+            <if test="seatPrice != null">
+                SEAT_PRICE = #{seatPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="seatStatus != null">
+                SEAT_STATUS = #{seatStatus,jdbcType=INTEGER},
+            </if>
+            <if test="seatIsSold != null">
+                SEAT_IS_SOLD = #{seatIsSold,jdbcType=INTEGER},
+            </if>
+            <if test="ticket != null">
+                TICKET = #{ticket,jdbcType=INTEGER},
+            </if>
+            <if test="activityId != null">
+                ACTIVITY_ID = #{activityId,jdbcType=VARCHAR},
+            </if>
+            <if test="seatId != null">
+                SEAT_ID = #{seatId,jdbcType=VARCHAR},
+            </if>
+            <if test="seatArea != null">
+                seat_Area = #{seatArea,jdbcType=VARCHAR},
+            </if>
+            <if test="seatRow != null">
+                seat_Row = #{seatRow,jdbcType=INTEGER},
+            </if>
+            <if test="seatColumn != null">
+                seat_Column = #{seatColumn,jdbcType=INTEGER},
+            </if>
+            <if test="seatCode != null">
+                seat_Code = #{seatCode,jdbcType=VARCHAR},
+            </if>
+            <if test="seatUpdateTime != null">
+                SEAT_UPDATE_TIME = #{seatUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="seatUpdateUser != null">
+                SEAT_UPDATE_USER = #{seatUpdateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="seatVal != null">
+                SEAT_VAL = #{seatVal,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ACTIVITY_SEAT_ID = #{activitySeatId,jdbcType=VARCHAR}
+    </update>
+
+
+    <select id="queryCmsActivitySeatCondition" resultMap="BaseResultMap" parameterType="hashmap">
+        SELECT
+        ACTIVITY_SEAT_ID,
+        SEAT_PRICE,
+        SEAT_STATUS,
+        SEAT_IS_SOLD,
+        TICKET,
+        ACTIVITY_ID,
+        SEAT_ROW,
+        SEAT_COLUMN,
+        SEAT_AREA,
+        SEAT_CODE,
+        seat_Val
+        FROM cms_activity_seat ac
+        WHERE 1=1
+        <if test="activityId != null">
+            AND ac.ACTIVITY_ID = #{activityId,jdbcType=INTEGER}
+        </if>
+        <if test="seatRow != null">
+            AND ac.seat_Row in (#{seatRow,jdbcType=INTEGER})
+        </if>
+        <if test="seatColumn != null">
+            AND ac.seat_column in( #{seatColumn,jdbcType=INTEGER})
+        </if>
+        order by SEAT_ROW,SEAT_COLUMN
+
+    </select>
+
+    <update id="editActivitySeatByCode">
+        update cms_activity_seat
+        <set>
+            <if test="record.activitySeatId != null">
+                ACTIVITY_SEAT_ID = #{record.activitySeatId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.seatPrice != null">
+                SEAT_PRICE = #{record.seatPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="record.seatStatus != null">
+                SEAT_STATUS = #{record.seatStatus,jdbcType=INTEGER},
+            </if>
+            <if test="record.seatIsSold != null">
+                SEAT_IS_SOLD = #{record.seatIsSold,jdbcType=INTEGER},
+            </if>
+            <if test="record.ticket != null">
+                TICKET = #{record.ticket,jdbcType=INTEGER},
+            </if>
+            <if test="record.activityId != null">
+                ACTIVITY_ID = #{record.activityId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.seatId != null">
+                SEAT_ID = #{record.seatId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.seatArea != null">
+                seat_Area = #{record.seatArea,jdbcType=VARCHAR},
+            </if>
+            <if test="record.seatRow != null">
+                seat_Row = #{record.seatRow,jdbcType=INTEGER},
+            </if>
+            <if test="record.seatColumn != null">
+                seat_Column = #{record.seatColumn,jdbcType=INTEGER},
+            </if>
+            <if test="record.seatCode != null">
+                seat_Code = #{record.seatCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.seatCreateTime != null">
+                seat_Create_Time #{record.seatCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.seatCreateUser != null">
+                seat_Create_User #{record.seatCreateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="record.seatUpdateTime != null">
+                seat_Update_Time = #{record.seatUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.seatUpdateUser != null">
+                seat_Update_User = #{record.seatUpdateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="seatVal != null">
+                seat_Val = #{record.seatVal,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            where 1=1
+            <if test="map.activityId != null">
+                and ACTIVITY_ID = #{map.activityId,jdbcType=VARCHAR}
+            </if>
+            <if test="map.seatCode != null">
+                and seat_Code = #{map.seatCode,jdbcType=VARCHAR}
+            </if>
+            <if test="map.seatRow != null">
+                and seat_Row = #{map.seatRow,jdbcType=INTEGER}
+            </if>
+            <if test="map.seatColumn != null">
+                and seat_Column = #{map.seatColumn,jdbcType=INTEGER}
+            </if>
+        </if>
+    </update>
+
+
+    <delete id="deleteByActivityId" parameterType="java.lang.String">
+    delete from cms_activity_seat
+    where activity_Id = #{activityId,jdbcType=VARCHAR}
+  </delete>
+
+    <delete id="deleteByEventId" parameterType="java.lang.String">
+        delete from cms_activity_seat
+        where event_Id = #{eventId,jdbcType=VARCHAR}
+    </delete>
+
+    <select id="queryCountByActivityId" resultType="integer" parameterType="java.lang.String">
+        select count(*) from cms_activity_seat where 1=1
+        <!--<if test="activityId != null">-->
+        and activity_Id = #{activityId,jdbcType=VARCHAR}
+        <!--</if>-->
+
+    </select>
+
+    <!-- 根据活动id  和 seatCode  查询seatVal; -->
+    <select id="querySeatValByMap" resultMap="BaseResultMap" parameterType="hashmap">
+        SELECT *
+        FROM cms_activity_seat a
+        WHERE 1=1
+        <if test="activityId != null">
+            AND a.ACTIVITY_ID = #{activityId}
+        </if>
+        <if test="eventId != null">
+            AND a.EVENT_ID = #{eventId}
+        </if>
+        <if test="seatRow != null">
+            AND a.SEAT_ROW in (#{seatRow,jdbcType=INTEGER})
+        </if>
+        <if test="seatColumn != null">
+            AND a.SEAT_COLUMN = #{seatColumn,jdbcType=INTEGER}
+        </if>
+        <if test="seatCode != null">
+            AND a.SEAT_CODE = #{seatCode}
+        </if>
+        <if test="seatVal!= null">
+            AND a.SEAT_VAL = #{seatVal}
+        </if>
+        limit 0,1
+    </select>
+
+
+    <select id="selectSeatList" resultMap="BaseResultMap" parameterType="hashmap">
+        SELECT *
+        FROM cms_activity_seat a
+        left JOIN
+        cms_activity_event b on a.EVENT_ID=b.EVENT_ID
+        WHERE 1=1
+        <if test="activityId != null">
+            AND a.ACTIVITY_ID = #{activityId,jdbcType=INTEGER}
+        </if>
+        <if test="activityEventimes != null">
+            AND b.EVENT_DATE_TIME =#{activityEventimes,jdbcType=INTEGER}
+        </if>
+        ORDER BY a.SEAT_ROW,a.SEAT_COLUMN
+    </select>
+    <select id="selectSeatCount" resultType="java.lang.Integer" parameterType="hashmap">
+        SELECT count(*)
+        FROM cms_activity_seat a
+        left JOIN
+        cms_activity_event b on a.ACTIVITY_ID=b.ACTIVITY_ID
+        WHERE a.SEAT_IS_SOLD='1'
+        <if test="activityId != null">
+            AND a.ACTIVITY_ID = #{activityId,jdbcType=INTEGER}
+        </if>
+        <if test="activityEventimes != null">
+            AND b.EVENT_DATE_TIME =#{activityEventimes,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <insert id="addActivitySeatList" parameterType="java.util.List">
+        INSERT INTO cms_activity_seat (
+            ACTIVITY_SEAT_ID,
+            SEAT_STATUS,
+            SEAT_IS_SOLD,
+            ACTIVITY_ID,
+            EVENT_ID,
+            SEAT_ROW,
+            SEAT_COLUMN,
+            SEAT_AREA,
+            SEAT_CODE,
+            seat_Create_Time,
+            seat_Create_User,
+            seat_Update_Time,
+            seat_Update_User,
+            seat_Val
+        ) VALUES
+        <foreach collection="list" item="record" index="index" open="(" separator="),(" close=")">
+            <if test="record.activitySeatId != null">
+                #{record.activitySeatId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.seatStatus != null">
+                #{record.seatStatus,jdbcType=INTEGER},
+            </if>
+            <if test="record.seatIsSold != null">
+                #{record.seatIsSold,jdbcType=INTEGER},
+            </if>
+            <if test="record.activityId != null">
+                #{record.activityId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.eventId != null">
+                #{record.eventId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.seatRow != null">
+                #{record.seatRow,jdbcType=INTEGER},
+            </if>
+            <if test="record.seatColumn != null">
+                #{record.seatColumn,jdbcType=INTEGER},
+            </if>
+            <if test="record.seatArea != null">
+                #{record.seatArea,jdbcType=VARCHAR},
+            </if>
+            <if test="record.seatCode != null">
+                #{record.seatCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.seatCreateTime != null">
+                #{record.seatCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.seatCreateUser != null">
+                #{record.seatCreateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="record.seatUpdateTime != null">
+                #{record.seatUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.seatUpdateUser != null">
+                #{record.seatUpdateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="record.seatVal != null">
+                #{record.seatVal,jdbcType=VARCHAR}
+            </if>
+        </foreach>
+    </insert>
+    <update id="editEventSeat" parameterType="map">
+        update cms_activity_seat
+        <set>
+            <if test="eventId != null">
+                EVENT_ID = #{eventId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <where>
+            <if test="activityId != null">
+                EVENT_ID = #{activityId,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+</mapper>

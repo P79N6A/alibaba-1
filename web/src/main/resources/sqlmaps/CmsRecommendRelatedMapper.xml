@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsRecommendRelatedMapper">
+    <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsRecommendRelated">
+        <id column="RECOMMEND_ID" property="recommendId" jdbcType="VARCHAR"/>
+        <result column="RELATED_ID" property="relatedId" jdbcType="VARCHAR"/>
+        <result column="RECOMMEND_TYPE" property="recommendType" jdbcType="INTEGER"/>
+        <result column="RECOMMEND_TIME" property="recommendTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="ACTIVITY_START_TIME" property="activityStartTime" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_END_TIME" property="activityEndTime" jdbcType="VARCHAR"/>
+        <result column="RECOMMEND_TARGET" property="recommendTarget" jdbcType="INTEGER"/>
+        <result column="RELATED_NAME" property="relatedName" jdbcType="VARCHAR"/>
+        <result column="RECOMMEND_COLUMN_TYPE" property="recommendColumnType" jdbcType="INTEGER"/>
+        <collection property="attachList" javaType="java.util.List" ofType="com.sun3d.why.model.CmsActivity">
+            <id column="ACTIVITY_ID" property="activityId" jdbcType="VARCHAR"/>
+            <result column="ACTIVITY_NAME" property="activityName" jdbcType="VARCHAR"/>
+            <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR"/>
+            <result column="RECOMMEND_ID" property="recommendId" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.sun3d.why.model.CmsRecommendRelated" extends="BaseResultMap">
+        <result column="RELATED_URL" property="relatedUrl" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    RECOMMEND_ID, RELATED_ID, RECOMMEND_TYPE, RECOMMEND_TIME, UPDATE_USER_ID, UPDATE_TIME, 
+    RECOMMEND_TARGET, RELATED_NAME
+  </sql>
+    <sql id="Blob_Column_List">
+    RELATED_URL
+  </sql>
+
+    <select id="selectByCmsRecommendRelated" resultMap="BaseResultMap"
+            parameterType="com.sun3d.why.model.CmsRecommendRelated">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from cms_recommend_related
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="recommendTime != null">
+            order by ${recommendTime}
+        </if>
+        limit 1 5
+    </select>
+
+    <insert id="addRecommendRelated" parameterType="com.sun3d.why.model.CmsRecommendRelated">
+        insert into cms_recommend_related
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="recommendId != null">
+                RECOMMEND_ID,
+            </if>
+            <if test="relatedId != null">
+                RELATED_ID,
+            </if>
+            <if test="recommendType != null">
+                RECOMMEND_TYPE,
+            </if>
+            <if test="recommendTime != null">
+                RECOMMEND_TIME,
+            </if>
+            <if test="updateUserId != null">
+                UPDATE_USER_ID,
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME,
+            </if>
+            <if test="recommendTarget != null">
+                RECOMMEND_TARGET,
+            </if>
+            <if test="relatedName != null">
+                RELATED_NAME,
+            </if>
+            <if test="relatedUrl != null">
+                RELATED_URL,
+            </if>
+            <if test="recommendColumnType != null">
+                RECOMMEND_COLUMN_TYPE,
+            </if>
+            <if test="topId != null">
+                TOP_ID,
+            </if>
+            <if test="topType != null">
+                TOP_TYPE,
+            </if>
+            <if test="topTime != null">
+                TOP_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="recommendId != null">
+                #{recommendId,jdbcType=VARCHAR},
+            </if>
+            <if test="relatedId != null">
+                #{relatedId,jdbcType=VARCHAR},
+            </if>
+            <if test="recommendType != null">
+                #{recommendType,jdbcType=INTEGER},
+            </if>
+            <if test="recommendTime != null">
+                #{recommendTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="recommendTarget != null">
+                #{recommendTarget,jdbcType=INTEGER},
+            </if>
+            <if test="relatedName != null">
+                #{relatedName,jdbcType=VARCHAR},
+            </if>
+            <if test="relatedUrl != null">
+                #{relatedUrl,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="recommendColumnType != null">
+                #{recommendColumnType,jdbcType=INTEGER},
+            </if>
+            <if test="topId != null">
+                #{topId,jdbcType=VARCHAR},
+            </if>
+            <if test="topType != null">
+                #{topType,jdbcType=INTEGER},
+            </if>
+            <if test="topTime != null">
+                #{topTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 查询后台活动列表信息 -->
+    <select id="queryRecommendActivity" resultMap="com.sun3d.why.dao.CmsRecommendRelatedMapper.BaseResultMap"
+            parameterType="java.util.Map">
+        SELECT
+        a.ACTIVITY_ID,
+        a.ACTIVITY_NAME,
+        a.ACTIVITY_START_TIME,
+        a.ACTIVITY_END_TIME,
+        sd.RECOMMEND_ID,
+        asd.RECOMMEND_ID as RELATED_ID
+        FROM
+        cms_activity a
+        RIGHT JOIN (
+        SELECT
+        RECOMMEND_ID,
+        RELATED_ID,
+        UPDATE_USER_ID,
+        RECOMMEND_TIME
+        FROM
+        cms_recommend_related
+        WHERE
+        RECOMMEND_COLUMN_TYPE = 4
+        ) sd ON a.ACTIVITY_ID = sd.RELATED_ID
+        LEFT JOIN (
+        SELECT
+        RECOMMEND_ID,
+        RELATED_ID,
+        UPDATE_USER_ID,
+        TOP_ID,
+        RECOMMEND_TIME
+        FROM
+        cms_recommend_related
+        WHERE
+        TOP_TYPE = 1
+        ) asd ON a.ACTIVITY_ID = asd.RELATED_ID
+        AND a.ACTIVITY_ID = asd.TOP_ID
+        WHERE 1=1
+        <if test="activityName != null">
+            AND a.ACTIVITY_NAME like #{activityName,jdbcType=VARCHAR}
+        </if>
+        order by asd.RECOMMEND_TIME DESC ,
+        sd.RECOMMEND_TIME DESC
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+    <select id="queryRecommendActivityCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+        SELECT count(*)
+        FROM
+        cms_activity a
+        right JOIN (
+        SELECT
+        RECOMMEND_ID,
+        RELATED_ID,
+        UPDATE_USER_ID
+        FROM
+        cms_recommend_related
+        WHERE
+        RECOMMEND_COLUMN_TYPE = 4
+        ) sd ON a.ACTIVITY_ID = sd.RELATED_ID
+
+        WHERE
+        1 = 1
+    </select>
+    <delete id="deleteById" parameterType="com.sun3d.why.model.CmsRecommendRelated">
+        delete from cms_recommend_related
+        where
+        <if test="recommendId != null">
+            RECOMMEND_ID = #{recommendId,jdbcType=INTEGER}
+        </if>
+        <if test="recommendColumnType != null">
+            AND RECOMMEND_COLUMN_TYPE = #{recommendColumnType,jdbcType=INTEGER}
+        </if>
+    </delete>
+
+</mapper>

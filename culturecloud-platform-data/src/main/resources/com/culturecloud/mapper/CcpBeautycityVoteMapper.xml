@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.culturecloud.dao.beautycity.CcpBeautycityVoteMapper" >
+  <resultMap id="BaseResultMap" type="com.culturecloud.model.bean.beautycity.CcpBeautycityVote" >
+    <id column="BEAUTYCITY_VOTE_ID" property="beautycityVoteId" jdbcType="VARCHAR" />
+    <result column="BEAUTYCITY_IMG_ID" property="beautycityImgId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    BEAUTYCITY_VOTE_ID, BEAUTYCITY_IMG_ID, USER_ID, CREATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_beautycity_vote
+    where BEAUTYCITY_VOTE_ID = #{beautycityVoteId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_beautycity_vote
+    where BEAUTYCITY_VOTE_ID = #{beautycityVoteId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.culturecloud.model.request.beautycity.CcpBeautycityVoteReqVO" >
+    insert into ccp_beautycity_vote
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      BEAUTYCITY_VOTE_ID,
+      <if test="beautycityImgId != null" >
+        BEAUTYCITY_IMG_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{beautycityVoteId,jdbcType=VARCHAR},
+      <if test="beautycityImgId != null" >
+        #{beautycityImgId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.culturecloud.model.request.beautycity.CcpBeautycityVoteReqVO" >
+    update ccp_beautycity_vote
+    <set >
+      <if test="beautycityImgId != null" >
+        BEAUTYCITY_IMG_ID = #{beautycityImgId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where BEAUTYCITY_VOTE_ID = #{beautycityVoteId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="countUserTodayVote" resultType="java.lang.Integer" parameterType="com.culturecloud.model.request.beautycity.CcpBeautycityVoteReqVO" >
+    SELECT COUNT(*) 
+    FROM ccp_beautycity_vote
+    WHERE BEAUTYCITY_IMG_ID = #{beautycityImgId} AND USER_ID = #{userId}
+    AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')=DATE_FORMAT(NOW(), '%Y-%m-%d')
+  </select>
+</mapper>

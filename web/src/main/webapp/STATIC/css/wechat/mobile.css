@@ -1,0 +1,80 @@
+@charset "utf-8";
+/**首页**/
+#index{width:730px;margin:0 auto;overflow:hidden;padding:0px 10px;}
+#index .banner{width:750px;height:572px;margin:0 auto;}
+/**custom**/
+#mo_custom{width:730px;margin:0 auto; padding:0px 10px;}
+.child_banner{width:750px;height:384px;margin:0 auto;}
+.m100{ margin-top:100px;}
+/**custom_detail**/
+#display{width:690px;margin:0 auto;padding-top:48px;background:#d0021b repeat;}
+#display .date{width:640px;margin:0 auto;padding:0px 30px 0px 20px;overflow:hidden;}
+#display .date .pic{width:300px; height:225px;overflow:hidden;}
+#display .date .pic img{max-width:300px;max-height:225px;text-align:center;overflow:hidden;}
+#display .date .text{width:320px; height:250px;margin-left:20px;overflow:hidden;position:relative;}
+#display .date .text h1{color:#ffffff;font-size:32px;line-height:32px;max-height:64px;overflow:hidden;}
+#display .date .text span{display:block;color:#edcb7a;font-size:20px;line-height:30px;margin-top:55px;}
+#display .date .text p{display:block;color:#edcb7a;font-size:20px;margin-top:20px; border-bottom:2px dashed #edcb7a; padding-bottom:25px; font-weight:normal;}
+#display .article{width:650px;margin:0 auto;margin-top:60px;overflow:hidden;}
+#display .article p{width:650px;text-indent:2em;line-height:38px;color:#ffffff;font-size:24px;margin-bottom:45px; font-weight:bold; overflow:hidden;}
+#display .article p img{margin:0 auto;max-width:650px;overflow:hidden;}
+/**share**/
+.note-extra{width:690px;display:block;height:60px;overflow: hidden;text-align:right;font-size: 0;padding-bottom:40px;border-bottom:2px dashed #edcb7a;}
+.note-extra a{display:inline-block; width: 60px; height: 60px; margin-left: 40px; vertical-align: top;}
+.note-extra .bdsharebuttonbox{display: inline-block; width: 60px; height: 60px; margin: 0;}
+.note-extra .share{background:url(../../image/share.png) no-repeat;margin: 0;padding: 0;width:60px;height:60px; margin-right:20px;}
+.note-extra .in-zan{background:url(../../image/love.png) no-repeat; margin-right:24px;}
+.note-extra .in-zaned{background:url(../../image/lovexz.png) no-repeat;margin-right:24px;}
+/**comment**/
+.comments{ width:650px; margin:0 auto;margin-top:40px;}
+.comments .form-box{ width: 100%; overflow: hidden;}
+.comments .portrait{ float: left; width: 60px; height: 60px; overflow: hidden;}
+.comments .portrait img{ border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;}
+.comments .content{ float: left; width: 550px; height: 30px; line-height: 30px; overflow: auto; padding: 14px 10px; border:none; background: #f4e4ab; color: #d0021b; font-size: 18px; outline: none; resize: none; margin-left: 20px;}
+.comments .btn-publish{ float: right; width: 100px; height: 40px; line-height: 40px; overflow: hidden; border: 0; color: #edcb7a; font-size: 18px; outline: none; margin-top: 10px; cursor: pointer; border:1px solid #edcb7a; border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;background:none;}
+.comment-lists{ width: 100%; height: auto; overflow: hidden; margin-top: 30px; border-top:none;}
+.comment-lists li{ width: 100%; overflow: hidden; margin-bottom: 28px;}
+.comment-lists li .img{ display: block; float: left; width: 60px; height: 60px; overflow: hidden;}
+.comment-lists li .img img{ border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;}
+.comment-lists li .info{ float:left; display:inline; width: 570px; height: auto; overflow: hidden;    padding: 0px 0px 0px 20px; background:none;}
+.comment-lists li .tit{ height: 30px; line-height: 30px;font-size: 18px; display:block;}
+.comment-lists li .tit h3{ float: left; display:inline; color:#edcb7a; font-size: 18px; font-weight: normal;}
+.comment-lists li .tit span{ float: left; display:inline; color:#edcb7a; margin-left: 20px;}
+.comment-lists li .info p{line-height: 30px;margin-top: 8px; color:#ffffff;font-size: 18px;}
+/**paper_cut**/
+.top30{padding-top:30px;}
+.paper_word_bg{ width:640px; margin:0 auto;padding:40px 15px 0px 35px;background:#d0021b repeat;}
+#paper_word{position:relative;width:640px;padding-top:40px;margin:0 auto;overflow:hidden;}
+#paper_word .grid{display:block; width:300px; min-height:100px; background:#fff; font-size:24px; float:left; -moz-box-shadow: 0 1px 3px rgba(34,25,25,0.4); -webkit-box-shadow: 0 1px 3px rgba(34,25,25,0.4); -webkit-transition: top 1s ease, left 1s ease;	-moz-transition: top 1s ease, left 1s ease;	-o-transition: top 1s ease, left 1s ease; -ms-transition: top 1s ease, left 1s ease; margin-right:20px;cursor:pointer;}
+#paper_word .grid .info {padding:18px 0 20px 0;border:1px solid #000000; background:#edcb7a;display:block;font-size:16px;}
+#paper_word .grid .info .info-top{ padding:0 10px;}
+#paper_word .grid .info p{ font-size:16px; line-height:30px; color:#4a4a4a; max-height:90px; overflow:hidden;}
+#paper_word .in-button{ height:60px; line-height:60px; padding-top:22px; text-align:right;}
+#paper_word .in-button .in-zan{ float:right; width:60px; height:60px; background:url(../../image/love.png) no-repeat 0 0;  }
+#paper_word .in-button .in-zaned{ float:right; width:60px; height:60px; background:url(../../image/lovexz.png) no-repeat 0 -60px;  }
+#paper_word .on-button{ margin-top:40px;}
+#paper_word .on-button .on-zan{ float:right; width:40px; height:40px; background:url(../../image/dz.png) no-repeat 0 0;  }
+#paper_word .on-button .on-zaned{ float:right; width:40px; height:40px; background:url(../../image/dz_xz.png) no-repeat 0 0;  }
+#paper_word .on-button  a.command{ font-size:16px; border:1px solid #d0021b; border-radius:7px; -moz-border-radius:7px;  -webkit-border-radius:7px; color:#d0021b; display:inline-block; text-align:center; width:98px; height:38px; line-height:38px;margin-left:100px;}
+#paper_word .on-button  a.del{color:#d0021b; font-size:16px; margin-top:10px;}
+#paper_word .grid .imgholder .imgs{display:block; width:300px;}
+#paper_word .grid .imgholder .imgs img{ width:300px; max-width:100%; background:#ccc;	display:block;}
+#paper_word .author{ height:60px; padding:10px; margin-top:20px; border-top:1px solid #000000; border-bottom:1px solid #000000; }
+#paper_word .author img{ width: 40px; height:40px; margin-right:10px; float:left;display:inline;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}
+#paper_word .author h1{ font-size:18px; color:#000000;} 
+#paper_word .author span{ font-size:18px; color:#9b9b9b; display:block; line-height:20px;}
+#paper_word .form-box{display:none;width:280px;padding:10px;overflow:hidden;}
+#paper_word .form-box .pinglun{width:208px;height:28px;line-height:20px; padding:10px;resize:none; border:1px solid #000000; margin-left:10px; font-size:16px; outline:none; background:#f4e4ab; color:#dd3a1b;font-weight:bold;}
+#paper_word .form-box .btn-publish{ float:right; width:100px; height:40px; line-height:40px; margin-top:12px; background:none; text-align:center; color:#d0021b; border:1px solid #d0021b; border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px; font-size:18px; outline:none;}
+#paper_word .grid .info .author span{ font-size:18px; color:#d0021b;padding-top:2px;}
+#paper_word .portrait{ float: left; width: 40px; height: 40px; overflow: hidden;}
+#paper_word .portrait img{ width:40px; height:40px; overflow:hidden;border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;}
+#paper_word .comment_list { width: 300px; height: auto; overflow: hidden; border-top:none;}
+#paper_word .comment_list li{ width:278px; padding:20px 10px 25px 10px; overflow: hidden;border-top:1px solid #f4e4ab;}
+#paper_word .comment_list li .img{display:inline-block; float: left; width: 40px; height: 40px; overflow: hidden;}
+#paper_word .comment_list li .img img{ width:40px; height:40px; overflow:hidden; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;}
+#paper_word .comment_list li .infor{float:left; display:inline-block;width:250px; overflow:hidden; margin-left:10px;}
+#paper_word .comment_list li .tit{height: 30px; line-height: 30px; margin: 2px 0 0; font-size: 18px;}
+#paper_word .comment_list li .tit em{ width:130px; height:30px; overflow:hidden; float: left; color: #4A4A4A; font-size: 18px; font-weight: normal;}
+#paper_word .comment_list li .tit span{ float: right; color: #9B9B9B; margin-right:14px;}
+#paper_word .comment_list li .infor p{ width:250px; line-height: 30px; margin-top: 10px; color: #4A4A4A; font-size: 18px;}

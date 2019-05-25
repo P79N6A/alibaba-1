@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.culturecloud.dao.openrs.ActivityOpenApiMapper" >
+
+
+  <resultMap id="BaseResultMap" type="com.culturecloud.dao.dto.openrs.ActivityOpenDTO" >
+    
+    <result column="activityId" property="activityId" jdbcType="VARCHAR" />
+    <result column="activityName" property="activityName" jdbcType="VARCHAR" />
+    <result column="activityAddress" property="activityAddress" jdbcType="VARCHAR" />
+    <result column="activityArea" property="activityArea" jdbcType="VARCHAR" />
+    <result column="activityStartTime" property="activityStartTime" jdbcType="VARCHAR" />
+    <result column="activityEndTime" property="activityEndTime" jdbcType="VARCHAR" />
+    <result column="activityIsFree" property="activityIsFree" jdbcType="VARCHAR" />
+    
+    <result column="activityIconUrl" property="activityIconUrl" jdbcType="VARCHAR" />
+    <result column="activityIsReservation" property="activityIsReservation" jdbcType="VARCHAR" />
+    <result column="activityState" property="activityState" jdbcType="VARCHAR" />
+    <result column="activityIsDel" property="activityIsDel" jdbcType="VARCHAR" />
+    <result column="spikeType" property="spikeType" jdbcType="VARCHAR" />
+    
+    <result column="extTagName" property="extTagName" jdbcType="VARCHAR" />
+    <result column="extTagSubName" property="extTagSubName" jdbcType="VARCHAR" />
+    <result column="extBusinessName" property="extBusinessName" jdbcType="VARCHAR" />
+    <result column="venueId" property="venueId" jdbcType="VARCHAR" />
+    <result column="updateTime" property="updateTime" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="VARCHAR" />
+    <result column="activityCreateUser" property="activityCreateUser" jdbcType="VARCHAR" />
+    
+    <result column="activityLon" property="activityLon" jdbcType="VARCHAR" />
+    <result column="activityLat" property="activityLat" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_SUPPLEMENT_TYPE" jdbcType="INTEGER" property="activitySupplementType" />
+    <result column="LOWEST_CREDIT" jdbcType="INTEGER" property="lowestCredit" />
+    <result column="COST_CREDIT" jdbcType="INTEGER" property="costCredit" />
+    <result column="DEDUCTION_CREDIT" jdbcType="INTEGER" property="deductionCredit" />
+    
+  </resultMap>
+
+  <select id="getAcivitys" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select a.ACTIVITY_ID as activityId,a.ACTIVITY_NAME as activityName,a.ACTIVITY_ADDRESS as activityAddress,a.ACTIVITY_AREA as activityArea,
+    a.ACTIVITY_START_TIME as activityStartTime,a.ACTIVITY_END_TIME as activityEndTime,a.ACTIVITY_IS_FREE as activityIsFree,
+    a.ACTIVITY_IS_RESERVATION as activityIsReservation,a.ACTIVITY_STATE as activityState,a.ACTIVITY_IS_DEL as activityIsDel,a.SPIKE_TYPE as 
+    spikeType,b.TAG_NAME as extTagName,cts.TAG_NAME as extTagSubName,cavr.VENUE_ID as venueId,CONCAT("${staticServerUrl}",a.ACTIVITY_ICON_URL) as activityIconUrl,
+    sd.DICT_NAME as extBusinessName,
+    a.ACTIVITY_UPDATE_TIME as updateTime,a.ACTIVITY_CREATE_TIME as createTime,a.ACTIVITY_LON as activityLon,a.ACTIVITY_LAT as activityLat,ACTIVITY_SUPPLEMENT_TYPE,LOWEST_CREDIT,COST_CREDIT,DEDUCTION_CREDIT
+    from cms_activity as a 
+    left join cms_tag as b on a.ACTIVITY_TYPE = b.TAG_ID 
+    left join cms_tag_sub_relate as ctsr on a.ACTIVITY_ID = ctsr.RELATE_ID 
+    left join cms_tag_sub as cts on ctsr.TAG_SUB_ID = cts.TAG_SUB_ID 
+    left join cms_activity_venue_relevance as cavr on a.ACTIVITY_ID = cavr.ACTIVITY_ID 
+    left join sys_dict as sd on a.ACTIVITY_LOCATION=sd.DICT_ID
+	where 1=1
+	<if test="areaSource != null">
+		AND a.ACTIVITY_CREATE_USER in 
+		(select b.USER_ID from sys_user as b where b.USER_DEPT_PATH like CONCAT('%','${areaSource}','%' ) and b.USER_ISDISPLAY=1 and b.USER_STATE=1)
+	</if>
+	<if test="updateTime != null">
+		and a.ACTIVITY_UPDATE_TIME &gt;=#{updateTime,jdbcType=VARCHAR}
+	</if>
+  </select>
+  
+  <select id="getActivityCommentCount" resultType="java.lang.Integer" parameterType="java.lang.String" >
+	SELECT count(*)
+	FROM cms_comment c
+	INNER JOIN cms_activity a on c.COMMENT_RK_ID = a.ACTIVITY_ID 
+	<if test="areaSource != null">
+		and a.ACTIVITY_CREATE_USER in 
+			(select b.USER_ID from sys_user as b where b.USER_DEPT_PATH like CONCAT('%','${areaSource}','%' ) and b.USER_ISDISPLAY=1 and b.USER_STATE=1)
+	</if>
+	WHERE DATE_FORMAT(c.COMMENT_TIME, '%Y-%m-%d') = #{commentTime,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getActivityPublishCount" resultType="java.lang.Integer" parameterType="java.lang.String" >
+	select count(*)
+    from cms_activity as a 
+	where 1=1
+	<if test="areaSource != null">
+		and a.ACTIVITY_CREATE_USER in (select b.USER_ID from sys_user as b where b.USER_DEPT_PATH like CONCAT('%','${areaSource}','%' ) and b.USER_ISDISPLAY=1 and b.USER_STATE=1)
+	</if>
+	and DATE_FORMAT(a.ACTIVITY_CREATE_TIME, '%Y-%m-%d') = #{publishTime,jdbcType=VARCHAR}
+  </select>
+</mapper>

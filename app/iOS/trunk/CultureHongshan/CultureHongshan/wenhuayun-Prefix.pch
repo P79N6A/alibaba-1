@@ -1,0 +1,51 @@
+//
+//  wenhuayunPCH.pch
+//  CultureHongshan
+//
+//  Created by ct on 15/12/14.
+//  Copyright © 2015年 CT. All rights reserved.
+//
+
+#ifndef wenhuayunPCH_pch
+#define wenhuayunPCH_pch
+
+#ifdef __OBJC__
+
+#import <Foundation/Foundation.h>
+
+#import <WHYFoundationKit/WHYFoundationKit.h>
+#import <WHYUIKit/WHYUIKit.h>
+#import "ExtendedType.h"
+
+#import "AppConfig.h" // 这个文件一定要放在前面
+#import "AppConstantMacros.h"
+#import "AppTypeDefines.h"
+#import "WHYUIToolKit.h"
+
+
+#import "ToolClass+Extensions.h"
+#import "UIToolClass+Extensions.h"
+#import "NSDictionary+Extensions.h"
+#import "DataValidate.h"
+
+#import "AppDelegate.h"
+#import "AppProtocol.h"
+
+#import "UserService.h"
+#import "DictionaryService.h"
+#import "PageAccessTool.h"
+
+
+#import <UMMobClick/MobClick.h>
+#import "SVProgressHUD.h"
+
+#import "UIButton+WebCache.h"
+#import "UIImageView+WebCache.h"
+#import "UIWebView+AppSdk.h"
+
+#import "FBLabel.h"
+#import "FBButton.h"
+
+#endif
+
+#endif /* wenhuayunPCH_pch */

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CourseCaptchaMapper">
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.peopleTrain.CourseCaptcha">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="USERID_ID" property="userId"
+			jdbcType="VARCHAR" />
+		<result column="CODE" property="code"
+			jdbcType="VARCHAR" />
+		<result column="AREA" property="area"
+			jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime"
+			jdbcType="TIMESTAMP" />
+		<result column="UPDATE_TIME" property="updateTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<!-- 分页信息 -->
+	<sql id="pagination_condition">
+		limit ${firstResult},${rows}
+	</sql>
+	
+	<select id="queryCodeByArea" parameterType="java.lang.String" resultMap="BaseResultMap" >
+	       SELECT c.CODE from  course_captcha c
+	       where 1=1
+	       <if test="area != null">
+				and c.AREA = #{area},
+			</if>
+	</select>
+	
+	<select id="queryCaptchaByCode" parameterType="java.util.Map" resultMap="BaseResultMap" >
+	       SELECT c.ID from  course_captcha c
+	       where 1=1
+	       <if test="code != null">
+				and c.CODE = #{code}
+		   </if>
+	</select>
+
+</mapper>

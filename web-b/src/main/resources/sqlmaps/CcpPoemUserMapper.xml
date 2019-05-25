@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ccp.CcpPoemUserMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ccp.CcpPoemUser" >
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="POEM_ID" property="poemId" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.ccp.CcpPoemUser" >
+    insert into ccp_poem_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="poemId != null" >
+        POEM_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="poemId != null" >
+        #{poemId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="queryPoemUserCountByCondition" resultType="java.lang.Integer" parameterType="java.util.Map" >
+  	select count(*)
+  	from (
+  		select pu.USER_ID
+	    from ccp_poem_user pu
+	    LEFT JOIN cms_terminal_user ctu ON ctu.USER_ID = pu.USER_ID
+	    where 1=1
+	    <if test="userName != null" >
+	      and ctu.USER_NAME like #{userName}
+	    </if>
+	    GROUP BY pu.USER_ID
+	    <if test="poemCompleteCount != null" >
+	      HAVING count(*) = ${poemCompleteCount}
+	    </if>
+  	) b
+  </select>
+  
+  <select id="queryPoemUserByCondition" resultMap="BaseResultMap" parameterType="java.util.Map" >
+  	select 
+  		pu.USER_ID,
+  		ctu.USER_NAME userName,
+  		IFNULL(ctu.USER_MOBILE_NO,ctu.user_telephone) userMobile,
+  		count(*) poemCompleteCount,
+  		MIN(pu.CREATE_TIME) firstCompleteTime
+    from ccp_poem_user pu
+    LEFT JOIN cms_terminal_user ctu ON ctu.USER_ID = pu.USER_ID
+    where 1=1
+    <if test="userName != null" >
+      and ctu.USER_NAME like #{userName}
+    </if>
+    GROUP BY pu.USER_ID
+    <if test="poemCompleteCount != null" >
+      HAVING count(*) = ${poemCompleteCount}
+    </if>
+    order by count(*) desc,MIN(pu.CREATE_TIME)
+    <if test="firstResult != null">
+		limit ${firstResult},${rows}
+	</if>
+  </select>
+</mapper>

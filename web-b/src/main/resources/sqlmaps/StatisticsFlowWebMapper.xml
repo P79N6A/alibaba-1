@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sun3d.why.dao.StatisticsFlowWebMapper">
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.StatisticsFlowWeb">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="date" jdbcType="VARCHAR" property="date" />
+		<result column="pv" jdbcType="INTEGER" property="pv" />
+		<result column="uv" jdbcType="INTEGER" property="uv" />
+		<result column="ip" jdbcType="INTEGER" property="ip" />
+		<result column="uvStr" jdbcType="LONGVARCHAR" property="uvstr" />
+		<result column="ipStr" jdbcType="LONGVARCHAR" property="ipstr" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, date, pv, uv, ip,uvStr, ipStr
+	</sql>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from statistics_flow_web
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from statistics_flow_web
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.sun3d.why.model.StatisticsFlowWeb">
+		insert into statistics_flow_web (id, date, pv,
+		uv, ip, uvStr,
+		ipStr)
+		values (#{id,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR},
+		#{pv,jdbcType=INTEGER},
+		#{uv,jdbcType=INTEGER}, #{ip,jdbcType=INTEGER}, #{uvstr,jdbcType=LONGVARCHAR},
+		#{ipstr,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.sun3d.why.model.StatisticsFlowWeb">
+		insert into statistics_flow_web
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="date != null">
+				date,
+			</if>
+			<if test="pv != null">
+				pv,
+			</if>
+			<if test="uv != null">
+				uv,
+			</if>
+			<if test="ip != null">
+				ip,
+			</if>
+			<if test="uvstr != null">
+				uvStr,
+			</if>
+			<if test="ipstr != null">
+				ipStr,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="date != null">
+				#{date,jdbcType=VARCHAR},
+			</if>
+			<if test="pv != null">
+				#{pv,jdbcType=INTEGER},
+			</if>
+			<if test="uv != null">
+				#{uv,jdbcType=INTEGER},
+			</if>
+			<if test="ip != null">
+				#{ip,jdbcType=INTEGER},
+			</if>
+			<if test="uvstr != null">
+				#{uvstr,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="ipstr != null">
+				#{ipstr,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.sun3d.why.model.StatisticsFlowWeb">
+		update statistics_flow_web
+		<set>
+			<if test="date != null">
+				date = #{date,jdbcType=VARCHAR},
+			</if>
+			<if test="pv != null">
+				pv = #{pv,jdbcType=INTEGER},
+			</if>
+			<if test="uv != null">
+				uv = #{uv,jdbcType=INTEGER},
+			</if>
+			<if test="ip != null">
+				ip = #{ip,jdbcType=INTEGER},
+			</if>
+			<if test="uvstr != null">
+				uvStr = #{uvstr,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="ipstr != null">
+				ipStr = #{ipstr,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sun3d.why.model.StatisticsFlowWeb">
+		update statistics_flow_web
+		set date = #{date,jdbcType=VARCHAR},
+		pv = #{pv,jdbcType=INTEGER},
+		uv = #{uv,jdbcType=INTEGER},
+		ip = #{ip,jdbcType=INTEGER},
+		uvStr = #{uvstr,jdbcType=LONGVARCHAR},
+		ipStr = #{ipstr,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.sun3d.why.model.StatisticsFlowWeb">
+		update statistics_flow_web
+		set date = #{date,jdbcType=VARCHAR},
+		pv = #{pv,jdbcType=INTEGER},
+		uv = #{uv,jdbcType=INTEGER},
+		ip = #{ip,jdbcType=INTEGER}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<select id="queryByMap" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select * from statistics_flow_web where 1=1
+		<if test="date != null">
+			and date like CONCAT('%',#{date,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="nowdate != null">
+			and date &lt;#{nowdate,jdbcType=VARCHAR}
+		</if>
+		order by date 
+	</select>
+
+	<select id="queryByMapYear" resultType="Map" parameterType="java.util.Map">
+		select SUM(pv) pvcount,SUM(uv) uvcount,SUM(ip) ipcount,
+		SUBSTRING(a.date,1,7) time from statistics_flow_web a where 1=1
+		<if test="date != null">
+			and SUBSTRING(a.date,1,4) =#{date}
+		</if>
+		<if test="nowdate != null">
+			and a.date &lt;#{nowdate,jdbcType=VARCHAR}
+		</if>
+		GROUP BY SUBSTRING(a.date,6,2)
+	</select>
+</mapper>

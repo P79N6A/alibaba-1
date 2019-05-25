@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.sun3d.ticketGdfs"
+          android:versionCode="5"
+          android:versionName="1.2.2">
+
+    <uses-sdk
+            android:minSdkVersion="8"
+            android:targetSdkVersion="18"/>
+
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
+
+    <application
+            android:name=".MyApplication"
+            android:allowBackup="true"
+            android:icon="@drawable/jj_ticket_logo"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Black.NoTitleBar">
+        <activity
+                android:name=".activity.MainActivity"
+                android:label="@string/app_name">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+
+        </activity>
+        <activity
+                android:name=".activity.SelectInputCodeActivity"
+                android:theme="@style/activity_transulcent"></activity>
+        <activity android:name=".activity.InputCodeActivity"></activity>
+
+        <!--  <activity
+             android:name="com.sun3d.ticketshJiading.activity.InputCodeDialogActivity">
+         </activity> -->
+
+        <activity android:name=".activity.FuzzyInterfaceActivity">
+
+        </activity>
+        <activity android:name=".activity.SQRActivity">
+
+        </activity>
+        <activity
+                android:name=".activity.AccountInfoActivity"
+                android:theme="@style/activity_transulcent">
+
+        </activity>
+    </application>
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+
+
+</manifest>

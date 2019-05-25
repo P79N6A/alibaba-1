@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ccp.CcpPoemMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ccp.CcpPoem" >
+    <id column="POEM_ID" property="poemId" jdbcType="VARCHAR" />
+    <result column="POEM_DATE" property="poemDate" jdbcType="VARCHAR" />
+    <result column="POEM_TITLE" property="poemTitle" jdbcType="VARCHAR" />
+    <result column="POEM_AUTHOR" property="poemAuthor" jdbcType="VARCHAR" />
+    <result column="POEM_CONTENT" property="poemContent" jdbcType="VARCHAR" />
+    <result column="POEM_TEMPLATE" property="poemTemplate" jdbcType="VARCHAR" />
+    <result column="POEM_WORD" property="poemWord" jdbcType="VARCHAR" />
+    <result column="POEM_LECTOR_ID" property="poemLectorId" jdbcType="VARCHAR" />
+    <result column="POEM_LECTOR_EXPLAIN" property="poemLectorExplain" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    
+    <result column="LECTOR_NAME" property="lectorName" jdbcType="VARCHAR" />
+    <result column="LECTOR_HEAD_IMG" property="lectorHeadImg" jdbcType="VARCHAR" />
+    <result column="LECTOR_JOB" property="lectorJob" jdbcType="VARCHAR" />
+    <result column="LECTOR_INTRO" property="lectorIntro" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    POEM_ID, POEM_DATE, POEM_TITLE, POEM_AUTHOR, POEM_CONTENT, POEM_TEMPLATE, POEM_WORD, 
+    POEM_LECTOR_ID, POEM_LECTOR_EXPLAIN, CREATE_TIME, CREATE_USER
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_poem
+    where POEM_ID = #{poemId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_poem
+    where POEM_ID = #{poemId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.ccp.CcpPoem" >
+    insert into ccp_poem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      POEM_ID,
+      <if test="poemDate != null" >
+        POEM_DATE,
+      </if>
+      <if test="poemTitle != null" >
+        POEM_TITLE,
+      </if>
+      <if test="poemAuthor != null" >
+        POEM_AUTHOR,
+      </if>
+      <if test="poemContent != null" >
+        POEM_CONTENT,
+      </if>
+      <if test="poemTemplate != null" >
+        POEM_TEMPLATE,
+      </if>
+      <if test="poemWord != null" >
+        POEM_WORD,
+      </if>
+      <if test="poemLectorId != null" >
+        POEM_LECTOR_ID,
+      </if>
+      <if test="poemLectorExplain != null" >
+        POEM_LECTOR_EXPLAIN,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{poemId,jdbcType=VARCHAR},
+      <if test="poemDate != null" >
+        #{poemDate,jdbcType=VARCHAR},
+      </if>
+      <if test="poemTitle != null" >
+        #{poemTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="poemAuthor != null" >
+        #{poemAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="poemContent != null" >
+        #{poemContent,jdbcType=VARCHAR},
+      </if>
+      <if test="poemTemplate != null" >
+        #{poemTemplate,jdbcType=VARCHAR},
+      </if>
+      <if test="poemWord != null" >
+        #{poemWord,jdbcType=VARCHAR},
+      </if>
+      <if test="poemLectorId != null" >
+        #{poemLectorId,jdbcType=VARCHAR},
+      </if>
+      <if test="poemLectorExplain != null" >
+        #{poemLectorExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.ccp.CcpPoem" >
+    update ccp_poem
+    <set >
+      <if test="poemDate != null" >
+        POEM_DATE = #{poemDate,jdbcType=VARCHAR},
+      </if>
+      <if test="poemTitle != null" >
+        POEM_TITLE = #{poemTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="poemAuthor != null" >
+        POEM_AUTHOR = #{poemAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="poemContent != null" >
+        POEM_CONTENT = #{poemContent,jdbcType=VARCHAR},
+      </if>
+      <if test="poemTemplate != null" >
+        POEM_TEMPLATE = #{poemTemplate,jdbcType=VARCHAR},
+      </if>
+      <if test="poemWord != null" >
+        POEM_WORD = #{poemWord,jdbcType=VARCHAR},
+      </if>
+      <if test="poemLectorId != null" >
+        POEM_LECTOR_ID = #{poemLectorId,jdbcType=VARCHAR},
+      </if>
+      <if test="poemLectorExplain != null" >
+        POEM_LECTOR_EXPLAIN = #{poemLectorExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where POEM_ID = #{poemId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryPoemByCondition" resultMap="BaseResultMap" parameterType="java.util.Map" >
+  	select 
+  		p.POEM_ID, 
+  		p.POEM_DATE, 
+  		p.POEM_TITLE, 
+  		p.POEM_AUTHOR, 
+  		p.POEM_CONTENT, 
+  		p.POEM_TEMPLATE, 
+  		p.POEM_WORD, 
+    	p.POEM_LECTOR_ID,
+    	p.POEM_LECTOR_EXPLAIN, 
+    	p.CREATE_TIME,
+    	pl.LECTOR_NAME,
+    	pl.LECTOR_HEAD_IMG,
+    	pl.LECTOR_JOB,
+    	<if test="userId!=null">
+	    	IF((SELECT count(*)
+	        FROM ccp_poem_user cpu
+	        WHERE cpu.POEM_ID = p.POEM_ID 
+	        and cpu.USER_ID = #{userId} 
+	        )>0,1,0) as poemIsComplete,
+	        (SELECT count(*)
+            FROM cms_user_wantgo cau
+            WHERE cau.RELATE_ID = p.POEM_ID
+            AND cau.USER_ID =#{userId}
+            ) AS userIsWant,
+	    </if>
+	    (SELECT count(*)
+        FROM cms_user_wantgo cau
+        WHERE cau.RELATE_ID = p.POEM_ID
+        ) AS wantCount,
+    	pl.LECTOR_INTRO
+    from ccp_poem p
+    LEFT JOIN ccp_poem_lector pl ON pl.LECTOR_ID = p.POEM_LECTOR_ID
+    where 1=1 and p.POEM_DATE &lt;= DATE_FORMAT(NOW(), '%Y-%m-%d')
+    <if test="poemId != null" >
+      and p.POEM_ID = #{poemId}
+    </if>
+    <if test="poemDate != null" >
+      and p.POEM_DATE like #{poemDate}
+    </if>
+    order by p.POEM_DATE
+  </select>
+</mapper>

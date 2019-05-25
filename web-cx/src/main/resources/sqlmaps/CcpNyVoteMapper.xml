@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ccp.CcpNyVoteMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ccp.CcpNyVote" >
+    <id column="NY_VOTE_ID" property="nyVoteId" jdbcType="VARCHAR" />
+    <result column="NY_IMG_ID" property="nyImgId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    NY_VOTE_ID, NY_IMG_ID, USER_ID, CREATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_ny_vote
+    where NY_VOTE_ID = #{nyVoteId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_ny_vote
+    where NY_VOTE_ID = #{nyVoteId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.ccp.CcpNyVote" >
+    insert into ccp_ny_vote
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      NY_VOTE_ID,
+      <if test="nyImgId != null" >
+        NY_IMG_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{nyVoteId,jdbcType=VARCHAR},
+      <if test="nyImgId != null" >
+        #{nyImgId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.ccp.CcpNyVote" >
+    update ccp_ny_vote
+    <set >
+      <if test="nyImgId != null" >
+        NY_IMG_ID = #{nyImgId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where NY_VOTE_ID = #{nyVoteId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryTodayVoteCount" resultType="java.lang.Integer" parameterType="com.sun3d.why.model.ccp.CcpNyVote" >
+    select count(*)
+    from ccp_ny_vote
+    where USER_ID = #{userId} and DATE_FORMAT(CREATE_TIME, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')
+  </select>
+</mapper>

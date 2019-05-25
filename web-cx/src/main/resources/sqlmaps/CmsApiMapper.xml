@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsApiMapper" >
+	<!-- 根据sysID，查询场所是否存在 -->
+	<select id="queryVenueBySysId" resultType="string"
+		parameterType="map">
+		select VENUE_ID from CMS_VENUE cv where cv.SYS_ID = #{sysId} and cv.SYS_NO=#{sysNo}
+	</select>
+	
+	<!-- 根据sysID，查询活动室是否存在 -->
+	<select id="queryActivitRoomyBySysId" resultType="string"
+		parameterType="map">
+		select ROOM_ID from CMS_ROOM cv where cv.SYS_ID = #{sysId} and cv.SYS_NO=#{sysNo}
+	</select>
+	<!-- 根据sysID，查询场馆是否存在-->
+	<select id="queryAntiqueBySysId" resultType="string"
+		parameterType="map">
+		select ANTIQUE_ID from CMS_ANTIQUE cv where cv.SYS_ID = #{sysId} and cv.SYS_NO=#{sysNo}
+	</select>
+	<!-- 根据sysID，查询活动是否存在 -->
+	<select id="queryActivityBySysId" resultType="string"
+		parameterType="map">
+		select ACTIVITY_ID from cms_activity cv where cv.SYS_ID = #{sysId} and cv.SYS_NO=#{sysNo}
+	</select>
+	
+	<select id="queryTag" resultType="string" parameterType="map">
+		select TAG_ID as tag_type from cms_tag t LEFT JOIN sys_dict d ON  t.TAG_TYPE = d.DICT_ID
+		where 1 = 1
+		<if test="dictCode != null">
+			and d.DICT_CODE=#{dictCode}
+		</if>
+		
+		<if test="tagsId != null">
+			and
+			(	
+				t.TAG_ID =#{tagsId} or t.TAG_NAME =#{tagsId}
+			)
+		</if>
+	</select>
+	<select id="queryTags" resultType="string" parameterType="map">
+		select TAG_ID from cms_tag t LEFT JOIN sys_dict d ON  t.TAG_TYPE = d.DICT_ID
+		where 1 = 1
+		<if test="dictCode != null">
+			and d.DICT_CODE=#{dictCode}
+		</if>
+
+		<if test="tagsId != null">
+			and
+			(
+			<foreach item="tagId" index="index" collection="tagsId" open="(" separator="or" close=")">
+				t.TAG_ID=#{tagId}
+			</foreach>
+			or
+			<foreach item="tagId" index="index" collection="tagsId" open="(" separator="or" close=")">
+				t.TAG_NAME=#{tagId}
+			</foreach>
+			)
+		</if>
+	</select>
+	
+	<select id="queryDict" resultType="string" parameterType="map">
+		SELECT DICT_ID
+		FROM sys_dict
+		where 1=1
+		<if test="dictCode != null" >
+			and dict_Code	=	#{dictCode,jdbcType=VARCHAR}
+		</if>
+		<if test="dictState != null" >
+			and dict_State	=	#{dictState,jdbcType=INTEGER}
+		</if>
+		<if test="dictParentId != null" >
+			and dict_Parent_Id	=	#{dictParentId,jdbcType=VARCHAR}
+		</if>
+		<if test="dictName != null" >
+			and dict_name	=	#{dictName,jdbcType=VARCHAR}
+		</if>
+		order by DICT_UPDATE_TIME desc
+		
+	</select>
+	
+	<select id="checkSysDictByChildName" parameterType="java.util.Map" resultType="java.lang.String">
+			SELECT
+
+			d.dict_id
+
+			FROM sys_dict d  
+			
+			left join sys_dict p on d.dict_parent_id=p.dict_id 
+			
+			WHERE 1=1 
+			<if test="dictCode != null">
+			AND p.dict_code=#{dictCode} 
+			</if>
+			<if test="dictName != null">
+			AND (d.DICT_NAME=#{dictName} or d.DICT_ID=#{dictName})
+			</if>
+			
+	</select>
+
+	<select id="queryAPITags" resultType="string" parameterType="map">
+		SELECT
+		ct.TAG_ID
+		FROM
+		cms_tag ct INNER JOIN sys_dict sd  on ct.tag_type = sd.dict_id
+		WHERE
+		ct.TAG_IS_DELETE=1
+		and sd.DICT_NAME=#{dictName,jdbcType=VARCHAR}
+		and ct.TAG_NAME=#{tagName,jdbcType=VARCHAR}
+
+	</select>
+
+</mapper>

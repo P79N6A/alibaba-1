@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ActivityEditorialMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ActivityEditorial" >
+    <id column="ACTIVITY_ID" property="activityId" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_NAME" property="activityName" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_ICON_URL" property="activityIconUrl" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_ADDRESS" property="activityAddress" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_IS_FREE" property="activityIsFree" jdbcType="INTEGER" />
+    <result column="ACTIVITY_PRICE" property="activityPrice" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_START_TIME" property="activityStartTime" jdbcType="TIMESTAMP" />
+    <result column="ACTIVITY_END_TIME" property="activityEndTime" jdbcType="TIMESTAMP" />
+    <result column="ACTIVITY_IS_DEL" property="activityIsDel" jdbcType="INTEGER" />
+    <result column="ACTIVITY_STATE" property="activityState" jdbcType="INTEGER" />
+    <result column="ACTIVITY_CREATE_TIME" property="activityCreateTime" jdbcType="TIMESTAMP" />
+    <result column="ACTIVITY_UPDATE_TIME" property="activityUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="ACTIVITY_CREATE_USER" property="activityCreateUser" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_UPDATE_USER" property="activityUpdateUser" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_TIME_DES" property="activityTimeDes" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_SUBJECT" property="activitySubject" jdbcType="VARCHAR" />
+    <result column="RATINGS_INFO" property="ratingsInfo" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_URL" property="activityUrl" jdbcType="LONGVARCHAR" />
+    <result column="ACTIVITY_TYPE" property="activityType" jdbcType="LONGVARCHAR" />
+    <result column="ACTIVITY_MEMO" property="activityMemo" jdbcType="LONGVARCHAR" />
+    <result column="ACTIVITY_TEL" property="activityTel" jdbcType="VARCHAR" />
+    <result column="user_account"  property="userAccount" jdbcType="VARCHAR" />
+    <result column="dict_name"  property="dictName" jdbcType="VARCHAR" />
+
+    <result column="type"  property="type" jdbcType="INTEGER" />
+    <result column="is_like"  property="isLike" jdbcType="INTEGER" />
+    <result column="count"  property="count" jdbcType="INTEGER" />
+    <result column="tag_name"  property="tagName" jdbcType="VARCHAR" />
+    <result column="event_time"  property="eventTime" jdbcType="VARCHAR" />
+    <result column="activity_is_reservation"  property="activityIsReservation" jdbcType="INTEGER" />
+  </resultMap>
+
+  <select id="queryActivityEditorialByActivityId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+     SELECT a.ACTIVITY_ID ,a.ACTIVITY_NAME,a.ACTIVITY_TYPE,a.ACTIVITY_SUBJECT,a.ACTIVITY_IS_FREE,a.ACTIVITY_ICON_URL,a.ACTIVITY_URL,a.ACTIVITY_START_TIME,
+     a.ACTIVITY_END_TIME ,a.ACTIVITY_ADDRESS,a.ACTIVITY_MEMO,a.ACTIVITY_TIME_DES,a.ACTIVITY_STATE,a.ACTIVITY_IS_DEL,a.ACTIVITY_TEL
+    from activity_editorial a
+    where a.ACTIVITY_ID = #{activityId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryEditorialRatingsInfoById" resultType="java.lang.String" parameterType="java.lang.String" >
+    SELECT a.RATINGS_INFO
+    from activity_editorial a
+    where a.ACTIVITY_ID = #{activityId,jdbcType=VARCHAR}
+  </select>
+
+
+  <!--后台采编信息条数-->
+  <select id="isExistsActivityName" resultType="java.lang.Integer" parameterType="java.lang.String">
+  SELECT count(*)
+  from  activity_editorial
+   where
+   ACTIVITY_IS_DEL=1
+   and ACTIVITY_NAME = #{activityName,jdbcType=VARCHAR}
+  </select>
+
+  <!--修改活动状态-->
+  <update id="updateStatusByActivityId">
+    update
+    activity_editorial
+    set ACTIVITY_STATE =#{0}
+    where ACTIVITY_ID = #{1}
+  </update>
+
+  <!--后台采编信息条数-->
+  <select id="queryActivityEditorialCountByCondition" resultType="java.lang.Integer" parameterType="java.util.Map">
+    SELECT count(*)
+    from  activity_editorial  a
+    INNER JOIN sys_user u
+    on a.ACTIVITY_CREATE_USER=u.USER_ID
+    where 1=1
+    <if test="ratingsInfo != null">
+      AND a.RATINGS_INFO = #{ratingsInfo,jdbcType=INTEGER}
+    </if>
+    <if test="activityIsDel != null" >
+      and a.ACTIVITY_IS_DEL = #{activityIsDel,jdbcType=INTEGER}
+    </if>
+    <if test="activityType != null">
+      and a.ACTIVITY_TYPE like #{activityType,jdbcType=VARCHAR}
+    </if>
+    <if test="activityState != null">
+      and a.ACTIVITY_STATE = #{activityState,jdbcType=INTEGER}
+    </if>
+    <if test="activityIsFree != null">
+      and a.ACTIVITY_IS_FREE = #{activityIsFree,jdbcType=INTEGER}
+    </if>
+    <if test="activityCreateTime != null">
+      and a.ACTIVITY_CREATE_TIME  &gt;= #{activityCreateTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="activityUpdateTime != null">
+      and a.ACTIVITY_CREATE_TIME  &lt;= #{activityUpdateTime,jdbcType=TIMESTAMP}
+    </if>
+  </select>
+  <!--后台采编列表-->
+  <select id="queryActivityEditorialByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT a.ACTIVITY_ID ,a.ACTIVITY_NAME,a.ACTIVITY_SUBJECT,a.ACTIVITY_IS_FREE,u.USER_ACCOUNT as user_account,
+    a.ACTIVITY_CREATE_TIME,a.ACTIVITY_UPDATE_TIME,a.ACTIVITY_STATE,a.RATINGS_INFO,a.ACTIVITY_URL,d.DICT_NAME as dict_name
+    from  activity_editorial  a
+    INNER JOIN sys_user u
+    on a.ACTIVITY_CREATE_USER=u.USER_ID
+    LEFT join sys_dict d
+    on a.RATINGS_INFO=d.DICT_ID
+    where 1=1
+    <if test="ratingsInfo != null">
+      AND a.RATINGS_INFO = #{ratingsInfo,jdbcType=INTEGER}
+    </if>
+    <if test="activityIsDel != null" >
+      and a.ACTIVITY_IS_DEL = #{activityIsDel,jdbcType=INTEGER}
+    </if>
+    <if test="activityType != null">
+      and a.ACTIVITY_TYPE like #{activityType,jdbcType=VARCHAR}
+    </if>
+    <if test="activityState != null">
+      and a.ACTIVITY_STATE = #{activityState,jdbcType=INTEGER}
+    </if>
+    <if test="activityIsFree != null">
+      and a.ACTIVITY_IS_FREE = #{activityIsFree,jdbcType=INTEGER}
+    </if>
+    <if test="activityCreateTime != null">
+      and a.ACTIVITY_CREATE_TIME  &gt;= #{activityCreateTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="activityUpdateTime != null">
+      and a.ACTIVITY_CREATE_TIME  &lt;= #{activityUpdateTime,jdbcType=TIMESTAMP}
+    </if>
+    order by a.ACTIVITY_UPDATE_TIME desc
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+
+
+  <insert id="saveActivityEditorial" parameterType="com.sun3d.why.model.ActivityEditorial" >
+    insert into activity_editorial
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="activityId != null" >
+        ACTIVITY_ID,
+      </if>
+      <if test="activityName != null" >
+        ACTIVITY_NAME,
+      </if>
+      <if test="activityIconUrl != null" >
+        ACTIVITY_ICON_URL,
+      </if>
+      <if test="activityAddress != null" >
+        ACTIVITY_ADDRESS,
+      </if>
+      <if test="activityIsFree != null" >
+        ACTIVITY_IS_FREE,
+      </if>
+      <if test="activityPrice != null" >
+        ACTIVITY_PRICE,
+      </if>
+      <if test="activityStartTime != null" >
+        ACTIVITY_START_TIME,
+      </if>
+      <if test="activityEndTime != null" >
+        ACTIVITY_END_TIME,
+      </if>
+      <if test="activityIsDel != null" >
+        ACTIVITY_IS_DEL,
+      </if>
+      <if test="activityState != null" >
+        ACTIVITY_STATE,
+      </if>
+      <if test="activityCreateTime != null" >
+        ACTIVITY_CREATE_TIME,
+      </if>
+      <if test="activityUpdateTime != null" >
+        ACTIVITY_UPDATE_TIME,
+      </if>
+      <if test="activityCreateUser != null" >
+        ACTIVITY_CREATE_USER,
+      </if>
+      <if test="activityUpdateUser != null" >
+        ACTIVITY_UPDATE_USER,
+      </if>
+      <if test="activityTimeDes != null" >
+        ACTIVITY_TIME_DES,
+      </if>
+      <if test="activitySubject != null" >
+        ACTIVITY_SUBJECT,
+      </if>
+      <if test="ratingsInfo != null" >
+        RATINGS_INFO,
+      </if>
+      <if test="activityUrl != null" >
+        ACTIVITY_URL,
+      </if>
+      <if test="activityType != null" >
+        ACTIVITY_TYPE,
+      </if>
+      <if test="activityMemo != null" >
+        ACTIVITY_MEMO,
+      </if>
+      <if test="activityTel != null" >
+        ACTIVITY_TEL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="activityId != null" >
+        #{activityId,jdbcType=VARCHAR},
+      </if>
+      <if test="activityName != null" >
+        #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="activityIconUrl != null" >
+        #{activityIconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="activityAddress != null" >
+        #{activityAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="activityIsFree != null" >
+        #{activityIsFree,jdbcType=INTEGER},
+      </if>
+      <if test="activityPrice != null" >
+        #{activityPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="activityStartTime != null" >
+        #{activityStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityEndTime != null" >
+        #{activityEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityIsDel != null" >
+        #{activityIsDel,jdbcType=INTEGER},
+      </if>
+      <if test="activityState != null" >
+        #{activityState,jdbcType=INTEGER},
+      </if>
+      <if test="activityCreateTime != null" >
+        #{activityCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityUpdateTime != null" >
+        #{activityUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityCreateUser != null" >
+        #{activityCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="activityUpdateUser != null" >
+        #{activityUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="activityTimeDes != null" >
+        #{activityTimeDes,jdbcType=VARCHAR},
+      </if>
+      <if test="activitySubject != null" >
+        #{activitySubject,jdbcType=VARCHAR},
+      </if>
+      <if test="ratingsInfo != null" >
+        #{ratingsInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="activityUrl != null" >
+        #{activityUrl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="activityType != null" >
+        #{activityType,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="activityMemo != null" >
+        #{activityMemo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="activityTel != null" >
+        #{activityTel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+  <update id="editActivityEditorial" parameterType="com.sun3d.why.model.ActivityEditorial" >
+    update activity_editorial
+    <set >
+      <if test="activityName != null" >
+        ACTIVITY_NAME = #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="activityIconUrl != null" >
+        ACTIVITY_ICON_URL = #{activityIconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="activityAddress != null" >
+        ACTIVITY_ADDRESS = #{activityAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="activityIsFree != null" >
+        ACTIVITY_IS_FREE = #{activityIsFree,jdbcType=INTEGER},
+      </if>
+      <if test="activityPrice != null" >
+        ACTIVITY_PRICE = #{activityPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="activityStartTime != null" >
+        ACTIVITY_START_TIME = #{activityStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityEndTime != null" >
+        ACTIVITY_END_TIME = #{activityEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityIsDel != null" >
+        ACTIVITY_IS_DEL = #{activityIsDel,jdbcType=INTEGER},
+      </if>
+      <if test="activityState != null" >
+        ACTIVITY_STATE = #{activityState,jdbcType=INTEGER},
+      </if>
+      <if test="activityCreateTime != null" >
+        ACTIVITY_CREATE_TIME = #{activityCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityUpdateTime != null" >
+        ACTIVITY_UPDATE_TIME = #{activityUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityCreateUser != null" >
+        ACTIVITY_CREATE_USER = #{activityCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="activityUpdateUser != null" >
+        ACTIVITY_UPDATE_USER = #{activityUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="activityTimeDes != null" >
+        ACTIVITY_TIME_DES = #{activityTimeDes,jdbcType=VARCHAR},
+      </if>
+      <if test="activitySubject != null" >
+        ACTIVITY_SUBJECT = #{activitySubject,jdbcType=VARCHAR},
+      </if>
+      <if test="ratingsInfo != null" >
+        RATINGS_INFO = #{ratingsInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="activityUrl != null" >
+        ACTIVITY_URL = #{activityUrl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="activityType != null" >
+        ACTIVITY_TYPE = #{activityType,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="activityMemo != null" >
+        ACTIVITY_MEMO = #{activityMemo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="activityTel != null" >
+        ACTIVITY_TEL = #{activityTel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ACTIVITY_ID = #{activityId,jdbcType=VARCHAR}
+  </update>
+
+  <!--why3.5 抓取采编库+活动列表-->
+  <select id="queryAppEditAndActivityList" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT
+    *
+    FROM
+    (
+    SELECT
+    1 type,
+    a.activity_name,
+    a.activity_id,
+    0 as activity_is_reservation,
+    a.activity_is_free,
+    a.activity_price,
+    GROUP_CONCAT(DISTINCT c.TAG_NAME SEPARATOR ',') as tag_name,
+    a.activity_subject,
+    a.activity_address,
+    SUBSTR(a.activity_start_time, 1, 10) AS activity_start_time,
+    SUBSTR(a.activity_end_time, 1, 10) AS activity_end_time,
+    CONCAT(
+    left(RIGHT (a.activity_start_time, 8),5),
+    '-',
+    left(RIGHT (a.activity_end_time, 8),5)
+    ) AS event_time,
+    a.activity_time_des,
+    a.activity_memo,
+    a.activity_icon_url,
+    (select count(*) from cms_user_wantgo d where d.relate_id = a.activity_id and d.relate_type = 3) as count,
+    a.activity_tel,
+    <if test="userId != null">
+      IF((select count(*) from cms_user_wantgo e where e.relate_id = a.activity_id and e.user_id = #{userId} and e.relate_type = 3)>0,1,0)
+      as is_like,
+    </if>
+    a.activity_url
+    FROM
+    activity_editorial a
+    LEFT JOIN sys_dict b ON a.ratings_info = b.dict_id
+    LEFT JOIN cms_tag c ON find_in_set(c.tag_id, a.activity_type)
+    WHERE
+    a.activity_is_del = 1
+    AND a.activity_state = 6
+    AND DATE_FORMAT(
+    a.activity_end_time,
+    '%Y-%m-%d'
+    ) > DATE_FORMAT(NOW(), '%Y-%m-%d')
+    AND b.dict_name IN ('A', 'B')
+    <if test="activityType != null">
+      and c.tag_id = #{activityType}
+    </if>
+    GROUP BY
+    a.activity_id
+    ) table1
+    UNION
+    SELECT
+    *
+    FROM
+    (
+    SELECT
+    2 type,
+    a.activity_name,
+    a.activity_id,
+    a.activity_is_reservation,
+    a.activity_is_free,
+    a.activity_price,
+    GROUP_CONCAT(DISTINCT d.TAG_NAME SEPARATOR ',') as tag_name,
+    a.activity_subject,
+    CONCAT(if(g.dict_name is null or g.dict_name = '','', CONCAT(g.dict_name, '.')),IFNULL(f.venue_name,a.activity_site)) as activity_address,
+    a.activity_start_time,
+    a.activity_end_time,
+    GROUP_CONCAT(
+    DISTINCT h.EVENT_TIME
+    ORDER BY
+    h.event_date_time ASC
+    ) AS event_time,
+    a.activity_time_des,
+    SUBSTRING(SUBSTRING_INDEX(a.activity_memo,'&lt;/p>', 1),LOCATE('>', a.activity_memo)+1) as activity_memo,
+    a.activity_icon_url,
+    (select count(*) from cms_user_wantgo i where i.relate_id = a.activity_id and i.relate_type = 2) as count,
+    a.activity_tel,
+    <if test="userId != null">
+      IF((select count(*) from cms_user_wantgo j where j.relate_id = a.activity_id and j.user_id = #{userId} and j.relate_type = 2)>0,1,0)
+      as is_like,
+    </if>
+    '' as activity_url
+    FROM
+    cms_activity a
+    LEFT JOIN sys_dict b ON a.ratings_info = b.dict_id
+    LEFT JOIN cms_tag d ON find_in_set(d.tag_id, a.activity_type)
+    LEFT JOIN cms_activity_venue_relevance e ON a.activity_id = e.activity_id
+    LEFT JOIN cms_venue f ON e.venue_id = f.venue_id
+    LEFT JOIN sys_dict g ON a.activity_location = g.dict_id
+    LEFT JOIN cms_activity_event h ON a.activity_id = h.activity_id
+    WHERE
+    a.activity_is_del = 1
+    AND a.activity_state = 6
+    AND b.dict_name IN ('A', 'B')
+    AND (
+    a.activity_is_free = 1
+    OR (
+    a.activity_is_free = 2
+    AND a.activity_price &lt;= 30
+    )
+    )
+    AND a.activity_end_time > DATE_FORMAT(NOW(), '%Y-%m-%d')
+    <if test="activityId != null">
+      and a.activity_id &lt;> #{activityId}
+    </if>
+    <if test="activityType != null">
+      and d.tag_id = #{activityType}
+    </if>
+    GROUP BY
+    a.activity_id
+    ) table2
+  </select>
+
+  <!--why3.5 7天内浏览量（UV）最高的活动自动置顶（第一条）-->
+  <select id="queryMaxBrowseCountActivity" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+      aa.type,
+      aa.activity_name,
+      aa.activity_id,
+      aa.activity_is_reservation,
+      aa.activity_is_free,
+      aa.activity_price,
+      aa.tag_name,
+      aa.activity_subject,
+      aa.activity_address,
+      aa.activity_start_time,
+      aa.activity_end_time,
+      aa.event_time,
+      aa.activity_time_des,
+      aa.activity_memo,
+      aa.activity_icon_url,
+      aa.count,
+      aa.activity_tel,
+      <if test="userId != null">
+        aa.is_like,
+      </if>
+      aa.activity_url
+    from (SELECT
+    2 type,
+    a.activity_name,
+    (select count(*) from (select id,activity_id from cms_activity_user_statistics where operate_type = 1
+    and create_time >=DATE_SUB(DATE_FORMAT(NOW(), '%Y-%m-%d'),INTERVAL 7 DAY)  and create_time &lt;= DATE_FORMAT(NOW(), '%Y-%m-%d')) cc
+    where a.activity_Id=cc.activity_id) as browse_count,
+    a.activity_id,
+    a.activity_is_free,
+    a.activity_is_reservation,
+    a.activity_price,
+    GROUP_CONCAT(DISTINCT d.TAG_NAME SEPARATOR ',') as tag_name,
+    a.activity_subject,
+    CONCAT(if(g.dict_name is null or g.dict_name = '','', CONCAT(g.dict_name, '.')),IFNULL(f.venue_name,a.activity_site)) as activity_address,
+    a.activity_start_time,
+    a.activity_end_time,
+    GROUP_CONCAT(
+    DISTINCT h.EVENT_TIME
+    ORDER BY
+    h.event_date_time ASC
+    ) AS event_time,
+    a.activity_time_des,
+    SUBSTRING(SUBSTRING_INDEX(a.activity_memo,'&lt;/p>', 1),LOCATE('>', a.activity_memo)+1) as activity_memo,
+    a.activity_icon_url,
+    (select count(*) from cms_user_wantgo i where i.relate_id = a.activity_id and i.relate_type = 2) as count,
+    a.activity_tel,
+    <if test="userId != null">
+      IF((select count(*) from cms_user_wantgo j where j.relate_id = a.activity_id and j.user_id = #{userId} and j.relate_type = 2)>0,1,0)
+      as is_like,
+    </if>
+    '' as activity_url
+    FROM
+    cms_activity a
+    LEFT JOIN sys_dict b ON a.ratings_info = b.dict_id
+    LEFT JOIN cms_tag d ON find_in_set(d.tag_id, a.activity_type)
+    LEFT JOIN cms_activity_venue_relevance e ON a.activity_id = e.activity_id
+    LEFT JOIN cms_venue f ON e.venue_id = f.venue_id
+    LEFT JOIN sys_dict g ON a.activity_location = g.dict_id
+    LEFT JOIN cms_activity_event h ON a.activity_id = h.activity_id
+    WHERE
+    a.activity_is_del = 1
+    AND a.activity_state = 6
+    AND b.dict_name IN ('A', 'B')
+    AND (
+    a.activity_is_free = 1
+    OR (
+    a.activity_is_free = 2
+    AND a.activity_price &lt;= 30
+    )
+    )
+    AND a.activity_end_time > DATE_FORMAT(NOW(), '%Y-%m-%d')
+    and a.activity_end_time &lt;= DATE_ADD(DATE_FORMAT(NOW(), '%Y-%m-%d'),INTERVAL 7 DAY)
+    <if test="activityType != null">
+      and d.tag_id = #{activityType}
+    </if>
+    GROUP BY
+    a.activity_id) aa
+    order by aa.browse_count desc
+    limit 1
+  </select>
+
+</mapper>

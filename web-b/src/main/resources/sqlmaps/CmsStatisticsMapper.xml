@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsStatisticsMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsStatistics" >
+    <id column="S_ID" property="sId" jdbcType="VARCHAR" />
+    <result column="S_TYPE" property="sType" jdbcType="INTEGER" />
+    <result column="WEEK_BROWSE_COUNT" property="weekBrowseCount" jdbcType="INTEGER" />
+    <result column="WEEK_PRAISE_COUNT" property="weekPraiseCount" jdbcType="INTEGER" />
+    <result column="WEEK_COLLECT_COUNT" property="weekCollectCount" jdbcType="INTEGER" />
+    <result column="WEEK_SHARE_COUNT" property="weekShareCount" jdbcType="INTEGER" />
+    <result column="MONTH_BROWSE_COUNT" property="monthBrowseCount" jdbcType="INTEGER" />
+    <result column="MONTH_PRAISE_COUNT" property="monthPraiseCount" jdbcType="INTEGER" />
+    <result column="MONTH_COLLECT_COUNT" property="monthCollectCount" jdbcType="INTEGER" />
+    <result column="MONTH_SHARE_COUNT" property="monthShareCount" jdbcType="INTEGER" />
+    <result column="OQUARTER_BROWSE_COUNT" property="oquarterBrowseCount" jdbcType="INTEGER" />
+    <result column="OQUARTER_PRAISE_COUNT" property="oquarterPraiseCount" jdbcType="INTEGER" />
+    <result column="OQUARTER_COLLECT_COUNT" property="oquarterCollectCount" jdbcType="INTEGER" />
+    <result column="OQUARTER_SHARE_COUNT" property="oquarterShareCount" jdbcType="INTEGER" />
+    <result column="SQUARTER_BROWSE_COUNT" property="squarterBrowseCount" jdbcType="INTEGER" />
+    <result column="SQUARTER_PRAISE_COUNT" property="squarterPraiseCount" jdbcType="INTEGER" />
+    <result column="SQUARTER_COLLECT_COUNT" property="squarterCollectCount" jdbcType="INTEGER" />
+    <result column="SQUARTER_SHARE_COUNT" property="squarterShareCount" jdbcType="INTEGER" />
+    <result column="TQUARTER_BROWSE_COUNT" property="tquarterBrowseCount" jdbcType="INTEGER" />
+    <result column="TQUARTER_PRAISE_COUNT" property="tquarterPraiseCount" jdbcType="INTEGER" />
+    <result column="TQUARTER_COLLECT_COUNT" property="tquarterCollectCount" jdbcType="INTEGER" />
+    <result column="TQUARTER_SHARE_COUNT" property="tquarterShareCount" jdbcType="INTEGER" />
+    <result column="FQUARTER_BROWSE_COUNT" property="fquarterBrowseCount" jdbcType="INTEGER" />
+    <result column="FQUARTER_PRAISE_COUNT" property="fquarterPraiseCount" jdbcType="INTEGER" />
+    <result column="FQUARTER_COLLECT_COUNT" property="fquarterCollectCount" jdbcType="INTEGER" />
+    <result column="FQUARTER_SHARE_COUNT" property="fquarterShareCount" jdbcType="INTEGER" />
+    <result column="YEAR_BROWSE_COUNT" property="yearBrowseCount" jdbcType="INTEGER" />
+    <result column="YEAR_PRAISE_COUNT" property="yearPraiseCount" jdbcType="INTEGER" />
+    <result column="YEAR_COLLECT_COUNT" property="yearCollectCount" jdbcType="INTEGER" />
+    <result column="YEAR_SHARE_COUNT" property="yearShareCount" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <!--<sql id="Base_Column_List" >
+    S_ID, S_TYPE, WEEK_BROWSE_COUNT, WEEK_PRAISE_COUNT, WEEK_COLLECT_COUNT, WEEK_SHARE_COUNT, 
+    MONTH_BROWSE_COUNT, MONTH_PRAISE_COUNT, MONTH_COLLECT_COUNT, MONTH_SHARE_COUNT, OQUARTER_BROWSE_COUNT, 
+    OQUARTER_PRAISE_COUNT, OQUARTER_COLLECT_COUNT, OQUARTER_SHARE_COUNT, SQUARTER_BROWSE_COUNT, 
+    SQUARTER_PRAISE_COUNT, SQUARTER_COLLECT_COUNT, SQUARTER_SHARE_COUNT, TQUARTER_BROWSE_COUNT, 
+    TQUARTER_PRAISE_COUNT, TQUARTER_COLLECT_COUNT, TQUARTER_SHARE_COUNT, FQUARTER_BROWSE_COUNT, 
+    FQUARTER_PRAISE_COUNT, FQUARTER_COLLECT_COUNT, FQUARTER_SHARE_COUNT, YEAR_BROWSE_COUNT, 
+    YEAR_PRAISE_COUNT, YEAR_COLLECT_COUNT, YEAR_SHARE_COUNT, CREATE_TIME, UPDATE_TIME, 
+    CREATE_USER, UPDATE_USER
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from cms_statistics
+    where S_ID = #{0}
+  </select>
+  -->
+  <!--统计表中插入数据 -->
+  <insert id="addCmsStatisticByCondition" parameterType="com.sun3d.why.model.CmsStatistics" >
+    insert into cms_statistics
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sId != null" >
+        S_ID,
+      </if>
+      <if test="sType != null" >
+        S_TYPE,
+      </if>
+      <if test="weekBrowseCount != null" >
+        WEEK_BROWSE_COUNT,
+      </if>
+      <if test="weekPraiseCount != null" >
+        WEEK_PRAISE_COUNT,
+      </if>
+      <if test="weekCollectCount != null" >
+        WEEK_COLLECT_COUNT,
+      </if>
+      <if test="weekShareCount != null" >
+        WEEK_SHARE_COUNT,
+      </if>
+      <if test="monthBrowseCount != null" >
+        MONTH_BROWSE_COUNT,
+      </if>
+      <if test="monthPraiseCount != null" >
+        MONTH_PRAISE_COUNT,
+      </if>
+      <if test="monthCollectCount != null" >
+        MONTH_COLLECT_COUNT,
+      </if>
+      <if test="monthShareCount != null" >
+        MONTH_SHARE_COUNT,
+      </if>
+      <if test="oquarterBrowseCount != null" >
+        OQUARTER_BROWSE_COUNT,
+      </if>
+      <if test="oquarterPraiseCount != null" >
+        OQUARTER_PRAISE_COUNT,
+      </if>
+      <if test="oquarterCollectCount != null" >
+        OQUARTER_COLLECT_COUNT,
+      </if>
+      <if test="oquarterShareCount != null" >
+        OQUARTER_SHARE_COUNT,
+      </if>
+      <if test="squarterBrowseCount != null" >
+        SQUARTER_BROWSE_COUNT,
+      </if>
+      <if test="squarterPraiseCount != null" >
+        SQUARTER_PRAISE_COUNT,
+      </if>
+      <if test="squarterCollectCount != null" >
+        SQUARTER_COLLECT_COUNT,
+      </if>
+      <if test="squarterShareCount != null" >
+        SQUARTER_SHARE_COUNT,
+      </if>
+      <if test="tquarterBrowseCount != null" >
+        TQUARTER_BROWSE_COUNT,
+      </if>
+      <if test="tquarterPraiseCount != null" >
+        TQUARTER_PRAISE_COUNT,
+      </if>
+      <if test="tquarterCollectCount != null" >
+        TQUARTER_COLLECT_COUNT,
+      </if>
+      <if test="tquarterShareCount != null" >
+        TQUARTER_SHARE_COUNT,
+      </if>
+      <if test="fquarterBrowseCount != null" >
+        FQUARTER_BROWSE_COUNT,
+      </if>
+      <if test="fquarterPraiseCount != null" >
+        FQUARTER_PRAISE_COUNT,
+      </if>
+      <if test="fquarterCollectCount != null" >
+        FQUARTER_COLLECT_COUNT,
+      </if>
+      <if test="fquarterShareCount != null" >
+        FQUARTER_SHARE_COUNT,
+      </if>
+      <if test="yearBrowseCount != null" >
+        YEAR_BROWSE_COUNT,
+      </if>
+      <if test="yearPraiseCount != null" >
+        YEAR_PRAISE_COUNT,
+      </if>
+      <if test="yearCollectCount != null" >
+        YEAR_COLLECT_COUNT,
+      </if>
+      <if test="yearShareCount != null" >
+        YEAR_SHARE_COUNT,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sId != null" >
+        #{sId,jdbcType=VARCHAR},
+      </if>
+      <if test="sType != null" >
+        #{sType,jdbcType=INTEGER},
+      </if>
+      <if test="weekBrowseCount != null" >
+        #{weekBrowseCount,jdbcType=INTEGER},
+      </if>
+      <if test="weekPraiseCount != null" >
+        #{weekPraiseCount,jdbcType=INTEGER},
+      </if>
+      <if test="weekCollectCount != null" >
+        #{weekCollectCount,jdbcType=INTEGER},
+      </if>
+      <if test="weekShareCount != null" >
+        #{weekShareCount,jdbcType=INTEGER},
+      </if>
+      <if test="monthBrowseCount != null" >
+        #{monthBrowseCount,jdbcType=INTEGER},
+      </if>
+      <if test="monthPraiseCount != null" >
+        #{monthPraiseCount,jdbcType=INTEGER},
+      </if>
+      <if test="monthCollectCount != null" >
+        #{monthCollectCount,jdbcType=INTEGER},
+      </if>
+      <if test="monthShareCount != null" >
+        #{monthShareCount,jdbcType=INTEGER},
+      </if>
+      <if test="oquarterBrowseCount != null" >
+        #{oquarterBrowseCount,jdbcType=INTEGER},
+      </if>
+      <if test="oquarterPraiseCount != null" >
+        #{oquarterPraiseCount,jdbcType=INTEGER},
+      </if>
+      <if test="oquarterCollectCount != null" >
+        #{oquarterCollectCount,jdbcType=INTEGER},
+      </if>
+      <if test="oquarterShareCount != null" >
+        #{oquarterShareCount,jdbcType=INTEGER},
+      </if>
+      <if test="squarterBrowseCount != null" >
+        #{squarterBrowseCount,jdbcType=INTEGER},
+      </if>
+      <if test="squarterPraiseCount != null" >
+        #{squarterPraiseCount,jdbcType=INTEGER},
+      </if>
+      <if test="squarterCollectCount != null" >
+        #{squarterCollectCount,jdbcType=INTEGER},
+      </if>
+      <if test="squarterShareCount != null" >
+        #{squarterShareCount,jdbcType=INTEGER},
+      </if>
+      <if test="tquarterBrowseCount != null" >
+        #{tquarterBrowseCount,jdbcType=INTEGER},
+      </if>
+      <if test="tquarterPraiseCount != null" >
+        #{tquarterPraiseCount,jdbcType=INTEGER},
+      </if>
+      <if test="tquarterCollectCount != null" >
+        #{tquarterCollectCount,jdbcType=INTEGER},
+      </if>
+      <if test="tquarterShareCount != null" >
+        #{tquarterShareCount,jdbcType=INTEGER},
+      </if>
+      <if test="fquarterBrowseCount != null" >
+        #{fquarterBrowseCount,jdbcType=INTEGER},
+      </if>
+      <if test="fquarterPraiseCount != null" >
+        #{fquarterPraiseCount,jdbcType=INTEGER},
+      </if>
+      <if test="fquarterCollectCount != null" >
+        #{fquarterCollectCount,jdbcType=INTEGER},
+      </if>
+      <if test="fquarterShareCount != null" >
+        #{fquarterShareCount,jdbcType=INTEGER},
+      </if>
+      <if test="yearBrowseCount != null" >
+        #{yearBrowseCount,jdbcType=INTEGER},
+      </if>
+      <if test="yearPraiseCount != null" >
+        #{yearPraiseCount,jdbcType=INTEGER},
+      </if>
+      <if test="yearCollectCount != null" >
+        #{yearCollectCount,jdbcType=INTEGER},
+      </if>
+      <if test="yearShareCount != null" >
+        #{yearShareCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <!--查询活动统计表中是否有数据 -->
+  <select id="cmsStatisticCountById" parameterType="java.lang.String"  resultType="java.lang.Integer" >
+    select count(*) from cms_statistics
+    WHERE  S_ID = #{0}
+  </select>
+
+  <!--更新活动统计表中数据 -->
+  <update id="editCmsStatisticByCondition" parameterType="com.sun3d.why.model.CmsStatistics" >
+    update cms_statistics
+    <set >
+      <if test="sType != null" >
+        S_TYPE = #{sType,jdbcType=INTEGER},
+      </if>
+      <if test="weekBrowseCount != null" >
+        WEEK_BROWSE_COUNT = #{weekBrowseCount,jdbcType=INTEGER},
+      </if>
+      <if test="weekPraiseCount != null" >
+        WEEK_PRAISE_COUNT = #{weekPraiseCount,jdbcType=INTEGER},
+      </if>
+      <if test="weekCollectCount != null" >
+        WEEK_COLLECT_COUNT = #{weekCollectCount,jdbcType=INTEGER},
+      </if>
+      <if test="weekShareCount != null" >
+        WEEK_SHARE_COUNT = #{weekShareCount,jdbcType=INTEGER},
+      </if>
+      <if test="monthBrowseCount != null" >
+        MONTH_BROWSE_COUNT = #{monthBrowseCount,jdbcType=INTEGER},
+      </if>
+      <if test="monthPraiseCount != null" >
+        MONTH_PRAISE_COUNT = #{monthPraiseCount,jdbcType=INTEGER},
+      </if>
+      <if test="monthCollectCount != null" >
+        MONTH_COLLECT_COUNT = #{monthCollectCount,jdbcType=INTEGER},
+      </if>
+      <if test="monthShareCount != null" >
+        MONTH_SHARE_COUNT = #{monthShareCount,jdbcType=INTEGER},
+      </if>
+      <if test="oquarterBrowseCount != null" >
+        OQUARTER_BROWSE_COUNT = #{oquarterBrowseCount,jdbcType=INTEGER},
+      </if>
+      <if test="oquarterPraiseCount != null" >
+        OQUARTER_PRAISE_COUNT = #{oquarterPraiseCount,jdbcType=INTEGER},
+      </if>
+      <if test="oquarterCollectCount != null" >
+        OQUARTER_COLLECT_COUNT = #{oquarterCollectCount,jdbcType=INTEGER},
+      </if>
+      <if test="oquarterShareCount != null" >
+        OQUARTER_SHARE_COUNT = #{oquarterShareCount,jdbcType=INTEGER},
+      </if>
+      <if test="squarterBrowseCount != null" >
+        SQUARTER_BROWSE_COUNT = #{squarterBrowseCount,jdbcType=INTEGER},
+      </if>
+      <if test="squarterPraiseCount != null" >
+        SQUARTER_PRAISE_COUNT = #{squarterPraiseCount,jdbcType=INTEGER},
+      </if>
+      <if test="squarterCollectCount != null" >
+        SQUARTER_COLLECT_COUNT = #{squarterCollectCount,jdbcType=INTEGER},
+      </if>
+      <if test="squarterShareCount != null" >
+        SQUARTER_SHARE_COUNT = #{squarterShareCount,jdbcType=INTEGER},
+      </if>
+      <if test="tquarterBrowseCount != null" >
+        TQUARTER_BROWSE_COUNT = #{tquarterBrowseCount,jdbcType=INTEGER},
+      </if>
+      <if test="tquarterPraiseCount != null" >
+        TQUARTER_PRAISE_COUNT = #{tquarterPraiseCount,jdbcType=INTEGER},
+      </if>
+      <if test="tquarterCollectCount != null" >
+        TQUARTER_COLLECT_COUNT = #{tquarterCollectCount,jdbcType=INTEGER},
+      </if>
+      <if test="tquarterShareCount != null" >
+        TQUARTER_SHARE_COUNT = #{tquarterShareCount,jdbcType=INTEGER},
+      </if>
+      <if test="fquarterBrowseCount != null" >
+        FQUARTER_BROWSE_COUNT = #{fquarterBrowseCount,jdbcType=INTEGER},
+      </if>
+      <if test="fquarterPraiseCount != null" >
+        FQUARTER_PRAISE_COUNT = #{fquarterPraiseCount,jdbcType=INTEGER},
+      </if>
+      <if test="fquarterCollectCount != null" >
+        FQUARTER_COLLECT_COUNT = #{fquarterCollectCount,jdbcType=INTEGER},
+      </if>
+      <if test="fquarterShareCount != null" >
+        FQUARTER_SHARE_COUNT = #{fquarterShareCount,jdbcType=INTEGER},
+      </if>
+      <if test="yearBrowseCount != null" >
+        YEAR_BROWSE_COUNT = #{yearBrowseCount,jdbcType=INTEGER},
+      </if>
+      <if test="yearPraiseCount != null" >
+        YEAR_PRAISE_COUNT = #{yearPraiseCount,jdbcType=INTEGER},
+      </if>
+      <if test="yearCollectCount != null" >
+        YEAR_COLLECT_COUNT = #{yearCollectCount,jdbcType=INTEGER},
+      </if>
+      <if test="yearShareCount != null" >
+        YEAR_SHARE_COUNT = #{yearShareCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where S_ID = #{sId,jdbcType=VARCHAR}
+  </update>
+  <!--前端2.0统计量-->
+  <select id="queryStatistics" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select YEAR_BROWSE_COUNT,YEAR_COLLECT_COUNT from cms_statistics where s_type= #{sType,jdbcType=INTEGER} and s_id = #{sId,jdbcType=INTEGER}
+  </select>
+</mapper>

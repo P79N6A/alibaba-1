@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.culturecloud.dao.association.CcpAssociationMapper" >
+  <resultMap id="BaseResultMap" type="com.culturecloud.model.bean.association.CcpAssociation" >
+    <id column="ASSN_ID" property="assnId" jdbcType="VARCHAR" />
+    <result column="ASSN_NAME" property="assnName" jdbcType="VARCHAR" />
+    <result column="ASSN_IMG_URL" property="assnImgUrl" jdbcType="VARCHAR" />
+    <result column="ASSN_ICON_URL" property="assnIconUrl" jdbcType="VARCHAR" />
+    <result column="ASSN_VIDEO_URL" property="assnVideoUrl" jdbcType="VARCHAR" />
+    <result column="ASSN_VIDEO_NAME" property="assnVideoName" jdbcType="VARCHAR" />
+    <result column="ASSN_CONTENT" property="assnContent" jdbcType="VARCHAR" />
+    <result column="ASSN_TAG" property="assnTag" jdbcType="VARCHAR" />
+    <result column="ASSN_MEMBER" property="assnMember" jdbcType="VARCHAR" />
+    <result column="ASSN_FANS_INIT" property="assnFansInit" jdbcType="VARCHAR" />
+    <result column="ASSN_FLOWER_INIT" property="assnFlowerInit" jdbcType="VARCHAR" />
+    <result column="SHARE_TITLE" property="shareTitle" jdbcType="VARCHAR" />
+    <result column="SHARE_DESC" property="shareDesc" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_SUSER" property="createSuser" jdbcType="VARCHAR" />
+    <result column="CREATE_TUSER" property="createTuser" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_SUSER" property="updateSuser" jdbcType="VARCHAR" />
+    <result column="UPDATE_TUSER" property="updateTuser" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseResultDtoMap" type="com.culturecloud.dao.dto.assonciation.CcpAssociationDto" >
+    <id column="ASSN_ID" property="assnId" jdbcType="VARCHAR" />
+    <result column="ASSN_NAME" property="assnName" jdbcType="VARCHAR" />
+    <result column="ASSN_IMG_URL" property="assnImgUrl" jdbcType="VARCHAR" />
+    <result column="ASSN_ICON_URL" property="assnIconUrl" jdbcType="VARCHAR" />
+    <result column="ASSN_VIDEO_URL" property="assnVideoUrl" jdbcType="VARCHAR" />
+    <result column="ASSN_VIDEO_NAME" property="assnVideoName" jdbcType="VARCHAR" />
+    <result column="ASSN_INTRODUCE" property="assnIntroduce" jdbcType="VARCHAR" />
+    <result column="ASSN_CONTENT" property="assnContent" jdbcType="VARCHAR" />
+    <result column="ASSN_TAG" property="assnTag" jdbcType="VARCHAR" />
+    <result column="ASSN_MEMBER" property="assnMember" jdbcType="VARCHAR" />
+    <result column="ASSN_FANS_INIT" property="assnFansInit" jdbcType="VARCHAR" />
+    <result column="ASSN_FLOWER_INIT" property="assnFlowerInit" jdbcType="VARCHAR" />
+    <result column="SHARE_TITLE" property="shareTitle" jdbcType="VARCHAR" />
+    <result column="SHARE_DESC" property="shareDesc" jdbcType="VARCHAR" />
+    <result column="FLOWER_COUNT" property="flowerCount" jdbcType="INTEGER" />
+    <result column="ACTIVITY_COUNT" property="activityCount" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_SUSER" property="createSuser" jdbcType="VARCHAR" />
+    <result column="CREATE_TUSER" property="createTuser" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_SUSER" property="updateSuser" jdbcType="VARCHAR" />
+    <result column="UPDATE_TUSER" property="updateTuser" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ASSN_ID, ASSN_NAME, ASSN_IMG_URL, ASSN_ICON_URL, ASSN_VIDEO_URL, ASSN_VIDEO_NAME, 
+    ASSN_INTRODUCE, ASSN_CONTENT, ASSN_TAG, ASSN_MEMBER, ASSN_FANS_INIT, ASSN_FLOWER_INIT, 
+    SHARE_TITLE, SHARE_DESC, CREATE_TIME, CREATE_SUSER, CREATE_TUSER, UPDATE_TIME, UPDATE_SUSER, 
+    UPDATE_TUSER
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_association
+    where ASSN_ID = #{assnId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_association
+    where ASSN_ID = #{assnId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.culturecloud.model.bean.association.CcpAssociation" >
+    insert into ccp_association
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      ASSN_ID,
+      <if test="assnName != null" >
+        ASSN_NAME,
+      </if>
+      <if test="assnImgUrl != null" >
+        ASSN_IMG_URL,
+      </if>
+      <if test="assnIconUrl != null" >
+        ASSN_ICON_URL,
+      </if>
+      <if test="assnVideoUrl != null" >
+        ASSN_VIDEO_URL,
+      </if>
+      <if test="assnVideoName != null" >
+        ASSN_VIDEO_NAME,
+      </if>
+      <if test="assnIntroduce != null" >
+        ASSN_INTRODUCE,
+      </if>
+      <if test="assnContent != null" >
+        ASSN_CONTENT,
+      </if>
+      <if test="assnTag != null" >
+        ASSN_TAG,
+      </if>
+      <if test="assnMember != null" >
+        ASSN_MEMBER,
+      </if>
+      <if test="assnFansInit != null" >
+        ASSN_FANS_INIT,
+      </if>
+      <if test="assnFlowerInit != null" >
+        ASSN_FLOWER_INIT,
+      </if>
+      <if test="shareTitle != null" >
+        SHARE_TITLE,
+      </if>
+      <if test="shareDesc != null" >
+        SHARE_DESC,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="createSuser != null" >
+        CREATE_SUSER,
+      </if>
+      <if test="createTuser != null" >
+        CREATE_TUSER,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="updateSuser != null" >
+        UPDATE_SUSER,
+      </if>
+      <if test="updateTuser != null" >
+        UPDATE_TUSER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{assnId,jdbcType=VARCHAR},
+      <if test="assnName != null" >
+        #{assnName,jdbcType=VARCHAR},
+      </if>
+      <if test="assnImgUrl != null" >
+        #{assnImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="assnIconUrl != null" >
+        #{assnIconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="assnVideoUrl != null" >
+        #{assnVideoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="assnVideoName != null" >
+        #{assnVideoName,jdbcType=VARCHAR},
+      </if>
+      <if test="assnIntroduce != null" >
+        #{assnIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="assnContent != null" >
+        #{assnContent,jdbcType=VARCHAR},
+      </if>
+      <if test="assnTag != null" >
+        #{assnTag,jdbcType=VARCHAR},
+      </if>
+      <if test="assnMember != null" >
+        #{assnMember,jdbcType=VARCHAR},
+      </if>
+      <if test="assnFansInit != null" >
+        #{assnFansInit,jdbcType=VARCHAR},
+      </if>
+      <if test="assnFlowerInit != null" >
+        #{assnFlowerInit,jdbcType=VARCHAR},
+      </if>
+      <if test="shareTitle != null" >
+        #{shareTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="shareDesc != null" >
+        #{shareDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createSuser != null" >
+        #{createSuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTuser != null" >
+        #{createTuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateSuser != null" >
+        #{updateSuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTuser != null" >
+        #{updateTuser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.culturecloud.model.bean.association.CcpAssociation" >
+    update ccp_association
+    <set >
+      <if test="assnName != null" >
+        ASSN_NAME = #{assnName,jdbcType=VARCHAR},
+      </if>
+      <if test="assnImgUrl != null" >
+        ASSN_IMG_URL = #{assnImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="assnIconUrl != null" >
+        ASSN_ICON_URL = #{assnIconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="assnVideoUrl != null" >
+        ASSN_VIDEO_URL = #{assnVideoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="assnVideoName != null" >
+        ASSN_VIDEO_NAME = #{assnVideoName,jdbcType=VARCHAR},
+      </if>
+      <if test="assnIntroduce != null" >
+        ASSN_INTRODUCE = #{assnIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="assnContent != null" >
+        ASSN_CONTENT = #{assnContent,jdbcType=VARCHAR},
+      </if>
+      <if test="assnTag != null" >
+        ASSN_TAG = #{assnTag,jdbcType=VARCHAR},
+      </if>
+      <if test="assnMember != null" >
+        ASSN_MEMBER = #{assnMember,jdbcType=VARCHAR},
+      </if>
+      <if test="assnFansInit != null" >
+        ASSN_FANS_INIT = #{assnFansInit,jdbcType=VARCHAR},
+      </if>
+      <if test="assnFlowerInit != null" >
+        ASSN_FLOWER_INIT = #{assnFlowerInit,jdbcType=VARCHAR},
+      </if>
+      <if test="shareTitle != null" >
+        SHARE_TITLE = #{shareTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="shareDesc != null" >
+        SHARE_DESC = #{shareDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createSuser != null" >
+        CREATE_SUSER = #{createSuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTuser != null" >
+        CREATE_TUSER = #{createTuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateSuser != null" >
+        UPDATE_SUSER = #{updateSuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTuser != null" >
+        UPDATE_TUSER = #{updateTuser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ASSN_ID = #{assnId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="getAllAssociation" resultMap="BaseResultDtoMap" parameterType="java.util.Map">
+    SELECT
+		assn.*,
+	   (SELECT COUNT(af.USER_ID) FROM ccp_association_flower af WHERE af.ASSN_ID = assn.ASSN_ID) FLOWER_COUNT,
+	   (SELECT COUNT(a.ACTIVITY_ID) 
+		 FROM cms_activity a 
+		 WHERE a.ASSN_ID = assn.ASSN_ID 
+		 AND a.ACTIVITY_START_TIME &lt;= DATE_FORMAT(NOW(),'%Y-%m-%d')
+		 AND a.ACTIVITY_END_TIME >= DATE_FORMAT(NOW(),'%Y-%m-%d')
+		) ACTIVITY_COUNT
+	FROM ccp_association assn
+	LEFT JOIN ccp_association_recruit as re ON assn.ASSN_ID=re.ASSN_ID
+	WHERE 1=1
+	<if test="recruitStatus == 1" >
+        and re.RECRUIT_STATUS = 1
+        and re.RECRUIT_NUMBER &gt; re.APPLY_NUMBER
+      </if>
+      <if test="assnName != null" >
+          and assn.ASSN_NAME like #{assnName}
+      </if>
+    group by assn.ASSN_ID
+ 	order by 
+		CASE
+		WHEN assn.is_top = 1 THEN
+			1
+		ELSE
+        	0
+		END DESC,
+		CASE
+		WHEN assn.is_top = 1 THEN
+			assn.top_time
+		ELSE
+			assn.top_time
+		END DESC,re.RECRUIT_END_TIME DESC,assn.CREATE_TIME DESC
+  </select>
+  
+  <select id="getAllAssociationPc" resultMap="BaseResultDtoMap" parameterType="java.util.Map">
+    SELECT
+		assn.*,
+	   (SELECT COUNT(af.USER_ID) FROM ccp_association_flower af WHERE af.ASSN_ID = assn.ASSN_ID) FLOWER_COUNT,
+	   (SELECT COUNT(a.ACTIVITY_ID) 
+		 FROM cms_activity a 
+		 WHERE a.ASSN_ID = assn.ASSN_ID 
+		 AND a.ACTIVITY_START_TIME &lt;= DATE_FORMAT(NOW(),'%Y-%m-%d')
+		 AND a.ACTIVITY_END_TIME >= DATE_FORMAT(NOW(),'%Y-%m-%d')
+		) ACTIVITY_COUNT,
+		IF(re.RECRUIT_END_TIME > now() and re.RECRUIT_STATUS = 1 and re.RECRUIT_NUMBER &gt; re.APPLY_NUMBER,1,2) AS recruitStatus
+	FROM ccp_association assn
+	LEFT JOIN ccp_association_recruit as re ON assn.ASSN_ID=re.ASSN_ID 
+	WHERE 1=1
+	<if test="recruitStatus == 1" >
+		and re.RECRUIT_END_TIME > now()
+        and re.RECRUIT_STATUS = 1
+        and re.RECRUIT_NUMBER &gt; re.APPLY_NUMBER
+      </if>
+      <if test="assnName != null" >
+          and assn.ASSN_NAME like #{assnName}
+      </if>
+    group by assn.ASSN_ID
+    order by 
+			CASE
+			WHEN assn.is_top = 1 THEN
+				1
+			ELSE
+         		0
+			END DESC,
+			CASE
+			WHEN assn.is_top = 1 THEN
+				assn.top_time
+			ELSE
+				assn.top_time
+			END DESC,re.RECRUIT_END_TIME DESC,assn.CREATE_TIME DESC
+	 <if test="resultFirst != null">
+        limit ${resultFirst},${resultSize}
+    </if>
+  </select>
+  
+  <select id="getAssociationDetail" resultMap="BaseResultDtoMap" >
+    SELECT
+		assn.*,
+	   (SELECT COUNT(af.USER_ID) FROM ccp_association_flower af WHERE af.ASSN_ID = assn.ASSN_ID) FLOWER_COUNT,
+	   (SELECT COUNT(a.ACTIVITY_ID) 
+		 FROM cms_activity a 
+		 WHERE a.ASSN_ID = assn.ASSN_ID 
+		 AND a.ACTIVITY_START_TIME &lt;= DATE_FORMAT(NOW(),'%Y-%m-%d')
+		 AND a.ACTIVITY_END_TIME >= DATE_FORMAT(NOW(),'%Y-%m-%d')
+		) ACTIVITY_COUNT
+	FROM ccp_association assn
+	WHERE assn.ASSN_ID=#{associationId}
+	ORDER BY assn.CREATE_TIME DESC
+  </select>
+  
+  <select id="countAssociationFans" resultType="java.lang.Integer" >
+  	SELECT COUNT(DISTINCT USER_ID)
+  	FROM cms_collect
+  	WHERE RELATE_ID=#{associationId} and TYPE=5
+  </select>
+  
+   <select id="queryUserFollowAssociation" resultType="java.lang.Integer">
+  	SELECT COUNT(*)
+  	FROM cms_collect
+  	WHERE 1=1
+  	and USER_ID=#{userId} 
+  	and RELATE_ID=#{associationId} 
+  	and TYPE=5
+  </select>
+   <select id="getAllAssociationCount" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		SELECT
+		count(DISTINCT assn.ASSN_ID)
+	FROM ccp_association assn
+	LEFT JOIN ccp_association_recruit as re ON assn.ASSN_ID=re.ASSN_ID
+	 where 1=1
+	<if test="recruitStatus == 1" >
+		and re.RECRUIT_END_TIME > now()
+        and re.RECRUIT_STATUS = 1
+        and re.RECRUIT_NUMBER &gt; re.APPLY_NUMBER
+      </if>
+    <if test="assnName != null">
+        and assn.ASSN_NAME like #{assnName}
+    </if>
+  </select>
+</mapper>

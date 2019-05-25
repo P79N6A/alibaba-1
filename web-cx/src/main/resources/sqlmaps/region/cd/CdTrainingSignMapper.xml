@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.region.cd.CdTrainingSignMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.region.cd.model.CdTrainingSign" >
+    <id column="SIGN_ID" property="signId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="SIGN_COURSE" property="signCourse" jdbcType="VARCHAR" />
+    <result column="SIGN_TYPE" property="signType" jdbcType="INTEGER" />
+    <result column="SIGN_NAME" property="signName" jdbcType="VARCHAR" />
+    <result column="SIGN_SEX" property="signSex" jdbcType="INTEGER" />
+    <result column="SIGN_IDCARD" property="signIdcard" jdbcType="VARCHAR" />
+    <result column="SIGN_MOBILE" property="signMobile" jdbcType="VARCHAR" />
+    <result column="SIGN_SMS_TYPE" property="signSmsType" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    SIGN_ID, USER_ID, SIGN_COURSE, SIGN_TYPE, SIGN_NAME, SIGN_SEX, SIGN_IDCARD, SIGN_MOBILE, SIGN_SMS_TYPE, 
+    CREATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cd_training_sign
+    where SIGN_ID = #{signId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cd_training_sign
+    where SIGN_ID = #{signId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.region.cd.model.CdTrainingSign" >
+    insert into cd_training_sign
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      SIGN_ID,
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="signCourse != null" >
+        SIGN_COURSE,
+      </if>
+      <if test="signType != null" >
+        SIGN_TYPE,
+      </if>
+      <if test="signName != null" >
+        SIGN_NAME,
+      </if>
+      <if test="signSex != null" >
+        SIGN_SEX,
+      </if>
+      <if test="signIdcard != null" >
+        SIGN_IDCARD,
+      </if>
+      <if test="signMobile != null" >
+        SIGN_MOBILE,
+      </if>
+      <if test="signSmsType != null" >
+        SIGN_SMS_TYPE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{signId,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="signCourse != null" >
+        #{signCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="signType != null" >
+        #{signType,jdbcType=INTEGER},
+      </if>
+      <if test="signName != null" >
+        #{signName,jdbcType=VARCHAR},
+      </if>
+      <if test="signSex != null" >
+        #{signSex,jdbcType=INTEGER},
+      </if>
+      <if test="signIdcard != null" >
+        #{signIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="signMobile != null" >
+        #{signMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="signSmsType != null" >
+        #{signSmsType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.region.cd.model.CdTrainingSign" >
+    update cd_training_sign
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="signCourse != null" >
+        SIGN_COURSE = #{signCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="signType != null" >
+        SIGN_TYPE = #{signType,jdbcType=INTEGER},
+      </if>
+      <if test="signName != null" >
+        SIGN_NAME = #{signName,jdbcType=VARCHAR},
+      </if>
+      <if test="signSex != null" >
+        SIGN_SEX = #{signSex,jdbcType=INTEGER},
+      </if>
+      <if test="signIdcard != null" >
+        SIGN_IDCARD = #{signIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="signMobile != null" >
+        SIGN_MOBILE = #{signMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="signSmsType != null" >
+        SIGN_SMS_TYPE = #{signSmsType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SIGN_ID = #{signId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryTrainingSignList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select *
+    from cd_training_sign
+    where 1=1
+    <if test="signCourse != null" >
+    	and SIGN_COURSE = #{signCourse}
+    </if>
+    <if test="signIdcard != null" >
+        and SIGN_IDCARD = #{signIdcard}
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsFeedbackReplyMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsFeedbackReply" >
+    <id column="REPLY_ID" property="replyId" jdbcType="VARCHAR" />
+    <result column="FEED_BACK_ID" property="feedBackId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="REPLY_TIME" property="replyTime" jdbcType="TIMESTAMP" />
+    <result column="REPLY_CONTENT" property="replyContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    REPLY_ID, FEED_BACK_ID, USER_ID, REPLY_TIME
+  </sql>
+  <select id="queryFeedbackReplyById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    REPLY_CONTENT
+    from cms_feedback_reply
+    where REPLY_ID = #{replyId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cms_feedback_reply
+    where REPLY_ID = #{replyId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="addFeedbackReply" parameterType="com.sun3d.why.model.CmsFeedbackReply" >
+    insert into cms_feedback_reply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="replyId != null" >
+        REPLY_ID,
+      </if>
+      <if test="feedBackId != null" >
+        FEED_BACK_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="replyTime != null" >
+        REPLY_TIME,
+      </if>
+      <if test="replyContent != null" >
+        REPLY_CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="replyId != null" >
+        #{replyId,jdbcType=VARCHAR},
+      </if>
+      <if test="feedBackId != null" >
+        #{feedBackId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="replyTime != null" >
+        #{replyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyContent != null" >
+        #{replyContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="editFeedbackReply" parameterType="com.sun3d.why.model.CmsFeedbackReply" >
+    update cms_feedback_reply
+    <set >
+      <if test="feedBackId != null" >
+        FEED_BACK_ID = #{feedBackId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="replyTime != null" >
+        REPLY_TIME = #{replyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyContent != null" >
+        REPLY_CONTENT = #{replyContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where REPLY_ID = #{replyId,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="queryFeedbackReplyByFeedBackId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    REPLY_CONTENT
+    from cms_feedback_reply
+    where FEED_BACK_ID = #{feedBackId,jdbcType=VARCHAR}
+    limit 1
+  </select>
+  
+</mapper>

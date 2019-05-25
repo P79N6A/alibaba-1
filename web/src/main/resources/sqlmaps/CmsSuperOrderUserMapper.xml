@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsSuperOrderUserMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsSuperOrderUser" >
+    <id column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_MOBILE_NO" property="userMobileNo" jdbcType="VARCHAR" />
+    <result column="LOGIN_CODE" property="loginCode" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    USER_ID, USER_MOBILE_NO, LOGIN_CODE
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cms_super_order_user
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cms_super_order_user
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.CmsSuperOrderUser" >
+    insert into cms_super_order_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      USER_ID,
+      <if test="userMobileNo != null" >
+        USER_MOBILE_NO,
+      </if>
+      <if test="loginCode != null" >
+        LOGIN_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{userId,jdbcType=VARCHAR},
+      <if test="userMobileNo != null" >
+        #{userMobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="loginCode != null" >
+        #{loginCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.CmsSuperOrderUser" >
+    update cms_super_order_user
+    <set >
+      <if test="userMobileNo != null" >
+        USER_MOBILE_NO = #{userMobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="loginCode != null" >
+        LOGIN_CODE = #{loginCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="querySuperOrderUserByUserMobileNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    	USER_ID, USER_MOBILE_NO, LOGIN_CODE
+    from cms_super_order_user
+    where USER_MOBILE_NO = #{userMobileNo,jdbcType=VARCHAR}
+  </select>
+</mapper>

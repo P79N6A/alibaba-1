@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.YketCarouselMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.bean.yket.YketCarousel" >
+    <id column="carousel_id" property="carouselId" jdbcType="VARCHAR" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="carousel_url" property="carouselUrl" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="msg" property="msg" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    carousel_id, img_url, carousel_url, deleted, sort, msg, create_user, update_user, 
+    create_date, update_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from yket_carousel
+    where carousel_id = #{carouselId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from yket_carousel
+    where carousel_id = #{carouselId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sun3d.why.model.bean.yket.YketCarousel" >
+    insert into yket_carousel (carousel_id, img_url, carousel_url, 
+      deleted, sort, msg, create_user, 
+      update_user, create_date, update_date
+      )
+    values (#{carouselId,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, #{carouselUrl,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=BIT}, #{sort,jdbcType=INTEGER}, #{msg,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+      #{updateUser,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sun3d.why.model.bean.yket.YketCarousel" >
+    insert into yket_carousel
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="carouselId != null" >
+        carousel_id,
+      </if>
+      <if test="imgUrl != null" >
+        img_url,
+      </if>
+      <if test="carouselUrl != null" >
+        carousel_url,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="msg != null" >
+        msg,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="carouselId != null" >
+        #{carouselId,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="carouselUrl != null" >
+        #{carouselUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="msg != null" >
+        #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sun3d.why.model.bean.yket.YketCarousel" >
+    update yket_carousel
+    <set >
+      <if test="imgUrl != null" >
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="carouselUrl != null" >
+        carousel_url = #{carouselUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="msg != null" >
+        msg = #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where carousel_id = #{carouselId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sun3d.why.model.bean.yket.YketCarousel" >
+    update yket_carousel
+    set img_url = #{imgUrl,jdbcType=VARCHAR},
+      carousel_url = #{carouselUrl,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=BIT},
+      sort = #{sort,jdbcType=INTEGER},
+      msg = #{msg,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where carousel_id = #{carouselId,jdbcType=VARCHAR}
+  </update>
+</mapper>

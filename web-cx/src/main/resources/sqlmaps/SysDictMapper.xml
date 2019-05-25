@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.SysDictMapper">
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.SysDict">
+		<id column="DICT_ID" property="dictId" jdbcType="VARCHAR" />
+		<result column="DICT_NAME" property="dictName" jdbcType="VARCHAR" />
+		<result column="DICT_CODE" property="dictCode" jdbcType="VARCHAR" />
+		<result column="DICT_PARENT_ID" property="dictParentId"
+			jdbcType="VARCHAR" />
+		<result column="DICT_REMARK" property="dictRemark" jdbcType="VARCHAR" />
+		<result column="DICT_SORT" property="dictSort" jdbcType="INTEGER" />
+		<result column="DICT_STATE" property="dictState" jdbcType="INTEGER" />
+		<result column="DICT_CREATE_USER" property="dictCreateUser"
+			jdbcType="VARCHAR" />
+		<result column="DICT_CREATE_TIME" property="dictCreateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="DICT_UPDATE_USER" property="dictUpdateUser"
+			jdbcType="VARCHAR" />
+		<result column="DICT_UPDATE_TIME" property="dictUpdateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="user_account" property="userAccount" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<resultMap id="customMap" type="com.sun3d.why.model.extmodel.AppSysDict">
+		<id column="DICT_ID" property="dictId" jdbcType="VARCHAR" />
+		<result column="DICT_CODE" property="dictCode" jdbcType="VARCHAR" />
+		<result column="DICT_NAME" property="dictName" jdbcType="VARCHAR" />
+		<collection property="dictList" javaType="java.util.List" autoMapping="true" ofType="com.sun3d.why.model.extmodel.DictExt"  />
+	</resultMap>
+
+
+	<select id="queryAllArea" resultMap="customMap" parameterType="java.util.Map">
+		SELECT sd.DICT_ID,sd.DICT_CODE, sd.DICT_NAME,sc.DICT_ID id,sc.DICT_NAME name FROM
+
+		sys_dict sd LEFT JOIN sys_dict sc  ON sd.DICT_ID = sc.DICT_PARENT_ID
+
+		WHERE sd.DICT_CODE in
+		<foreach collection="list" separator="," item="item" open="(" close=")" >
+			#{item}
+		</foreach>
+		 AND sd.DICT_STATE=1
+		 AND sc.DICT_STATE=1
+		ORDER BY sd.DICT_SORT,sc.DICT_SORT
+	</select>
+
+
+	<!-- 分页信息 -->
+	<sql id="pagination_condition">
+		limit ${firstResult},${rows}
+	</sql>
+
+	<sql id="SysDict_Where">
+	<where>
+		1=1
+		<if test="dictId != null" >
+		 and dict_Id = #{dictId,jdbcType=VARCHAR}
+		</if>
+		<if test="dictName != null" >
+			and dict_Name like #{dictName,jdbcType=VARCHAR}
+		</if>
+		<if test="dictCode != null" >
+			and dict_Code	=	#{dictCode,jdbcType=VARCHAR}
+		</if>
+		<if test="dictParentId != null" >
+			and dict_Parent_Id	=	#{dictParentId,jdbcType=VARCHAR}
+		</if>
+		<if test="dictRemark != null" >
+			and dict_Remark	=	#{dictRemark,jdbcType=VARCHAR}
+		</if>
+		<if test="dictSort != null" >
+			and 	dictSort=	#{dictSort,jdbcType=INTEGER}
+		</if>
+		<if test="dictState != null" >
+			and dict_State	=	#{dictState,jdbcType=INTEGER}
+		</if>
+		<if test="dictCreateUser != null" >
+			and dict_Create_User	=	#{dictCreateUser,jdbcType=VARCHAR}
+		</if>
+		<if test="dictCreateTime != null" >
+			and dict_Create_Time	=	#{dictCreateTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="dictUpdateUser != null" >
+			and dict_Update_User	=	#{dictUpdateUser,jdbcType=VARCHAR}
+		</if>
+		<if test="dictUpdateTime != null" >
+			and dict_Update_Time	=	#{dictUpdateTime,jdbcType=TIMESTAMP}
+		</if>
+
+	</where>
+	</sql>
+
+	<!-- 根据条件查询字典列表信息 -->
+	<select id="querySysDictByByCondition" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.SysDict" >
+		SELECT DICT_ID,
+		DICT_NAME
+		FROM sys_dict
+		where 1=1
+		<if test="dictCode != null" >
+			and dict_Code	=	#{dictCode,jdbcType=VARCHAR}
+		</if>
+		<if test="dictState != null" >
+			and dict_State	=	#{dictState,jdbcType=INTEGER}
+		</if>
+		<if test="dictParentId != null" >
+			and dict_Parent_Id	=	#{dictParentId,jdbcType=VARCHAR}
+		</if>
+		order by DICT_SORT asc
+	</select>
+
+	<!-- 根据状态,parentId为空查询字典列表信息 -->
+	<select id="querySysDictByByState" resultMap="BaseResultMap" parameterType="java.util.Map" >
+		SELECT DICT_ID,
+		DICT_NAME
+		FROM sys_dict
+		where dict_Parent_Id is null
+		<if test="dictState != null" >
+			and dict_State	= #{dictState,jdbcType=INTEGER}
+		</if>
+		order by DICT_UPDATE_TIME desc
+	</select>
+
+	<!-- 根据hashmap条件查询字典列表信息 -->
+	<select id="querySysDictByByMap" resultMap="BaseResultMap" parameterType="hashmap" >
+		SELECT DICT_ID,
+		DICT_NAME
+		FROM sys_dict
+		<if test="_parameter != null">
+			<include refid="SysDict_Where" />
+		</if>
+		order by DICT_UPDATE_TIME desc
+	</select>
+
+	<!-- 根据hashmap条件查询总数量 -->
+	<select id="querySysDictCountByByMap" resultType="java.lang.Integer" parameterType="hashmap" >
+		SELECT count(*)
+		FROM sys_dict
+		<include refid="SysDict_Where" />
+		order by DICT_UPDATE_TIME desc
+	</select>
+
+	<!-- 根据hashmap条件查询总数量 -->
+	<select id="querySysDict" resultMap="BaseResultMap" parameterType="java.util.Map" >
+		SELECT s.DICT_ID
+		FROM sys_dict s
+		WHERE
+		<if test="dictCode != null" >
+			 s.DICT_CODE = #{dictCode,jdbcType=VARCHAR}
+		</if>
+		<if test="dictState != null" >
+			AND s.DICT_STATE = #{dictState,jdbcType=INTEGER}
+		</if>
+		<if test="dictName != null" >
+			AND s.DICT_NAME = #{dictName,jdbcType=VARCHAR}
+		</if>
+		order by s.DICT_UPDATE_TIME desc
+	</select>
+
+	<!--查询总数 -->
+	<select id="querySysDictCount" parameterType="java.util.Map" resultType="java.lang.Integer" >
+		SELECT count(*)
+		FROM sys_dict s,
+		sys_user u
+		WHERE s.DICT_CREATE_USER=u.user_id
+		<if test="dictCode != null" >
+			AND s.DICT_CODE like #{dictCode,jdbcType=VARCHAR}
+		</if>
+		<if test="dictState != null" >
+			AND s.DICT_STATE = #{dictState,jdbcType=INTEGER}
+		</if>
+		<if test="dictName != null" >
+			AND s.DICT_NAME like #{dictName,jdbcType=VARCHAR}
+		</if>
+	</select>
+
+	<!-- 查询字典信息 -->
+	<select id="querySysDictCode" resultMap="BaseResultMap" parameterType="java.util.Map" >
+		SELECT s.DICT_ID,
+        s.DICT_NAME,
+		s.DICT_CODE,
+		s.DICT_REMARK,
+		s.DICT_UPDATE_TIME,
+		u.user_account AS user_account
+		FROM sys_dict s,
+		sys_user u
+		WHERE s.DICT_CREATE_USER=u.user_id
+		<if test="dictCode != null" >
+			AND s.DICT_CODE like #{dictCode,jdbcType=VARCHAR}
+		</if>
+		<if test="dictState != null" >
+			AND s.DICT_STATE = #{dictState,jdbcType=INTEGER}
+		</if>
+		<if test="dictName != null" >
+			AND s.DICT_NAME like #{dictName,jdbcType=VARCHAR}
+		</if>
+		order by s.DICT_UPDATE_TIME desc
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+
+	</select>
+
+
+	<!-- 根据字典id查询字典信息 -->
+	<select id="querySysDictByDictId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		DICT_ID, DICT_NAME,
+		DICT_CODE,
+		DICT_REMARK,
+		DICT_UPDATE_TIME,DICT_SORT,DICT_PARENT_ID
+		from SYS_DICT
+		where DICT_ID = #{dictId,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 根据字典Name查询字典信息 -->
+	<select id="querySysDictByDictName" resultMap="BaseResultMap"
+			parameterType="java.util.Map">
+		select
+		DICT_ID, DICT_NAME,
+		DICT_CODE,
+		DICT_REMARK,
+		DICT_UPDATE_TIME,DICT_SORT,DICT_PARENT_ID
+		from SYS_DICT
+		where DICT_NAME = #{dictName,jdbcType=VARCHAR}
+		<if test="dictCode != null">
+			and DICT_CODE = #{dictCode,jdbcType=VARCHAR}
+		</if>
+	</select>
+
+
+	<!-- 根据字典id删除字典信息 -->
+	<delete id="deleteSysDictByDictId" parameterType="java.lang.String">
+		delete from SYS_DICT
+		where DICT_ID = #{dictId,jdbcType=VARCHAR}
+	</delete>
+
+	<!-- 根据字典插入字典信息 -->
+	<insert id="addSysDict" parameterType="com.sun3d.why.model.SysDict">
+		insert into SYS_DICT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="dictId != null">
+				DICT_ID,
+			</if>
+			<if test="dictName != null">
+				DICT_NAME,
+			</if>
+			<if test="dictCode != null">
+				DICT_CODE,
+			</if>
+			<if test="dictParentId != null">
+				DICT_PARENT_ID,
+			</if>
+			<if test="dictRemark != null">
+				DICT_REMARK,
+			</if>
+			<if test="dictSort != null">
+				DICT_SORT,
+			</if>
+			<if test="dictState != null">
+				DICT_STATE,
+			</if>
+			<if test="dictCreateUser != null">
+				DICT_CREATE_USER,
+			</if>
+			<if test="dictCreateTime != null">
+				DICT_CREATE_TIME,
+			</if>
+			<if test="dictUpdateUser != null">
+				DICT_UPDATE_USER,
+			</if>
+			<if test="dictUpdateTime != null">
+				DICT_UPDATE_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="dictId != null">
+				#{dictId,jdbcType=VARCHAR},
+			</if>
+			<if test="dictName != null">
+				#{dictName,jdbcType=VARCHAR},
+			</if>
+			<if test="dictCode != null">
+				#{dictCode,jdbcType=VARCHAR},
+			</if>
+			<if test="dictParentId != null">
+				#{dictParentId,jdbcType=VARCHAR},
+			</if>
+			<if test="dictRemark != null">
+				#{dictRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="dictSort != null">
+				#{dictSort,jdbcType=INTEGER},
+			</if>
+			<if test="dictState != null">
+				#{dictState,jdbcType=INTEGER},
+			</if>
+			<if test="dictCreateUser != null">
+				#{dictCreateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="dictCreateTime != null">
+				#{dictCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="dictUpdateUser != null">
+				#{dictUpdateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="dictUpdateTime != null">
+				#{dictUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 根据字典id更新字典信息 -->
+	<update id="editSysDict" parameterType="com.sun3d.why.model.SysDict">
+		update SYS_DICT
+		<set>
+			<if test="dictName != null">
+				DICT_NAME = #{dictName,jdbcType=VARCHAR},
+			</if>
+			<if test="dictCode != null">
+				DICT_CODE = #{dictCode,jdbcType=VARCHAR},
+			</if>
+			<if test="dictParentId != null">
+				DICT_PARENT_ID = #{dictParentId,jdbcType=VARCHAR},
+			</if>
+			<if test="dictRemark != null">
+				DICT_REMARK = #{dictRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="dictSort != null">
+				DICT_SORT = #{dictSort,jdbcType=INTEGER},
+			</if>
+			<if test="dictState != null">
+				DICT_STATE = #{dictState,jdbcType=INTEGER},
+			</if>
+			<if test="dictCreateUser != null">
+				DICT_CREATE_USER = #{dictCreateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="dictCreateTime != null">
+				DICT_CREATE_TIME = #{dictCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="dictUpdateUser != null">
+				DICT_UPDATE_USER = #{dictUpdateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="dictUpdateTime != null">
+				DICT_UPDATE_TIME = #{dictUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where DICT_ID = #{dictId,jdbcType=VARCHAR}
+	</update>
+	<!--app查询朝代 -->
+	<select id="queryAppDictByCondition" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.SysDict" >
+		SELECT
+		DICT_NAME
+		FROM
+		sys_dict
+		WHERE
+		DICT_PARENT_ID IN (
+		SELECT
+		DICT_ID
+		FROM
+		sys_dict
+		WHERE 1=1
+		<if test="dictCode != null" >
+			and dict_Code=#{dictCode,jdbcType=VARCHAR}
+		</if>
+		<if test="dictState != null" >
+			and dict_State=#{dictState,jdbcType=INTEGER}
+		</if>
+		)
+		order by DICT_UPDATE_TIME desc
+	</select>
+	<!--app获取非遗名称 -->
+	<select id="queryAppSysDictByCode" resultMap="BaseResultMap" parameterType="java.util.Map" >
+		SELECT
+		sd.DICT_ID,sd.DICT_NAME
+		FROM
+		sys_dict sd
+		WHERE
+		1 = 1
+		AND sd.DICT_PARENT_ID IN (
+		SELECT
+		s.dict_id
+		FROM
+		sys_dict s
+		WHERE 1=1
+		<if test="dictCode != null" >
+			AND s.DICT_CODE = #{dictCode,jdbcType=VARCHAR}
+		</if>
+		<if test="dictState != null" >
+			AND s.DICT_STATE = #{dictState,jdbcType=INTEGER}
+		</if>
+		)
+		order by sd.DICT_UPDATE_TIME desc
+	</select>
+
+
+	<select id="querySysDictByParentCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+			SELECT
+
+			s.dict_id,s.dict_name
+
+			FROM  sys_dict s
+
+			WHERE
+
+			s.DICT_PARENT_ID =
+
+			(SELECT sd.DICT_ID from sys_dict sd  where sd.DICT_CODE=#{code})
+
+			ORDER BY DICT_UPDATE_TIME DESC
+
+	</select>
+
+	<select id="querySysDictListByIds" parameterType="java.util.List"  resultMap="BaseResultMap">
+		SELECT s.dict_id,s.dict_name,s.DICT_CODE FROM  sys_dict s WHERE  s.dict_id IN
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		
+		order by s.DICT_SORT 
+	</select>
+
+	<select id="queryDictNameByActivityTheme" parameterType="java.lang.String" resultType="java.lang.String">
+		select dict_name from sys_dict  sd
+		where sd.DICT_ID  = (
+				select tag_type from cms_tag ct where ct.tag_id = #{activityTheme,jdbcType=VARCHAR}
+				)
+	</select>
+
+</mapper>

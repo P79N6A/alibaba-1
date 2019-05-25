@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsGatherMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsGather" >
+    <id column="GATHER_ID" property="gatherId" jdbcType="VARCHAR" />
+    <result column="GATHER_NAME" property="gatherName" jdbcType="VARCHAR" />
+    <result column="GATHER_Tag" property="gatherTag" jdbcType="VARCHAR" />
+    <result column="GATHER_TYPE" property="gatherType" jdbcType="INTEGER" />
+    <result column="GATHER_ADDRESS" property="gatherAddress" jdbcType="VARCHAR" />
+    <result column="GATHER_ADDRESS_LAT" property="gatherAddressLat" jdbcType="DOUBLE" />
+    <result column="GATHER_ADDRESS_LON" property="gatherAddressLon" jdbcType="DOUBLE" />
+    <result column="GATHER_TIME" property="gatherTime" jdbcType="VARCHAR" />
+    <result column="GATHER_HOST" property="gatherHost" jdbcType="VARCHAR" />
+    <result column="GATHER_PRICE" property="gatherPrice" jdbcType="VARCHAR" />
+    <result column="GATHER_START_DATE" property="gatherStartDate" jdbcType="VARCHAR" />
+    <result column="GATHER_END_DATE" property="gatherEndDate" jdbcType="VARCHAR" />
+    <result column="GATHER_IMG" property="gatherImg" jdbcType="VARCHAR" />
+    <result column="GATHER_MOVIE_TYPE" property="gatherMovieType" jdbcType="VARCHAR" />
+    <result column="GATHER_MOVIE_TIME" property="gatherMovieTime" jdbcType="VARCHAR" />
+    <result column="GATHER_MOVIE_ACTOR" property="gatherMovieActor" jdbcType="VARCHAR" />
+    <result column="GATHER_MOVIE_DIRECTOR" property="gatherMovieDirector" jdbcType="VARCHAR" />
+    <result column="GATHER_GRADE" property="gatherGrade" jdbcType="VARCHAR" />
+    <result column="GATHER_LINK" property="gatherLink" jdbcType="VARCHAR" />
+    <result column="GATHER_STATUS" property="gatherStatus" jdbcType="INTEGER" />
+    <result column="GATHER_CREATE_USER" property="gatherCreateUser" jdbcType="VARCHAR" />
+    <result column="GATHER_CREATE_TIME" property="gatherCreateTime" jdbcType="TIMESTAMP" />
+    <result column="GATHER_UPDATE_USER" property="gatherUpdateUser" jdbcType="VARCHAR" />
+    <result column="GATHER_UPDATE_TIME" property="gatherUpdateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    GATHER_ID, GATHER_NAME, GATHER_TAG, GATHER_TYPE, GATHER_ADDRESS,GATHER_ADDRESS_LAT,GATHER_ADDRESS_LON, GATHER_TIME, GATHER_HOST, GATHER_PRICE, 
+    GATHER_START_DATE, GATHER_END_DATE, GATHER_IMG, GATHER_MOVIE_TYPE, GATHER_MOVIE_TIME, 
+    GATHER_MOVIE_ACTOR, GATHER_MOVIE_DIRECTOR, GATHER_GRADE, GATHER_LINK, GATHER_STATUS, GATHER_CREATE_USER, 
+    GATHER_CREATE_TIME, GATHER_UPDATE_USER, GATHER_UPDATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cms_gather
+    where GATHER_ID = #{gatherId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cms_gather
+    where GATHER_ID = #{gatherId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.CmsGather" >
+    insert into cms_gather
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      GATHER_ID,
+      <if test="gatherName != null" >
+        GATHER_NAME,
+      </if>
+      <if test="gatherTag != null" >
+        GATHER_TAG,
+      </if>
+      <if test="gatherType != null" >
+        GATHER_TYPE,
+      </if>
+      <if test="gatherAddress != null" >
+        GATHER_ADDRESS,
+      </if>
+      <if test="gatherAddressLat != null" >
+        GATHER_ADDRESS_LAT,
+      </if>
+      <if test="gatherAddressLon != null" >
+        GATHER_ADDRESS_LON,
+      </if>
+      <if test="gatherTime != null" >
+        GATHER_TIME,
+      </if>
+      <if test="gatherHost != null" >
+        GATHER_HOST,
+      </if>
+      <if test="gatherPrice != null" >
+        GATHER_PRICE,
+      </if>
+      <if test="gatherStartDate != null" >
+        GATHER_START_DATE,
+      </if>
+      <if test="gatherEndDate != null" >
+        GATHER_END_DATE,
+      </if>
+      <if test="gatherImg != null" >
+        GATHER_IMG,
+      </if>
+      <if test="gatherMovieType != null" >
+        GATHER_MOVIE_TYPE,
+      </if>
+      <if test="gatherMovieTime != null" >
+        GATHER_MOVIE_TIME,
+      </if>
+      <if test="gatherMovieActor != null" >
+        GATHER_MOVIE_ACTOR,
+      </if>
+      <if test="gatherMovieDirector != null" >
+        GATHER_MOVIE_DIRECTOR,
+      </if>
+      <if test="gatherGrade != null" >
+        GATHER_GRADE,
+      </if>
+      <if test="gatherLink != null" >
+        GATHER_LINK,
+      </if>
+      <if test="gatherStatus != null" >
+        GATHER_STATUS,
+      </if>
+      <if test="gatherCreateUser != null" >
+        GATHER_CREATE_USER,
+      </if>
+      <if test="gatherCreateTime != null" >
+        GATHER_CREATE_TIME,
+      </if>
+      <if test="gatherUpdateUser != null" >
+        GATHER_UPDATE_USER,
+      </if>
+      <if test="gatherUpdateTime != null" >
+        GATHER_UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{gatherId,jdbcType=VARCHAR},
+      <if test="gatherName != null" >
+        #{gatherName,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherTag != null" >
+        #{gatherTag,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherType != null" >
+        #{gatherType,jdbcType=INTEGER},
+      </if>
+      <if test="gatherAddress != null" >
+        #{gatherAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherAddressLat != null" >
+        #{gatherAddressLat,jdbcType=DOUBLE},
+      </if>
+      <if test="gatherAddressLon != null" >
+        #{gatherAddressLon,jdbcType=DOUBLE},
+      </if>
+      <if test="gatherTime != null" >
+        #{gatherTime,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherHost != null" >
+        #{gatherHost,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherPrice != null" >
+        #{gatherPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherStartDate != null" >
+        #{gatherStartDate,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherEndDate != null" >
+        #{gatherEndDate,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherImg != null" >
+        #{gatherImg,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherMovieType != null" >
+        #{gatherMovieType,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherMovieTime != null" >
+        #{gatherMovieTime,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherMovieActor != null" >
+        #{gatherMovieActor,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherMovieDirector != null" >
+        #{gatherMovieDirector,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherGrade != null" >
+        #{gatherGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherLink != null" >
+        #{gatherLink,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherStatus != null" >
+        #{gatherStatus,jdbcType=INTEGER},
+      </if>
+      <if test="gatherCreateUser != null" >
+        #{gatherCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherCreateTime != null" >
+        #{gatherCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gatherUpdateUser != null" >
+        #{gatherUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherUpdateTime != null" >
+        #{gatherUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.CmsGather" >
+    update cms_gather
+    <set >
+      <if test="gatherName != null" >
+        GATHER_NAME = #{gatherName,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherTag != null" >
+        GATHER_TAG = #{gatherTag,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherType != null" >
+        GATHER_TYPE = #{gatherType,jdbcType=INTEGER},
+      </if>
+      <if test="gatherAddress != null" >
+        GATHER_ADDRESS = #{gatherAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherAddressLat != null" >
+        GATHER_ADDRESS_LAT = #{gatherAddressLat,jdbcType=DOUBLE},
+      </if>
+      <if test="gatherAddressLon != null" >
+        GATHER_ADDRESS_LON = #{gatherAddressLon,jdbcType=DOUBLE},
+      </if>
+      <if test="gatherTime != null" >
+        GATHER_TIME = #{gatherTime,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherHost != null" >
+        GATHER_HOST = #{gatherHost,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherPrice != null" >
+        GATHER_PRICE = #{gatherPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherStartDate != null" >
+        GATHER_START_DATE = #{gatherStartDate,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherEndDate != null" >
+        GATHER_END_DATE = #{gatherEndDate,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherImg != null" >
+        GATHER_IMG = #{gatherImg,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherMovieType != null" >
+        GATHER_MOVIE_TYPE = #{gatherMovieType,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherMovieTime != null" >
+        GATHER_MOVIE_TIME = #{gatherMovieTime,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherMovieActor != null" >
+        GATHER_MOVIE_ACTOR = #{gatherMovieActor,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherMovieDirector != null" >
+        GATHER_MOVIE_DIRECTOR = #{gatherMovieDirector,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherGrade != null" >
+        GATHER_GRADE = #{gatherGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherLink != null" >
+        GATHER_LINK = #{gatherLink,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherStatus != null" >
+        GATHER_STATUS = #{gatherStatus,jdbcType=INTEGER},
+      </if>
+      <if test="gatherCreateUser != null" >
+        GATHER_CREATE_USER = #{gatherCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherCreateTime != null" >
+        GATHER_CREATE_TIME = #{gatherCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gatherUpdateUser != null" >
+        GATHER_UPDATE_USER = #{gatherUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherUpdateTime != null" >
+        GATHER_UPDATE_TIME = #{gatherUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where GATHER_ID = #{gatherId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryGatherCountByCondition" resultType="java.lang.Integer" parameterType="java.util.Map">
+    SELECT
+		COUNT(*)
+	FROM cms_gather cg
+	WHERE 1=1
+		<if test="gatherId != null">
+            AND cg.GATHER_ID = #{gatherId}
+        </if>
+        <if test="gatherName != null">
+            AND cg.GATHER_NAME like #{gatherName}
+        </if>
+        <if test="gatherTag != null">
+            AND cg.GATHER_TAG = #{gatherTag}
+        </if>
+        <if test="gatherType != null">
+            AND cg.GATHER_TYPE = #{gatherType}
+        </if>
+		<if test="gatherStartDate != null">
+            AND cg.GATHER_START_DATE >= #{gatherStartDate}
+        </if>
+		<if test="gatherEndDate != null">
+            AND cg.GATHER_END_DATE &lt;= #{gatherEndDate}
+        </if>
+        <if test="gatherGrade != null">
+            AND cg.GATHER_Grade = #{gatherGrade}
+        </if>
+  </select>
+  
+  <select id="queryGatherByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT
+		cg.GATHER_ID, 
+		cg.GATHER_NAME,
+		ct.TAG_NAME AS GATHER_TAG,
+		cg.GATHER_TYPE, 
+		cg.GATHER_ADDRESS, 
+		cg.GATHER_TIME, 
+		cg.GATHER_HOST, 
+		cg.GATHER_PRICE, 
+    	cg.GATHER_START_DATE, 
+    	cg.GATHER_END_DATE, 
+    	cg.GATHER_IMG, 
+    	cg.GATHER_MOVIE_TYPE, 
+    	cg.GATHER_MOVIE_TIME, 
+    	cg.GATHER_MOVIE_ACTOR, 
+    	cg.GATHER_MOVIE_DIRECTOR, 
+    	sd.dict_name as GATHER_GRADE, 
+    	cg.GATHER_LINK, 
+    	cg.GATHER_STATUS, 
+    	cg.GATHER_CREATE_TIME, 
+    	cg.GATHER_UPDATE_TIME,
+	    u.USER_ACCOUNT AS GATHER_CREATE_USER,
+	    uu.USER_ACCOUNT AS GATHER_UPDATE_USER
+	FROM cms_gather cg
+	LEFT JOIN sys_user u ON cg.GATHER_CREATE_USER = u.USER_ID
+	LEFT JOIN sys_user uu ON cg.GATHER_UPDATE_USER = uu.USER_ID
+	LEFT JOIN sys_dict sd ON cg.GATHER_GRADE = sd.dict_id
+	LEFT JOIN cms_tag ct ON ct.TAG_ID = cg.GATHER_TAG
+	WHERE 1=1
+		<if test="gatherId != null">
+            AND cg.GATHER_ID = #{gatherId}
+        </if>
+        <if test="gatherName != null">
+            AND cg.GATHER_NAME like #{gatherName}
+        </if>
+        <if test="gatherTag != null">
+            AND cg.GATHER_TAG = #{gatherTag}
+        </if>
+        <if test="gatherType != null">
+            AND cg.GATHER_TYPE = #{gatherType}
+        </if>
+		<if test="gatherStartDate != null">
+            AND cg.GATHER_START_DATE >= #{gatherStartDate}
+        </if>
+		<if test="gatherEndDate != null">
+            AND cg.GATHER_END_DATE &lt;= #{gatherEndDate}
+        </if>
+        <if test="gatherGrade != null">
+            AND cg.GATHER_Grade = #{gatherGrade}
+        </if>
+	<if test="sortType == 1">ORDER BY cg.GATHER_CREATE_TIME DESC</if>
+	<if test="sortType == 2">ORDER BY cg.GATHER_UPDATE_TIME DESC</if>
+	<if test="sortType == 3">ORDER BY cg.GATHER_START_DATE DESC</if>
+	<if test="sortType == 4">ORDER BY cg.GATHER_END_DATE DESC</if>
+	<if test="firstResult != null">
+        limit ${firstResult},${rows}
+    </if>
+  </select>
+</mapper>

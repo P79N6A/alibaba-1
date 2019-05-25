@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsAndroidVersionMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsAndroidVersion" >
+    <id column="V_ID" property="vId" jdbcType="VARCHAR" />
+    <result column="EXTERNAL_VNUMBER" property="externalVnumber" jdbcType="VARCHAR" />
+    <result column="BUILD_VNUMBER" property="buildVnumber" jdbcType="REAL" />
+    <result column="UPDATE_URL" property="updateUrl" jdbcType="VARCHAR" />
+    <result column="VERSION_CREATE_TIME" property="versionCreateTime" jdbcType="TIMESTAMP" />
+    <result column="VERSION_UPDATE_TIME" property="versionUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="VERSION_CREATE_USER" property="versionCreateUser" jdbcType="VARCHAR" />
+    <result column="VERSION_UPDATE_USER" property="versionUpdateUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_DESCR" property="updateDescr" jdbcType="LONGVARCHAR" />
+    <result column="user_account" property="userAccount" jdbcType="VARCHAR"/>
+    <!--是否强制更新 0 不强制更新  1 强制更新-->
+    <result column="VERSION_UPDATE_STATUS" property="versionUpdateStatus" jdbcType="VARCHAR"/>
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    V_ID, EXTERNAL_VNUMBER, BUILD_VNUMBER, UPDATE_URL, VERSION_CREATE_TIME, VERSION_UPDATE_TIME, 
+    VERSION_CREATE_USER, VERSION_UPDATE_USER,UPDATE_DESCR,VERSION_UPDATE_STATUS
+  </sql>
+
+
+  <select id="queryCmsAndroidVersionByVid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+   V_ID, EXTERNAL_VNUMBER, BUILD_VNUMBER, UPDATE_URL,UPDATE_DESCR,VERSION_UPDATE_STATUS
+    from cms_android_version
+    where V_ID = #{vId,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteCmsAndroidByVid" parameterType="java.lang.String" >
+    delete from cms_android_version
+    where V_ID = #{vId,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="addCmsAndroidVersion" parameterType="com.sun3d.why.model.CmsAndroidVersion" >
+    insert into cms_android_version
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="vId != null" >
+        V_ID,
+      </if>
+      <if test="externalVnumber != null" >
+        EXTERNAL_VNUMBER,
+      </if>
+      <if test="buildVnumber != null" >
+        BUILD_VNUMBER,
+      </if>
+      <if test="updateUrl != null" >
+        UPDATE_URL,
+      </if>
+      <if test="versionCreateTime != null" >
+        VERSION_CREATE_TIME,
+      </if>
+      <if test="versionUpdateTime != null" >
+        VERSION_UPDATE_TIME,
+      </if>
+      <if test="versionCreateUser != null" >
+        VERSION_CREATE_USER,
+      </if>
+      <if test="versionUpdateUser != null" >
+        VERSION_UPDATE_USER,
+      </if>
+      <if test="updateDescr != null" >
+        UPDATE_DESCR,
+      </if>
+      <if test="versionUpdateStatus != null" >
+        VERSION_UPDATE_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="vId != null" >
+        #{vId,jdbcType=VARCHAR},
+      </if>
+      <if test="externalVnumber != null" >
+        #{externalVnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="buildVnumber != null" >
+        #{buildVnumber,jdbcType=REAL},
+      </if>
+      <if test="updateUrl != null" >
+        #{updateUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="versionCreateTime != null" >
+        #{versionCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="versionUpdateTime != null" >
+        #{versionUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="versionCreateUser != null" >
+        #{versionCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="versionUpdateUser != null" >
+        #{versionUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDescr != null" >
+        #{updateDescr,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="versionUpdateStatus != null" >
+        #{versionUpdateStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByCmsAndroidVersion" parameterType="com.sun3d.why.model.CmsAndroidVersion" >
+    update cms_android_version
+    <set >
+      <if test="externalVnumber != null" >
+        EXTERNAL_VNUMBER = #{externalVnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="buildVnumber != null" >
+        BUILD_VNUMBER = #{buildVnumber,jdbcType=REAL},
+      </if>
+      <if test="updateUrl != null" >
+        UPDATE_URL = #{updateUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="versionCreateTime != null" >
+        VERSION_CREATE_TIME = #{versionCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="versionUpdateTime != null" >
+        VERSION_UPDATE_TIME = #{versionUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="versionCreateUser != null" >
+        VERSION_CREATE_USER = #{versionCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="versionUpdateUser != null" >
+        VERSION_UPDATE_USER = #{versionUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDescr != null" >
+        UPDATE_DESCR = #{updateDescr,jdbcType=LONGVARCHAR},
+      </if>
+
+      <if test="versionUpdateStatus != null" >
+        VERSION_UPDATE_STATUS=#{versionUpdateStatus,jdbcType=INTEGER},
+      </if>
+
+    </set>
+    where V_ID = #{vId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="queryCmsAndroidVersionByMap" resultMap="BaseResultMap" parameterType="java.util.Map" >
+  select
+    c.V_ID,c.EXTERNAL_VNUMBER, c.BUILD_VNUMBER, c.UPDATE_URL,c.VERSION_UPDATE_TIME,c.VERSION_UPDATE_USER,c.UPDATE_DESCR,u.USER_ACCOUNT as USER_ACCOUNT,c.VERSION_UPDATE_STATUS
+  from cms_android_version c ,sys_user u  where c.VERSION_UPDATE_USER=u.USER_ID
+
+  <if test="vId != null" >
+   and  V_ID = #{vId,jdbcType=VARCHAR}
+  </if>
+  <if test="externalVnumber != null" >
+    and  EXTERNAL_VNUMBER = #{externalVnumber,jdbcType=VARCHAR}
+  </if>
+  <if test="buildVnumber != null" >
+    and  BUILD_VNUMBER = #{buildVnumber,jdbcType=REAL}
+  </if>
+  ORDER BY VERSION_UPDATE_TIME desc
+  <if test="firstResult != null">
+      limit #{firstResult},#{rows}
+  </if>
+
+</select>
+  <!--app获取最新版本 -->
+  <select id="queryAppAndroidVersionList" resultMap="BaseResultMap" >
+    select
+    c.EXTERNAL_VNUMBER,c.BUILD_VNUMBER, c.UPDATE_URL,c.VERSION_CREATE_TIME,c.VERSION_UPDATE_TIME,c.VERSION_UPDATE_USER,c.UPDATE_DESCR,c.VERSION_CREATE_USER,c.VERSION_UPDATE_STATUS
+    from cms_android_version c
+    ORDER BY VERSION_UPDATE_TIME desc limit 1
+  </select>
+
+  <select id="queryCmsAndroidVersionCountByMap" resultType="integer" parameterType="java.util.Map" >
+    select
+    count(*)
+    from cms_android_version
+    where 1=1
+    <if test="vId != null" >
+     and  V_ID = #{vId,jdbcType=VARCHAR}
+    </if>
+    <if test="externalVnumber != null" >
+     and  EXTERNAL_VNUMBER = #{externalVnumber,jdbcType=VARCHAR}
+    </if>
+    <if test="buildVnumber != null" >
+     and  BUILD_VNUMBER = #{buildVnumber,jdbcType=REAL}
+    </if>
+  </select>
+
+</mapper>

@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ActivityStatisticsMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ActivityStatistics" >
+    <result column="SID" property="sid" jdbcType="INTEGER" />
+    <result column="AREA" property="area" jdbcType="VARCHAR" />
+    <result column="STATISTICS_TYPE" property="statisticsType" jdbcType="INTEGER" />
+    <result column="ACTIVITY_COUNT" property="activityCount" jdbcType="INTEGER" />
+    <result column="PRE_ACTIVITY_COUNT" property="preActivityCount" jdbcType="INTEGER" />
+    <result column="STATISTICS_TIME" property="statisticsTime" jdbcType="TIMESTAMP" />
+    <result column="SORT" property="sort" jdbcType="INTEGER" />
+    <result column="ACTIVITY_ID" property="activityId" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_NAME" property="activityName" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_TYPE" property="activityType" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_AREA" property="activityArea" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_TIME" property="activityTime" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_START_TIME" property="activityStartTime" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_END_TIME" property="activityEndTime" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_IS_DEL" property="activityIsDel" jdbcType="INTEGER" />
+    <result column="ACTIVITY_DEPT" property="activityDept" jdbcType="LONGVARCHAR" />
+    <result column="ACTIVITY_Count" property="activityCount" jdbcType="VARCHAR" />
+    <result column="TODAY_PUBLIC" property="todayPublic" jdbcType="VARCHAR" />
+    <result column="WEEK_PUBLIC" property="weekPublic" jdbcType="VARCHAR" />
+    <result column="MONTH_PUBLIC" property="monthPublic" jdbcType="VARCHAR" />
+    <result column="SEASON_PUBLIC" property="seasonPublic" jdbcType="VARCHAR" />
+    <result column="YEAR_PUBLIC" property="yearPublic" jdbcType="VARCHAR" />
+    <result column="TWO_TODAY_PUBLIC" property="twoTodayPublic" jdbcType="VARCHAR" />
+    <result column="TWO_WEEK_PUBLIC" property="twoWeekPublic" jdbcType="VARCHAR" />
+    <result column="TWO_MONTH_PUBLIC" property="twoMonthPublic" jdbcType="VARCHAR" />
+    <result column="TWO_SEASON_PUBLIC" property="twoSeasonPublic" jdbcType="VARCHAR" />
+    <result column="TWO_YEAR_PUBLIC" property="twoYearPublic" jdbcType="VARCHAR" />
+    <result column="NUM_LOOK" property="numLook" jdbcType="VARCHAR" />
+    <result column="NUM_ORDER" property="numOrder" jdbcType="VARCHAR" />
+    <result column="BOOK_ORDER" property="bookOrder" jdbcType="VARCHAR" />
+    <result column="USE_ORDER" property="useOrder" jdbcType="VARCHAR" />
+    <result column="PRE_ORDER" property="preOrder" jdbcType="VARCHAR" />
+    <result column="PRE_USE" property="preUse" jdbcType="VARCHAR" />
+    <result column="TAG_NAME" property="tagName" jdbcType="VARCHAR" />
+    <result column="NUM_ACTIVITY" property="numActivity" jdbcType="VARCHAR" />
+    <result column="NUM_MESSAGE" property="numMessage" jdbcType="VARCHAR" />
+
+    <result column="COMMENT_RK_ID" property="commentRkId" jdbcType="VARCHAR" />
+    <result column="COMMENT_REMARK" property="commentRemark" jdbcType="LONGVARCHAR" />
+    <result column="COMMENT_TIME" property="commentTime" jdbcType="TIMESTAMP" />
+    <result column="comment_user_nickName" property="commentUserNickName" jdbcType="VARCHAR" />
+    <result column="COMMENT_IMG_URL" property="commentImgUrl" jdbcType="LONGVARCHAR" />
+
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    SID, AREA, STATISTICS_TYPE, ACTIVITY_COUNT, PRE_ACTIVITY_COUNT, STATISTICS_TIME, 
+    SORT
+  </sql>
+
+  <select id="queryBySid" resultMap="BaseResultMap" parameterType="hashmap">
+    select * from activity_statistics where sid = #{sid} and area = #{area}
+      limit 1
+  </select>
+
+  <delete id="deleteBySid" parameterType="hashmap">
+    DELETE from activity_statistics
+  </delete>
+
+  <insert id="addActivityStatistics" parameterType="com.sun3d.why.model.ActivityStatistics" >
+    insert into activity_statistics
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        SID,
+      </if>
+      <if test="area != null" >
+        AREA,
+      </if>
+      <if test="statisticsType != null" >
+        STATISTICS_TYPE,
+      </if>
+      <if test="activityCount != null" >
+        ACTIVITY_COUNT,
+      </if>
+      <if test="preActivityCount != null" >
+        PRE_ACTIVITY_COUNT,
+      </if>
+      <if test="statisticsTime != null" >
+        STATISTICS_TIME,
+      </if>
+      <if test="sort != null" >
+        SORT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="statisticsType != null" >
+        #{statisticsType,jdbcType=INTEGER},
+      </if>
+      <if test="activityCount != null" >
+        #{activityCount,jdbcType=INTEGER},
+      </if>
+      <if test="preActivityCount != null" >
+        #{preActivityCount,jdbcType=INTEGER},
+      </if>
+      <if test="statisticsTime != null" >
+        #{statisticsTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="editByActivityStatistics" parameterType="com.sun3d.why.model.ActivityStatistics" >
+    update activity_statistics
+    <set >
+      <if test="sid != null" >
+        SID = #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="area != null" >
+        AREA = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="statisticsType != null" >
+        STATISTICS_TYPE = #{statisticsType,jdbcType=INTEGER},
+      </if>
+      <if test="activityCount != null" >
+        ACTIVITY_COUNT = #{activityCount,jdbcType=INTEGER},
+      </if>
+      <if test="preActivityCount != null" >
+        PRE_ACTIVITY_COUNT = #{preActivityCount,jdbcType=INTEGER},
+      </if>
+      <if test="statisticsTime != null" >
+        STATISTICS_TIME = #{statisticsTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sort != null" >
+        SORT = #{sort,jdbcType=INTEGER},
+      </if>
+    </set>
+  </update>
+
+  <select id="queryByMap" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select * from activity_statistics where 1=1
+    <if test="area != null" >
+     and  AREA = #{area,jdbcType=VARCHAR}
+    </if>
+    and AREA != '45,上海市'
+    <if test="statisticsType != null" >
+      and  STATISTICS_TYPE = #{statisticsType,jdbcType=INTEGER}
+    </if>
+  </select>
+
+
+  <select id="queryCountInfo" resultType="hashmap" parameterType="java.util.Map">
+    SELECT
+    sum(ast.ACTIVITY_COUNT) as activityCount,
+    sum(ast.PRE_ACTIVITY_COUNT) as preActivityCount
+    FROM
+    activity_statistics ast
+    WHERE
+    1 = 1
+    <if test="area != null" >
+    and  ast.AREA = #{area,jdbcType=VARCHAR}
+   </if>
+    <if test="statisticsType != null" >
+      and  ast.STATISTICS_TYPE = #{statisticsType,jdbcType=INTEGER}
+    </if>
+    GROUP BY ast.area
+  </select>
+
+  <select id="queryByArea" resultMap="BaseResultMap" >
+    SELECT
+    a.ACTIVITY_AREA ,
+    ifnull(s.num,0)  as TODAY_PUBLIC,
+    ifnull(d.num,0) as WEEK_PUBLIC,
+    ifnull(f.num,0) as  MONTH_PUBLIC,
+    ifnull(g.num,0) as  SEASON_PUBLIC,
+    ifnull(h.num,0) as  YEAR_PUBLIC,
+    ifnull(z.num,0) as TWO_TODAY_PUBLIC,
+    ifnull(x.num,0) as TWO_WEEK_PUBLIC,
+    ifnull(c.num,0) as  TWO_MONTH_PUBLIC,
+    ifnull(v.num,0) as  TWO_SEASON_PUBLIC,
+    ifnull(b.num,0) as  TWO_YEAR_PUBLIC,
+    ifnull(sum(j.num),0) as NUM_LOOK,
+    ifnull(SUM(k.num),0) as NUM_ORDER,
+    ifnull(SUM(l.num),0) as BOOK_ORDER,
+    ifnull(CONCAT((SUM(l.num)/SUM(k.num))*100, '&#37;'),0) as PRE_ORDER
+    FROM
+    cms_activity a
+    LEFT JOIN
+    (
+    SELECT
+    a.ACTIVITY_AREA,
+    COUNT(a.ACTIVITY_AREA) as num
+    FROM
+    cms_activity a
+    where DATE_SUB(CURDATE(),interval 0 DAY)&lt;=a.ACTIVITY_CREATE_TIME
+    GROUP BY a.ACTIVITY_AREA
+    )as s
+    on s.ACTIVITY_AREA=a.ACTIVITY_AREA
+    LEFT JOIN
+    (
+    SELECT
+    a.ACTIVITY_AREA,
+    COUNT(a.ACTIVITY_AREA) as num
+    FROM
+    cms_activity a
+    where DATE_SUB(CURDATE(),interval 1 DAY)&lt;=a.ACTIVITY_CREATE_TIME
+    GROUP BY a.ACTIVITY_AREA
+    )as z
+    on z.ACTIVITY_AREA=a.ACTIVITY_AREA
+    LEFT JOIN
+    (
+    SELECT
+    a.ACTIVITY_AREA,
+    COUNT(a.ACTIVITY_AREA) as num
+    FROM
+    cms_activity a
+    where DATE_SUB(CURDATE(),interval 1 WEEK)&lt;=a.ACTIVITY_CREATE_TIME
+    GROUP BY a.ACTIVITY_AREA
+    )as d
+    on d.ACTIVITY_AREA=a.ACTIVITY_AREA
+    LEFT JOIN
+      (
+      SELECT
+      a.ACTIVITY_AREA,
+      COUNT(a.ACTIVITY_AREA) as num
+      FROM
+      cms_activity a
+      where DATE_SUB(CURDATE(),interval 2 WEEK)&lt;=a.ACTIVITY_CREATE_TIME
+      GROUP BY a.ACTIVITY_AREA
+      )as x
+    on x.ACTIVITY_AREA=a.ACTIVITY_AREA
+    LEFT JOIN
+      (
+      SELECT
+      a.ACTIVITY_AREA,
+      COUNT(a.ACTIVITY_AREA) as num
+      FROM
+      cms_activity a
+      where  date_format(a.ACTIVITY_CREATE_TIME,'%Y-%m')=date_format(now(),'%Y-%m')
+      GROUP BY a.ACTIVITY_AREA
+      )as f
+    on f.ACTIVITY_AREA=a.ACTIVITY_AREA
+    LEFT JOIN
+      (
+      SELECT
+      a.ACTIVITY_AREA,
+      COUNT(a.ACTIVITY_AREA) as num
+      FROM
+      cms_activity a
+      where DATE_SUB(CURDATE(),interval 2 MONTH)&lt;=a.ACTIVITY_CREATE_TIME
+      GROUP BY a.ACTIVITY_AREA
+      )as c
+    on c.ACTIVITY_AREA=a.ACTIVITY_AREA
+    LEFT JOIN
+      (
+      SELECT
+      a.ACTIVITY_AREA,
+      COUNT(a.ACTIVITY_AREA) as num
+      FROM
+      cms_activity a
+      where QUARTER(a.ACTIVITY_CREATE_TIME)=QUARTER(now())
+      GROUP BY a.ACTIVITY_AREA
+      )as g
+    on g.ACTIVITY_AREA=a.ACTIVITY_AREA
+
+    LEFT JOIN
+      (
+      SELECT
+      a.ACTIVITY_AREA,
+      COUNT(a.ACTIVITY_AREA) as num
+      FROM
+      cms_activity a
+      where DATE_SUB(CURDATE(),interval 2 QUARTER)&lt;=a.ACTIVITY_CREATE_TIME
+      GROUP BY a.ACTIVITY_AREA
+      )as v
+    on v.ACTIVITY_AREA=a.ACTIVITY_AREA
+    LEFT JOIN
+      (
+      SELECT
+      a.ACTIVITY_AREA,
+      COUNT(a.ACTIVITY_AREA) as num
+      FROM
+      cms_activity a
+      where date_format(a.ACTIVITY_CREATE_TIME,'%Y')=date_format(now(),'%Y')
+      GROUP BY a.ACTIVITY_AREA
+      )as h
+    on h.ACTIVITY_AREA=a.ACTIVITY_AREA
+    LEFT JOIN
+      (
+      SELECT
+      a.ACTIVITY_AREA,
+      COUNT(a.ACTIVITY_AREA) as num
+      FROM
+      cms_activity a
+      where DATE_SUB(CURDATE(),interval 2 YEAR)&lt;=a.ACTIVITY_CREATE_TIME
+      GROUP BY a.ACTIVITY_AREA
+      )as b
+    on b.ACTIVITY_AREA=a.ACTIVITY_AREA
+    LEFT JOIN
+      (
+      SELECT
+      a.ACTIVITY_ID,
+      COUNT(a.ACTIVITY_ID) as num
+      FROM
+      cms_activity_user_statistics a
+      where a.OPERATE_TYPE='1'
+      GROUP BY a.ACTIVITY_ID
+      ) as j
+    on j.ACTIVITY_ID=a.ACTIVITY_ID
+    LEFT JOIN
+      (
+      SELECT
+      a.ACTIVITY_ID,
+      a.EVENT_COUNT*b.num as num
+      FROM
+      cms_activity a
+      left JOIN
+        (
+        select ACTIVITY_ID ,
+          COUNT(ACTIVITY_ID) as num
+        FROM
+        cms_activity_event
+        group by ACTIVITY_ID
+        ) as b
+      on b.ACTIVITY_ID=a.ACTIVITY_ID
+      GROUP BY a.ACTIVITY_ID
+      ) as k
+    on k.ACTIVITY_ID=a.ACTIVITY_ID
+    LEFT JOIN
+    (
+    SELECT
+	a.ACTIVITY_ID,
+	sum(b.num) AS num
+    FROM
+	cms_activity_order a
+    LEFT JOIN (
+	SELECT
+		a.ACTIVITY_ORDER_ID,
+		count(a.ACTIVITY_ORDER_ID) AS num
+	FROM
+		cms_activity_order_detail a
+	WHERE
+		a.SEAT_STATUS != '2'
+	GROUP BY
+		a.ACTIVITY_ORDER_ID
+    ) AS b ON b.ACTIVITY_ORDER_ID = a.ACTIVITY_ORDER_ID
+    GROUP BY
+	a.ACTIVITY_ID
+    ) as l
+    on l.ACTIVITY_ID=a.ACTIVITY_ID
+    where a.ACTIVITY_IS_DEL='1' and a.ACTIVITY_STATE='6'
+    GROUP BY a.ACTIVITY_AREA
+  </select>
+  <select id="queryByBook" resultMap="BaseResultMap" >
+        SELECT
+        a.ACTIVITY_AREA,
+        ifnull(SUM(k.num), 0) AS NUM_ORDER,
+        ifnull(SUM(l.num), 0) AS BOOK_ORDER,
+      ifnull(SUM(s.num), 0) AS USE_ORDER,
+        ifnull(
+            CONCAT(
+                (SUM(l.num) / SUM(k.num)) * 100,
+                '&#37;'
+            ),
+            0
+        ) AS PRE_ORDER,
+    ifnull(
+            CONCAT(
+                (SUM(s.num) / SUM(k.num)) * 100,
+                '&#37;'
+            ),
+            0
+        ) AS PRE_USE
+    FROM
+        cms_activity a
+    LEFT JOIN (
+        SELECT
+            a.ACTIVITY_ID,
+            a.EVENT_COUNT * b.num AS num
+        FROM
+            cms_activity a
+        LEFT JOIN (
+            SELECT
+                ACTIVITY_ID,
+                COUNT(ACTIVITY_ID) AS num
+            FROM
+                cms_activity_event
+            GROUP BY
+                ACTIVITY_ID
+        ) AS b ON b.ACTIVITY_ID = a.ACTIVITY_ID
+        GROUP BY
+            a.ACTIVITY_ID
+    ) AS k ON k.ACTIVITY_ID = a.ACTIVITY_ID
+    LEFT JOIN (
+        SELECT
+            a.ACTIVITY_ID,
+            sum(b.num) AS num
+        FROM
+            cms_activity_order a
+        LEFT JOIN (
+            SELECT
+                a.ACTIVITY_ORDER_ID,
+                count(a.ACTIVITY_ORDER_ID) AS num
+            FROM
+                cms_activity_order_detail a
+            WHERE
+                a.SEAT_STATUS != '2'
+    <if test="activityStartTime != null" >
+      and a.UPDATE_TIME &gt;= #{activityStartTime,jdbcType=VARCHAR}
+    </if>
+    <if test="activityEndTime != null" >
+      and a.UPDATE_TIME &lt;= #{activityEndTime,jdbcType=VARCHAR}
+    </if>
+            GROUP BY
+                a.ACTIVITY_ORDER_ID
+        ) AS b ON b.ACTIVITY_ORDER_ID = a.ACTIVITY_ORDER_ID
+        GROUP BY
+            a.ACTIVITY_ID
+    ) AS l ON l.ACTIVITY_ID = a.ACTIVITY_ID
+    LEFT JOIN (
+        SELECT
+            a.ACTIVITY_ID,
+            sum(b.num) AS num
+        FROM
+            cms_activity_order a
+        LEFT JOIN (
+            SELECT
+                a.ACTIVITY_ORDER_ID,
+                count(a.ACTIVITY_ORDER_ID) AS num
+            FROM
+                cms_activity_order_detail a
+            WHERE
+                a.SEAT_STATUS = '3'
+    <if test="activityStartTime != null" >
+      and a.UPDATE_TIME &gt;= #{activityStartTime,jdbcType=VARCHAR}
+    </if>
+    <if test="activityEndTime != null" >
+      and a.UPDATE_TIME &lt;= #{activityEndTime,jdbcType=VARCHAR}
+    </if>
+            GROUP BY
+                a.ACTIVITY_ORDER_ID
+        ) AS b ON b.ACTIVITY_ORDER_ID = a.ACTIVITY_ORDER_ID
+        GROUP BY
+            a.ACTIVITY_ID
+    ) AS s ON s.ACTIVITY_ID = a.ACTIVITY_ID
+    WHERE
+        a.ACTIVITY_IS_DEL = '1'
+    AND a.ACTIVITY_STATE = '6'
+    GROUP BY
+        a.ACTIVITY_AREA
+  </select>
+
+
+  <select id="queryByTag" resultMap="BaseResultMap" >
+    SELECT
+	TAG_NAME,
+    ifnull(s.d,0) AS NUM_ACTIVITY,
+    ifnull(s.f,0) AS NUM_LOOK,
+    ifnull(s.g,0)AS NUM_ORDER,
+    ifnull(s.h,0) AS BOOK_ORDER,
+    ifnull(s.h/s.g,0) AS PRE_ORDER
+FROM
+	cms_tag t
+LEFT JOIN (
+	SELECT
+		t.TAG_ID AS s,
+		count(*) AS d,
+		SUM(a.liulan) AS f,
+		SUM(a.piaoshu) AS g,
+		SUM(a.yuding) AS h
+	FROM
+		(
+			SELECT
+				s.ACTIVITY_ID AS ID,
+				SUM(e.activitycount) AS liulan,
+				SUM(r.activitycount) AS piaoshu,
+				SUM(t.activitycount) AS yuding,
+				s.ACTIVITY_TYPE AS q,
+                s.ACTIVITY_THEME AS p
+			FROM
+				cms_activity s
+			LEFT JOIN (
+				SELECT
+					a.ACTIVITY_ID,
+					count(a.ACTIVITY_ID) AS activitycount
+				FROM
+					cms_activity_user_statistics a
+				WHERE
+					OPERATE_TYPE = '1'
+				GROUP BY
+					a.ACTIVITY_ID
+			) AS e ON s.ACTIVITY_ID = e.ACTIVITY_ID
+			LEFT JOIN (
+				SELECT
+					b.ACTIVITY_ID,
+					sum(b.EVENT_COUNT) AS activitycount
+				FROM
+					cms_activity b
+				GROUP BY
+					b.ACTIVITY_ID
+			) AS r ON r.ACTIVITY_ID = e.ACTIVITY_ID
+			LEFT JOIN (
+				SELECT
+					c.ACTIVITY_ID,
+					sum(c.ORDER_VOTES) AS activitycount
+				FROM
+					cms_activity_order c
+				GROUP BY
+					c.ACTIVITY_ID
+			) AS t ON t.ACTIVITY_ID = e.ACTIVITY_ID
+WHERE  s.ACTIVITY_IS_DEL='1' and s.ACTIVITY_STATE='6'
+    <if test="activityStartTime != null" >
+      and s.ACTIVITY_CREATE_TIME &gt;= #{activityStartTime,jdbcType=VARCHAR}
+    </if>
+    <if test="activityEndTime != null" >
+      and s.ACTIVITY_CREATE_TIME &lt;= #{activityEndTime,jdbcType=VARCHAR}
+    </if>
+			GROUP BY
+				s.ACTIVITY_ID
+		) AS a,
+		cms_tag t
+	WHERE
+		a.q LIKE CONCAT('%', t.TAG_ID, '%')
+    or a.p LIKE CONCAT('%', t.TAG_ID, '%')
+	GROUP BY
+		t.TAG_ID
+) AS s ON s.s = t.TAG_ID
+WHERE
+	(
+		t.TAG_TYPE = '6a626ddca5264dbb9d35b2446f133bd0'
+		OR t.TAG_TYPE = '71a15f82fa1e4c21a456fb93604f9233'
+	)
+  </select>
+  <select id="queryMessageCountByActivity" resultType="java.lang.Integer" >
+     SELECT COUNT(*)
+     FROM
+     (select *
+     FROM
+	 cms_comment s
+     LEFT JOIN cms_activity a ON s.COMMENT_RK_ID = a.ACTIVITY_ID
+     WHERE
+	 s.comment_type = '2'
+    <if test="activityStartTime != null" >
+      and s.COMMENT_TIME &gt;= #{activityStartTime,jdbcType=VARCHAR}
+    </if>
+    <if test="activityEndTime != null" >
+      and s.COMMENT_TIME &lt;= #{activityEndTime,jdbcType=VARCHAR}
+    </if>
+     GROUP BY
+     a.ACTIVITY_NAME) as a
+  </select>
+  <select id="queryByMessage" resultMap="BaseResultMap"  parameterType="java.util.Map">
+  SELECT
+  a.ACTIVITY_NAME,
+  a.ACTIVITY_ID,
+  COUNT(a.ACTIVITY_NAME) as NUM_MESSAGE
+  FROM
+  cms_comment s
+  LEFT JOIN cms_activity a ON s.COMMENT_RK_ID = a.ACTIVITY_ID
+  WHERE
+  s.comment_type = '2'
+  <if test="activityStartTime != null" >
+    and s.COMMENT_TIME &gt;= #{activityStartTime,jdbcType=VARCHAR}
+  </if>
+  <if test="activityEndTime != null" >
+    and s.COMMENT_TIME &lt;= #{activityEndTime,jdbcType=VARCHAR}
+  </if>
+  GROUP BY  a.ACTIVITY_NAME
+  ORDER BY COUNT(a.ACTIVITY_NAME) DESC
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+</select>
+  <!--符合条件的评论列表-->
+  <select id="queryCommentByActivity" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+    comment_rk_id,
+    comment_remark,
+    comment_time,
+    USER_NICK_NAME as comment_user_nickName,
+    comment_img_url
+    from cms_comment left join cms_terminal_user on comment_user_id = user_id
+    where 1=1
+    <if test="activityId != null" >
+      and COMMENT_RK_ID = #{activityId,jdbcType=VARCHAR}
+    </if>
+    order by comment_time desc
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+  <!--符合条件的评论个数-->
+  <select id="queryCommentCountByActivity" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(*) from cms_comment left join cms_terminal_user on comment_user_id = user_id
+    where 1=1
+    <if test="activityId != null" >
+      and COMMENT_RK_ID = #{activityId,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <!--总评论个数-->
+  <select id="queryCommentCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(*) as CommentCount
+    from cms_comment
+    where comment_type = '2'
+    <if test="activityStartTime != null" >
+      and COMMENT_TIME &gt;= #{activityStartTime,jdbcType=VARCHAR}
+    </if>
+    <if test="activityEndTime != null" >
+      and COMMENT_TIME &lt;= #{activityEndTime,jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>

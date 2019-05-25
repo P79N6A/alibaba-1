@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.league.CmsMemberMapper">
+    <resultMap id="BaseResultMap" type="com.sun3d.why.model.league.CmsMemberBO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="member_name" property="memberName" jdbcType="VARCHAR"/>
+        <result column="images" property="images" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="lng" property="lng" jdbcType="DOUBLE"/>
+        <result column="lat" property="lat" jdbcType="DOUBLE"/>
+        <result column="introduction" property="introduction" jdbcType="VARCHAR"/>
+        <result column="state" property="state" jdbcType="INTEGER"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, member_name, images, address, lng, lat, introduction, state, create_user, create_time,
+    update_user, update_time
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>,
+        GROUP_CONCAT(ml.league_id) leagueName
+        from cms_member t
+        left join cms_member_league ml on ml.member_id = t.id
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from cms_member
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.sun3d.why.model.league.CmsMember">
+    insert into cms_member (id, member_name, images, 
+      address, lng, lat, introduction, 
+      state, create_user, create_time, 
+      update_user, update_time)
+    values (#{id,jdbcType=VARCHAR}, #{memberName,jdbcType=VARCHAR}, #{images,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{lng,jdbcType=DOUBLE}, #{lat,jdbcType=DOUBLE}, #{introduction,jdbcType=VARCHAR}, 
+      #{state,jdbcType=INTEGER}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.sun3d.why.model.league.CmsMember">
+        insert into cms_member
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="memberName != null">
+                member_name,
+            </if>
+            <if test="images != null">
+                images,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="lng != null">
+                lng,
+            </if>
+            <if test="lat != null">
+                lat,
+            </if>
+            <if test="introduction != null">
+                introduction,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateUser != null">
+                update_user,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="memberName != null">
+                #{memberName,jdbcType=VARCHAR},
+            </if>
+            <if test="images != null">
+                #{images,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="lng != null">
+                #{lng,jdbcType=DOUBLE},
+            </if>
+            <if test="lat != null">
+                #{lat,jdbcType=DOUBLE},
+            </if>
+            <if test="introduction != null">
+                #{introduction,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=INTEGER},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.sun3d.why.model.league.CmsMember">
+        update cms_member
+        <set>
+            <if test="memberName != null">
+                member_name = #{memberName,jdbcType=VARCHAR},
+            </if>
+            <if test="images != null">
+                images = #{images,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="lng != null">
+                lng = #{lng,jdbcType=DOUBLE},
+            </if>
+            <if test="lat != null">
+                lat = #{lat,jdbcType=DOUBLE},
+            </if>
+            <if test="introduction != null">
+                introduction = #{introduction,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                state = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.sun3d.why.model.league.CmsMember">
+    update cms_member
+    set member_name = #{memberName,jdbcType=VARCHAR},
+      images = #{images,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      lng = #{lng,jdbcType=DOUBLE},
+      lat = #{lat,jdbcType=DOUBLE},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+    <sql id="Query_Where">
+        <if test="searchName !=null and searchName !='' ">
+            and
+            (
+            t.member_name like '%${searchName}%' or l.title like '%${searchName}%'
+            )
+        </if>
+    </sql>
+
+    <select id="queryList" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.league.CmsMemberBO">
+        SELECT GROUP_CONCAT(l.title) leagueName,t.*,su.user_account createUserName FROM cms_member t
+        left join sys_user su on su.user_id = t.create_user
+        left join cms_member_league ml on ml.member_id = t.id
+        left join cms_league l on l.id = ml.league_id and l.state=1
+        where t.state = 1
+        <include refid="Query_Where"/>
+        GROUP BY t.id
+        order by t.create_time desc
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+
+    <select id="queryListCount" resultType="java.lang.Integer" parameterType="com.sun3d.why.model.league.CmsMemberBO">
+        select count(*) from (
+        SELECT count(*) FROM cms_member t
+        left join cms_member_league ml on ml.member_id = t.id
+        LEFT JOIN cms_league l ON l.id = ml.league_id AND l.state = 1
+        where t.state = 1
+        <include refid="Query_Where"/>
+        GROUP BY t.id
+        )t
+    </select>
+
+    <select id="queryRelationMemberList" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.league.CmsMemberBO">
+        select * from (
+            SELECT
+            GROUP_CONCAT(l.title) leagueName,
+            t.*, su.user_account createUserName,
+            (select count(*) from cms_member_relation rel
+            where rel.member_id = t.id AND rel.relation_type = 2 AND rel.relation_id = '${id}')  AS relationType
+            FROM
+            cms_member t
+            LEFT JOIN sys_user su ON su.user_id = t.create_user
+            LEFT JOIN cms_member_league ml ON ml.member_id = t.id
+            LEFT JOIN cms_league l ON l.id = ml.league_id AND l.state = 1
+            WHERE
+            t.state = 1  <include refid="Query_Where"/>
+            GROUP BY t.id
+            ORDER BY
+            t.create_time DESC
+        )t
+        <if test="relationType != null and relationType != ''">
+            where t.relationType = ${relationType}
+        </if>
+        <if test="relationType ==  '0'.toString()">
+            where t.relationType = 0
+        </if>
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+
+    </select>
+
+
+    <select id="queryRelationMemberListCount" resultType="java.lang.Integer" parameterType="com.sun3d.why.model.league.CmsMemberBO">
+        select count(*) from (
+        SELECT
+        GROUP_CONCAT(l.title) leagueName,
+        t.*, su.user_account createUserName,
+        (select count(*) from cms_member_relation rel
+        where rel.member_id = t.id AND rel.relation_type = 2 AND rel.relation_id = '${id}')  AS relationType
+        FROM
+        cms_member t
+        LEFT JOIN sys_user su ON su.user_id = t.create_user
+        LEFT JOIN cms_member_league ml ON ml.member_id = t.id
+        LEFT JOIN cms_league l ON l.id = ml.league_id AND l.state = 1
+        WHERE
+        t.state = 1  <include refid="Query_Where"/>
+        GROUP BY t.id
+        ORDER BY
+        t.create_time DESC
+        )t
+        <if test="relationType != null and relationType != ''">
+            where t.relationType = ${relationType}
+        </if>
+
+        <if test="relationType ==  '0'.toString()">
+            where t.relationType = 0
+        </if>
+
+    </select>
+
+
+</mapper>

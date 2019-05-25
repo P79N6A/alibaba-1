@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.culturecloud.dao.beautycity.CcpBeautycityImgMapper" >
+  <resultMap id="BaseResultMap" type="com.culturecloud.model.bean.beautycity.CcpBeautycityImg" >
+    <id column="BEAUTYCITY_IMG_ID" property="beautycityImgId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="BEAUTYCITY_IMG_URL" property="beautycityImgUrl" jdbcType="VARCHAR" />
+    <result column="BEAUTYCITY_VENUE_ID" property="beautycityVenueId" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="BaseResultResMap" type="com.culturecloud.model.response.beautycity.CcpBeautycityImgResVO" >
+    <id column="BEAUTYCITY_IMG_ID" property="beautycityImgId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="BEAUTYCITY_IMG_URL" property="beautycityImgUrl" jdbcType="VARCHAR" />
+    <result column="BEAUTYCITY_VENUE_ID" property="beautycityVenueId" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    
+    <result column="BEAUTYCITY_IMG_IS_VOTE" property="beautycityImgIsVote" jdbcType="INTEGER" />
+    <result column="VOTE_COUNT" property="voteCount" jdbcType="INTEGER" />
+    <result column="USER_HEAD_IMG_URL" property="userHeadImgUrl" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="VENUE_NAME" property="venueName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    BEAUTYCITY_IMG_ID, USER_ID, BEAUTYCITY_IMG_URL, BEAUTYCITY_VENUE_ID, CREATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_beautycity_img
+    where BEAUTYCITY_IMG_ID = #{beautycityImgId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_beautycity_img
+    where BEAUTYCITY_IMG_ID = #{beautycityImgId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.culturecloud.model.request.beautycity.CcpBeautycityImgReqVO" >
+    insert into ccp_beautycity_img
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      BEAUTYCITY_IMG_ID,
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="beautycityImgUrl != null" >
+        BEAUTYCITY_IMG_URL,
+      </if>
+      <if test="beautycityVenueId != null" >
+        BEAUTYCITY_VENUE_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{beautycityImgId,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="beautycityImgUrl != null" >
+        #{beautycityImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="beautycityVenueId != null" >
+        #{beautycityVenueId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.culturecloud.model.request.beautycity.CcpBeautycityImgReqVO" >
+    update ccp_beautycity_img
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="beautycityImgUrl != null" >
+        BEAUTYCITY_IMG_URL = #{beautycityImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="beautycityVenueId != null" >
+        BEAUTYCITY_VENUE_ID = #{beautycityVenueId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where BEAUTYCITY_IMG_ID = #{beautycityImgId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectBeautycityImgListCount" resultType="java.lang.Integer" parameterType="com.culturecloud.model.request.beautycity.CcpBeautycityImgReqVO" >
+    SELECT	
+		COUNT(*)
+	FROM ccp_beautycity_img cb
+	WHERE 1=1
+	<!-- 查询自己上传的图片 -->
+	<if test="isMe==1">
+		AND cb.USER_ID = #{userId}
+	</if>
+	<if test="beautycityImgId!=null">
+		AND cb.BEAUTYCITY_IMG_ID = #{beautycityImgId}
+	</if>
+  </select>
+  
+  <select id="selectBeautycityImgList" resultMap="BaseResultResMap" parameterType="com.culturecloud.model.request.beautycity.CcpBeautycityImgReqVO" >
+    SELECT	
+		cb.BEAUTYCITY_IMG_ID, 
+		cb.USER_ID, 
+		cb.BEAUTYCITY_IMG_URL, 
+		cb.BEAUTYCITY_VENUE_ID,
+		v.VENUE_NAME,
+    	cb.CREATE_TIME,
+    	<if test="userId!=null">
+            (SELECT count(*)
+            FROM ccp_beautycity_vote vote
+            WHERE vote.BEAUTYCITY_IMG_ID = cb.BEAUTYCITY_IMG_ID
+            AND vote.USER_ID = #{userId}
+            AND DATE_FORMAT(vote.CREATE_TIME, '%Y-%m-%d')=DATE_FORMAT(NOW(), '%Y-%m-%d')
+            ) AS BEAUTYCITY_IMG_IS_VOTE,
+        </if> 
+		ctu.USER_NAME,
+		ctu.USER_HEAD_IMG_URL,
+		COUNT(cbv.BEAUTYCITY_IMG_ID) AS VOTE_COUNT
+	FROM ccp_beautycity_img cb
+	LEFT JOIN cms_terminal_user ctu ON ctu.USER_ID = cb.USER_ID
+	LEFT JOIN ccp_beautycity_venue v ON v.BEAUTYCITY_VENUE_ID = cb.BEAUTYCITY_VENUE_ID
+	LEFT JOIN ccp_beautycity_vote cbv ON cb.BEAUTYCITY_IMG_ID = cbv.BEAUTYCITY_IMG_ID
+	WHERE 1=1
+	<!-- 查询自己上传的图片 -->
+	<if test="isMe==1">
+		AND cb.USER_ID = #{userId}
+	</if>
+	<if test="beautycityImgId!=null">
+		AND cb.BEAUTYCITY_IMG_ID = #{beautycityImgId}
+	</if>
+	<if test="beautycityVenueId!=null">
+		AND cb.BEAUTYCITY_VENUE_ID = #{beautycityVenueId}
+	</if>
+	GROUP BY cb.BEAUTYCITY_IMG_ID
+	ORDER BY cb.CREATE_TIME DESC
+	<if test="resultFirst != null and isMe!=1">
+        limit ${resultFirst},${resultSize}
+    </if>
+  </select>
+  
+  <select id="selectBeautycityImgRankingList" resultMap="BaseResultResMap" parameterType="com.culturecloud.model.request.beautycity.CcpBeautycityImgReqVO" >
+    SELECT	
+		cb.BEAUTYCITY_IMG_ID, 
+		cb.USER_ID, 
+		cb.BEAUTYCITY_IMG_URL, 
+		cb.BEAUTYCITY_VENUE_ID, 
+    	cb.CREATE_TIME,
+    	v.VENUE_NAME,
+		ctu.USER_NAME,
+		ctu.USER_HEAD_IMG_URL,
+		<if test="userId!=null">
+            (SELECT count(*)
+            FROM ccp_beautycity_vote vote
+            WHERE vote.BEAUTYCITY_IMG_ID = cb.BEAUTYCITY_IMG_ID
+            AND vote.USER_ID = #{userId}
+            AND DATE_FORMAT(vote.CREATE_TIME, '%Y-%m-%d')=DATE_FORMAT(NOW(), '%Y-%m-%d')
+            ) AS BEAUTYCITY_IMG_IS_VOTE,
+        </if>
+		COUNT(cbv.BEAUTYCITY_IMG_ID) AS VOTE_COUNT
+	FROM ccp_beautycity_img cb
+	LEFT JOIN cms_terminal_user ctu ON ctu.USER_ID = cb.USER_ID
+	LEFT JOIN ccp_beautycity_vote cbv ON cb.BEAUTYCITY_IMG_ID = cbv.BEAUTYCITY_IMG_ID
+	LEFT JOIN ccp_beautycity_venue v ON v.BEAUTYCITY_VENUE_ID = cb.BEAUTYCITY_VENUE_ID
+	GROUP BY cb.BEAUTYCITY_IMG_ID
+	ORDER BY VOTE_COUNT DESC,cb.CREATE_TIME
+	LIMIT 0,30
+  </select>
+  
+  <select id="selectRankingByVoteCount" resultType="java.lang.Integer" parameterType="com.culturecloud.model.response.beautycity.CcpBeautycityImgResVO" >
+    SELECT COUNT(*)+1 FROM
+		(SELECT	 COUNT(cbv.BEAUTYCITY_IMG_ID) AS VOTE_COUNT,cb.CREATE_TIME
+		FROM ccp_beautycity_img cb
+		LEFT JOIN ccp_beautycity_vote cbv ON cb.BEAUTYCITY_IMG_ID = cbv.BEAUTYCITY_IMG_ID
+		GROUP BY cb.BEAUTYCITY_IMG_ID) c
+	WHERE c.VOTE_COUNT > #{voteCount} or (c.VOTE_COUNT = #{voteCount} and c.CREATE_TIME &lt; #{createTime})
+  </select>
+</mapper>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsCultureInheritorMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsCultureInheritor" >
+    <id column="INHERITOR_ID" property="inheritorId" jdbcType="VARCHAR" />
+    <result column="CULTURE_ID" property="cultureId" jdbcType="VARCHAR" />
+    <result column="INHERITOR_NAME" property="inheritorName" jdbcType="VARCHAR" />
+    <result column="INHERITOR_SEX" property="inheritorSex" jdbcType="INTEGER" />
+    <result column="INHERITOR_AGE" property="inheritorAge" jdbcType="INTEGER" />
+    <result column="INHERITOR_NATION" property="inheritorNation" jdbcType="VARCHAR" />
+    <result column="INHERITOR_HEAD_IMG_URL" property="inheritorHeadImgUrl" jdbcType="VARCHAR" />
+    <result column="INHERITOR_REMARK" property="inheritorRemark" jdbcType="LONGVARCHAR" />
+    <result column="INHERITOR_CREATE_TIME" property="inheritorCreateTime" jdbcType="TIMESTAMP" />
+    <result column="INHERITOR_CREATE_USER" property="inheritorCreateUser" jdbcType="VARCHAR" />
+    <result column="INHERITOR_UPDATE_TIME" property="inheritorUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="INHERITOR_UPDATE_USER" property="inheritorUpdateUser" jdbcType="VARCHAR" />
+    <result column="culture_name" property="cultureName" jdbcType="VARCHAR" />
+    <result column="dict_name" property="dictName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <insert id="addCultureInheritor" parameterType="com.sun3d.why.model.CmsCultureInheritor" >
+    insert into cms_culture_inheritor
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="inheritorId != null" >
+        INHERITOR_ID,
+      </if>
+      <if test="cultureId != null" >
+        CULTURE_ID,
+      </if>
+      <if test="inheritorName != null" >
+        INHERITOR_NAME,
+      </if>
+      <if test="inheritorSex != null" >
+        INHERITOR_SEX,
+      </if>
+      <if test="inheritorAge != null" >
+        INHERITOR_AGE,
+      </if>
+      <if test="inheritorNation != null" >
+        INHERITOR_NATION,
+      </if>
+      <if test="inheritorHeadImgUrl != null" >
+        INHERITOR_HEAD_IMG_URL,
+      </if>
+      <if test="inheritorRemark != null" >
+        INHERITOR_REMARK,
+      </if>
+      <if test="inheritorCreateTime != null" >
+        INHERITOR_CREATE_TIME,
+      </if>
+      <if test="inheritorCreateUser != null" >
+        INHERITOR_CREATE_USER,
+      </if>
+      <if test="inheritorUpdateTime != null" >
+        INHERITOR_UPDATE_TIME,
+      </if>
+      <if test="inheritorUpdateUser != null" >
+        INHERITOR_UPDATE_USER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="inheritorId != null" >
+        #{inheritorId,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureId != null" >
+        #{cultureId,jdbcType=VARCHAR},
+      </if>
+      <if test="inheritorName != null" >
+        #{inheritorName,jdbcType=VARCHAR},
+      </if>
+      <if test="inheritorSex != null" >
+        #{inheritorSex,jdbcType=INTEGER},
+      </if>
+      <if test="inheritorAge != null" >
+        #{inheritorAge,jdbcType=INTEGER},
+      </if>
+      <if test="inheritorNation != null" >
+        #{inheritorNation,jdbcType=VARCHAR},
+      </if>
+      <if test="inheritorHeadImgUrl != null" >
+        #{inheritorHeadImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="inheritorRemark != null" >
+        #{inheritorRemark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="inheritorCreateTime != null" >
+        #{inheritorCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inheritorCreateUser != null" >
+        #{inheritorCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="inheritorUpdateTime != null" >
+        #{inheritorUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inheritorUpdateUser != null" >
+        #{inheritorUpdateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="queryCultureInheritorByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select a.inheritor_id,a.culture_id,a.inheritor_name,a.inheritor_sex,a.inheritor_age,a.inheritor_nation,dict_name,
+      a.inheritor_head_img_url,a.inheritor_remark,a.inheritor_update_time,b.user_account as inheritor_update_user
+    from cms_culture_inheritor a left join sys_user b on a.inheritor_update_user = b.user_id
+    left join sys_dict d on a.inheritor_nation = d.dict_id
+    where 1=1
+    <if test="cultureId != null" >
+      and a.culture_id = #{cultureId,jdbcType=VARCHAR}
+    </if>
+    order by a.inheritor_update_time desc
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+  <select id="queryCultureInheritorCountByCondition" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(*)
+    from cms_culture_inheritor a left join sys_user b on a.inheritor_update_user = b.user_id
+    left join sys_dict d on a.inheritor_nation = d.dict_id
+    where 1=1
+    <if test="cultureId != null" >
+      and a.culture_id = #{cultureId,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="queryCultureInheritorById" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select a.inheritor_id,a.culture_id,a.inheritor_name,a.inheritor_sex,a.inheritor_age,a.inheritor_nation,
+    a.inheritor_head_img_url,a.inheritor_remark,b.culture_Name
+    from cms_culture_inheritor a left join cms_culture b on a.culture_id = b.culture_Id
+    where a.inheritor_id = #{inheritor,jdbcType=VARCHAR}
+  </select>
+
+  <update id="editCultureInheritor" parameterType="com.sun3d.why.model.CmsCultureInheritor" >
+    update cms_culture_inheritor
+    <set >
+        INHERITOR_ID = #{inheritorId,jdbcType=VARCHAR},
+        CULTURE_ID = #{cultureId,jdbcType=VARCHAR},
+        INHERITOR_NAME = #{inheritorName,jdbcType=VARCHAR},
+        INHERITOR_SEX = #{inheritorSex,jdbcType=INTEGER},
+        INHERITOR_AGE = #{inheritorAge,jdbcType=INTEGER},
+        INHERITOR_NATION = #{inheritorNation,jdbcType=VARCHAR},
+        INHERITOR_HEAD_IMG_URL = #{inheritorHeadImgUrl,jdbcType=VARCHAR},
+      <if test="inheritorCreateTime != null" >
+        INHERITOR_CREATE_TIME = #{inheritorCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inheritorCreateUser != null" >
+        INHERITOR_CREATE_USER = #{inheritorCreateUser,jdbcType=VARCHAR},
+      </if>
+        INHERITOR_UPDATE_TIME = #{inheritorUpdateTime,jdbcType=TIMESTAMP},
+        INHERITOR_UPDATE_USER = #{inheritorUpdateUser,jdbcType=VARCHAR},
+        INHERITOR_REMARK = #{inheritorRemark,jdbcType=LONGVARCHAR},
+    </set>
+    where INHERITOR_ID = #{inheritorId,jdbcType=VARCHAR}
+  </update>
+
+  <delete id="deleteCultureInheritorById" parameterType="java.lang.String">
+    delete from cms_culture_inheritor
+    where inheritor_id = #{inheritorId, jdbcType=VARCHAR}
+  </delete>
+</mapper>

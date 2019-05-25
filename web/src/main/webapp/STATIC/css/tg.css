@@ -1,0 +1,45 @@
+@charset "utf-8";
+/* CSS Document */
+*{margin: 0;padding: 0;	}
+*:focus {outline: none;}
+a,em,.recruit_title{-webkit-tap-highlight-color: rgba(0,0,0,0);}
+a,em,.recruit_title img{-webkit-tap-highlight-color: rgba(0,0,0,0);}
+a{-webkit-tap-highlight-color: rgba(0,0,0,0);}
+a img{-webkit-tap-highlight-color: rgba(0,0,0,0);}
+a:focus{outline:none;}
+a {outline: none;}
+a,em,.recruit_title{outline: none;}
+:focus { outline:0; }
+body {margin: 0;padding: 0;font: 12px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;color:#eef4f7;background:#40b4ff;}
+.body{ background:#eef4f7;}
+img{  border:none;}
+ul,li{ list-style:none;}
+a{ text-decoration:none;}
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+    font-size:0;
+
+}
+.clearfix{*zoom:1;}
+.clear{ clear:both; height:0; overflow:hidden;}
+.orange{color:#f58636;}
+.fl{ float:left;}
+.fr{ float:right;font-family:sTHeitiSC-light;}
+/**2016.1.20**/
+.content{width:700px;margin:0 auto;padding:30px 25px 35px;background:#40b4ff;}
+.content .logo{width:120px;height:75px;margin:0 auto;text-align:center;}
+.content h1{margin-top:30px;text-align:center;color:#ffffff; font-size:30px;line-height:40px;}
+.content h2{margin-top:15px;text-align:center;color:#ffffff; font-size:25px;line-height:40px;}
+.content .img{width:100%;height:497px;margin:0 auto;margin-top:40px; text-align:center;}
+.content .img img{width:582px;height:497px; overflow:hidden; }
+.content .down_load{width:530px;margin:0 auto;margin-top:35px;}
+.content .down_load .apple{display:block;width:450px;height:130px;line-height:130px;text-align:right;padding-right:80px;background:#ffffff url(../image/apple_icon.png) no-repeat 80px 25px; border-radius:20px;-moz-border-radius:20px;-webkit-border-radius:20px; color:#231916; font-size:30px; }
+.content .down_load .android{margin-top:35px;display:block;width:450px;height:130px;line-height:130px;text-align:right;padding-right:80px;background:#ffffff url(../image/android_icon.png) no-repeat 80px 25px; border-radius:20px;-moz-border-radius:20px;-webkit-border-radius:20px; color:#aacc05; font-size:30px;}
+.content .footer{margin-right:7px;color:#ffffff; margin-top:60px; text-align:right;}
+
+

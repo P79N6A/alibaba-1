@@ -1,0 +1,270 @@
+* {
+	-webkit-tap-highlight-color: transparent;
+	/* For some Androids */
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+}
+
+.main {
+	width: 750px;
+	height: 100%;
+	margin: auto;
+	position: relative;
+}
+
+
+/*login*/
+
+.user-input {
+	margin-top: 500px;
+	text-align: center;
+}
+
+.user-input input[type=text],.user-input input[type = tel] {
+	width: 550px;
+	height: 90px;
+	font-size: 35px;
+	border: 1px solid #494c5b;
+	padding-left: 20px;
+}
+
+.user-login {
+	margin-top: 40px;
+	text-align: center;
+}
+
+.user-login button[type=button] {
+	border: none;
+	width: 570px;
+	height: 90px;
+	background-color: #5e648f;
+	font-size: 28px;
+	color: #fff;
+	border-radius: 5px;
+}
+
+
+/*info*/
+
+.info-bg {
+	background-color: #f0f0f0;
+}
+
+.info-content {
+	padding-bottom: 90px;	
+}
+
+.info-list li {
+	background-color: #fff;
+	font-size: 30px;
+	line-height: 100px;
+	width: 100%;
+	height: auto;
+	border-bottom: 1px solid #ccc;
+}
+
+.info-list li label {
+	float: left;
+	margin-left: 20px;
+}
+
+.info-list li span {
+	margin-right: 20px;
+	float: right;
+	color: #cecece;
+	max-width: 500px;
+}
+
+.info-sure {
+	width: 100%;
+	height: 90px;
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	background-color: #5f6390;
+	border: none;
+	color: #fff;
+}
+
+.info-sure-mi {
+	margin-top: 20px;
+	width: 190px;
+	margin: 20px auto 0px auto;
+}
+
+.info-sure1 {
+	float: left;
+}
+
+.info-sure2 {
+	margin-left: 10px;
+	font-size: 30px;
+	float: left;
+}
+
+
+/*index*/
+
+.logo {
+	margin-top: 200px;
+	text-align: center;
+	font-size: 36px;
+}
+
+.logo p {
+	margin-top: 45px;
+}
+
+.user-name {
+	background: url(../image/user.png) no-repeat 25px 27px;
+	width: 575px;
+	height: 90px;
+	margin: 40px auto 0px;
+	border: 1px solid #d0d0d0;
+}
+
+.user-password {
+	background: url(../image/password.png) no-repeat 23px 27px;
+	width: 575px;
+	height: 90px;
+	margin: 40px auto 0px;
+	border: 1px solid #d0d0d0;
+}
+
+.user input {
+	font-size: 30px;
+	height: 90px;
+	border: none;
+	width: 500px;
+	margin-left: 75px;
+}
+
+.user button[type=button] {
+	border-radius: 5px;
+	background-color: #5e648f;
+	color: #fff;
+	margin-top: 40px;
+	width: 575px;
+	height: 90px;
+	border: none;
+	font-size: 30px;
+}
+
+.user {
+	text-align: center;
+}
+
+
+/*ipad*/
+
+.logo2 {
+	margin-top: 200px;
+	text-align: center;
+	font-size: 36px;
+}
+
+.header {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	z-index: 10;
+	height: 150px;
+	width: 100%;
+	background-color: #494c5b;
+	color: #fff;
+	font-size: 50px;
+	text-align: center;
+	line-height: 150px;
+}
+
+.border-bottom {
+	border-bottom: 1px solid #cccccc;
+}
+
+.ipad {
+	position: relative;
+	width: auto!important;
+}
+
+.ipad-middle-pop {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 500px;
+	margin: auto;
+	width: 750px;
+	height: 500px;
+	background-color: #fbfbfb;
+	border-radius: 25px;
+	font-size: 50px;
+	text-align: center;
+	overflow: hidden;
+}
+
+.ipad-pop-button {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100px;
+	background-color: #eac751;
+	border: none;
+	color: #fff;
+}
+
+.ipad-middle {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	width: 1600px;
+	height: 1200px;
+}
+
+.ipad-user button[type=button] {
+	border-radius: 25px;
+	background-color: #5e648f;
+	color: #fff;
+	margin: 40px auto 0px auto;
+	display: block;
+	width: 970px;
+	height: 200px;
+	border: none;
+	font-size: 100px;
+}
+
+.ipad-user input {
+	padding: 0px 20px;
+	display: block;
+	margin: 40px auto 0px auto;
+	font-size: 50px;
+	height: 200px;
+	border: 1px solid #5e648f;
+	border-radius: 25px;
+	width: 850px;
+}
+
+.ipad-active {
+	position: relative;
+	background-color: #fff;
+}
+
+.ipad-active>ul>li {
+	padding: 50px;
+}
+
+.ipad-active>ul>li>label {
+	float: left;
+	font-size: 50px;
+}
+
+.ipad-active>ul>li>span {
+	float: right;
+	font-size: 50px;
+}

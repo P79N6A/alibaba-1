@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CcpAssociationMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CcpAssociation" >
+    <id column="ASSN_ID" property="assnId" jdbcType="VARCHAR" />
+    <result column="ASSN_NAME" property="assnName" jdbcType="VARCHAR" />
+    <result column="ASSN_IMG_URL" property="assnImgUrl" jdbcType="VARCHAR" />
+    <result column="ASSN_ICON_URL" property="assnIconUrl" jdbcType="VARCHAR" />
+    <result column="ASSN_VIDEO_URL" property="assnVideoUrl" jdbcType="VARCHAR" />
+    <result column="ASSN_VIDEO_NAME" property="assnVideoName" jdbcType="VARCHAR" />
+    <result column="ASSN_CONTENT" property="assnContent" jdbcType="VARCHAR" />
+    <result column="ASSN_INTRODUCE" property="assnIntroduce" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_SUSER" property="createSuser" jdbcType="VARCHAR" />
+    <result column="CREATE_TUSER" property="createTuser" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_SUSER" property="updateSuser" jdbcType="VARCHAR" />
+    <result column="UPDATE_TUSER" property="updateTuser" jdbcType="VARCHAR" />
+    <result column="UPDATE_TUSER" property="updateTuser" jdbcType="VARCHAR" />
+    <result column="ASSN_TAG" property="assnTag" jdbcType="VARCHAR" />
+    <result column="ASSN_FLOWER_INIT" property="assnFlowerInit" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <insert id="saveAssnApply" parameterType="com.culturecloud.model.bean.association.CcpAssociationApply" >
+    insert into ccp_association_apply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      ASSN_ID,
+      <if test="assnName != null" >
+        ASSN_NAME,
+      </if>
+      <if test="assnIntroduce != null" >
+        ASSN_INTRODUCE,
+      </if>
+      <if test="assnLinkman != null" >
+        ASSN_LINKMAN,
+      </if>
+      <if test="assnPhone != null" >
+        ASSN_PHONE,
+      </if>
+      <if test="assnType != null" >
+        ASSN_TYPE,
+      </if>
+      <if test="assnState != null" >
+        ASSN_STATE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="createSuser != null" >
+        CREATE_SUSER,
+      </if>
+      <if test="createTuser != null" >
+        CREATE_TUSER,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="updateSuser != null" >
+        UPDATE_SUSER,
+      </if>
+      <if test="updateTuser != null" >
+        UPDATE_TUSER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{assnId,jdbcType=VARCHAR},
+      <if test="assnName != null" >
+        #{assnName,jdbcType=VARCHAR},
+      </if>
+      <if test="assnIntroduce != null" >
+        #{assnIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="assnLinkman != null" >
+        #{assnLinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="assnPhone != null" >
+        #{assnPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="assnType != null" >
+        #{assnType,jdbcType=VARCHAR},
+      </if>
+      <if test="assnState != null" >
+        #{assnState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createSuser != null" >
+        #{createSuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTuser != null" >
+        #{createTuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateSuser != null" >
+        #{updateSuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTuser != null" >
+        #{updateTuser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="queryAssociationCountByCondition" resultType="java.lang.Integer" parameterType="java.util.Map">
+    SELECT
+		COUNT(*)
+	FROM ccp_association assn
+	WHERE 1=1
+		<if test="assnName != null">
+            AND assn.ASSN_NAME like #{assnName}
+        </if>
+  </select>
+  
+  <select id="queryAssociationByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT
+		assn.ASSN_ID,
+		assn.ASSN_NAME,
+		assn.ASSN_INTRODUCE,
+		ct.TAG_NAME AS ASSN_TYPE
+	FROM ccp_association assn
+	LEFT JOIN ccp_association_apply caa ON assn.ASSN_ID = caa.ASSN_ID
+	LEFT JOIN cms_tag ct ON caa.ASSN_TYPE = ct.TAG_ID
+	WHERE 1=1
+		<if test="assnName != null">
+            AND assn.ASSN_NAME like #{assnName}
+        </if>
+	ORDER BY assn.CREATE_TIME DESC
+	<if test="firstResult != null">
+        limit ${firstResult},${rows}
+    </if>
+  </select>
+  
+    <select id="queryAssnById" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+       select ca.ASSN_ID,
+              ca.ASSN_NAME,
+              ca.ASSN_IMG_URL,
+              ca.ASSN_INTRODUCE,
+              ca.ASSN_TAG,
+              ca.ASSN_FLOWER_INIT,
+             (SELECT COUNT(af.USER_ID) FROM ccp_association_flower af WHERE af.ASSN_ID = ca.ASSN_ID) flowerCount,
+             car.RECRUIT_STATUS recruitStatus
+            from ccp_association ca left join ccp_association_recruit car on ca.ASSN_ID=car.RECRUIT_ID 
+           where ca.ASSN_ID=#{assnId,jdbcType=VARCHAR}   
+  </select>
+  
+</mapper>

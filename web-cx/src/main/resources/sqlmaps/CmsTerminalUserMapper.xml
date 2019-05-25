@@ -1,0 +1,982 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsTerminalUserMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsTerminalUser" >
+    <id column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_PWD" property="userPwd" jdbcType="VARCHAR" />
+    <result column="USER_NICK_NAME" property="userNickName" jdbcType="VARCHAR" />
+    <result column="USER_EMAIL" property="userEmail" jdbcType="VARCHAR" />
+    <result column="USER_SEX" property="userSex" jdbcType="INTEGER" />
+    <result column="USER_AGE" property="userAge" jdbcType="INTEGER" />
+    <result column="USE_ADDRESS" property="useAddress" jdbcType="VARCHAR" />
+    <result column="USER_HEAD_IMG_URL" property="userHeadImgUrl" jdbcType="VARCHAR" />
+    <result column="USER_IMEI" property="userImei" jdbcType="VARCHAR" />
+    <result column="USER_IMSI" property="userImsi" jdbcType="VARCHAR" />
+    <result column="USER_EQUIPMENT_ID" property="userEquipmentId" jdbcType="VARCHAR" />
+    <result column="USER_GPS" property="userGps" jdbcType="VARCHAR" />
+    <result column="USER_IP" property="userIp" jdbcType="VARCHAR" />
+    <result column="USER_MAC" property="userMac" jdbcType="VARCHAR" />
+    <result column="USER_MOBILE_TYPE" property="userMobileType" jdbcType="VARCHAR" />
+    <result column="USER_INTERNETWAY" property="userInternetway" jdbcType="VARCHAR" />
+    <result column="USER_SITE_ID" property="userSiteId" jdbcType="VARCHAR" />
+    <result column="SNSTYPE" property="snstype" jdbcType="INTEGER" />
+    <result column="OPER_ID" property="operId" jdbcType="VARCHAR" />
+    <result column="ACCESS_TOKEN" property="accessToken" jdbcType="VARCHAR" />
+    <result column="EXPIRES_IN" property="expiresIn" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="USER_DEVICE_TOKEN" property="userDeviceToken" jdbcType="VARCHAR" />
+    <result column="USER_IS_LOGIN" property="userIsLogin" jdbcType="INTEGER" />
+    <result column="USER_IS_DISABLE" property="userIsDisable" jdbcType="INTEGER" />
+    <result column="USER_BIRTH" property="userBirth" jdbcType="DATE" />
+    <result column="USER_TELEPHONE" property="userTelephone" jdbcType="VARCHAR" />
+    <result column="USER_MOBILE_NO" property="userMobileNo" jdbcType="VARCHAR" />
+    <result column="USER_QQ" property="userQq" jdbcType="VARCHAR" />
+    <result column="USER_REMARK" property="userRemark" jdbcType="VARCHAR" />
+    <result column="REGISTER_CODE" property="registerCode" jdbcType="VARCHAR" />
+    <result column="REGISTER_COUNT" property="registerCount" jdbcType="INTEGER" />
+    <result column="USER_PROVINCE" property="userProvince" jdbcType="VARCHAR" />
+    <result column="USER_CITY" property="userCity" jdbcType="VARCHAR" />
+    <result column="USER_AREA" property="userArea" jdbcType="VARCHAR" />
+    <result column="USER_TYPE" property="userType" jdbcType="INTEGER" />
+    <result column="USER_CARD_NO" property="userCardNo" jdbcType="VARCHAR" />
+    <result column="COMMENT_STATUS" property="commentStatus" jdbcType="INTEGER" />
+    <result column="LAST_LOGIN_TIME" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="LOGIN_TYPE" property="loginType" jdbcType="INTEGER" />
+    <result column="tuser_name" property="tuserName" jdbcType="VARCHAR" />
+    <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP" />
+    <result column="apply_reason" property="applyReason" jdbcType="LONGVARCHAR" />
+    <result column="apply_id" property="applyId" jdbcType="VARCHAR" />
+    <result column="apply_is_state" property="applyIsState" jdbcType="INTEGER" />
+    <result column="tuser_id" property="tuserId" jdbcType="VARCHAR" />
+    <result column="tuser_limit" property="tuserLimit" jdbcType="INTEGER" />
+    <!--注册来源-->
+    <result column="Register_Origin" property="registerOrigin" jdbcType="INTEGER" />
+    <!--最后发送短信时间 2015.11.23-->
+    <result column="LAST_SENDSMS_TIME" property="lastSendSmsTime" jdbcType="TIMESTAMP" />
+    <result column="SOURCE_CODE" property="sourceCode" jdbcType="INTEGER" />
+    <result column="SYS_ID" property="sysId" jdbcType="VARCHAR" />
+    <result column="USER_IDCARD_PHOTO_URL" property="idCardPhotoUrl" jdbcType="VARCHAR"/>
+    <result column="INTEGRAL_NOW" jdbcType="INTEGER" property="integralNow" />
+  </resultMap>
+
+  <resultMap id="customResultMap" type="com.sun3d.why.model.CmsTerminalUser" >
+    <id column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_MOBILE_NO" property="userMobileNo" jdbcType="VARCHAR" />
+    <result column="USER_IS_DISABLE" property="userIsDisable" jdbcType="INTEGER" />
+  </resultMap>
+
+  <!-- 分页信息 -->
+  <sql id="pagination_condition">
+    limit ${firstResult},${rows}
+  </sql>
+
+  <delete id="deleteTerminalUserById" parameterType="java.lang.String" >
+    delete from cms_terminal_user
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="addTerminalUser" parameterType="com.sun3d.why.model.CmsTerminalUser" >
+    insert into cms_terminal_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="userPwd != null and userPwd != ''" >
+        USER_PWD,
+      </if>
+      <if test="userNickName != null" >
+        USER_NICK_NAME,
+      </if>
+      <if test="userEmail != null" >
+        USER_EMAIL,
+      </if>
+      <if test="userSex != null" >
+        USER_SEX,
+      </if>
+      <if test="userAge != null" >
+        USER_AGE,
+      </if>
+      <if test="useAddress != null" >
+        USE_ADDRESS,
+      </if>
+      <if test="userHeadImgUrl != null" >
+        USER_HEAD_IMG_URL,
+      </if>
+      <if test="userImei != null" >
+        USER_IMEI,
+      </if>
+      <if test="userImsi != null" >
+        USER_IMSI,
+      </if>
+      <if test="userEquipmentId != null" >
+        USER_EQUIPMENT_ID,
+      </if>
+      <if test="userGps != null" >
+        USER_GPS,
+      </if>
+      <if test="userIp != null" >
+        USER_IP,
+      </if>
+      <if test="userMac != null" >
+        USER_MAC,
+      </if>
+      <if test="userMobileType != null" >
+        USER_MOBILE_TYPE,
+      </if>
+      <if test="userInternetway != null" >
+        USER_INTERNETWAY,
+      </if>
+      <if test="userSiteId != null" >
+        USER_SITE_ID,
+      </if>
+      <if test="snstype != null" >
+        SNSTYPE,
+      </if>
+      <if test="operId != null" >
+        OPER_ID,
+      </if>
+      <if test="accessToken != null" >
+        ACCESS_TOKEN,
+      </if>
+      <if test="expiresIn != null" >
+        EXPIRES_IN,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="userDeviceToken != null" >
+        USER_DEVICE_TOKEN,
+      </if>
+      <if test="userIsLogin != null" >
+        USER_IS_LOGIN,
+      </if>
+      <if test="userIsDisable != null" >
+        USER_IS_DISABLE,
+      </if>
+      <if test="userBirth != null" >
+        USER_BIRTH,
+      </if>
+      <if test="userTelephone != null" >
+        USER_TELEPHONE,
+      </if>
+      <if test="userMobileNo != null" >
+        USER_MOBILE_NO,
+      </if>
+      <if test="userQq != null" >
+        USER_QQ,
+      </if>
+      <if test="userRemark != null" >
+        USER_REMARK,
+      </if>
+      <if test="registerCode != null" >
+        REGISTER_CODE,
+      </if>
+      <if test="registerCount != null" >
+        REGISTER_COUNT,
+      </if>
+      <if test="userProvince != null">
+        USER_PROVINCE,
+      </if>
+      <if test="userCity != null">
+        USER_CITY,
+      </if>
+      <if test="userArea != null">
+        USER_AREA,
+      </if>
+      <if test="userType != null">
+        USER_TYPE,
+      </if>
+      <if test="userCardNo != null">
+        USER_CARD_NO,
+      </if>
+      <if test="registerOrigin != null">
+        register_origin,
+      </if>
+      <if test="commentStatus != null">
+        COMMENT_STATUS,
+      </if>
+      <if test="lastLoginTime != null" >
+        LAST_LOGIN_TIME,
+      </if>
+      <if test="loginType != null" >
+        LOGIN_TYPE,
+      </if>
+      <if test="lastSendSmsTime != null" >
+        LAST_SENDSMS_TIME,
+      </if>
+      <if test="sourceCode != null" >
+        SOURCE_CODE,
+      </if>
+      <if test="sysId != null" >
+        SYS_ID,
+      </if>
+       <if test="idCardPhotoUrl != null" >
+        USER_IDCARD_PHOTO_URL,
+      </if>
+      <if test="readerCard != null" >
+        READER_CARD,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null and userPwd != ''" >
+        #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userNickName != null" >
+        #{userNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null" >
+        #{userSex,jdbcType=INTEGER},
+      </if>
+      <if test="userAge != null" >
+        #{userAge,jdbcType=INTEGER},
+      </if>
+      <if test="useAddress != null" >
+        #{useAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userHeadImgUrl != null" >
+        #{userHeadImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userImei != null" >
+        #{userImei,jdbcType=VARCHAR},
+      </if>
+      <if test="userImsi != null" >
+        #{userImsi,jdbcType=VARCHAR},
+      </if>
+      <if test="userEquipmentId != null" >
+        #{userEquipmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="userGps != null" >
+        #{userGps,jdbcType=VARCHAR},
+      </if>
+      <if test="userIp != null" >
+        #{userIp,jdbcType=VARCHAR},
+      </if>
+      <if test="userMac != null" >
+        #{userMac,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobileType != null" >
+        #{userMobileType,jdbcType=VARCHAR},
+      </if>
+      <if test="userInternetway != null" >
+        #{userInternetway,jdbcType=VARCHAR},
+      </if>
+      <if test="userSiteId != null" >
+        #{userSiteId,jdbcType=VARCHAR},
+      </if>
+      <if test="snstype != null" >
+        #{snstype,jdbcType=INTEGER},
+      </if>
+      <if test="operId != null" >
+        #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="accessToken != null" >
+        #{accessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="expiresIn != null" >
+        #{expiresIn,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDeviceToken != null" >
+        #{userDeviceToken,jdbcType=VARCHAR},
+      </if>
+      <if test="userIsLogin != null" >
+        #{userIsLogin,jdbcType=INTEGER},
+      </if>
+      <if test="userIsDisable != null" >
+        #{userIsDisable,jdbcType=INTEGER},
+      </if>
+      <if test="userBirth != null" >
+        #{userBirth,jdbcType=DATE},
+      </if>
+      <if test="userTelephone != null" >
+        #{userTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobileNo != null" >
+        #{userMobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userQq != null" >
+        #{userQq,jdbcType=VARCHAR},
+      </if>
+      <if test="userRemark != null" >
+        #{userRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="registerCode != null" >
+        #{registerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="registerCount != null" >
+        #{registerCount,jdbcType=INTEGER},
+      </if>
+      <if test="userProvince != null">
+        #{userProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="userCity != null">
+        #{userCity,jdbcType=VARCHAR},
+      </if>
+      <if test="userArea != null">
+        #{userArea,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="userCardNo != null">
+        #{userCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="registerOrigin != null">
+        #{registerOrigin,jdbcType=INTEGER},
+      </if>
+      <if test="commentStatus != null">
+        #{commentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginType != null" >
+        #{loginType,jdbcType=INTEGER},
+      </if>
+      <if test="lastSendSmsTime != null" >
+        #{lastSendSmsTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sourceCode != null" >
+        #{sourceCode,jdbcType=INTEGER},
+      </if>
+      <if test="sysId != null" >
+        #{sysId,jdbcType=VARCHAR},
+      </if>
+       <if test="idCardPhotoUrl != null" >
+        #{idCardPhotoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="readerCard != null" >
+        #{readerCard,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="editTerminalUserById" parameterType="com.sun3d.why.model.CmsTerminalUser" >
+    update cms_terminal_user
+    <set >
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null" >
+         USER_PWD = #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userNickName != null" >
+        USER_NICK_NAME = #{userNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        USER_EMAIL = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null" >
+        USER_SEX = #{userSex,jdbcType=INTEGER},
+      </if>
+      <if test="userAge != null" >
+        USER_AGE = #{userAge,jdbcType=INTEGER},
+      </if>
+      <if test="useAddress != null" >
+        USE_ADDRESS = #{useAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userHeadImgUrl != null" >
+        USER_HEAD_IMG_URL = #{userHeadImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userImei != null" >
+        USER_IMEI = #{userImei,jdbcType=VARCHAR},
+      </if>
+      <if test="userImsi != null" >
+        USER_IMSI = #{userImsi,jdbcType=VARCHAR},
+      </if>
+      <if test="userEquipmentId != null" >
+        USER_EQUIPMENT_ID = #{userEquipmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="userGps != null" >
+        USER_GPS = #{userGps,jdbcType=VARCHAR},
+      </if>
+      <if test="userIp != null" >
+        USER_IP = #{userIp,jdbcType=VARCHAR},
+      </if>
+      <if test="userMac != null" >
+        USER_MAC = #{userMac,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobileType != null" >
+        USER_MOBILE_TYPE = #{userMobileType,jdbcType=VARCHAR},
+      </if>
+      <if test="userInternetway != null" >
+        USER_INTERNETWAY = #{userInternetway,jdbcType=VARCHAR},
+      </if>
+      <if test="userSiteId != null" >
+        USER_SITE_ID = #{userSiteId,jdbcType=VARCHAR},
+      </if>
+      <if test="snstype != null" >
+        SNSTYPE = #{snstype,jdbcType=INTEGER},
+      </if>
+      <if test="operId != null" >
+        OPER_ID = #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="accessToken != null" >
+        ACCESS_TOKEN = #{accessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="expiresIn != null" >
+        EXPIRES_IN = #{expiresIn,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDeviceToken != null" >
+        USER_DEVICE_TOKEN = #{userDeviceToken,jdbcType=VARCHAR},
+      </if>
+      <if test="userIsLogin != null" >
+        USER_IS_LOGIN = #{userIsLogin,jdbcType=INTEGER},
+      </if>
+      <if test="userIsDisable != null" >
+        USER_IS_DISABLE = #{userIsDisable,jdbcType=INTEGER},
+      </if>
+      <if test="userBirth != null" >
+        USER_BIRTH = #{userBirth,jdbcType=DATE},
+      </if>
+      <if test="userTelephone != null" >
+        USER_TELEPHONE = #{userTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobileNo != null" >
+        USER_MOBILE_NO = #{userMobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userQq != null" >
+        USER_QQ = #{userQq,jdbcType=VARCHAR},
+      </if>
+      <if test="userRemark != null" >
+        USER_REMARK = #{userRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="registerCode != null" >
+        REGISTER_CODE = #{registerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="registerCount != null" >
+        REGISTER_COUNT = #{registerCount,jdbcType=INTEGER},
+      </if>
+      <if test="userProvince != null">
+        USER_PROVINCE = #{userProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="userCity != null">
+        USER_CITY = #{userCity,jdbcType=VARCHAR},
+      </if>
+      <if test="userArea != null">
+        USER_AREA = #{userArea,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        USER_TYPE = #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="userCardNo != null">
+        USER_CARD_NO = #{userCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="commentStatus != null">
+        COMMENT_STATUS = #{commentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="lastLoginTime != null" >
+        LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginType != null" >
+        LOGIN_TYPE = #{loginType,jdbcType=INTEGER},
+      </if>
+      <if test="registerOrigin != null" >
+        REGISTER_ORIGIN = #{registerOrigin,jdbcType=INTEGER},
+      </if>
+      <if test="lastSendSmsTime != null" >
+        LAST_SENDSMS_TIME = #{lastSendSmsTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sourceCode != null" >
+        SOURCE_CODE = #{sourceCode,jdbcType=INTEGER},
+      </if>
+      <if test="sysId != null" >
+        SYS_ID = #{sysId,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardPhotoUrl != null" >
+        USER_IDCARD_PHOTO_URL = #{idCardPhotoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="readerCard != null" >
+        READER_CARD = #{readerCard,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getTerminalUserId" resultType="java.lang.String" parameterType="java.lang.String">
+      SELECT USER_ID FROM cms_terminal_user
+      WHERE USER_NAME = #{userName,jdbcType=VARCHAR}
+      LIMIT 0,1
+  </select>
+
+  <!--根据第三方用户ID获取文化云系统用户ID-->
+  <select id="getTerminalUserIdBySysId" resultType="java.lang.String" parameterType="java.lang.String">
+    SELECT USER_ID FROM cms_terminal_user
+      WHERE sys_id = #{sysId,jdbcType=VARCHAR}
+      LIMIT 0,1
+  </select>
+
+  <!--根据手机号查询会员-->
+  <select id="getTerminalUserIdByMobileNo" resultType="java.lang.String" parameterType="java.lang.String">
+    SELECT USER_ID FROM cms_terminal_user
+    WHERE user_mobile_no = #{userMobileNo,jdbcType=VARCHAR}
+    ORDER BY create_time DESC
+    LIMIT 0,1
+  </select>
+
+  <!-- 查询后台会员名称、手机、身份证号是否存在 -->
+  <select id="queryTerminalUserIsExists"  parameterType="java.util.Map" resultType="java.lang.Integer" >
+    SELECT count(*)
+    FROM cms_terminal_user
+    where 1=1
+    <if test="userName != null">
+      and user_name = #{userName,jdbcType=VARCHAR}
+    </if>
+    <if test="userMobileNo != null">
+      and user_mobile_no = #{userMobileNo,jdbcType=VARCHAR}
+    </if>
+    <if test="userCardNo != null">
+      and user_card_no = #{userCardNo,jdbcType=VARCHAR}
+    </if>
+    <if test="readerCard != null">
+      and reader_card = #{readerCard,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <!-- 根据userName查询信息 -->
+  <select id="queryFrontTerminalUser"  parameterType="java.util.Map" resultMap="BaseResultMap">
+    SELECT c.user_id,c.user_mobile_no,c.USER_IS_DISABLE
+    FROM cms_terminal_user c
+    WHERE c.user_name = #{userName,jdbcType=VARCHAR}
+  </select>
+
+  <!--后台会员列表个数-->
+  <select id="queryTerminalUserCountByCondition" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(*) from cms_terminal_user
+    where 1=1
+    <if test="userMobileNo != null" >
+      and user_mobile_no like #{userMobileNo,jdbcType=VARCHAR}
+    </if>
+    <if test="userType != null">
+      and user_type = #{userType,jdbcType=INTEGER}
+    </if>
+    <if test="commentStatus != null">
+      and comment_status = #{commentStatus,jdbcType=INTEGER}
+    </if>
+    <if test="userArea != null" >
+      and user_area like #{userArea,jdbcType=VARCHAR}
+    </if>
+    <if test="userIsDisable != null" >
+      and user_is_disable = #{userIsDisable,jdbcType=INTEGER}
+    </if>
+    <if test="userIsDisable == null">
+      and user_is_disable in (0,2)
+    </if>
+  </select>
+  <!--后台会员列表-->
+  <select id="queryTerminalUserByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select DISTINCT u.USER_ID, USER_NAME, USER_NICK_NAME, USER_EMAIL, USER_SEX,comment_status,user_type,
+    CREATE_TIME, USER_IS_DISABLE, USER_MOBILE_NO, user_province, user_city,user_area,last_login_time,register_origin
+   <!--  ,ui.INTEGRAL_NOW--> 
+    from cms_terminal_user u
+    <!-- LEFT JOIN sys_user_integral ui ON u.USER_ID = ui.USER_ID -->
+    where 1=1
+    <if test="userMobileNo != null" >
+      and user_mobile_no like #{userMobileNo,jdbcType=VARCHAR}
+    </if>
+    <if test="userTelephone != null" >
+      and user_telephone like #{userTelephone,jdbcType=VARCHAR}
+    </if>
+    <if test="userType != null">
+      and user_type = #{userType,jdbcType=INTEGER}
+    </if>
+    <if test="commentStatus != null">
+      and comment_status = #{commentStatus,jdbcType=INTEGER}
+    </if>
+    <if test="userArea != null" >
+      and user_area like #{userArea,jdbcType=VARCHAR}
+    </if>
+    <if test="userIsDisable != null" >
+      and user_is_disable = #{userIsDisable,jdbcType=INTEGER}
+    </if>
+    <if test="userIsDisable == null">
+      and user_is_disable in (0,2)
+    </if>
+    order by create_time desc
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+
+  <!--根据id查询会员-->
+  <select id="queryTerminalUserById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select *
+    from cms_terminal_user
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </select>
+
+  <!--根据手机号查询会员-->
+  <select id="queryTerminalByMobileOrPwd" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT USER_ID, USER_NAME, USER_PWD, USER_NICK_NAME, USER_EMAIL, USER_SEX, USER_AGE, USE_ADDRESS,REGISTER_COUNT,user_province,user_city,user_area,user_type,USER_IS_LOGIN,
+    USER_HEAD_IMG_URL, CREATE_TIME, USER_IS_DISABLE, USER_BIRTH, USER_MOBILE_NO, USER_QQ, REGISTER_CODE,USER_CARD_NO,register_Origin,comment_status,last_login_time,OPER_ID,LOGIN_TYPE,user_telephone FROM cms_terminal_user
+    where USER_MOBILE_NO = #{userName,jdbcType=VARCHAR} and USER_PWD = #{userPwd,jdbcType=VARCHAR}
+    LIMIT 0,1
+  </select>
+
+  <select id="webLogin" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT  USER_ID,USER_NAME,USER_NICK_NAME,
+            USER_EMAIL,USER_SEX,
+            user_type,USER_HEAD_IMG_URL,
+            USER_IS_DISABLE,USER_BIRTH,
+            USER_MOBILE_NO,register_Origin,
+            comment_status,OPER_ID,USER_TELEPHONE,USER_IS_LOGIN,SOURCE_CODE,SYS_ID
+    FROM cms_terminal_user
+    WHERE  USER_MOBILE_NO = #{userName,jdbcType=VARCHAR} AND USER_PWD = #{userPwd,jdbcType=VARCHAR} LIMIT 1
+  </select>
+
+  <!--后端2.0某个团体下的成员列表-->
+  <select id="queryTeamTerminalUserByTuserId" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select b.apply_id,a.user_id,a.user_name,a.user_sex,a.user_birth,a.user_mobile_no,b.apply_reason,b.apply_is_state,a.comment_status
+    from cms_terminal_user a inner join cms_apply_join_team b on a.user_id = b.user_id
+    where 1=1
+    <if test="applyCheckState != null">
+      and b.apply_check_state = #{applyCheckState}
+    </if>
+    <if test="tuserId != null">
+      and b.tuser_id = #{tuserId}
+    </if>
+    <if test="userName != null">
+      and a.user_name like #{userName}
+    </if>
+    order by b.apply_update_time
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+  <select id="queryTeamTerminalUserCountByTuserId" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(*) from cms_terminal_user a inner join cms_apply_join_team b on a.user_id = b.user_id
+    where 1=1
+    <if test="applyCheckState != null">
+      and b.apply_check_state = #{applyCheckState}
+    </if>
+    <if test="tuserId != null">
+      and b.tuser_id = #{tuserId}
+    </if>
+    <if test="userName != null">
+      and a.user_name like #{userName}
+    </if>
+  </select>
+
+  <!--后端2.0某个团体下成员查看-->
+  <select id="queryTeamTerminalUserByApplyId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select b.apply_id,a.user_id,a.user_name,a.user_sex,a.user_birth,a.user_mobile_no,b.apply_reason,b.apply_is_state,a.comment_status
+    from cms_terminal_user a inner join cms_apply_join_team b on a.user_id = b.user_id
+    where b.apply_id = #{applyId}
+    order by b.apply_update_time
+    limit 0,1
+  </select>
+
+  <!--后端2.0根据省市区查询管理员用户-->
+  <select id="queryTerminalUserByArea" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select user_id,user_name,user_nick_name,user_sex,user_birth,user_mobile_no from cms_terminal_user
+    where user_type = 2 AND user_mobile_no is not null and user_mobile_no != ''
+    <if test="userProvince != null">
+      and user_province like #{userProvince}
+    </if>
+    <if test="userCity != null">
+      and user_city like #{userCity}
+    </if>
+    <if test="userArea != null">
+      and user_area like #{userArea}
+    </if>
+    order by create_time desc
+  </select>
+
+
+  <!--前端2.0我管理的团体-消息审核-->
+  <select id="queryCheckTerminalUser" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select a.tuser_name,c.user_nick_name,c.user_sex,c.user_age,b.apply_time,c.user_head_img_url,c.user_mobile_no,b.apply_reason,c.user_id,b.apply_id,a.tuser_id,a.tuser_limit
+    from cms_team_user a inner join cms_apply_join_team b on a.tuser_id = b.tuser_id
+    inner join cms_terminal_user c on b.user_id = c.USER_ID
+    where b.apply_check_state = 1
+    <if test="applyIsState != null">
+      and b.apply_is_state = #{applyIsState}
+    </if>
+    <if test="userId != null">
+      and c.user_id = #{userId}
+    </if>
+    <if test="tuserId != null">
+      and b.tuser_id = #{tuserId}
+    </if>
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+  <select id="queryCheckTerminalUserCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(*) from cms_team_user a inner join cms_apply_join_team b on a.tuser_id = b.tuser_id
+    inner join cms_terminal_user c on b.user_id = c.USER_ID
+    where b.apply_check_state = 1
+    <if test="applyIsState != null">
+      and b.apply_is_state = #{applyIsState}
+    </if>
+    <if test="userId != null">
+      and c.user_id = #{userId}
+    </if>
+    <if test="tuserId != null">
+      and b.tuser_id = #{tuserId}
+    </if>
+  </select>
+
+  <!--前端2.0 团体详情 管理人-->
+  <select id="queryUserNickNameByTuserId" parameterType="java.lang.String" resultType="java.lang.String">
+  select b.user_nick_name from cms_apply_join_team a inner join cms_terminal_user b on a.user_id = b.user_id
+  where a.apply_is_state = 1 and a.apply_check_state=3 and a.tuser_id = #{tuserId} limit 0,1
+</select>
+
+
+  <!--根据手机号和状态查询用户-->
+  <select id="getCmsTerminalUserList"  parameterType="java.util.Map" resultMap="BaseResultMap">
+    select USER_ID, USER_NAME, USER_NICK_NAME, USER_EMAIL, USER_SEX,USER_PWD,
+    CREATE_TIME, USER_IS_DISABLE, USER_MOBILE_NO,REGISTER_COUNT,REGISTER_CODE,LAST_SENDSMS_TIME
+    from cms_terminal_user
+    where 1=1
+    <if test="userIsDisable != null">
+      and USER_IS_DISABLE = #{userIsDisable,jdbcType=VARCHAR}
+    </if>
+    <if test="userMobileNo != null">
+      and user_mobile_no = #{userMobileNo,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="getCmsTerminalUserByMobile" parameterType="java.lang.String" resultMap="BaseResultMap">
+      SELECT  USER_ID, USER_NAME, USER_NICK_NAME, USER_EMAIL, USER_SEX,
+    CREATE_TIME, USER_IS_DISABLE, USER_MOBILE_NO,REGISTER_COUNT,REGISTER_CODE,LAST_SENDSMS_TIME FROM cms_terminal_user
+      WHERE  user_mobile_no = #{userMobileNo,jdbcType=VARCHAR} limit 0,1
+  </select>
+<!--app根据code查询用户对象 -->
+  <select id="queryTerminalUserByCode"  resultMap="BaseResultMap">
+    select USER_ID
+    from cms_terminal_user
+    where REGISTER_CODE = #{0} and USER_MOBILE_NO = #{1}
+  </select>
+
+  <!--app根据电话查询用户信息 -->
+
+  <select id="queryTerminalUserByMobile" resultMap="BaseResultMap"  parameterType="java.util.Map">
+    SELECT
+    USER_ID, USER_NAME, USER_PWD,
+    USER_NICK_NAME, USER_EMAIL,
+    USER_SEX, USER_AGE,
+    USE_ADDRESS,REGISTER_COUNT,
+    user_province,user_city,
+    user_area,user_type,
+    USER_HEAD_IMG_URL,
+    CREATE_TIME, USER_IS_DISABLE,
+    USER_BIRTH, USER_MOBILE_NO,
+    USER_QQ, REGISTER_CODE,USER_CARD_NO,COMMENT_STATUS,register_origin,LAST_SENDSMS_TIME
+    FROM cms_terminal_user WHERE 1=1
+    <if test="userMobileNo!=null">
+      AND  USER_MOBILE_NO =#{userMobileNo,jdbcType=VARCHAR}
+    </if>
+    <if test="userIsDisable!=null">
+      AND USER_IS_DISABLE=#{userIsDisable,jdbcType=VARCHAR}
+    </if>
+  </select>
+<!--是否存在openId-->
+  <select id="queryByOpenId" resultMap="BaseResultMap"  parameterType="java.util.Map">
+    SELECT
+     USER_ID, USER_NAME, USER_PWD,
+     USER_NICK_NAME, USER_EMAIL,
+     USER_SEX, USER_AGE,
+     USE_ADDRESS,REGISTER_COUNT,
+     user_province,user_city,
+     user_area,user_type,
+     USER_HEAD_IMG_URL,
+     CREATE_TIME, USER_IS_DISABLE,
+     USER_BIRTH, USER_MOBILE_NO,
+     USER_QQ, REGISTER_CODE,USER_CARD_NO,COMMENT_STATUS,register_origin
+    FROM  cms_terminal_user
+    WHERE  1=1
+    <if test="operId != null" >
+      AND OPER_ID = #{operId,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <!--无力吐槽-->
+  <select id="queryByWebOpenId" resultMap="BaseResultMap"  parameterType="java.util.Map">
+    SELECT
+    USER_ID, USER_NAME, USER_PWD,
+    USER_NICK_NAME, USER_EMAIL,
+    USER_SEX, USER_AGE,
+    USE_ADDRESS,REGISTER_COUNT,
+    user_province,user_city,
+    user_area,user_type,
+    USER_HEAD_IMG_URL,
+    CREATE_TIME, USER_IS_DISABLE,
+    USER_BIRTH, USER_MOBILE_NO,
+    USER_QQ, REGISTER_CODE,USER_CARD_NO,COMMENT_STATUS,register_origin,USER_TELEPHONE,SOURCE_CODE,SYS_ID
+    FROM  cms_terminal_user
+    WHERE  OPER_ID =#{openId,jdbcType=VARCHAR}
+    limit 1
+  </select>
+
+   <!--app验证手机验证码-->
+  <select id="terminalUserMobileExists" resultMap="BaseResultMap"  parameterType="java.util.Map">
+    SELECT
+    USER_ID,
+    REGISTER_CODE,
+    USER_IS_DISABLE
+    FROM
+    cms_terminal_user
+    WHERE
+    1 = 1
+    <if test="userMobile!=null">
+     AND  USER_MOBILE_NO =#{userMobile,jdbcType=VARCHAR}
+    </if>
+    <if test="code!=null">
+     AND REGISTER_CODE=#{code,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <!--app根据用户id编辑用户信息
+  <update id="editAppTerminalUserById" parameterType="com.sun3d.why.model.CmsTerminalUser" >
+    update cms_terminal_user
+    <set >
+      <if test="userHeadImgUrl != null" >
+        USER_HEAD_IMG_URL = #{userHeadImgUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+  -->
+  <!--app根据用户与密码获取用户数据 -->
+  <select id="queryAppTerminalUserByCondition" resultMap="BaseResultMap"  parameterType="java.util.Map">
+    SELECT *
+    FROM  cms_terminal_user
+    WHERE  1=1
+    <if test="userName != null" >
+     and  USER_MOBILE_NO = #{userName,jdbcType=VARCHAR}
+    </if>
+    <if test="userPwd!=null">
+     and  USER_PWD = #{userPwd,jdbcType=VARCHAR}
+    </if>
+    <if test="userIsDisable!=null">
+      and  USER_IS_DISABLE = #{userIsDisable,jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <select id="queryByIp" resultType="java.lang.Integer" parameterType="java.util.Map">
+      SELECT  COUNT(*) FROM cms_terminal_user WHERE USER_IP=#{userIp} and To_Days(CREATE_TIME)-To_Days(#{createTime})=0;
+  </select>
+    <!--查询operId是否存在 -->
+  <select id="queryTerminalCountById" resultType="java.lang.Integer">
+  SELECT count(*)
+  FROM  cms_terminal_user
+  WHERE  OPER_ID =#{0} AND USER_IS_DISABLE=#{1}
+</select>
+<!--app根据operId查询多条数据 -->
+  <select id="queryTerminalUserListById" resultMap="BaseResultMap"  parameterType="java.util.Map">
+    SELECT
+    USER_ID, USER_NAME, USER_PWD,
+    USER_NICK_NAME, USER_EMAIL,
+    USER_SEX, USER_AGE,
+    USE_ADDRESS,REGISTER_COUNT,
+    user_province,user_city,
+    user_area,user_type,
+    USER_HEAD_IMG_URL,
+    CREATE_TIME, USER_IS_DISABLE,
+    USER_BIRTH, USER_MOBILE_NO,
+    USER_QQ, REGISTER_CODE,USER_CARD_NO,COMMENT_STATUS,register_origin,USER_IS_LOGIN
+    FROM  cms_terminal_user
+    WHERE  1=1
+    <if test="operId != null" >
+      AND OPER_ID = #{operId,jdbcType=VARCHAR}
+    </if>
+  </select>
+   <!--app验证用户是否存在 -->
+  <select id="terminalUserIsExistByName" resultType="java.lang.Integer" parameterType="com.sun3d.why.model.CmsTerminalUser">
+    SELECT count(*)
+    FROM  cms_terminal_user
+    WHERE  USER_NAME =#{userName}
+  </select>
+  <!--app第三方登录时绑定手机号码 -->
+  <select id="bindingOperIdById" resultMap="BaseResultMap">
+    SELECT
+   USER_ID,USER_MOBILE_NO
+    FROM  cms_terminal_user
+    WHERE  1=1
+    AND OPER_ID = #{0} and  USER_IS_DISABLE = #{1}
+  </select>
+
+  <!-- 公共接口方法 -->
+  <!-- 判断用户能否登录 -->
+  <select id="checkUserLogin" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.CmsTerminalUser">
+    SELECT
+    *
+    FROM  cms_terminal_user
+    WHERE  1=1
+    <if test="userMobileNo != null" >
+      and  USER_MOBILE_NO = #{userMobileNo,jdbcType=VARCHAR}
+    </if>
+    <if test="userPwd!=null">
+      and  USER_PWD = #{userPwd,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="queryUserByMobile" resultMap="customResultMap" parameterType="java.lang.String">
+    SELECT  USER_ID,USER_MOBILE_NO,USER_IS_DISABLE FROM
+    cms_terminal_user WHERE  USER_MOBILE_NO = #{userMobileNo,jdbcType=VARCHAR} LIMIT 1
+  </select>
+  <!--微信通过微信网站登录后保存openId-->
+  <select id="queryByWxOpenId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT  USER_ID,USER_NAME,USER_NICK_NAME,
+            USER_EMAIL,USER_SEX,
+            user_type,USER_HEAD_IMG_URL,
+            USER_IS_DISABLE,USER_BIRTH,
+            USER_MOBILE_NO,register_Origin,
+            comment_status,OPER_ID,USER_TELEPHONE,USER_IS_LOGIN
+        FROM cms_terminal_user  WHERE  USER_IMSI=#{_parameter}
+  </select>
+
+  <select id="publicLogin" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.CmsTerminalUser">
+        SELECT
+            USER_ID,USER_NAME,USER_SEX,USER_HEAD_IMG_URL,
+            USER_IS_DISABLE,USER_MOBILE_NO
+        FROM cms_terminal_user
+        WHERE  USER_MOBILE_NO = #{userMobileNo,jdbcType=VARCHAR} AND USER_PWD = #{userPwd,jdbcType=VARCHAR} LIMIT 1
+  </select>
+
+  <update id="editUserByReaderCard" parameterType="java.util.Map">
+    update cms_terminal_user
+    <set >
+      <if test="useAddress != null" >
+        USE_ADDRESS = #{useAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userCardNo != null" >
+        USER_CARD_NO = #{userCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwdMD5 != null" >
+        USER_PWD = #{userPwdMD5,jdbcType=VARCHAR},
+      </if>
+      <if test="userBirth != null" >
+        USER_BIRTH = #{userBirth,jdbcType=VARCHAR},
+      </if>
+    </set>
+      where READER_CARD = #{readerCard,jdbcType=VARCHAR}
+  </update>
+
+  <select id="queryUserByReaderCard" resultMap="customResultMap" parameterType="java.lang.String">
+    SELECT  USER_ID,USER_MOBILE_NO,USER_IS_DISABLE FROM
+    cms_terminal_user WHERE  READER_CARD = #{readerCard,jdbcType=VARCHAR} LIMIT 1
+  </select>
+</mapper>

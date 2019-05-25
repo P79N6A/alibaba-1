@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<limitcontrol>
+	<process name="首页" url="${path}/right.do">
+		<function methodName="查看首页" url="${path}/right.do"></function>
+	</process>
+	<process name="统计管理" url="${path}/activityStatistics/activityAreaStatisticsIndex.do">
+		<function methodName="查看统计数据" url="${path}/activityStatistics/activityAreaStatisticsIndex.do"></function>
+		<function methodName="区县数据统计" url="${path}/countyStatistics/countyStatisticsPage.do"></function>
+	</process>
+	<process name="活动管理" url="${path}/activity/activityIndex.do?activityState=6">
+		<function methodName="查看活动列表" url="${path}/activity/activityIndex.do?activityState=6"></function>
+		<function methodName="个人活动审核" url="${path}/activity/activityPersonalIndex.do?activityPersonal=1"></function>
+		<function methodName="推荐/取消活动" url="${path}/activity/recommendActivity.do"></function>
+		<function methodName="查看订单列表" url="${path}/order/queryAllUserOrderIndex.do"></function>
+		<function methodName="票务" url="${path}/order/orderList.do"></function>
+		<function methodName="删除草稿箱" url="${path}/activity/deleteActivity.do?activityState=1"></function>
+		<function methodName="删除回收站" url="${path}/activity/deleteActivity.do?activityState=5"></function>
+		<function methodName="编辑活动" url="${path}/activity/preEditActivity.do?activityState=6"></function>
+		<function methodName="查看活动票务" url="${path}/order/viewOrderDetail.do"></function>
+		<function methodName="发送消息" url="${path}/order/sendSmsMessage.do"></function>
+		<function methodName="查看草稿箱" url="${path}/activity/activityIndex.do?activityState=1"></function>
+		<function methodName="发布草稿箱" url="${path}/activity/publishActivity.do"></function>
+		<function methodName="还原回收站" url="${path}/activity/returnActivity.do"></function>
+		<function methodName="发布活动" url="${path}/activity/addActivity.do"></function>
+		<function methodName="审核活动" url="${path}/activity/deleteActivity.do?activityState=6"></function>
+		<function methodName="取消订单" url="${path}/order/updateOrderByActivityOrderId.do"></function>
+		<function methodName="编辑草搞箱" url="${path}/activity/preEditActivity.do?activityState=1"></function>
+		<function methodName="查看回收站" url="${path}/activity/activityIndex.do?activityState=5"></function>
+		<function methodName="推荐至App" url="${path}/recommendRelate/recommendActivity.do"></function>
+		<function methodName="评级" url="${path}/activity/RatingsInfo.do"></function>
+		<function methodName="修改评级" url="${path}/sensitiveWords/editRatingsInfo.do"></function>
+		<function methodName="发布活动-单个账号预定设置" url="${path}/activity/ticketSettings.do"></function>
+		<function methodName="发布活动-秒杀设置" url="${path}/activity/spick.do"></function>
+		<function methodName="复制活动" url="${path}/activity/copyActivity.do"></function>
+		<function methodName="万能发布器" url="${path}/activityPublisher/preActivityPublisher.do"></function>
+		<function methodName="万能发布器" url="${path}/activityPublisher/preActivityPublisher.do"></function>
+		<function methodName="活动模板管理" url="${path}/activityTemplate/activityTemplateIndex.do"></function>
+		<function methodName="模板功能管理" url="${path}/function/functionIndex.do"></function>
+	</process>
+
+	<process name="场馆管理" url="${path}/venue/venueIndex.do">
+		<function methodName="场馆列表" url="${path}/venue/venueIndex.do"></function>
+		<function methodName="编辑场馆" url="${path}/venue/preEditVenue.do"></function>
+		<function methodName="选座模板" url="${path}/venueSeatTemplate/venueSeatTemplateIndex.do"></function>
+		<!-- <function methodName="分配管理员" url="${path}/venue/preAssignManager.do"></function> -->
+		
+		<!-- <function methodName="添加座位模板" url="${path}/venue/preBuildVenueSeat.do"></function> -->
+		<!-- <function methodName="编辑座位模板" url="${path}/venueSeatTemplate/preEditVenueSeatTemplate.do"></function>
+		<function methodName="删除座位模板" url="${path}/venueSeatTemplate/deleteVenueSeatTemplate.do"></function> -->
+
+		<function methodName="新建场馆" url="${path}/venue/preAddVenue.do"></function>
+		<function methodName="场馆草稿箱" url="${path}/venue/venueDraftList.do"></function>
+		<function methodName="场馆回收站" url="${path}/venue/venueRecycleList.do"></function>
+		<!-- <function methodName="查看管理员" url="${path}/venue/preViewAssign.do"></function> -->
+		<function methodName="移至回收站" url="${path}/venue/deleteVenue.do"></function>
+		<function methodName="草稿箱发布" url="${path}/venue/publishVenue.do"></function>
+		<function methodName="回收站彻底删除场馆" url="${path}/venue/totalDeleteVenue.do"></function>
+		<function methodName="还原回收站场馆" url="${path}/venue/backVenue.do"></function>
+
+		<!--hucheng-->
+		<function methodName="场馆推荐" url="${path}/venue/recommendVenue.do?type=yes"></function>
+		<function methodName="取消场馆推荐" url="${path}/venue/recommendVenue.do?type=no"></function>
+		<!-- <function methodName="发布草稿箱" url="${path}/venue/addVenue.do?type=Draft"></function> -->
+		<function methodName="删除场馆" url="${path}/venue/preDeleteVenue.do"></function>
+		<function methodName="编辑草稿箱" url="${path}/venue/preEditVenue.do?type=Draf"></function>
+		<function methodName="查看场馆评论列表" url="${path}/venue/venueCommentIndex.do"></function>
+		<function methodName="场馆评论置顶" url="${path}/comment/commentTopTrue.do"></function>
+		<function methodName="删除场馆评论" url="${path}/comment/deleteComment.do?commentType=1"></function>
+		<function methodName="场馆评论取消置顶" url="${path}/comment/commentTopFalse.do"></function>
+		<function methodName="场馆推广" url="${path}/venue/preExtension.do"></function>
+	</process>
+	
+	<process name="活动室管理" url="${path}/activityRoom/activityRoomIndex.do">
+		<function methodName="活动室列表" url="${path}/activityRoom/activityRoomIndex.do"></function>
+		<function methodName="添加活动室" url="${path}/activityRoom/preAddActivityRoom.do"></function>
+		<function methodName="编辑活动室" url="${path}/activityRoom/preEditActivityRoom.do"></function>
+		<function methodName="删除活动室" url="${path}/activityRoom/preDeleteActivityRoom.do"></function>
+		<function methodName="发布草稿箱" url="${path}/activityRoom/addActivityRoom.do?type=draft"></function>
+		
+		<function methodName="查看草稿箱" url="${path}/activityRoom/roomDraftList.do"></function>
+		<function methodName="编辑草稿箱" url="${path}/activityRoom/preEditActivityRoom.do?type=draft"></function>
+		<function methodName="删除草稿箱" url="${path}/activityRoom/deleteActivityRoom.do"></function>
+		<function methodName="查看回收站" url="${path}/activityRoom/roomRecycleList.do"></function>
+		<function methodName="删除回收站" url="${path}/activityRoom/deleteRoomRecycle.do"></function>
+		<function methodName="还原回收站" url="${path}/activityRoom/backActivityRoom.do"></function>
+		
+		<function methodName="活动室订单管理" url="${path}/cmsRoomOrder/queryAllRoomOrderList.do"></function>
+		<function methodName="取消活动室预定" url="${path}/cmsRoomOrder/cancelRoomOrder.do"></function>
+		<function methodName="删除活动室预定" url="${path}/cmsRoomOrder/deleteRoomOrder.do"></function>
+		<function methodName="发送消息" url="${path}/cmsRoomOrder/sendSmsMessage.do"></function>
+	</process>
+
+	<process name="藏品管理" url="${path}/antique/antiqueIndex.do">
+		<function methodName="藏品管理" url="${path}/antique/antiqueIndex.do"></function>
+		<function methodName="添加藏品" url="${path}/antique/preAddAntique.do"></function>
+		<function methodName="编辑藏品" url="${path}/antique/preEditAntique.do?type=1"></function>
+		<function methodName="删除藏品" url="${path}/antique/deleteAntique.do?type=1"></function>
+		<function methodName="查看藏品草稿箱" url="${path}/antique/antiqueIndex.do?antiqueState=1"></function>
+		<function methodName="编辑草稿箱" url="${path}/antique/preEditAntique.do?type=2"></function>
+		<function methodName="发布草稿箱" url="${path}/antique/updateState.do"></function>
+		<function methodName="删除草稿箱" url="${path}/antique/deleteAntique.do?type=2"></function>
+		<function methodName="查看藏品回收站" url="${path}/antique/antiqueIndex.do?antiqueState=5"></function>
+		<function methodName="删除回收站" url="${path}/antique/physicalDelete.do"></function>
+		<function methodName="还原回收站" url="${path}/antique/recoverAntique.do"></function>
+		
+		<function methodName="藏品类型管理" url="${path}/antiqueType/index.do"></function>
+		<function methodName="添加藏品类型" url="${path}/antiqueType/preAddAntiqueType.do"></function>
+		<function methodName="编辑藏品类型" url="${path}/antiqueType/preEditAntiqueType.do"></function>
+	</process>
+	
+
+	
+	<process name="标签管理" url="${path}/tag/tagList.do">
+		<function methodName="查看标签" url="${path}/tag/tagList.do"></function>
+		<function methodName="添加标签" url="${path}/tag/preTagAdd.do"></function>
+		<function methodName="编辑标签" url="${path}/tag/preEditTags.do"></function>
+	</process>
+	
+	<process name="会员管理" url="${path}/terminalUser/terminalUserIndex.do?userIsDisable=1">
+		<function methodName="查看会员列表" url="${path}/terminalUser/terminalUserIndex.do?userIsDisable=1"></function>
+		<function methodName="编辑会员" url="${path}/terminalUser/preEditTerminalUser.do?userIsDisable=1"></function>
+		<function methodName="禁止/解禁评论" url="${path}/terminalUser/disableTerminalUserComment.do"></function>
+		<function methodName="查看会员信息" url="${path}/terminalUser/viewTerminalUser.do?userIsDisable=1"></function>
+		<function methodName="新增会员" url="${path}/terminalUser/preAddTerminalUser.do"></function>
+		<function methodName="冻结会员" url="${path}/terminalUser/freezeTerminalUser.do"></function>
+		<function methodName="查看待激活会员列表" url="${path}/terminalUser/terminalUserIndex.do"></function>
+		<function methodName="激活会员" url="${path}/terminalUser/activeTerminalUser.do"></function>
+		<function methodName="编辑待激活会员" url="${path}/terminalUser/preEditTerminalUser.do"></function>
+		<function methodName="查看待激活会员" url="${path}/terminalUser/viewTerminalUser.do"></function>
+		<function methodName="新增团体" url="${path}/teamUser/preAddTeamUser.do"></function>
+		<function methodName="查看团体列表" url="${path}/teamUser/teamUserIndex.do?tuserIsDisplay=1"></function>
+		<function methodName="编辑团体" url="${path}/teamUser/preEditTeamUser.do?tuserIsDisplay=1"></function>
+		<function methodName="查看团体信息" url="${path}/teamUser/viewTeamUser.do?tuserIsDisplay=1"></function>
+		<function methodName="冻结团体" url="${path}/teamUser/freezeTeamUser.do"></function>
+		<function methodName="查看待激活团体列表" url="${path}/teamUser/teamUserIndex.do"></function>
+		<function methodName="激活团体" url="${path}/teamUser/activeTeamUser.do"></function>
+		<function methodName="编辑待激活团体" url="${path}/teamUser/preEditTeamUser.do"></function>
+		<function methodName="查看待激活团体" url="${path}/teamUser/viewTeamUser.do"></function>
+	</process>
+
+	<process name="敏感词管理" url="${path}/sensitiveWords/sensitiveWordsIndex.do">
+		<function methodName="查看敏感词列表" url="${path}/sensitiveWords/sensitiveWordsIndex.do"></function>
+		<function methodName="添加敏感词" url="${path}/sensitiveWords/preAddSensitiveWords.do"></function>
+		<function methodName="编辑敏感词" url="${path}/sensitiveWords/preEditSensitiveWords.do"></function>
+		<function methodName="冻结/激活敏感词" url="${path}/sensitiveWords/deleteSensitiveWords.do"></function>
+	</process>
+
+	<process name="运维管理" url="${path}/comment/commentIndex.do">
+
+		<function methodName="采编活动管理" url="${path}/activityEditorial/activityEditorialIndex.do"></function>
+		<function methodName="新增采编活动" url="${path}/activityEditorial/addActivityEditorial.do"></function>
+
+		<function methodName="采编活动列表" url="${path}/activityEditorial/activityEditorialIndex.do?activityState=1"></function>
+		<function methodName="还原采编活动" url="${path}/activityEditorial/returnActivity.do"></function>
+		<function methodName="发布采编活动" url="${path}/activityEditorial/publishActivity.do"></function>
+		<function methodName="删除采编活动" url="${path}/activityEditorial/deleteActivity.do"></function>
+		<function methodName="采编评级" url="${path}/activity/toEditRatingsInfo.do"></function>
+		<function methodName="修改评级" url="${path}/activity/editRatingsInfo.do"></function>
+
+		<function methodName="咨讯管理" url="${path}/information/informationIndex.do"></function>
+		<function methodName="App设置" url="${path}/appSetting/appSettingIndex.do"></function>
+
+		<function methodName="联系我们列表" url="${path}/contact/contactPage.do"></function>
+		<function methodName="查看评论列表" url="${path}/comment/commentIndex.do"></function>
+		<function methodName="查看评论" url="${path}/comment/viewComment.do"></function>
+		<function methodName="删除评论" url="${path}/comment/deleteComment.do"></function>
+
+		<!-- <function methodName="评论审核" url="${path}/comment/publishComment.do"></function> -->
+
+		<function methodName="字典管理" url="${path}/sysdict/dictIndex.do"></function>
+		<function methodName="新增字典" url="${path}/sysdict/preSaveSysDict.do"></function>
+		<function methodName="删除字典" url="${path}/sysdict/dictDel.do"></function>
+		<function methodName="编辑字典" url="${path}/sysdict/updateEdit.do"></function>
+
+<!-- 		<function methodName="敏感词列表" url="${path}/sensitiveWords/sensitiveWordsIndex.do"></function>
+		<function methodName="添加敏感词" url="${path}/sensitiveWords/preAddSensitiveWords.do"></function>
+		<function methodName="冻结敏感词" url="${path}/sensitiveWords/deleteSensitiveWords.do?wordsStatus=2"></function>
+		<function methodName="激活敏感词" url="${path}/sensitiveWords/deleteSensitiveWords.do?wordsStatus=1"></function>
+		<function methodName="编辑敏感词" url="${path}/sensitiveWords/preEditSensitiveWords.do"></function>
+ -->
+		<function methodName="手机版本管理" url="${path}/androidVersion/androidVersionIndex.do"></function>
+		<function methodName="添加手机版本" url="${path}/androidVersion/preAddAndroidVersion.do"></function>
+		<function methodName="更新手机版本" url="${path}/androidVersion/preEditAndroidVersion.do"></function>
+
+		<!-- <function methodName="系统消息列表"   url="${path}/message/messageIndex.do"></function>
+		<function methodName="添加系统消息" url="${path}/message/preAddMessage.do"></function>
+		<function methodName="编辑系统消息" url="${path}/message/preEditMessage.do"></function> -->
+		<function methodName="互动管理列表" url="${path}/questionAnwser/questionAnwserIndex.do"></function>
+		<function methodName="互动管理添加" url="${path}/questionAnwser/preAddQuestionAnwser.do"></function>
+		<function methodName="互动管理编辑" url="${path}/questionAnwser/preEditQuestionAnwser.do"></function>
+		<function methodName="互动管理删除" url="${path}/questionAnwser/deleteQuestionAnwser.do"></function>
+	
+		<function methodName="浦东文化社团评选" url="${path}/cultureTeam/cultureTeamIndex.do"></function>
+	</process>
+	
+	<process name="文化云应用大赛" url="${path}/application/contestIndex.do">
+		<function methodName="知识问答" url="${path}/contestTopic/contestQuizIndex.do"></function>
+		<!--<function methodName="线上展览" url="${path}/exhibition/exhibitionIndex.do"></function>-->
+		<function methodName="线上投票" url="${path}/vote/voteIndex.do" ></function>
+		<function methodName="应用大赛配置管理" url="${path}/applicationContestConfig/index.do"></function>
+	</process>
+	
+	<process name="推荐管理" url="${path}/recommend/recommendIndex.do">
+		<function methodName="web轮播图管理" url="${path}/advert/advertIndex.do"></function>
+		<function methodName="app轮播图管理" url="${path}/advert/appRecommendadvertlist.do"></function>
+		<function methodName="app广告位管理" url="${path}/advertRecommend/appAdvertRecommendIndex.do"></function>
+		<function methodName="编辑轮播图" url="${path}/advert/editAdvertShow.do"></function>
+		<function methodName="添加轮播图" url="${path}/advert/addAdvertShow.do"></function>
+		<function methodName="上线轮播图" url="${path}/advert/recovery.do"></function>
+		<function methodName="下架轮播图" url="${path}/advert/deleteAdvert.do"></function>
+		<function methodName="删除轮播图" url="${path}/advert/deleteAdvert.do"></function>
+
+		<function methodName="app端活动列表页推荐" url="${path}/recommend/preCmsListRecommendTag.do"></function>
+		<function methodName="app端首页栏目推荐" url="${path}/recommend/activityHomeRecommendIndex.do?platform=APP"></function>
+		<function methodName="web端首页栏目推荐" url="${path}/recommend/activityHomeRecommendIndex.do?platform=Web"></function>
+		<function methodName="web首页栏目推荐置顶" url="${path}/recommend/homeNavigationRecommendActivity.do"></function>
+		<function methodName="web首页栏目推荐取消置顶" url="${path}/activity/cancelHomeNavigationRecommendActivity.do"></function>
+		<function methodName="app首页栏目推荐置顶" url="${path}/recommend/appHomeNavigationRecommendActivity.do"></function>
+		<function methodName="app首页栏目推荐取消置顶" url="${path}/recommend/cancelAppHomeNavigationRecommendActivity.do"></function>
+		<function methodName="活动推荐置顶" url="${path}/recommendRelate/recommendIndex.do"></function>
+		<function methodName="活动标签置顶" url="${path}/recommendRelate/appHomeNavigationRecommendActivity.do"></function>
+
+
+
+		<function methodName="首页热点推荐" url="${path}/recommend/homeHotRecommendIndex.do"></function>
+		<function methodName="热点添加" url="${path}/recommend/addHomeRecommend.do"></function>
+		<function methodName="删除热点" url="${path}/advert/upateIsRecommendAdvert.do"></function>
+
+
+		<function methodName="首页场馆推荐" url="${path}/recommend/homeVenueRecommendIndex.do"></function>
+		<function methodName="场馆置顶/取消置顶" url="${path}/venue/recommendVenue.do"></function>
+
+
+	</process>
+
+	<process name="站点管理" url="${path}/user/sysUserIndex.do">
+		<function methodName="管理员列表" url="${path}/user/sysUserIndex.do"></function>
+		<function methodName="添加管理员" url="${path}/user/preAddSysUser.do"></function>
+		<function methodName="冻结/解冻管理员" url="${path}/user/deleteSysUser.do"></function>
+		<function methodName="编辑管理员" url="${path}/user/preEditSysUser.do"></function>
+		<function methodName="查看管理员信息" url="${path}/user/viewSysUser.do"></function>
+		<function methodName="分配管理员角色" url="${path}/role/allRole.do"></function>
+		
+		<function methodName="角色列表" url="${path}/role/roleIndex.do"></function>
+		<function methodName="新增管理员角色" url="${path}/role/preAddRole.do"></function>
+		<function methodName="删除管理员角色" url="${path}/role/deleteRole.do"></function>
+		<function methodName="编辑管理员角色" url="${path}/role/preEditRole.do"></function>
+		<function methodName="查看管理员角色" url="${path}/role/viewRole.do"></function>
+		<function methodName="角色分配权限" url="${path}/module/moduleIndex.do"></function>
+		
+		<function methodName="查看部门列表" url="${path}/dept/deptIndex.do"></function>
+		<!-- <function methodName="编辑部门管理" url="${path}/dept/deptIndex.do"></function> -->
+		
+		<function methodName="查看用户反馈" url="${path}/feedInformation/feedIndex.do"></function>
+		
+		<function methodName="权限初始化" url="${path}/module/preInitModule.do"></function>	
+		
+		<function methodName="信息共享列表" url="${path}/shareDept/shareDeptIndex.do"></function>
+		<function methodName="添加信息共享" url="${path}/shareDept/preAddShareDept.do"></function>
+		<function methodName="取消信息共享" url="${path}/shareDept/cancelShareDept.do"></function>
+	</process>
+	
+	<process name="系统消息" url="${path}/message/messageIndex.do">
+		<function methodName="查看系统消息" url="${path}/message/messageIndex.do"></function>
+		<function methodName="添加系统消息" url="${path}/message/preAddMessage.do"></function>
+		<function methodName="编辑消息模板" url="${path}/message/preEditMessage.do"></function>
+	</process>
+	
+	<process name="MC管理" url="${path}/mcVideo/AddMcVideo.do">
+		<function methodName="首页视频" url="${path}/mcVideo/AddMcVideo.do"></function>
+		<function methodName="个人Show" url="${path}/mcShow/backList.do"></function>
+		<function methodName="新闻管理" url="${path}/mcNews/mcNewsIndex.do"></function>
+		<function methodName="投票管理" url="${path}/vote/activityVoteIndex.do"></function>
+	</process>
+	<process name="培训管理" url="${path}/peopleTrain/courseList.do">
+		<function methodName="课程列表" url="${path}/peopleTrain/courseList.do"></function>
+		<function methodName="报名列表" url="${path}/peopleTrain/applyList.do"></function>
+		<function methodName="用户注册列表" url="${path}/peopleTrain/peopleTrainList.do"></function>
+		<function methodName="课程上架、下架" url="${path}/peopleTrain/editState.do"></function>
+	</process>
+	
+	<process name="配送中心" url="${path}/dcVideo/dcVideoIndex.do">
+		<function methodName="统计汇总" url="${path}/dcVideo/dcStatisticsIndex.do"></function>
+		<function methodName="技术评审" url="${path}/dcVideo/dcVideoIndex.do?reviewType=1"></function>
+		<function methodName="舞蹈类-海选评审" url="${path}/dcVideo/dcVideoIndex.do?reviewType=2videoType=舞蹈"></function>
+		<function methodName="合唱类-海选评审" url="${path}/dcVideo/dcVideoIndex.do?reviewType=2videoType=合唱"></function>
+		<function methodName="时装类-海选评审" url="${path}/dcVideo/dcVideoIndex.do?reviewType=2videoType=时装"></function>
+		<function methodName="戏曲/曲艺类-海选评审" url="${path}/dcVideo/dcVideoIndex.do?reviewType=2videoType=戏曲/曲艺"></function>
+		<function methodName="海选复审" url="${path}/dcVideo/dcVideoIndex.do?reviewType=3"></function>
+		<function methodName="舞蹈类-专家评审" url="${path}/dcVideo/dcVideoIndex.do?reviewType=4videoType=舞蹈"></function>
+		<function methodName="合唱类-专家评审" url="${path}/dcVideo/dcVideoIndex.do?reviewType=4videoType=合唱"></function>
+		<function methodName="时装类-专家评审" url="${path}/dcVideo/dcVideoIndex.do?reviewType=4videoType=时装"></function>
+		<function methodName="戏曲/曲艺类-专家评审" url="${path}/dcVideo/dcVideoIndex.do?reviewType=4videoType=戏曲/曲艺"></function>
+		<function methodName="评分汇总" url="${path}/dcVideo/dcVideoIndex.do?reviewType=5"></function>
+	</process>
+	<process name="舞蹈大赛" url="${path}/entryform/entryformList.do">
+		<function methodName="长宁舞蹈大赛" url="${path}/cnwdEntryform/cnwdEntryformList.do"></function>
+		<function methodName="查看舞蹈" url="${path }/cnwdEntryform/viewCnwdEntryform.do"></function>
+		<function methodName="审核舞蹈" url="${path}/cnwdEntryform/check.do"></function>
+	</process>
+	
+</limitcontrol>

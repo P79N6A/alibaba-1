@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsContentStatisticMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsContentStatistic" >
+    <id column="content_id" property="contentId" jdbcType="VARCHAR" />
+    <result column="content_type" property="contentType" jdbcType="INTEGER" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="area_sort" property="areaSort" jdbcType="INTEGER" />
+    <result column="content_count" property="contentCount" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <select id="queryStatisticByCondition" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.CmsContentStatistic" >
+    select
+    content_id, content_type, area, area_sort, content_count,create_time
+    from cms_content_statistic
+    where 1=1
+
+  </select>
+
+  <select id="queryStatisticCountByCondition" parameterType="com.sun3d.why.model.CmsContentStatistic" resultType="java.lang.Integer" >
+    select count(*) from cms_content_statistic
+    where 1=1
+
+  </select>
+
+  <select id="queryStatisticById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    content_id, content_type, area, area_sort, content_count,create_time
+    from cms_content_statistic
+    where content_id = #{contentId,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteById" parameterType="java.lang.String" >
+    delete from cms_content_statistic
+    where content_id = #{contentId,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="addCmsContentStatistic" parameterType="com.sun3d.why.model.CmsContentStatistic" >
+    insert into cms_content_statistic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="contentId != null" >
+        content_id,
+      </if>
+      <if test="contentType != null" >
+        content_type,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="areaSort != null" >
+        area_sort,
+      </if>
+      <if test="contentCount != null" >
+        content_count,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="contentId != null" >
+        #{contentId,jdbcType=VARCHAR},
+      </if>
+      <if test="contentType != null" >
+        #{contentType,jdbcType=INTEGER},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="areaSort != null" >
+        #{areaSort,jdbcType=INTEGER},
+      </if>
+      <if test="contentCount != null" >
+        #{contentCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="editStatisticById" parameterType="com.sun3d.why.model.CmsContentStatistic" >
+    update cms_content_statistic
+    <set >
+      <if test="contentType != null" >
+        content_type = #{contentType,jdbcType=INTEGER},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="areaSort != null" >
+        area_sort = #{areaSort,jdbcType=INTEGER},
+      </if>
+      <if test="contentCount != null" >
+        content_count = #{contentCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=INTEGER},
+      </if>
+    </set>
+    where content_id = #{contentId,jdbcType=VARCHAR}
+  </update>
+
+  <delete id="deleteStatisticData" parameterType="com.sun3d.why.model.CmsContentStatistic" >
+    delete from cms_content_statistic
+    where 1=1
+  </delete>
+
+</mapper>

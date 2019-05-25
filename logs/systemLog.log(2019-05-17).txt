@@ -1,0 +1,12 @@
+2019-05-17 14:38:12 INFO  support.ClassPathXmlApplicationContext (AbstractApplicationContext.java:510) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4fb64261: startup date [Fri May 17 14:38:12 CST 2019]; root of context hierarchy
+2019-05-17 14:38:12 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring.xml]
+2019-05-17 14:38:12 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-datasource.xml]
+2019-05-17 14:38:13 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-redis.xml]
+2019-05-17 14:38:13 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-cache.xml]
+2019-05-17 14:38:13 INFO  support.PropertySourcesPlaceholderConfigurer (PropertiesLoaderSupport.java:172) - Loading properties file from class path resource [systemconfig.properties]
+2019-05-17 18:18:58 INFO  support.ClassPathXmlApplicationContext (AbstractApplicationContext.java:510) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4fb64261: startup date [Fri May 17 18:18:58 CST 2019]; root of context hierarchy
+2019-05-17 18:18:58 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring.xml]
+2019-05-17 18:18:58 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-datasource.xml]
+2019-05-17 18:18:59 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-redis.xml]
+2019-05-17 18:18:59 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-cache.xml]
+2019-05-17 18:18:59 INFO  support.PropertySourcesPlaceholderConfigurer (PropertiesLoaderSupport.java:172) - Loading properties file from class path resource [systemconfig.properties]

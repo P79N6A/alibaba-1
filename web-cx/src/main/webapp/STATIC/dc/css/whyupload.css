@@ -1,0 +1,460 @@
+.whyUploadDiv {
+	width: 1000px;
+	margin: auto;
+	overflow: hidden;
+}
+
+.whyuploadMain {
+	background-color: #F5F5F5;
+}
+
+.whyuploadMain .nowPlace {
+	font-size: 15px;
+	color: #828282;
+	margin-top: 50px;
+}
+
+.whyuploadMain .whyUserLogin {
+	position: relative;
+	margin: 20px auto 75px;
+	background-color: #fff;
+	width: 1000px;
+	height: 670px;
+	overflow: hidden;
+}
+
+.whyuploadMain .whyUserLogin .whyUserInfo {
+	width: 330px;
+	height: 330px;
+	position: absolute;
+	top: 100px;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+
+.whyuploadMain .whyUserLogin .whyUserInfo .whyUserLoginTitle {
+	font-size: 20px;
+	color: #333;
+	width: 270px;
+	margin: auto;
+	text-align: center;
+}
+
+.whyuploadMain .whyUserLogin .whyUserInfo .whyUserAccount {
+	width: 320px;
+	height: 40px;
+	border: 1px solid #c4c4c4;
+	border-radius: 10px;
+	margin: 40px auto 0;
+}
+
+.whyuploadMain .whyUserLogin .whyUserInfo .whyUserAccount input {
+	width: 290px;
+	height: 40px;
+	padding-left: 30px;
+	border: none;
+}
+
+.whyuploadMain .whyUserLogin .whyUserInfo .whyUserPassword {
+	width: 320px;
+	height: 40px;
+	border: 1px solid #c4c4c4;
+	border-radius: 10px;
+	margin: 20px auto 0;
+}
+
+.whyuploadMain .whyUserLogin .whyUserInfo .whyUserPassword input {
+	width: 290px;
+	height: 40px;
+	padding-left: 30px;
+	border: none;
+}
+
+.whyuploadMain .whyUserLogin .whyUserInfo .whyUserLoginBtn {
+	width: 165px;
+	height: 45px;
+	text-align: center;
+	line-height: 45px;
+	font-size: 20px;
+	color: #fff;
+	background-color: #55b0ee;
+	border-radius: 5px;
+	margin: 70px auto 0;
+	cursor: pointer;
+}
+
+.whyuploadMain .whyUserLogin .whySuccessBtn {
+	width: 225px;
+	height: 55px;
+	text-align: center;
+	line-height: 55px;
+	font-size: 20px;
+	color: #fff;
+	background-color: #55b0ee;
+	border-radius: 5px;
+	margin: 45px auto 0;
+	cursor: pointer;
+}
+
+.whyuploadMain .whyUserLogin .whyUploadName {
+	margin: 5px 5px 0;
+	background-color: #f3f4f4;
+	height: 120px;
+	overflow: hidden;
+}
+
+.whyuploadMain .whyUserLogin .whyUploadName .whyUploadNameDiv {
+	margin-top: 40px;
+}
+
+.whyuploadMain .whyUserLogin .whyUploadName .whyUploadNameDiv p {
+	float: left;
+	line-height: 40px;
+	font-size: 16px;
+	color: #333;
+}
+
+.whyuploadMain .whyUserLogin .whyUploadName .whyUploadNameDiv div:nth-child(2) {
+	float: left;
+	margin-left: 20px;
+	margin-top: 5px;
+	height: 30px;
+	line-height: 30px;
+	padding: 0px 20px;
+	border: 1px solid #cad5d9;
+	font-size: 15px;
+	width: 250px;
+	color: #666;
+	background-color: #ececec;
+}
+
+.whyuploadMain .whyUserLogin .whyUploadBtn {
+	float: right;
+	margin: 30px 15px 0 0;
+	text-align: center;
+	padding: 5px 20px;
+	background-color: #ecb24c;
+	border: 2px solid #f2cd8c;
+	border-radius: 5px;
+	color: #fff;
+	cursor: pointer;
+}
+
+.whyuploadMain .whyUserLogin .whyUploadList {
+	width: 970px;
+	height: 640px;
+	margin: 10px auto 0;
+}
+
+.whyuploadMain .whyUserLogin .whyUploadList ul li {
+	width: 970px;
+	height: 60px;
+}
+
+.whyuploadMain .whyUserLogin .whyUploadList ul li:nth-child(1) .whyUploadListFl {
+	line-height: 40px;
+	height: 40px;
+}
+
+.whyuploadMain .whyUserLogin .whyUploadList ul li .whyUploadListFl {
+	float: left;
+	text-align: center;
+	font-size: 12px;
+	border-right: 1px solid #fff;
+	word-break: break-all;
+	word-wrap: break-word;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+	height: 60px;
+	overflow: hidden;
+	line-height: 15px;
+	padding: 0 5px;
+}
+
+.whyuploadMain .whyUserLogin .whyUploadList ul li .whyUploadListFl span {
+	cursor: pointer;
+}
+
+.whyuploadMain .whyUserLogin .whyUploadList ul li .whyUploadListFl:nth-last-child(2) {
+	border: none;
+}
+
+.whyuploadMain .whyUserLogin .whyUploadList ul li .whyUploadListFl:nth-child(1) {
+	width: 45px;
+}
+
+.whyuploadMain .whyUserLogin .whyUploadList ul li .whyUploadListFl:nth-child(2) {
+	width: 175px;
+}
+
+.whyuploadMain .whyUserLogin .whyUploadList ul li .whyUploadListFl:nth-child(3) {
+	width: 75px;
+}
+
+.whyuploadMain .whyUserLogin .whyUploadList ul li .whyUploadListFl:nth-child(4) {
+	width: 60px;
+}
+
+.whyuploadMain .whyUserLogin .whyUploadList ul li .whyUploadListFl:nth-child(5) {
+	width: 70px;
+}
+
+.whyuploadMain .whyUserLogin .whyUploadList ul li .whyUploadListFl:nth-child(6) {
+	width: 120px;
+}
+
+.whyuploadMain .whyUserLogin .whyUploadList ul li .whyUploadListFl:nth-child(7) {
+	width: 45px;
+}
+
+.whyuploadMain .whyUserLogin .whyUploadList ul li .whyUploadListFl:nth-child(8) {
+	width: 100px;
+}
+
+.whyuploadMain .whyUserLogin .whyUploadList ul li .whyUploadListFl:nth-child(9) {
+	width: 70px;
+}
+
+.whyuploadMain .whyUserLogin .whyUploadList ul li .whyUploadListFl:nth-child(10) {
+	width: 100px;
+}
+
+.whyuploadMain .whyUserLogin .whyUploadList ul li:nth-child(even) {
+	background-color: #fff;
+}
+
+.whyuploadMain .whyUserLogin .whyUploadList ul li:nth-child(odd) {
+	background-color: #e9edee;
+}
+
+.whyuploadMain .whyUserLogin .whyUpTitle {
+	width: 170px;
+	height: 60px;
+	line-height: 60px;
+	text-align: center;
+	font-size: 17px;
+	color: #0b8ab6;
+	box-shadow: 0px -10px 20px 5px #f7f7f7;
+	-moz-box-shadow: 0px -10px 20px 5px #f7f7f7;
+	margin: 40px 0 0 20px;
+	border-radius: 10px;
+}
+
+.whyuploadMain .whyUserLogin .whyUpInfoL {
+	float: left;
+	margin-left: 9px;
+	width: 490px;
+	height: 520px;
+	border-right: 1px solid #ECECEC;
+}
+
+.whyuploadMain .whyUserLogin .whyUpInfoR {
+	float: right;
+	margin-right: 10px;
+	width: 490px;
+	height: 490px;
+}
+
+.whyuploadMain .whyUserLogin .whyUpInfoTitle {
+	width: 490px;
+	height: 45px;
+	background-color: #00b0ec;
+	font-size: 16px;
+	color: #fff;
+	text-align: center;
+	line-height: 45px;
+}
+
+.whyuploadMain .whyUserLogin .whyUpInfoL .whyUpInputTitle {
+	float: left;
+	width: 145px;
+	height: 40px;
+	line-height: 40px;
+	text-align: right;
+}
+
+.whyuploadMain .whyUserLogin .whyUpInfoL ul li .whyUpInputDiv {
+	float: right;
+	width: 255px;
+	height: 40px;
+	border: 1px solid #cad5d9;
+	position: relative;
+}
+
+.whyuploadMain .whyUserLogin .whyUpInfoL ul li .whyUpInputDiv .whyUpTbList{
+	border: 1px solid #cad5d9;
+	background-color: #fff;
+	display: none;
+}
+
+.whyuploadMain .whyUserLogin .whyUpInfoL ul li .whyUpInputDiv .whyUpTbList ul li{
+	margin: 0;
+	text-align: center;
+	line-height: 30px;
+	cursor: pointer;
+}
+
+.whyuploadMain .whyUserLogin .whyUpInfoL ul li {
+	margin-bottom: 50px;
+}
+
+.whyuploadMain .whyUserLogin .whyUpInfoL ul li:nth-last-child(1) {
+	margin-bottom: 0;
+}
+
+.whyuploadMain .whyUserLogin .whyUpInfoL ul li input[type="text"] {
+	background: no-repeat 0 0 scroll ＃EEEEEE;
+	border: none;
+	outline: medium;
+}
+
+.whyuploadMain .whyUserLogin .whyUpInfoR .whyUpInputTitle {
+	float: left;
+	width: 100px;
+	height: 40px;
+	line-height: 40px;
+	text-align: right;
+}
+
+.whyuploadMain .whyUserLogin .whyUpInfoR ul li .whyUpInputDiv {
+	float: left;
+	width: 255px;
+	height: 40px;
+	border: 1px solid #cad5d9;
+	margin-left: 20px;
+}
+
+.whyuploadMain .whyUserLogin .whyUpInfoR ul li {
+	margin-bottom: 50px;
+	position: relative;
+}
+
+.whyuploadMain .whyUserLogin .whyUpInfoR ul li:nth-last-child(1) {
+	margin-bottom: 0;
+}
+
+.whyuploadMain .whyUserLogin .whyUpInfoR ul li input[type="text"] {
+	background: no-repeat 0 0 scroll ＃EEEEEE;
+	border: none;
+	outline: medium;
+}
+
+.whyuploadMain .whyUserLogin .whyUpInfoR ul li input[type="number"] {
+	background: no-repeat 0 0 scroll ＃EEEEEE;
+	border: none;
+	outline: medium;
+}
+
+.whyuploadMain .whyUserLogin .whyUpInfoR ul li textarea {
+	padding: 9px 5px 0;
+	width: 245px;
+	height: 154px;
+	background: no-repeat 0 0 scroll ＃EEEEEE;
+	border: none;
+	outline: medium;
+	line-height: 20px;
+}
+
+.whyuploadMain .whyUserLogin .whyVedioInfo {
+	margin: 0 10px;
+}
+
+.whyuploadMain .whyUserLogin .whyVedioInfo .whyVedioInfoTitle {
+	width: 980px;
+	height: 45px;
+	background-color: #00b0ec;
+	font-size: 16px;
+	color: #fff;
+	text-align: center;
+	line-height: 45px;
+}
+
+.whyuploadMain .whyUserLogin .whyVedioInfo .whyVedioInfoContent {
+	padding-left: 35px;
+	padding-right: 45px;
+	overflow: hidden;
+}
+
+.whyuploadMain .whyUserLogin .whyVedioInfo .whyVedioInfoContent .whyUploadVedio {
+	margin-top: 50px;
+}
+
+.whyuploadMain .whyUserLogin .whyVedioInfo .whyUploadImgDiv {
+	width: 100px;
+	height: 100px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+.whyuploadMain .whyUserLogin .whyVedioInfo .whyUpLVedioInfo {
+	float: left;
+}
+
+.whyuploadMain .whyUserLogin .whyVedioInfo .whyUpLVedioInfo input {
+	width: 180px;
+	padding: 0 10px;
+	height: 40px;
+	line-height: 40px;
+	font-size: ;
+	background: no-repeat 0 0 scroll ＃EEEEEE;
+	border: none;
+	outline: medium;
+}
+
+.whyuploadMain .whyUserLogin .whyVedioInfo .whyUpLVedioInfo textarea {
+	padding: 10px 5px 0;
+	width: 390px;
+	height: 190px;
+	background: no-repeat 0 0 scroll ＃EEEEEE;
+	border: none;
+	outline: medium;
+	line-height: 20px;
+	resize: none;
+}
+
+.whyuploadMain .whyUserLogin .whyVedioInfo .whyBackBtn {
+	width: 220px;
+	height: 50px;
+	float: left;
+	border-radius: 10px;
+	border: 1px solid #00b0ec;
+	text-align: center;
+	line-height: 50px;
+	font-size: 20px;
+	color: #00b0ec;
+	cursor: pointer;
+}
+
+.whyuploadMain .whyUserLogin .whyVedioInfo .whySubmitBtn {
+	width: 220px;
+	height: 50px;
+	float: right;
+	border-radius: 10px;
+	background-color: #00B0EC;
+	text-align: center;
+	line-height: 50px;
+	font-size: 20px;
+	color: #fff;
+	cursor: pointer;
+}

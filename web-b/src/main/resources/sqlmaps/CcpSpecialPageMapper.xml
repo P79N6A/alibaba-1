@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CcpSpecialPageMapper" >
+  <resultMap id="BaseResultMap" type="com.culturecloud.model.bean.special.CcpSpecialPage" >
+    <id column="page_id" property="pageId" jdbcType="VARCHAR" />
+    <result column="page_name" property="pageName" jdbcType="VARCHAR" />
+    <result column="page_is_del" property="pageIsDel" jdbcType="INTEGER" />
+    <result column="project_id" property="projectId" jdbcType="VARCHAR" />
+    <result column="page_create_time" property="pageCreateTime" jdbcType="TIMESTAMP" />
+    <result column="page_create_user" property="pageCreateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.sun3d.why.dao.dto.CcpSpecialPageDto" id="BaseResultDtoMap" extends="BaseResultMap">
+   	<result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_COUNT" property="activityCount" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <!-- 活动关联表 -->
+  <resultMap id="BaseResultActivityMap" type="com.culturecloud.model.bean.special.CcpSpecialPageActivity" >
+    <id column="page_id" property="pageId" jdbcType="VARCHAR" />
+    <id column="activity_id" property="activityId" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    page_id, page_name, page_is_del, project_id, page_create_time, page_create_user
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_special_page
+    where page_id = #{pageId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_special_page
+    where page_id = #{pageId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.culturecloud.model.bean.special.CcpSpecialPage" >
+    insert into ccp_special_page
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      page_id,
+      <if test="pageName != null" >
+        page_name,
+      </if>
+      <if test="pageIsDel != null" >
+        page_is_del,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="pageCreateTime != null" >
+        page_create_time,
+      </if>
+      <if test="pageCreateUser != null" >
+        page_create_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{pageId,jdbcType=VARCHAR},
+      <if test="pageName != null" >
+        #{pageName,jdbcType=VARCHAR},
+      </if>
+      <if test="pageIsDel != null" >
+        #{pageIsDel,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="pageCreateTime != null" >
+        #{pageCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pageCreateUser != null" >
+        #{pageCreateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.culturecloud.model.bean.special.CcpSpecialPage" >
+    update ccp_special_page
+    <set >
+      <if test="pageName != null" >
+        page_name = #{pageName,jdbcType=VARCHAR},
+      </if>
+      <if test="pageIsDel != null" >
+        page_is_del = #{pageIsDel,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="pageCreateTime != null" >
+        page_create_time = #{pageCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pageCreateUser != null" >
+        page_create_user = #{pageCreateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where page_id = #{pageId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryPageCountByCondition" resultType="java.lang.Integer" parameterType="java.util.Map">
+    SELECT
+		COUNT(*)
+	FROM ccp_special_page csp
+	WHERE 1=1
+	<if test="pageIsDel != null">
+    	and page_is_del=#{pageIsDel}
+    </if>
+		<if test="pageName != null">
+            AND csp.page_name like #{pageName}
+        </if>
+		<if test="projectId != null">
+            AND csp.project_id like #{projectId}
+        </if>
+  </select>
+  
+  <select id="queryPageByCondition" resultMap="BaseResultDtoMap" parameterType="java.util.Map">
+    SELECT
+		csp.page_id, 
+		csp.page_name, 
+		csp.page_is_del, 
+		csp.project_id,
+		cspr.project_name,
+		csp.page_create_time, 
+		u.USER_ACCOUNT AS page_create_user,
+		COUNT(cspa.activity_id) AS ACTIVITY_COUNT
+	FROM ccp_special_page csp
+	LEFT JOIN sys_user u ON csp.page_create_user = u.USER_ID
+	LEFT JOIN ccp_special_project cspr ON cspr.project_id = csp.project_id
+	LEFT JOIN ccp_special_page_activity cspa ON cspa.page_id = csp.page_id
+	WHERE 1=1
+	<if test="pageIsDel != null">
+    	and page_is_del=#{pageIsDel}
+    </if>
+		<if test="pageName != null">
+            AND csp.page_name like #{pageName}
+        </if>
+		<if test="projectId != null">
+            AND csp.project_id like #{projectId}
+        </if>
+    GROUP BY csp.page_id
+	ORDER BY csp.page_create_time DESC
+	<if test="firstResult != null">
+        limit ${firstResult},${rows}
+    </if>
+  </select>
+  
+  <insert id="insertActivity" parameterType="com.culturecloud.model.bean.special.CcpSpecialPageActivity" >
+    insert into ccp_special_page_activity values (#{pageId,jdbcType=VARCHAR},#{activityId,jdbcType=VARCHAR})
+  </insert>
+   
+  <delete id="deleteActivityByPrimaryKey" parameterType="com.culturecloud.model.bean.special.CcpSpecialPageActivity" >
+    delete from ccp_special_page_activity
+    where page_id = #{pageId,jdbcType=VARCHAR} and activity_id = #{activityId,jdbcType=VARCHAR}
+  </delete>
+</mapper>

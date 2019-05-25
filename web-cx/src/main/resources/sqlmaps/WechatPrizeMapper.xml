@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.WechatPrizeMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.WechatPrize" >
+    <id column="PRIZE_ID" property="prizeId" jdbcType="VARCHAR" />
+    <result column="OPEN_ID" property="openId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="PRIZE_TYPE" property="prizeType" jdbcType="INTEGER" />
+    <result column="PRIZE_STATE" property="prizeState" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    PRIZE_ID, OPEN_ID, USER_ID, PRIZE_TYPE, PRIZE_STATE, CREATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wechat_prize
+    where PRIZE_ID = #{prizeId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from wechat_prize
+    where PRIZE_ID = #{prizeId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.WechatPrize" >
+    insert into wechat_prize
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      PRIZE_ID,
+      <if test="openId != null" >
+        OPEN_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="prizeType != null" >
+        PRIZE_TYPE,
+      </if>
+      <if test="prizeState != null" >
+        PRIZE_STATE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{prizeId,jdbcType=VARCHAR},
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeType != null" >
+        #{prizeType,jdbcType=INTEGER},
+      </if>
+      <if test="prizeState != null" >
+        #{prizeState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.WechatPrize" >
+    update wechat_prize
+    <set >
+      <if test="openId != null" >
+        OPEN_ID = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeType != null" >
+        PRIZE_TYPE = #{prizeType,jdbcType=INTEGER},
+      </if>
+      <if test="prizeState != null" >
+        PRIZE_STATE = #{prizeState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where PRIZE_ID = #{prizeId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectWechatPrizeByCondition" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.WechatPrize" >
+    select 
+    <include refid="Base_Column_List" />
+    from wechat_prize
+    where 1=1
+    <if test="openId != null" >
+      AND OPEN_ID = #{openId}
+    </if>
+    <if test="userId != null" >
+      AND USER_ID = #{userId}
+    </if>
+    <if test="prizeType != null" >
+      AND PRIZE_TYPE = #{prizeType}
+    </if>
+    <if test="prizeState != null" >
+      AND PRIZE_STATE = #{prizeState}
+    </if>
+    <if test="createTime != null" >
+      AND CREATE_TIME = #{createTime}
+    </if>
+  </select>
+</mapper>

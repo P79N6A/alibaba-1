@@ -1,0 +1,157 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAFAFA"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/main_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_title_height"
+        layout="@layout/activity_all_title" />
+
+    <View
+        android:visibility="gone"
+        style="@style/all_title_below_linear" />
+
+
+    <LinearLayout
+        android:id="@+id/header_toplayout"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/tab_height"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/tab_bg"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            >
+            <TextView
+                android:id="@+id/header_campaign"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/table_campaign"
+                android:textColor="@color/select_text_color"
+                android:textSize="@dimen/tab_text_size" />
+
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_alignParentBottom="true"
+                android:visibility="gone"
+                android:background="#ef2e5a"
+                ></View>
+
+        </RelativeLayout>
+
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="fill_parent"
+            android:visibility="gone"
+            android:background="@color/line_big_color" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <TextView
+                android:id="@+id/header_venue"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/select_text_color"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/table_venue"
+                android:textSize="@dimen/tab_text_size" />
+
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="30dp"
+                android:visibility="gone"
+                android:layout_marginRight="30dp"
+                android:layout_alignParentBottom="true"
+                android:background="#ef2e5a"
+                ></View>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:background="#FAFAFA"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:id="@+id/main_scan_qr_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/main_view_leading"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/main_scan_spacing"
+            android:contentDescription="@string/action_settings"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/sh_icon_group" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/main_scan_qr_text"
+                android:textColor="@color/main_scan_qr_color"
+                android:textSize="@dimen/main_scan_qr_size" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/main_view_leading"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerVertical="true" />
+
+        <LinearLayout
+            android:id="@+id/main_scan_input_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/main_view_leading"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/action_settings"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/sh_icon_ticket_code" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/main_scan_input_text"
+                android:textColor="@color/main_scan_qr_color"
+                android:textSize="@dimen/main_scan_qr_size" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

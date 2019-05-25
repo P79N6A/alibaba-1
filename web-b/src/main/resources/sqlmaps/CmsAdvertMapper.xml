@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsAdvertMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsAdvert" >
+    <result column="ADVERT_ID" property="advertId" jdbcType="VARCHAR" />
+    <result column="ADVERT_TITLE" property="advertTitle" jdbcType="VARCHAR" />
+    <result column="ADVERT_TYPE" property="advertType" jdbcType="INTEGER" />
+    <result column="ADVERT_SITE" property="advertSite" jdbcType="VARCHAR" />
+    <result column="ADVERT_COLUMN" property="advertColumn" jdbcType="VARCHAR" />
+    <result column="ADVERT_PIC_URL" property="advertPicUrl" jdbcType="VARCHAR" />
+    <result column="ADVERT_SIZE_WIDTH" property="advertSizeWidth" jdbcType="VARCHAR" />
+    <result column="ADVERT_SIZE_HEIGHT" property="advertSizeHeight" jdbcType="VARCHAR" />
+    <result column="ADVERT_CONNECT_URL" property="advertConnectUrl" jdbcType="VARCHAR" />
+    <result column="ADVERT_CONNECT_TARGET" property="advertConnectTarget" jdbcType="INTEGER" />
+    <result column="ADVERT_CREATE_USER" property="advertCreateUser" jdbcType="VARCHAR" />
+    <result column="ADVERT_CREATE_TIME" property="advertCreateTime" jdbcType="TIMESTAMP" />
+    <result column="ADVERT_UPDATE_USER" property="advertUpdateUser" jdbcType="VARCHAR" />
+    <result column="ADVERT_UPDATE_TIME" property="advertUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="ADVERT_STATE" property="advertState" jdbcType="INTEGER" />
+    <result column="ADVERT_IS_DEL" property="advertIsDel" jdbcType="INTEGER" />
+    <result column="ADVERT_POS_SORT" property="advertPosSort" jdbcType="INTEGER" />
+
+    <result column="ADVERT_ADRESS" property="advertAdress" jdbcType="VARCHAR" />
+    <result column="IS_RECOMMEND_TYPE" property="isRecommendType" jdbcType="INTEGER" />
+    <result column="ACTIVITY_TIME" property="activityTime" jdbcType="TIMESTAMP" />
+    <result column="ACTIVITY_END_TIME" property="activityEndTime" jdbcType="TIMESTAMP" />
+    <result column="RECOMMEND_TIME" property="recommendTime" jdbcType="TIMESTAMP" />
+    <result column="ACTIVITY_ID" property="activityId" jdbcType="VARCHAR"/>
+    <result column="DISPLAY_POSITION" property="displayPosition" jdbcType="INTEGER"/>
+    <result column="ADVERT_CONTENT" property="advertContent" jdbcType="VARCHAR"/>
+
+    <result column="activity_is_reservation" property="activityIsReservation" jdbcType="INTEGER"/>
+    <result column="available_count" property="availableCount" jdbcType="INTEGER"/>
+
+    <!--app添加字段 -->
+    <result column="DICT_NAME" property="dictName" jdbcType="VARCHAR" />
+    <result column="ADVERT_REC_DES" property="advertRecDes" jdbcType="VARCHAR" />
+
+    <result column="ADVERT_DESCRIBE" property="advertDescribe" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <select id="queryCmsAdvertByCondition" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    SELECT
+    A.ADVERT_ID,
+    A.ADVERT_TITLE,
+    A.ADVERT_TYPE,
+    A.ADVERT_SITE,
+    A.ADVERT_PIC_URL,
+    A.ADVERT_SIZE_WIDTH,
+    A.ADVERT_SIZE_HEIGHT,
+    A.ADVERT_COLUMN,
+    A.ADVERT_CONNECT_URL,
+    A.ADVERT_CONNECT_TARGET,
+    A.ADVERT_CREATE_USER,
+    A.ADVERT_CREATE_TIME,
+    S.USER_NICK_NAME AS ADVERT_UPDATE_USER,
+    A.ADVERT_UPDATE_TIME,
+    A.ADVERT_STATE,
+    A.ADVERT_IS_DEL,
+    A. ADVERT_POS_SORT
+    FROM cms_advert A LEFT JOIN SYS_USER S ON A.ADVERT_UPDATE_USER = S.USER_ID
+
+    WHERE  A.ADVERT_IS_DEL= 1
+    AND A.IS_RECOMMEND_TYPE= 2
+    AND A.ADVERT_SITE &lt;&gt; 0
+    <if test="advertTitle != null" >
+      AND A.ADVERT_TITLE LIKE #{advertTitle}
+    </if>
+    <if test="advertIsDel != null" >
+      AND A.ADVERT_IS_DEL = #{advertIsDel}
+    </if>
+    <if test="advertSite!=null">
+      AND A.ADVERT_SITE = #{advertSite}
+    </if>
+    <if test="advertColumn != null" >
+      AND A.ADVERT_COLUMN = #{advertColumn}
+    </if>
+    <if test="displayPosition != null">
+      AND A.DISPLAY_POSITION = #{displayPosition}
+    </if>
+    ORDER BY A.ADVERT_POS_SORT , A.ADVERT_UPDATE_TIME DESC
+    limit #{firstResult},#{rows}
+  </select>
+
+  <select id="queryCmsAdvertCountByCondition" parameterType="java.util.Map" resultType="java.lang.Integer" >
+    SELECT count(*)
+    FROM CMS_ADVERT A LEFT JOIN SYS_USER S ON A.ADVERT_UPDATE_USER = S.USER_ID
+    WHERE A.ADVERT_IS_DEL= 1
+    AND A.IS_RECOMMEND_TYPE= 2
+    AND A.ADVERT_SITE &lt;&gt; 0
+    <if test="advertTitle != null" >
+      AND A.ADVERT_TITLE LIKE #{advertTitle}
+    </if>
+    <if test="advertIsDel != null" >
+      AND A.ADVERT_IS_DEL = #{advertIsDel}
+    </if>
+    <if test="advertSite!=null">
+      AND A.ADVERT_SITE = #{advertSite}
+    </if>
+    <if test="advertColumn != null" >
+      AND A.ADVERT_COLUMN = #{advertColumn}
+    </if>
+    <if test="displayPosition != null">
+      AND A.DISPLAY_POSITION = #{displayPosition}
+    </if>
+  </select>
+
+  <select id="queryCmsAdvertById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT
+    ADVERT_ID, ADVERT_TITLE, ADVERT_TYPE, ADVERT_SITE, ADVERT_COLUMN, ADVERT_PIC_URL, ADVERT_SIZE_WIDTH, ADVERT_SIZE_HEIGHT, ADVERT_CONNECT_URL, ADVERT_CONNECT_TARGET,
+    ADVERT_CREATE_USER, ADVERT_CREATE_TIME, ADVERT_UPDATE_USER, ADVERT_UPDATE_TIME, ADVERT_STATE,DISPLAY_POSITION,
+    ADVERT_IS_DEL, ADVERT_POS_SORT,ADVERT_REC_DES, ADVERT_CONTENT,ADVERT_DESCRIBE
+    FROM CMS_ADVERT
+    WHERE ADVERT_ID = #{advertId,jdbcType=VARCHAR}
+    limit 0,1
+  </select>
+
+  <insert id="addCmsAdvert" parameterType="com.sun3d.why.model.CmsAdvert" >
+    INSERT INTO CMS_ADVERT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="advertId != null" >
+        ADVERT_ID,
+      </if>
+      <if test="advertTitle != null" >
+        ADVERT_TITLE,
+      </if>
+      <if test="advertType != null" >
+        ADVERT_TYPE,
+      </if>
+      <if test="advertSite != null" >
+        ADVERT_SITE,
+      </if>
+      <if test="advertColumn != null" >
+        ADVERT_COLUMN,
+      </if>
+      <if test="advertPicUrl != null" >
+        ADVERT_PIC_URL,
+      </if>
+      <if test="advertSizeWidth != null" >
+        ADVERT_SIZE_WIDTH,
+      </if>
+      <if test="advertSizeHeight != null" >
+        ADVERT_SIZE_HEIGHT,
+      </if>
+      <if test="advertConnectUrl != null" >
+        ADVERT_CONNECT_URL,
+      </if>
+      <if test="advertConnectTarget != null" >
+        ADVERT_CONNECT_TARGET,
+      </if>
+      <if test="advertCreateUser != null" >
+        ADVERT_CREATE_USER,
+      </if>
+      <if test="advertCreateTime != null" >
+        ADVERT_CREATE_TIME,
+      </if>
+      <if test="advertUpdateUser != null" >
+        ADVERT_UPDATE_USER,
+      </if>
+      <if test="advertUpdateTime != null" >
+        ADVERT_UPDATE_TIME,
+      </if>
+      <if test="advertState != null" >
+        ADVERT_STATE,
+      </if>
+      <if test="advertIsDel != null" >
+        ADVERT_IS_DEL,
+      </if>
+      <if test="advertPosSort != null" >
+        ADVERT_POS_SORT,
+      </if>
+      <if test="advertRecDes != null" >
+        ADVERT_REC_DES,
+      </if>
+
+      <if test="isRecommendType != null" >
+        IS_RECOMMEND_TYPE,
+      </if>
+
+      <if test="activityTime != null" >
+        ACTIVITY_TIME,
+      </if>
+      <if test="activityEndTime != null">
+        ACTIVITY_END_TIME,
+      </if>
+      <if test="advertAdress !=null">
+        ADVERT_ADRESS,
+      </if>
+      <if test="activityId !=null">
+        ACTIVITY_ID,
+      </if>
+      <if test="displayPosition !=null">
+        DISPLAY_POSITION,
+      </if>
+      <if test="advertContent !=null">
+        ADVERT_CONTENT,
+      </if>
+      <if test="advertDescribe !=null">
+        ADVERT_DESCRIBE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="advertId != null" >
+        #{advertId,jdbcType=VARCHAR},
+      </if>
+      <if test="advertTitle != null" >
+        #{advertTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="advertType != null" >
+        #{advertType,jdbcType=INTEGER},
+      </if>
+      <if test="advertSite != null" >
+        #{advertSite,jdbcType=VARCHAR},
+      </if>
+      <if test="advertColumn != null" >
+        #{advertColumn,jdbcType=VARCHAR},
+      </if>
+      <if test="advertPicUrl != null" >
+        #{advertPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="advertSizeWidth != null" >
+        #{advertSizeWidth,jdbcType=VARCHAR},
+      </if>
+      <if test="advertSizeHeight != null" >
+        #{advertSizeHeight,jdbcType=VARCHAR},
+      </if>
+      <if test="advertConnectUrl != null" >
+        #{advertConnectUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="advertConnectTarget != null" >
+        #{advertConnectTarget,jdbcType=INTEGER},
+      </if>
+      <if test="advertCreateUser != null" >
+        #{advertCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="advertCreateTime != null" >
+        #{advertCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="advertUpdateUser != null" >
+        #{advertUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="advertUpdateTime != null" >
+        #{advertUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="advertState != null" >
+        #{advertState,jdbcType=INTEGER},
+      </if>
+      <if test="advertIsDel != null" >
+        #{advertIsDel,jdbcType=INTEGER},
+      </if>
+      <if test="advertPosSort != null" >
+        #{advertPosSort,jdbcType=INTEGER},
+      </if>
+      <if test="advertRecDes != null" >
+        #{advertRecDes,jdbcType=VARCHAR},
+      </if>
+
+      <if test="isRecommendType != null" >
+        #{isRecommendType,jdbcType=INTEGER},
+      </if>
+      <if test="activityTime != null" >
+        #{activityTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityEndTime != null">
+        #{activityEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="advertAdress!=null">
+        #{advertAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="activityId != null">
+        #{activityId,jdbcType=VARCHAR},
+      </if>
+      <if test="displayPosition != null">
+        #{displayPosition,jdbcType=INTEGER},
+      </if>
+      <if test="advertContent != null">
+        #{advertContent,jdbcType=VARCHAR},
+      </if>
+      <if test="advertDescribe !=null">
+       #{advertDescribe,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="editCmsAdvert" parameterType="com.sun3d.why.model.CmsAdvert" >
+    UPDATE CMS_ADVERT
+    <set >
+      <if test="advertId != null" >
+        ADVERT_ID = #{advertId,jdbcType=VARCHAR},
+      </if>
+      <if test="advertTitle != null" >
+        ADVERT_TITLE =  #{advertTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="advertType != null" >
+        ADVERT_TYPE = #{advertType,jdbcType=INTEGER},
+      </if>
+      <if test="advertSite != null" >
+        ADVERT_SITE = #{advertSite,jdbcType=VARCHAR},
+      </if>
+      <if test="advertColumn != null" >
+        ADVERT_COLUMN = #{advertColumn,jdbcType=VARCHAR},
+      </if>
+      <if test="advertPicUrl != null" >
+        ADVERT_PIC_URL = #{advertPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="advertSizeWidth != null" >
+        ADVERT_SIZE_WIDTH = #{advertSizeWidth,jdbcType=VARCHAR},
+      </if>
+      <if test="advertSizeHeight != null" >
+        ADVERT_SIZE_HEIGHT = #{advertSizeHeight,jdbcType=VARCHAR},
+      </if>
+      <if test="advertConnectUrl != null" >
+        ADVERT_CONNECT_URL = #{advertConnectUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="advertConnectTarget != null" >
+        ADVERT_CONNECT_TARGET = #{advertConnectTarget,jdbcType=INTEGER},
+      </if>
+      <if test="advertCreateUser != null" >
+        ADVERT_CREATE_USER = #{advertCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="advertCreateTime != null" >
+        ADVERT_CREATE_TIME = #{advertCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="advertUpdateUser != null" >
+        ADVERT_UPDATE_USER = #{advertUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="advertUpdateTime != null" >
+        ADVERT_UPDATE_TIME = #{advertUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="advertState != null" >
+        ADVERT_STATE = #{advertState,jdbcType=INTEGER},
+      </if>
+      <if test="advertIsDel != null" >
+        ADVERT_IS_DEL = #{advertIsDel,jdbcType=INTEGER},
+      </if>
+      <if test="advertPosSort != null" >
+        ADVERT_POS_SORT = #{advertPosSort,jdbcType=INTEGER},
+      </if>
+      <if test="advertRecDes != null" >
+        ADVERT_REC_DES = #{advertRecDes,jdbcType=VARCHAR},
+      </if>
+
+      <if test="recommendTime != null" >
+        RECOMMEND_TIME = #{recommendTime,jdbcType=VARCHAR},
+      </if>
+      <if test="displayPosition != null">
+        DISPLAY_POSITION =#{displayPosition,jdbcType=INTEGER},
+      </if>
+      <if test="advertContent != null">
+        ADVERT_CONTENT =#{advertContent,jdbcType=VARCHAR},
+      </if>
+      <if test="advertDescribe != null">
+        ADVERT_DESCRIBE = #{advertDescribe,jdbcType=VARCHAR},
+      </if>
+    </set>
+    WHERE ADVERT_ID = #{advertId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="queryMaxAdvertPosSort" parameterType="com.sun3d.why.model.CmsAdvert" resultType="java.lang.Integer" >
+    SELECT ADVERT_POS_SORT FROM CMS_ADVERT
+    WHERE 1=1
+    <if test="advertSite != null" >
+      AND ADVERT_SITE = #{advertSite}
+    </if>
+    <if test="advertColumn != null" >
+      AND ADVERT_COLUMN = #{advertColumn}
+    </if>
+    <if test="advertPos != null" >
+      AND ADVERT_POS like #{advertPos}
+    </if>
+    ORDER BY ADVERT_POS_SORT DESC LIMIT 0,1
+  </select>
+
+  <select id="queryAdvertByName" parameterType="java.util.Map" resultMap="BaseResultMap" >
+    SELECT
+    A.ADVERT_ID,
+    A.ADVERT_TITLE,
+    A.ADVERT_TYPE,
+    A.ADVERT_SITE,
+    A.ADVERT_COLUMN,
+    A.ADVERT_PIC_URL,
+    A.ADVERT_SIZE_WIDTH,
+    A.ADVERT_SIZE_HEIGHT,
+    A.ADVERT_CONNECT_URL,
+    A.ADVERT_CONNECT_TARGET,
+    A.ADVERT_CREATE_USER,
+    A.ADVERT_CREATE_TIME,
+    A.ADVERT_UPDATE_USER,
+    A.ADVERT_UPDATE_TIME,
+    A.ADVERT_STATE,
+    A.ADVERT_IS_DEL,
+    A.ADVERT_POS_SORT
+    FROM CMS_ADVERT A
+    where 1=1
+    <if test="siteName != null">
+      and A.ADVERT_SITE = #{siteName}
+    </if>
+    <if test="keyWord != null">
+      and A.ADVERT_TITLE  LIKE '%'#{keyWord}'%'
+    </if>
+    <if test="advertIsDel != null">
+      and  A.ADVERT_IS_DEL = #{advertIsDel}
+    </if>
+    <if test="advertState != null">
+      and  A.ADVERT_STATE = #{advertState}
+    </if>
+
+
+  </select>
+
+
+  <!--  <select id="queryAdvertByName" parameterType="java.util.Map" resultMap="BaseResultMap" >
+        SELECT
+        A.ADVERT_ID,
+        A.ADVERT_TITLE,
+        A.ADVERT_TYPE,
+        A.ADVERT_SITE,
+        A.ADVERT_COLUMN,
+        A.ADVERT_PIC_URL,
+        A.ADVERT_SIZE_WIDTH,
+        A.ADVERT_SIZE_HEIGHT,
+        A.ADVERT_CONNECT_URL,
+        A.ADVERT_CONNECT_TARGET,
+        A.ADVERT_CREATE_USER,
+        A.ADVERT_CREATE_TIME,
+        A.ADVERT_UPDATE_USER,
+        A.ADVERT_UPDATE_TIME,
+        A.ADVERT_STATE,
+        A.ADVERT_IS_DEL,
+        A.ADVERT_POS_SORT
+        FROM CMS_ADVERT A , SYS_DICT D1,SYS_DICT D2
+        WHERE A.ADVERT_SITE = D1.DICT_ID AND A.ADVERT_COLUMN = D2.DICT_ID
+        <if test="siteName != null">
+          AND D1.DICT_NAME = #{siteName}
+        </if>
+        <if test="columnName != null">
+          AND D2.DICT_NAME = #{columnName}
+        </if>
+        <if test="advertIsDel != null">
+          AND A.ADVERT_IS_DEL = #{advertIsDel}
+        </if>
+        <if test="advertState != null">
+          AND A.ADVERT_STATE = #{advertState}
+        </if>
+    </select>-->
+
+
+  <select id="queryAdvertPositionCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM cms_advert advert
+    WHERE 1=1
+    <if test="advertPosSort != null" >
+      AND advert.ADVERT_POS_SORT = #{advertPosSort}
+    </if>
+    <if test="advertPos != null" >
+      AND advert.ADVERT_COLUMN = #{advertColumn}
+    </if>
+
+    <if test="displayPosition != null" >
+      AND advert.DISPLAY_POSITION = #{displayPosition}
+    </if>
+    AND advert.ADVERT_IS_DEL = 1
+    AND advert.ADVERT_STATE = 1
+    AND advert.IS_RECOMMEND_TYPE =2
+  </select>
+
+  <select id="queryAdvertBySite" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT ca.ADVERT_ID,ca.ADVERT_PIC_URL,ca.ADVERT_POS_SORT,ca.ADVERT_CONNECT_URL,s.DICT_NAME,ca.DISPLAY_POSITION from cms_advert ca LEFT JOIN sys_dict s on ca.ADVERT_REC_DES=s.DICT_ID
+    WHERE ca.ADVERT_IS_DEL=1 and ADVERT_STATE=1
+    and ca.IS_RECOMMEND_TYPE = 2
+    <if test="siteId != null" >
+      and ca.ADVERT_SITE=#{siteId}
+    </if>
+    <!--<if test="displayPositions != null">-->
+      <!--and ca.DISPLAY_POSITION=#{displayPositions}-->
+    <!--</if>-->
+    ORDER BY ADVERT_POS_SORT asc
+  </select>
+
+  <!--获取轮播图无限制张数 -->
+  <select id="queryAppAdvertBySite" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT ca.ADVERT_ID,ca.ADVERT_PIC_URL,ca.ADVERT_TITLE,ca.advert_content,ca.ADVERT_POS_SORT,ca.ADVERT_CONNECT_URL,s.DICT_NAME from cms_advert ca LEFT JOIN sys_dict s on ca.ADVERT_REC_DES=s.DICT_ID
+    WHERE ca.ADVERT_IS_DEL=1 and ADVERT_STATE=1  and ca.ADVERT_SITE=0 AND ca.DISPLAY_POSITION=#{0}
+    ORDER BY ADVERT_POS_SORT asc
+  </select>
+  <!--查询广告插入的序号类表位置-->
+  <select id="queryAdvertSitePosition" parameterType="java.util.Map" resultMap="BaseResultMap">
+    SELECT acd.ADVERT_POS_SORT FROM cms_advert acd
+    WHERE 1=1
+    AND  IS_RECOMMEND_TYPE = 2
+    AND acd.ADVERT_IS_DEL = 2
+    <if test="advertSite != null and advertSite != ''">
+      AND acd.ADVERT_SITE = #{advertSite}
+    </if>
+  </select>
+
+
+  <select id="queryExistSort" parameterType="com.sun3d.why.model.CmsAdvert" resultType="java.lang.Integer">
+      SELECT  count(*) FROM  cms_advert
+        WHERE ADVERT_IS_DEL=1
+         AND  ADVERT_STATE = 1
+         AND  ADVERT_SITE = #{advertSite}
+         AND  ADVERT_POS_SORT = #{advertPosSort}
+         <if test="displayPosition !=null and displayPosition !=''">
+         AND  DISPLAY_POSITION = #{displayPosition}
+         </if>
+         AND  IS_RECOMMEND_TYPE = 2
+  </select>
+
+
+
+  <select id="queryRecommendCmsAdvertByList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    SELECT
+    A.ADVERT_ID,
+    A.ADVERT_TITLE,
+    A.ADVERT_TYPE,
+    A.ADVERT_SITE,
+    A.ADVERT_PIC_URL,
+    A.ADVERT_SIZE_WIDTH,
+    A.ADVERT_SIZE_HEIGHT,
+    A.ADVERT_COLUMN,
+    A.ADVERT_CONNECT_URL,
+    A.ADVERT_CONNECT_TARGET,
+    A.ADVERT_CREATE_USER,
+    A.ADVERT_CREATE_TIME,
+    S.USER_NICK_NAME AS ADVERT_UPDATE_USER,
+    A.ADVERT_UPDATE_TIME,
+    A.ADVERT_STATE,
+    A.ADVERT_IS_DEL,
+    A. ADVERT_POS_SORT,
+    A.IS_RECOMMEND_TYPE,
+    A.ACTIVITY_TIME,
+    A.ADVERT_ADRESS,
+    A.RECOMMEND_TIME
+    FROM cms_advert A LEFT JOIN SYS_USER S ON A.ADVERT_UPDATE_USER = S.USER_ID
+
+    WHERE 	A.ADVERT_STATE=1
+
+    AND A.ADVERT_IS_DEL = 1
+    <if test="advertTitle != null" >
+      AND A.ADVERT_TITLE LIKE #{advertTitle}
+    </if>
+
+    <if test="advertSite!=null">
+      AND A.ADVERT_SITE = #{advertSite}
+    </if>
+
+    <if test="advertColumn != null" >
+      AND A.ADVERT_COLUMN = #{advertColumn}
+    </if>
+    AND A.IS_RECOMMEND_TYPE = 1
+    ORDER BY A.RECOMMEND_TIME desc, A.ADVERT_POS_SORT desc
+    limit #{firstResult},#{rows}
+  </select>
+
+
+
+  <update id="editRecommendCmsAdvert" parameterType="com.sun3d.why.model.CmsAdvert" >
+    UPDATE CMS_ADVERT
+    <set >
+      <if test="advertId != null" >
+        ADVERT_ID = #{advertId,jdbcType=VARCHAR},
+      </if>
+      <if test="advertTitle != null" >
+        ADVERT_TITLE =  #{advertTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="advertType != null" >
+        ADVERT_TYPE = #{advertType,jdbcType=INTEGER},
+      </if>
+      <if test="advertSite != null" >
+        ADVERT_SITE = #{advertSite,jdbcType=VARCHAR},
+      </if>
+      <if test="advertColumn != null" >
+        ADVERT_COLUMN = #{advertColumn,jdbcType=VARCHAR},
+      </if>
+      <if test="advertPicUrl != null" >
+        ADVERT_PIC_URL = #{advertPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="advertSizeWidth != null" >
+        ADVERT_SIZE_WIDTH = #{advertSizeWidth,jdbcType=VARCHAR},
+      </if>
+      <if test="advertSizeHeight != null" >
+        ADVERT_SIZE_HEIGHT = #{advertSizeHeight,jdbcType=VARCHAR},
+      </if>
+      <if test="advertConnectUrl != null" >
+        ADVERT_CONNECT_URL = #{advertConnectUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="advertConnectTarget != null" >
+        ADVERT_CONNECT_TARGET = #{advertConnectTarget,jdbcType=INTEGER},
+      </if>
+      <if test="advertCreateUser != null" >
+        ADVERT_CREATE_USER = #{advertCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="advertCreateTime != null" >
+        ADVERT_CREATE_TIME = #{advertCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="advertUpdateUser != null" >
+        ADVERT_UPDATE_USER = #{advertUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="advertUpdateTime != null" >
+        ADVERT_UPDATE_TIME = #{advertUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="advertState != null" >
+        ADVERT_STATE = #{advertState,jdbcType=INTEGER},
+      </if>
+      <if test="advertIsDel != null" >
+        ADVERT_IS_DEL = #{advertIsDel,jdbcType=INTEGER},
+      </if>
+      <if test="advertPosSort != null" >
+        ADVERT_POS_SORT = #{advertPosSort,jdbcType=INTEGER},
+      </if>
+      <if test="advertRecDes != null" >
+        ADVERT_REC_DES = #{advertRecDes,jdbcType=VARCHAR},
+      </if>
+
+        RECOMMEND_TIME = #{recommendTime,jdbcType=VARCHAR},
+
+    </set>
+    WHERE ADVERT_ID = #{advertId,jdbcType=VARCHAR}
+  </update>
+
+  <!--文化云3.1前端首页热点推荐-->
+  <select id="queryHotelRecommendAdvert" parameterType="java.util.Map" resultMap="BaseResultMap">
+    SELECT a.advert_title,a.advert_pic_url,a.advert_adress,a.activity_time,a.activity_end_time,
+    a.activity_id,a.advert_connect_url,c.activity_is_reservation,
+    (select sum(b.available_count) from cms_activity_event b where b.activity_id=a.activity_id and substring(b.event_date_time, 1, 16) > CURRENT_TIMESTAMP group by b.activity_id) as available_count
+    FROM
+    cms_advert a left join cms_activity c on a.activity_id=c.activity_id
+    WHERE
+    a.advert_state = 1
+    AND a.is_recommend_type = 1
+    ORDER BY
+    a.advert_pos_sort asc
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+
+  <select id="appRecommendadvertlist" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    SELECT
+    A.ADVERT_ID,
+    A.ADVERT_TITLE,
+    A.ADVERT_TYPE,
+    A.ADVERT_SITE,
+    A.ADVERT_PIC_URL,
+    A.ADVERT_SIZE_WIDTH,
+    A.ADVERT_SIZE_HEIGHT,
+    A.ADVERT_COLUMN,
+    A.ADVERT_CONNECT_URL,
+    A.ADVERT_CONNECT_TARGET,
+    A.ADVERT_CREATE_USER,
+    A.ADVERT_CREATE_TIME,
+    S.USER_NICK_NAME AS ADVERT_UPDATE_USER,
+    A.ADVERT_UPDATE_TIME,
+    A.ADVERT_STATE,
+    A.ADVERT_IS_DEL,
+    A. ADVERT_POS_SORT
+    FROM cms_advert A LEFT JOIN SYS_USER S ON A.ADVERT_UPDATE_USER = S.USER_ID
+    WHERE
+    A.ADVERT_IS_DEL = 1
+    AND A.IS_RECOMMEND_TYPE= 2
+    AND A.ADVERT_SITE = 0
+    <if test="advertTitle != null" >
+      AND A.ADVERT_TITLE LIKE #{advertTitle}
+    </if>
+    <if test="advertIsDel != null" >
+      AND A.ADVERT_IS_DEL = #{advertIsDel}
+    </if>
+    <if test="advertColumn != null" >
+      AND A.ADVERT_COLUMN = #{advertColumn}
+    </if>
+    ORDER BY A.ADVERT_POS_SORT ,A.ADVERT_UPDATE_TIME DESC
+    limit #{firstResult},#{rows}
+  </select>
+
+
+  <select id="queryRecommendCmsAdvertCountByCondition" parameterType="java.util.Map" resultType="java.lang.Integer" >
+    SELECT count(*)
+    FROM CMS_ADVERT A LEFT JOIN SYS_USER S ON A.ADVERT_UPDATE_USER = S.USER_ID
+    WHERE
+    A.ADVERT_IS_DEL = 1
+    AND A.IS_RECOMMEND_TYPE= 2
+    AND A.ADVERT_SITE = 0
+    <if test="advertTitle != null" >
+      AND A.ADVERT_TITLE LIKE #{advertTitle}
+    </if>
+    <if test="advertIsDel != null" >
+      AND A.ADVERT_IS_DEL = #{advertIsDel}
+    </if>
+    <if test="advertColumn != null" >
+      AND A.ADVERT_COLUMN = #{advertColumn}
+    </if>
+  </select>
+</mapper>

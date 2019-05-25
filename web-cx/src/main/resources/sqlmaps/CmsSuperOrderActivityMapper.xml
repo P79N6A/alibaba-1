@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsSuperOrderActivityMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsSuperOrderActivity" >
+    <result column="ACTIVITY_ID" property="activityId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    
+    <result column="ACTIVITY_NAME" property="activityName" jdbcType="VARCHAR"/>
+    <result column="ACTIVITY_START_TIME" property="activityStartTime" jdbcType="VARCHAR"/>
+    <result column="ACTIVITY_END_TIME" property="activityEndTime" jdbcType="VARCHAR"/>
+    <result column="AVAILABLE_COUNT" property="availableCount" jdbcType="INTEGER"/>
+  </resultMap>
+  
+  <resultMap id="OrderResultMap" type="com.sun3d.why.model.CmsActivityOrder" >
+    <result column="ACTIVITY_ID" property="activityId" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_NAME" property="activityName" jdbcType="VARCHAR"/>
+    <result column="ORDER_VALIDATE_CODE" property="orderValidateCode" jdbcType="VARCHAR"/>
+    <result column="ORDER_VOTES" property="orderVotes" jdbcType="INTEGER"/>
+    <result column="ORDER_PAY_STATUS" property="orderPayStatus" jdbcType="SMALLINT"/>
+  </resultMap>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.CmsSuperOrderActivity" >
+    insert into cms_super_order_activity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="activityId != null" >
+        ACTIVITY_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="activityId != null" >
+        #{activityId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="queryActivityListByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+	SELECT
+       a.ACTIVITY_ID,
+       a.ACTIVITY_NAME,
+       a.ACTIVITY_START_TIME,
+       a.ACTIVITY_END_TIME,
+       IFNULL(
+       	 SUM(
+       		IF (ce.EVENT_DATE_TIME >= DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i'),ce.AVAILABLE_COUNT,0)
+         ),0) AS AVAILABLE_COUNT
+     FROM cms_super_order_activity csoa
+     INNER JOIN cms_activity a on a.activity_id = csoa.activity_id and csoa.USER_ID = #{userId,jdbcType=VARCHAR}
+     LEFT JOIN cms_activity_event ce ON a.ACTIVITY_ID = ce.ACTIVITY_ID
+     WHERE 1 = 1 AND a.ACTIVITY_IS_DEL = 1 AND a.ACTIVITY_STATE = 6
+     <if test="searchKey != null">
+         AND a.ACTIVITY_NAME = #{searchKey,jdbcType=VARCHAR}
+     </if>
+     GROUP BY a.ACTIVITY_ID
+     ORDER BY ACTIVITY_CREATE_TIME DESC
+     <if test="firstResult != null">
+         limit ${firstResult},${rows}
+     </if>
+   </select>
+   
+   <select id="queryActivityOrderListByCondition" resultMap="OrderResultMap" parameterType="java.util.Map">
+	SELECT
+       a.ACTIVITY_ID,
+       a.ACTIVITY_NAME,
+       ao.ORDER_VALIDATE_CODE,
+       ao.ORDER_VOTES,
+       ao.ORDER_PAY_STATUS
+     FROM cms_activity_order ao
+     LEFT JOIN cms_activity a on a.activity_id = ao.activity_id
+     WHERE 1 = 1
+     <if test="userId != null">
+         AND ao.USER_ID = #{userId,jdbcType=VARCHAR}
+     </if>
+     ORDER BY ORDER_CREATE_TIME DESC
+     <if test="firstResult != null">
+         limit ${firstResult},${rows}
+     </if>
+   </select>
+</mapper>

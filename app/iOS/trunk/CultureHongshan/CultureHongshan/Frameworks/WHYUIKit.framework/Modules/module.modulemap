@@ -1,0 +1,6 @@
+framework module WHYUIKit {
+  umbrella header "WHYUIKit.h"
+
+  export *
+  module * { export * }
+}

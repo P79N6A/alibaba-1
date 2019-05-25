@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.culturecloud.dao.beautycity.CcpBeautycityMapper" >
+  <resultMap id="BaseResultMap" type="com.culturecloud.model.bean.beautycity.CcpBeautycity" >
+    <id column="BEAUTYCITY_ID" property="beautycityId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_MOBILE" property="userMobile" jdbcType="VARCHAR" />
+    <result column="FINISH_VENUE_RANKING" property="finishVenueRanking" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="BaseResultResMap" type="com.culturecloud.model.response.beautycity.CcpBeautycityResVO" >
+    <id column="BEAUTYCITY_ID" property="beautycityId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_MOBILE" property="userMobile" jdbcType="VARCHAR" />
+    <result column="FINISH_VENUE_RANKING" property="finishVenueRanking" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    
+    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+    <result column="USER_HEAD_IMG_URL" property="userHeadImgUrl" jdbcType="VARCHAR" />
+    <result column="VENUE_COUNT" property="venueCount" jdbcType="VARCHAR" />
+    <result column="IMG_COUNT" property="imgCount" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    BEAUTYCITY_ID, USER_ID, USER_NAME, USER_MOBILE, FINISH_VENUE_RANKING, CREATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_beautycity
+    where BEAUTYCITY_ID = #{beautycityId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_beautycity
+    where BEAUTYCITY_ID = #{beautycityId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.culturecloud.model.request.beautycity.CcpBeautycityReqVO" >
+    insert into ccp_beautycity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      BEAUTYCITY_ID,
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="userMobile != null" >
+        USER_MOBILE,
+      </if>
+      <if test="finishVenueRanking != null" >
+        FINISH_VENUE_RANKING,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{beautycityId,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="finishVenueRanking != null" >
+        #{finishVenueRanking,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.culturecloud.model.request.beautycity.CcpBeautycityReqVO" >
+    update ccp_beautycity
+    <set>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        USER_MOBILE = #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="finishVenueRanking != null" >
+        FINISH_VENUE_RANKING = #{finishVenueRanking,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where BEAUTYCITY_ID = #{beautycityId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectBeautycityListCount" resultType="java.lang.Integer" parameterType="com.culturecloud.model.request.beautycity.CcpBeautycityReqVO" >
+    SELECT	
+		COUNT(*)
+	FROM ccp_beautycity cb
+	WHERE 1=1
+	<if test="userName!=null  and userName!=''">
+		AND cb.USER_NAME like CONCAT('%',#{userName},'%')
+	</if>
+	<if test="userMobile!=null and userMobile!=''">
+		AND cb.USER_MOBILE = #{userMobile}
+	</if>
+  </select>
+  
+  <select id="selectBeautycityList" resultMap="BaseResultResMap" parameterType="com.culturecloud.model.request.beautycity.CcpBeautycityReqVO" >
+    SELECT	
+		cb.BEAUTYCITY_ID, 
+		cb.USER_ID, 
+		cb.USER_NAME, 
+		cb.USER_MOBILE, 
+		cb.CREATE_TIME,
+		cb.FINISH_VENUE_RANKING,
+		ctu.USER_HEAD_IMG_URL,
+        (SELECT count(DISTINCT cbi.BEAUTYCITY_VENUE_ID)
+        FROM ccp_beautycity_img cbi
+        WHERE cbi.USER_ID = cb.USER_ID
+        ) AS VENUE_COUNT,
+        (SELECT count(DISTINCT cbi.BEAUTYCITY_IMG_ID)
+        FROM ccp_beautycity_img cbi
+        WHERE cbi.USER_ID = cb.USER_ID
+        ) AS IMG_COUNT,
+		ctu.USER_NAME AS CREATE_USER_NAME
+	FROM ccp_beautycity cb
+	LEFT JOIN cms_terminal_user ctu ON ctu.USER_ID = cb.USER_ID
+	WHERE 1=1
+	<if test="userId!=null">
+        AND cb.USER_ID = #{userId}
+    </if> 
+	<if test="userName!=null  and userName!=''">
+		AND cb.USER_NAME like CONCAT('%',#{userName},'%')
+	</if>
+	<if test="userMobile!=null and userMobile!=''">
+		AND cb.USER_MOBILE = #{userMobile}
+	</if>
+	ORDER BY cb.CREATE_TIME DESC
+	<if test="resultFirst != null">
+        limit ${resultFirst},${resultSize}
+    </if>
+  </select>
+  
+  <select id="selectMaxFinishVenueRanking" resultType="java.lang.Integer">
+  	SELECT MAX(FINISH_VENUE_RANKING)
+	FROM ccp_beautycity
+  </select>
+</mapper>

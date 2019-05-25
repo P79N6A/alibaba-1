@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+
+
+<mapper namespace="com.sun3d.why.dao.ActivityTopicMapper" >
+
+
+
+  <insert id="insertActivityTopic"   parameterType="com.sun3d.why.model.topic.ActivityTopic">
+      <selectKey resultType="java.lang.Integer" order="AFTER"  keyProperty="id">
+          SELECT LAST_INSERT_ID()
+      </selectKey>
+    insert into cms_activity_topic(title,headimg,stime,etime,remark,cuserid,sharetitle,shareimg,sharedesc)
+      values(#{title},#{headimg},#{stime},#{etime},#{remark},#{cuserid},#{sharetitle},#{shareimg},#{sharedesc});
+
+  </insert>
+
+  <update id="delActivityTopic" parameterType="int">
+    update cms_activity_topic set isvalid=0
+    where id=#{value}
+
+  </update>
+
+
+  <update id="updateActivityTopic"  parameterType="com.sun3d.why.model.topic.ActivityTopic">
+    update cms_activity_topic
+    SET
+    title = #{title},
+    headimg = #{headimg},
+    stime = #{stime},
+    etime = #{etime},
+    remark = #{remark},
+    cuserid = #{cuserid},
+    sharetitle = #{sharetitle},
+    shareimg = #{shareimg},
+    sharedesc = #{sharedesc}
+    where id = #{id}
+
+  </update>
+
+
+
+
+  <select id="selectActivityTopic" resultType="com.sun3d.why.model.topic.ActivityTopic" parameterType="int">
+    select id,title,headimg,stime,etime,remark,ctime,cuserid,sharetitle,shareimg,sharedesc  from cms_activity_topic where id=#{value} and  isvalid = 1
+  </select>
+
+
+  <select id="selectActivityTopicList" resultType="com.sun3d.why.model.topic.ActivityTopic">
+    select id,title,headimg,stime,etime,remark,ctime,cuserid,sharetitle,shareimg,sharedesc  from cms_activity_topic
+    where  isvalid = 1
+    order by ctime desc
+  </select>
+
+
+
+
+  <insert id="insertActivityTopicContent"   parameterType="com.sun3d.why.model.topic.Activity" >
+    <selectKey resultType="java.lang.Integer" order="AFTER"  keyProperty="id">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cms_activity_topic_content(tid,activityid,hname,title,addr,image,duration,aord,linktitle,linkisblue)
+    values(#{tid},#{activityid},#{hname},#{title},#{addr},#{image},#{duration},#{aord},#{linktitle},#{linkisblue})
+  </insert>
+
+
+  <update id="delActivityTopicContent" parameterType="int">
+    update  cms_activity_topic_content set isvalid=0
+    where id=#{value}
+  </update>
+
+  <update id="updateActivityTopicContent"  parameterType="com.sun3d.why.model.topic.Activity">
+    update cms_activity_topic_content
+    SET
+    tid = #{tid},
+    activityid = #{activityid},
+    hname = #{hname},
+    title = #{title},
+    addr = #{addr},
+    image = #{image},
+    duration = #{duration},
+    linktitle = #{linktitle},
+    linkisblue = #{linkisblue}
+    where id = #{id}
+  </update>
+
+
+
+  <select id="selectActivityTopicContent" resultType="com.sun3d.why.model.topic.Activity" parameterType="int">
+    <![CDATA[
+      select    id,tid,activityid,hname,title,addr,image,stime,aord,duration,activity_memo,ifnull(ACTIVITY_IS_RESERVATION,0)  as ACTIVITY_IS_RESERVATION, sum(ifnull(AVAILABLE_COUNT,0)) as AVAILABLE_COUNT ,
+      case (ACTIVITY_IS_RESERVATION=2 and ifnull(AVAILABLE_COUNT,0)>0)
+      when 1 then 1
+      ELSE 0
+      end  as actvityCanBooking,
+      case activity_end_time is  null or date_format(now(),'%Y-%m-%d %H:%i') <= concat(activity_end_time,' ',left(ifnull(event_time,''),5))
+      when 1 then 0
+      else 1
+      end as isExpired,activity_end_time,
+      aord,linktitle,linkisblue
+      from  cms_activity_topic_content a left join cms_activity b on  a.activityid=b.activity_id and b.`ACTIVITY_CREATE_TIME`  left join
+      cms_activity_event c on b.activity_id=c.activity_id
+      where  id = #{value} and isvalid = 1
+      order by aord,id
+      ]]>
+  </select>
+
+
+  <select id="selectActivityTopicContentList" resultType="com.sun3d.why.model.topic.Activity" parameterType="int">
+
+      <![CDATA[
+      select    id,tid,activityid,hname,title,addr,image,stime,aord,duration,activity_memo,ifnull(ACTIVITY_IS_RESERVATION,0)  as ACTIVITY_IS_RESERVATION, sum(ifnull(AVAILABLE_COUNT,0)) as AVAILABLE_COUNT ,
+      case (ACTIVITY_IS_RESERVATION=2 and ifnull(AVAILABLE_COUNT,0)>0)
+      when 1 then 1
+      ELSE 0
+      end  as actvityCanBooking,
+      case activity_end_time is  null or  date_format(now(),'%Y-%m-%d %H:%i') <= concat(activity_end_time,' ',left(ifnull(event_time,''),5))
+      when 1 then 0
+      else 1
+      end as isExpired,b.SPIKE_TYPE,activity_start_time,activity_end_time,spike_time,
+      aord,linktitle,linkisblue
+      from  cms_activity_topic_content a left join cms_activity b on  a.activityid=b.activity_id and b.`ACTIVITY_CREATE_TIME`  left join
+      cms_activity_event c on b.activity_id=c.activity_id
+   where tid = #{value}  and  isvalid = 1
+   group by  id,tid,activityid,hname,title,addr,image,stime,aord,duration,activity_memo,ACTIVITY_IS_RESERVATION
+   order by aord,id
+]]>
+
+  </select>
+
+
+
+  <insert id="insertBlockContent"   parameterType="com.sun3d.why.model.topic.BlockContent">
+    <selectKey resultType="java.lang.Integer" order="AFTER"  keyProperty="id">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cms_activity_topic_block_content(bid,tid,attr,cord)
+    values(#{bid},#{tid},#{attr},#{cord})
+  </insert>
+
+
+  <update id="updateBlockContent"  parameterType="com.sun3d.why.model.topic.BlockContent">
+    update cms_activity_topic_block_content
+    set
+    bid = #{bid},
+    tid = #{tid},
+    attr = #{attr},
+    cord = #{cord}
+    where id=#{id}
+
+  </update>
+
+
+
+
+  <update id="delBlock" parameterType="int">
+    update cms_activity_topic_block set
+    isvalid=0
+    where id=#{id}
+  </update>
+
+
+  <update id="updateBlockOrder" parameterType="hashmap">
+
+    update cms_activity_topic_block
+    set aord=#{aord}
+    where id=#{id}
+  </update>
+
+
+  <update id="updateActivityOrder" parameterType="hashmap">
+
+    update cms_activity_topic_content
+    set aord=#{aord}
+    where id=#{id}
+  </update>
+
+
+  
+  <select id="selectBlock" resultType="com.sun3d.why.model.topic.Block" parameterType="int">
+    select id,tid,templateid,bname,aord,showname from cms_activity_topic_block where isvalid = 1 and id=#{value}
+  </select>
+  
+  <select id="selectBlockList" resultType="com.sun3d.why.model.topic.Block" parameterType="int">
+   select a.id,tid,templateid,bname,aord,showname,container as templateContainer,content as templateContent,fieldnum from cms_activity_topic_block  a
+   inner join cms_activity_topic_block_template b on a.templateid=b.id
+   where isvalid = 1 and tid=#{value}
+   order by aord,a.id
+  </select>
+
+
+  <insert id="insertTopicBlock" parameterType="com.sun3d.why.model.topic.Block">
+    <selectKey resultType="java.lang.Integer" order="AFTER"  keyProperty="id">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cms_activity_topic_block(tid,bname,aord,showname,templateid) values(#{tid},#{bname},#{aord},#{showname},#{templateid})
+
+  </insert>
+
+  <update id="delBlockContent" parameterType="int">
+   update cms_activity_topic_block_content set
+    isvalid=0
+    where id=#{value}
+
+  </update>
+
+
+
+
+  <select id="selectBlockContent" resultType="com.sun3d.why.model.topic.BlockContent">
+    select id,bid,tid,attr,cord from `cms_activity_topic_block_content` where id=#{id} and isvalid = 1
+  </select>
+
+
+
+
+
+  <select id="selectBlockContentListByTopic" resultType="com.sun3d.why.model.topic.BlockContent">
+     select a.id,bid,a.tid,attr,cord
+     from `cms_activity_topic_block_content`  a inner join cms_activity_topic_block b on a.bid=b.id
+     where a.tid=#{value} and a.isvalid = 1  and b.isvalid=1
+     order by b.aord,b.id,a.id,cord
+  </select>
+
+
+
+  <select id="selectBlockContentList" resultType="com.sun3d.why.model.topic.BlockContent" parameterType="int">
+    select id,bid,tid,attr,cord from `cms_activity_topic_block_content` where bid=#{value} and isvalid = 1
+  </select>
+
+
+  <select id="selectActivityTopicBlockTemplate" resultType="com.sun3d.why.model.topic.Template">
+    select id,container,content,fields,fieldnum,image from cms_activity_topic_block_template
+  </select>
+
+  <update id="updateBlockDetailTitle" parameterType="hashmap">
+
+    update cms_activity_topic_block
+    set bname=#{bname}
+    where id=#{id}
+  </update>
+
+</mapper>
+
+
+        <!--insert into cms_activity_topic_block_template(container,content,fields,fieldnum,image)-->
+        <!--values("<div class=\"youthArtTips\"><p class=\"youthArtTipsTt\">${blockname}</p><ul class=\"hkTips\">${content}</ul><div class=\"hkTipsBf\"><p>公益票务有限，请珍惜票务名额，若有事不能前往，请及时取消。</p></div></div>","<li><p class=\"hkTipsTitle\">${param1}</p><p class=\"hkTipsDetl\">${param2}</p><div style=\"clear: both;\"></div></li>","标题名;内容",2,"template_7.jpg")-->
+
+
+        <!--insert into cms_activity_topic_block_template(container,content,fields,fieldnum,image)-->
+        <!--values(-->
+        <!--'<div class="youthArtTips"><p class="youthArtTipsTt">${blockname}</p><div class="hkVedioList lcchk_rmzx"><ul>${content}</ul></div></div>',-->
+        <!--'<li data_url="${param1_url}"><div class="pic"><a href="#"><img src="${param1}"></a></div><div class="lccwz"><a href="#">${param2}</a></div></li>',-->
+        <!--'图片_image;标题',2,'template_6.jpg')-->
+
+
+        <!--insert into cms_activity_topic_block_template(container,content,fields,fieldnum,image)-->
+        <!--values('<div class="youthArtTips"><p class="youthArtTipsTt">${blockname}</p>${content}</div>',-->
+        <!--'<p class="youthArtTipsDt" urldata="${param1_url}">${param1}</p>',-->
+        <!--'内容',-->
+        <!--'1',-->
+        <!--'template_4.jpg'-->
+        <!--)-->
+
+
+        <!--insert into cms_activity_topic_block_template(container,content,fields,fieldnum,image)-->
+        <!--values('<div class="lcchk_pic">${content}</div>',-->
+        <!--'<img src="${param1}" urldata="${param1_url}"/>',-->
+        <!--'图片',-->
+        <!--'1',-->
+        <!--'template_5.jpg'-->
+        <!--)-->
+
+
+        <!--insert into cms_activity_topic_block_template(container,content,fields,fieldnum,image)-->
+        <!--values('<div class="youthArtTips"><p class="youthArtTipsTt">${blockname}</p><div class="hkPeoList"><ul>${content}</ul></div></div>',-->
+        <!--'<li dataurl="${param1_url}"><div style="float: left;"><img src="${param1}" width="150" /></div><div style="float: left;width: 500px;margin-left: 30px;"><p class="hkPeoListName">${param2}</p><p class="hkPeoListDetl">${param3}</p><p class="hkPeoListDetl">${param4}</p></div><div style="clear: both;"></div></li>',-->
+        <!--'头像;姓名;头衔;简介',-->
+        <!--'4',-->
+        <!--'template_1.jpg'-->
+        <!--)-->
+
+
+
+        <!--insert into cms_activity_topic_block_template(container,content,fields,fieldnum,image)-->
+        <!--values('<div class="youthArtTips"><p class="youthArtTipsTt">${blockname}</p><div class="hkVedioList"><ul>${content}</ul></div></div>',-->
+        <!--'<li dataurl="${param1_url}"><div style="position: relative;width: 325px;height: 200px;"><img class="hkPlayBtn" src="${param1}" style="position: absolute;left: 0;right: 0;bottom: 0;top: 0;margin: auto;z-index: 10;width: 325px;height: 200px;" /></div><div class="lccwz">${param2}</div></li>',-->
+        <!--'图片;名称',-->
+        <!--'2',-->
+        <!--'template_2.jpg'-->
+        <!--)-->
+
+
+        <!--insert into cms_activity_topic_block_template(container,content,fields,fieldnum,image)-->
+        <!--values('<div class="youthArtTips"><p class="youthArtTipsTt">${blockname}</p><div class="hkVedioList"><ul>${content}</ul></div></div>',-->
+        <!--'<li><div style="position: relative;width: 325px;height: 200px;"><video id="video1" src="${param1}"  style="width:325px;height: 200px;"></video><img class="hkPlayBtn" src="${param2}" style="position: absolute;left: 0;right: 0;bottom: 0;top: 0;margin: auto;z-index: 10;width: 325px;height: 200px;" /></div><div class="lccwz">${param3}</div></li>',-->
+        <!--'视频地址;视频图片;名称',-->
+        <!--'3',-->
+        <!--'template_3.jpg'-->
+        <!--)-->

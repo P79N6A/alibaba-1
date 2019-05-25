@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.HandWritingImgMapper">
+    <resultMap id="BaseResultMap" type="com.sun3d.why.publicWebservice.model.HandWritingImg">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="USER_ID" property="userId" jdbcType="VARCHAR"/>
+        <result column="IMG_URL" property="imgUrl" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_TYPE" property="updateType" jdbcType="INTEGER"/>
+        
+        <result column="user_name" property="userName" jdbcType="VARCHAR" />
+        <result column="user_head_img_url" property="userHeadImgUrl" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+    ID, USER_ID, IMG_URL, CREATE_TIME
+  	</sql>
+  	
+    <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        IMG_URL,
+        CREATE_TIME
+        from handwriting_img
+        where
+        UPDATE_TYPE='1' AND
+        <if test="userId != null">
+            USER_ID = #{userId,jdbcType=VARCHAR}
+        </if>
+
+
+    </select>
+    
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from handwriting_img
+    where ID = #{id,jdbcType=VARCHAR}
+  	</delete>
+  	
+    <insert id="insert" parameterType="com.sun3d.why.publicWebservice.model.HandWritingImg">
+    insert into handwriting_img (ID, USER_ID, IMG_URL, 
+      CREATE_TIME,UPDATE_TYPE)
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP},#{updateType,jdbcType=INTEGER})
+  	</insert>
+  	
+    <insert id="insertSelective" parameterType="com.sun3d.why.publicWebservice.model.HandWritingImg">
+        insert into handwriting_img
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="userId != null">
+                USER_ID,
+            </if>
+            <if test="imgUrl != null">
+                IMG_URL,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="imgUrl != null">
+                #{imgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    
+    <update id="updateByPrimaryKeySelective" parameterType="com.sun3d.why.publicWebservice.model.HandWritingImg">
+        update handwriting_img
+        <set>
+            <if test="userId != null">
+                USER_ID = #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="imgUrl != null">
+                IMG_URL = #{imgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    
+    <update id="updateByPrimaryKey" parameterType="com.sun3d.why.publicWebservice.model.HandWritingImg">
+	    update handwriting_img
+	    set USER_ID = #{userId,jdbcType=VARCHAR},
+	      IMG_URL = #{imgUrl,jdbcType=VARCHAR},
+	      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+	    where ID = #{id,jdbcType=VARCHAR}
+  	</update>
+  
+  	<!-- 系列活动列表（用户的图片放第一个） -->
+  	<select id="querySeriesImgList" parameterType="java.util.Map" resultMap="BaseResultMap">
+  		<if test="userId != null">
+	  		select * from(
+	  			select	
+	  				h.ID,h.USER_ID,h.IMG_URL,h.CREATE_TIME,h.UPDATE_TYPE,u.USER_NAME AS user_name,u.user_head_img_url as user_head_img_url
+	  			from handwriting_img h
+	  			left join cms_terminal_user u ON u.USER_ID = h.USER_ID
+	  			where h.USER_ID = #{userId,jdbcType=INTEGER} and h.UPDATE_TYPE = 3
+	  		)table1
+	        UNION
+        </if>
+        select * from(
+        	select	
+  				h.ID,h.USER_ID,h.IMG_URL,h.CREATE_TIME,h.UPDATE_TYPE,u.USER_NAME AS user_name,u.user_head_img_url as user_head_img_url
+  			from handwriting_img h
+  			left join cms_terminal_user u ON u.USER_ID = h.USER_ID
+  			where h.UPDATE_TYPE = 3
+  			<if test="userId != null">
+  				and h.USER_ID != #{userId,jdbcType=INTEGER}
+  			</if>
+  			order by h.CREATE_TIME desc
+        )table2
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+  	</select>
+  	
+  	<!-- 系列活动根据用户ID删除图片 -->
+  	<delete id="seriesImgDelByUserId" parameterType="java.lang.String">
+	    delete from handwriting_img
+	    where USER_ID = #{userId,jdbcType=VARCHAR} and UPDATE_TYPE = 3
+  	</delete>
+</mapper>

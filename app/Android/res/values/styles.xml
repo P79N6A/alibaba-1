@@ -1,0 +1,129 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+
+
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+
+
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="all_title_below_linear">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/main_title_below</item>
+        <item name="android:background">@color/main_title_linear</item>
+    </style>
+
+    <!-- 活动验证信息，所有横向布局 -->
+    <style name="input_code_info_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">8dp</item>
+    </style>
+    <!-- 活动验证——信息、左侧的文字格式 -->
+    <style name="code_info_type_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/result_view</item>
+    </style>
+
+    <!-- 活动预定记录管理条目，文字风格 -->
+    <style name="ticket_adapter_item">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/fragment_double_padding</item>
+        <item name="android:layout_marginLeft">@dimen/fragment_double_padding10</item>
+        <item name="android:paddingRight">@dimen/fragment_double_padding</item>
+        <item name="android:paddingLeft">@dimen/fragment_double_padding</item>
+        <item name="android:paddingTop">@dimen/fragment_half_padding</item>
+        <item name="android:paddingBottom">@dimen/fragment_half_padding</item>
+    </style>
+
+    <!-- fastlogin 输入框样式 -->
+    <style name="fastlogin_input_style">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">@dimen/tab_height</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">30dp</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:textSize">@dimen/dialog_text_size</item>
+        <item name="android:textColor">#999999</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="activity_transulcent" parent="android:Theme.Light">
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 背景透明 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 模糊 -->
+        <item name="android:backgroundDimAmount">0.7</item>
+    </style>
+
+    <!-- dialog对话狂样式 -->
+    <style name="MyDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:background">@android:color/transparent</item>
+        <!-- 背景透明 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 模糊 -->
+        <item name="android:backgroundDimAmount">0.7</item>
+    </style>
+    <style name="item_ll_style">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">44dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="item_name_style">
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">80dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#333333</item>
+    </style>
+
+
+    <style name="item_content_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#333333</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
+
+    <style name="item_line_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">#CCCCCC</item>
+    </style>
+
+
+    <style name="item_line_w_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">10dp</item>
+        <item name="android:background">@color/activity_bg_color</item>
+    </style>
+
+
+</resources>

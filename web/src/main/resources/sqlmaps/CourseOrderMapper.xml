@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CourseOrderMapper">
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.peopleTrain.CourseOrder">
+		<id column="ORDER_ID" property="orderId" jdbcType="VARCHAR" />
+		<result column="COURSE_ID" property="courseId"
+			jdbcType="VARCHAR" />
+		<result column="USERID_ID" property="userId"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_STATUS" property="orderStatus"
+			jdbcType="INTEGER" />
+		<result column="MESSAGE_STATE" property="messageState"
+			jdbcType="INTEGER" />
+		<result column="ATTEND_STATE" property="attendState"
+			jdbcType="INTEGER" />
+		<result column="CREATE_TIME" property="createTime"
+			jdbcType="VARCHAR" />
+		<result column="COURSE_TITLE" property="courseTitle"
+			jdbcType="VARCHAR" />
+		<result column="COURSE_PHONE_NUM" property="coursePhoneNum"
+			jdbcType="VARCHAR" />
+		<result column="TRAIN_TIME" property="trainTime"
+			jdbcType="VARCHAR" />
+		<result column="TRAIN_ADDRESS" property="trainAddress"
+			jdbcType="VARCHAR" />
+		<result column="USER_NAME" property="userName"
+			jdbcType="VARCHAR" />			
+		<result column="USER_SEX" property="userSex"
+			jdbcType="INTEGER" />			
+		<result column="ID_NUMBER" property="idNumber"
+			jdbcType="VARCHAR" />			
+		<result column="USER_MOBILE_NO" property="userMobileNo"
+			jdbcType="VARCHAR" />			
+		<result column="CLASS_TIMES" property="classTimes"
+			jdbcType="INTEGER" />			
+		<result column="UNIT_AREA" property="unitArea"
+			jdbcType="VARCHAR" />			
+		<result column="UNIT_NAME" property="unitName"
+			jdbcType="VARCHAR" />			
+		<result column="USER_EMAIL" property="userEmail"
+			jdbcType="VARCHAR" />			
+		<result column="JOB_POSITION" property="jobPosition"
+			jdbcType="VARCHAR" />			
+		<result column="JOB_TITLE" property="jobTitle"
+			jdbcType="VARCHAR" />
+		<result column="typeCode" property="typeCode"
+			jdbcType="VARCHAR" />
+		<result column="realName" property="realName"
+			jdbcType="VARCHAR" />
+		<result column="ALL_SMS_STATE" property="allSmsState"
+			jdbcType="INTEGER" />
+		<result column="VERIFICATION_CODE" property="verificationCode"
+			jdbcType="VARCHAR" />
+		<result column="startTime" property="startTime"
+			jdbcType="VARCHAR" />
+		<result column="endTime" property="endTime"
+			jdbcType="VARCHAR" />
+		<result column="UPDATE_USER" property="updateUser"
+			jdbcType="VARCHAR" />
+			<result column="UPDATE_TIME" property="updateTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<!-- 分页信息 -->
+	<sql id="pagination_condition">
+		limit ${firstResult},${rows}
+	</sql>
+	
+	<!-- 查询报名用户信息列表 -->
+	<select id="queryCourseOrderByCondition" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+	    SELECT 
+	    c.USER_NAME,
+	    c.USER_SEX,
+	    c.USER_MOBILE_NO,
+	    c.USER_ID,
+	    t.REAL_NAME as realName,
+	     t.ID_NUMBER,
+	     t.UNIT_NAME,
+	     t.USER_EMAIL,
+	    cs.COURSE_TITLE, 
+	     der.CREATE_TIME,
+	     der.MESSAGE_STATE,
+	     der.ATTEND_STATE,
+	     der.ORDER_ID,
+	     der.CLASS_TIMES,
+	     der.USERID_ID,
+	      der.ORDER_STATUS,
+	     t.UNIT_AREA,
+	     (select cc.CODE from course_captcha cc where t.VERIFICATION_CODE = cc.ID) AS verificationCode,
+	    (select sd.DICT_NAME from sys_dict sd where sd.DICT_ID=t.JOB_POSITION) AS jobPosition,
+	    (select sd.DICT_NAME from sys_dict sd where sd.DICT_ID=t.JOB_TITLE) AS jobTitle
+         from  course_order der
+	     LEFT JOIN cms_terminal_user c ON  der.USERID_ID = c.USER_ID
+	    LEFT JOIN course cs  ON  der.COURSE_ID = cs.COURSE_ID
+	    LEFT JOIN train_terminal_user t ON  c.USER_ID= t.USER_ID
+	   	where 1 =1
+	   	<if test="courseId != null and courseId != ''">
+			 and der.COURSE_ID = #{courseId,jdbcType=VARCHAR}
+		</if>
+	   	<if test="orderId != null and orderId != ''">
+			 and der.ORDER_ID = #{orderId,jdbcType=VARCHAR}
+		</if>
+	   	<if test="searchKey != null and searchKey != ''">
+			and (t.REAL_NAME like '%${searchKey}%' or t.UNIT_NAME like '%${searchKey}%' or c.USER_MOBILE_NO like '%${searchKey}%')
+		</if>
+		<if test="sysUserId != null">
+			and t.VERIFICATION_CODE = ( SELECT cc.ID from course_captcha cc where cc.USER_ID = #{sysUserId} )
+		</if>
+		<if test="status != null">
+			and der.ORDER_STATUS = #{status}
+		</if>
+		and der.ORDER_STATUS!=4 and der.ORDER_STATUS!=3
+		order by der.CREATE_TIME DESC
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</select>
+
+	<!-- 查询后台活动列表信息总条数 -->
+	<select id="queryCourseOrderCountByCondition" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		  SELECT 
+	     count(*)
+         from  course_order der
+	     LEFT JOIN cms_terminal_user c ON  der.USERID_ID = c.USER_ID
+	     LEFT JOIN course cs ON  der.COURSE_ID = cs.COURSE_ID
+	     LEFT JOIN train_terminal_user t ON  c.USER_ID= t.USER_ID
+	    
+	   	where 1 =1
+	   	 <if test="courseId != null and courseId != ''">
+			 and der.COURSE_ID = #{courseId,jdbcType=VARCHAR}
+		 </if>
+		 <if test="orderId != null and orderId != ''">
+			 and der.ORDER_ID = #{orderId,jdbcType=VARCHAR}
+		</if>
+	   	<if test="searchKey != null and searchKey != ''">
+			and (t.REAL_NAME like '%${searchKey}%' or t.UNIT_NAME like '%${searchKey}%')
+		</if>
+		<if test="sysUserId != null">
+			and t.VERIFICATION_CODE = ( SELECT cc.ID from course_captcha cc where cc.USER_ID = #{sysUserId} )
+		</if>
+		<if test="status != null">
+			and der.ORDER_STATUS = #{status}
+		</if>
+		and der.ORDER_STATUS!=4 and der.ORDER_STATUS!=3
+	</select>
+
+	<select id="queryCourseOrderCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		 SELECT count(*) from  course_order co
+		 LEFT JOIN course c on co.COURSE_ID = c.COURSE_ID
+	   	where 1 =1
+	   	<if test="courseId != null">
+			and c.COURSE_ID = #{courseId}
+		</if>
+		
+	   	<if test="courserType != null">
+			and c.COURSE_TYPE = #{courserType}
+		</if>
+		
+		<if test="userId != null">
+			and co.USERID_ID = #{userId}
+		</if>
+		
+		and co.ORDER_STATUS !=4 and co.ORDER_STATUS !=3
+		
+		<if test="firstDay != null">
+			and co.CREATE_TIME &gt;= #{firstDay}
+		</if>
+		
+		<if test="lastDay != null">
+			and co.CREATE_TIME &lt;= #{lastDay}
+		</if>
+		
+	</select>
+	
+	<select id="queryCourseOrderByUserId" parameterType="java.util.Map" resultMap="BaseResultMap">
+		 SELECT co.ORDER_ID,co.ORDER_STATUS,co.CREATE_TIME,c.COURSE_TITLE,c.TRAIN_TIME, c.TRAIN_ADDRESS ,co.MESSAGE_STATE,
+		 co.ATTEND_STATE,co.CLASS_TIMES,c.COURSE_START_TIME as startTime,c.COURSE_END_TIME as endTime from  course_order co
+		 LEFT JOIN course c on co.COURSE_ID = c.COURSE_ID
+	   	where 1 =1
+		<if test="userId != null">
+			and co.USERID_ID = #{userId}
+		</if>
+		and co.ORDER_STATUS !=4 and co.ORDER_STATUS !=3
+		order by co.CREATE_TIME desc
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</select>
+	
+	<select id="queryCourseOrderCountByUserId" parameterType="java.util.Map" resultType="java.lang.Integer">
+		 SELECT count(*) from  course_order co
+		 LEFT JOIN course c on co.COURSE_ID = c.COURSE_ID
+	   	where 1 =1
+		<if test="userId != null">
+			and co.USERID_ID = #{userId}
+		</if>
+		and co.ORDER_STATUS !=4 and co.ORDER_STATUS !=3
+	</select>
+	
+	<insert id="addCourseOrder" parameterType="com.sun3d.why.model.peopleTrain.CourseOrder" >
+    insert into course_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        ORDER_ID,
+      </if>
+      <if test="courseId != null" >
+        COURSE_ID,
+      </if>
+      <if test="userId != null" >
+        USERID_ID,
+      </if>
+      <if test="orderStatus != null" >
+        ORDER_STATUS,
+      </if>
+      <if test="messageState != null" >
+        MESSAGE_STATE,
+      </if>
+      <if test="attendState != null" >
+        ATTEND_STATE,
+      </if>
+      <if test="classTimes != null" >
+        CLASS_TIMES,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="allSmsState != null" >
+        ALL_SMS_STATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="messageState != null" >
+        #{messageState,jdbcType=INTEGER},
+      </if>
+      <if test="attendState != null" >
+        #{attendState,jdbcType=INTEGER},
+      </if>
+      <if test="classTimes != null" >
+        #{classTimes,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="allSmsState != null" >
+        #{allSmsState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  	<!--删除订单-->
+		<update id="updateOrder" parameterType="com.sun3d.why.model.peopleTrain.CourseOrder" >
+		update course_order
+		<set>
+		  <if test="courseId != null" >
+        COURSE_ID=#{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USERID_ID=#{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        ORDER_STATUS=#{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="messageState != null" >
+        MESSAGE_STATE=#{messageState,jdbcType=INTEGER},
+      </if>
+      <if test="attendState != null" >
+        ATTEND_STATE=#{attendState,jdbcType=INTEGER},
+      </if>
+      <if test="classTimes != null" >
+        CLASS_TIMES=#{classTimes,jdbcType=INTEGER},
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER=#{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME=#{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME=#{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="allSmsState != null" >
+        ALL_SMS_STATE=#{allSmsState,jdbcType=INTEGER},
+      </if>
+		</set>
+		where ORDER_ID = #{orderId,jdbcType=VARCHAR}
+	</update>
+	 	<!--根据订单id查询订单信息-->
+		<select id="queryCourseOrderByorderId" parameterType="java.lang.String" resultMap="BaseResultMap">
+		 SELECT c.COURSE_TITLE,c.COURSE_PHONE_NUM,c.TRAIN_TIME,c.TRAIN_ADDRESS,u.USER_MOBILE_NO,co.*, c.COURSE_TYPE,c.COURSE_START_TIME as startTime,c.COURSE_END_TIME as endTime,
+		 d.DICT_CODE AS typeCode from course_order co
+		 LEFT JOIN course c 
+		 ON co.COURSE_ID = c.COURSE_ID
+		 LEFT JOIN sys_dict d 
+		 ON c.COURSE_TYPE = d.DICT_ID
+		 LEFT JOIN cms_terminal_user u
+		 ON co.USERID_ID = u.USER_ID
+		 where ORDER_ID = #{orderId}
+	</select>
+  	<!--查询用当前的积分-->
+  	<select id="getIntegral" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	   SELECT CASE WHEN sum(c.CLASS_TIMES) is null THEN 0
+			       WHEN sum(c.CLASS_TIMES) = '' THEN 0 
+			       else  sum(c.CLASS_TIMES) END  from course_order c
+  	   where 1=1
+         <if test="userId != null">
+			and c.USERID_ID = #{userId}
+		</if>
+  		<if test="firstDay != null">
+			and c.CREATE_TIME &gt;= #{firstDay}
+		</if>
+		
+		<if test="lastDay != null">
+			and c.CREATE_TIME &lt;= #{lastDay}
+		</if>
+    </select>
+</mapper>

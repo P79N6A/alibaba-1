@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsCulturalOrderEventMapper" >
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsCulturalOrderEvent" >
+		<id column="cultural_order_event_id" property="culturalOrderEventId" jdbcType="VARCHAR" />
+		<result column="cultural_order_id" property="culturalOrderId" jdbcType="VARCHAR" />
+		<result column="cultural_order_event_date" property="culturalOrderEventDate" jdbcType="DATE" />
+		<result column="cultural_order_event_time" property="culturalOrderEventTime" jdbcType="VARCHAR" />
+		<result column="event_ticket_num" property="eventTicketNum" jdbcType="INTEGER" />
+	</resultMap>
+	<insert id="addCulturalOrderEvent" parameterType="com.sun3d.why.model.CmsCulturalOrderEvent">
+		INSERT INTO cms_cultural_order_event
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="culturalOrderEventId != null">
+				cultural_order_event_id,
+			</if>
+			<if test="culturalOrderId != null">
+				cultural_order_id,
+			</if>
+			<if test="culturalOrderEventDate != null">
+				cultural_order_event_date,
+			</if>
+			<if test="culturalOrderEventTime != null">
+				cultural_order_event_time,
+			</if>
+			<if test="eventTicketNum != null">
+				event_ticket_num,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="culturalOrderEventId != null">
+				#{culturalOrderEventId,jdbcType=VARCHAR},
+			</if>
+			<if test="culturalOrderId != null">
+				#{culturalOrderId,jdbcType=VARCHAR},
+			</if>
+			<if test="culturalOrderEventDate != null">
+				#{culturalOrderEventDate,jdbcType=DATE},
+			</if>
+			<if test="culturalOrderEventTime != null">
+				#{culturalOrderEventTime,jdbcType=VARCHAR},
+			</if>
+			<if test="eventTicketNum != null">
+				#{eventTicketNum,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	
+	<select id="queryCulturalOrderEventByCulturalOrderId" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT *
+		FROM cms_cultural_order_event
+		WHERE cultural_order_id = #{culturalOrderId,jdbcType=VARCHAR}
+	</select>
+	
+	<delete id="delCulturalOrderEventByCulturalOrderId" parameterType="java.lang.String">
+		DELETE FROM cms_cultural_order_event
+		WHERE cultural_order_id = #{culturalOrderId,jdbcType=VARCHAR}
+	</delete>
+</mapper>

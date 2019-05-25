@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.AppAdvertRecommendMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.AppAdvertRecommend" >
+    <id column="advert_id" property="advertId" jdbcType="VARCHAR" />
+    <result column="adv_postion" property="advPostion" jdbcType="VARCHAR" />
+    <result column="is_contain_activtiy_adv" property="isContainActivtiyAdv" jdbcType="INTEGER" />
+    <result column="adv_banner_f_is_link" property="advBannerFIsLink" jdbcType="INTEGER" />
+    <result column="adv_banner_f_link_type" property="advBannerFLinkType" jdbcType="INTEGER" />
+    <result column="adv_banner_f_url" property="advBannerFUrl" jdbcType="VARCHAR" />
+    <result column="adv_banner_f_img_url" property="advBannerFImgUrl" jdbcType="VARCHAR" />
+    <result column="adv_banner_s_is_link" property="advBannerSIsLink" jdbcType="INTEGER" />
+    <result column="adv_banner_s_link_type" property="advBannerSLinkType" jdbcType="INTEGER" />
+    <result column="adv_banner_s_url" property="advBannerSUrl" jdbcType="VARCHAR" />
+    <result column="adv_banner_s_img_url" property="advBannerSImgUrl" jdbcType="VARCHAR" />
+    <result column="adv_banner_l_is_link" property="advBannerLIsLink" jdbcType="INTEGER" />
+    <result column="adv_banner_l_link_type" property="advBannerLLinkType" jdbcType="INTEGER" />
+    <result column="adv_banner_l_url" property="advBannerLUrl" jdbcType="VARCHAR" />
+    <result column="adv_banner_l_img_url" property="advBannerLImgUrl" jdbcType="VARCHAR" />
+    <result column="adv_state" property="advState" jdbcType="INTEGER" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+      <result column="TAG_NAME" property="tagName" jdbcType="VARCHAR" />
+    <collection property="dataList" ofType="com.sun3d.why.model.AppAdvertRecommendRfer"
+                javaType="java.util.List"
+                resultMap="com.sun3d.why.dao.AppAdvertRecommendRferMapper.BaseResultMap" >
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    advert_id, adv_postion, is_contain_activtiy_adv, adv_banner_f_is_link, adv_banner_f_link_type, 
+    adv_banner_f_url, adv_banner_f_img_url, adv_banner_s_is_link, adv_banner_s_link_type, 
+    adv_banner_s_url, adv_banner_s_img_url, adv_banner_l_is_link, adv_banner_l_link_type, 
+    adv_banner_l_url, adv_banner_l_img_url, adv_state, create_by, update_by, create_time, 
+    update_time
+  </sql>
+    <!-- 查询后台活动列表信息 -->
+    <select id="selectAdvertById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        SELECT
+        *
+        FROM app_advert_recommend
+        WHERE ADVERT_ID = #{advertId,jdbcType=VARCHAR}
+        limit 0,1
+    </select>
+    <select id="selectAdvertIndex" resultMap="BaseResultMap"
+            parameterType="java.util.Map">
+        select
+        a.advert_id,
+        a.adv_postion,
+        a.is_contain_activtiy_adv,
+        a.adv_banner_f_is_link,
+        a.adv_banner_f_link_type,
+        a.adv_banner_f_url,
+        a.adv_banner_f_img_url,
+        a.adv_banner_s_is_link,
+        a.adv_banner_s_link_type,
+        a.adv_banner_s_url,
+        a.adv_banner_s_img_url,
+        a.adv_banner_l_is_link,
+        a.adv_banner_l_link_type,
+        a.adv_banner_l_url,
+        a.adv_banner_l_img_url,
+        a.adv_state,
+        a.create_time,
+        a.update_time,
+        b.TAG_NAME,
+        c.USER_NICK_NAME as create_by,
+        d.USER_NICK_NAME as update_by
+        from app_advert_recommend a
+        LEFT JOIN cms_tag b on a.adv_postion=b.TAG_ID
+        LEFT JOIN sys_user d on a.update_by=d.USER_ID
+        LEFT JOIN sys_user c on a.create_by=c.USER_ID
+        where a.adv_state='1'
+        <if test="advertId != null">
+           and  a.advert_id = ${advertId}
+        </if>
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+    <select id="selectAdvertCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM app_advert_recommend where adv_state='1'
+  </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from app_advert_recommend
+    where advert_id = #{advertId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="addAdvert" parameterType="com.sun3d.why.model.AppAdvertRecommend">
+        insert into app_advert_recommend
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="advertId != null">
+                advert_id,
+            </if>
+            <if test="advPostion != null">
+                adv_postion,
+            </if>
+            <if test="isContainActivtiyAdv != null">
+                is_contain_activtiy_adv,
+            </if>
+            <if test="advBannerFIsLink != null">
+                adv_banner_f_is_link,
+            </if>
+            <if test="advBannerFLinkType != null">
+                adv_banner_f_link_type,
+            </if>
+            <if test="advBannerFUrl != null">
+                adv_banner_f_url,
+            </if>
+            <if test="advBannerFImgUrl != null">
+                adv_banner_f_img_url,
+            </if>
+            <if test="advBannerSIsLink != null">
+                adv_banner_s_is_link,
+            </if>
+            <if test="advBannerSLinkType != null">
+                adv_banner_s_link_type,
+            </if>
+            <if test="advBannerSUrl != null">
+                adv_banner_s_url,
+            </if>
+            <if test="advBannerSImgUrl != null">
+                adv_banner_s_img_url,
+            </if>
+            <if test="advBannerLIsLink != null">
+                adv_banner_l_is_link,
+            </if>
+            <if test="advBannerLLinkType != null">
+                adv_banner_l_link_type,
+            </if>
+            <if test="advBannerLUrl != null">
+                adv_banner_l_url,
+            </if>
+            <if test="advBannerLImgUrl != null">
+                adv_banner_l_img_url,
+            </if>
+            <if test="advState != null">
+                adv_state,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="advertId != null">
+                #{advertId,jdbcType=VARCHAR},
+            </if>
+            <if test="advPostion != null">
+                #{advPostion,jdbcType=VARCHAR},
+            </if>
+            <if test="isContainActivtiyAdv != null">
+                #{isContainActivtiyAdv,jdbcType=INTEGER},
+            </if>
+            <if test="advBannerFIsLink != null">
+                #{advBannerFIsLink,jdbcType=INTEGER},
+            </if>
+            <if test="advBannerFLinkType != null">
+                #{advBannerFLinkType,jdbcType=INTEGER},
+            </if>
+            <if test="advBannerFUrl != null">
+                #{advBannerFUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advBannerFImgUrl != null">
+                #{advBannerFImgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advBannerSIsLink != null">
+                #{advBannerSIsLink,jdbcType=INTEGER},
+            </if>
+            <if test="advBannerSLinkType != null">
+                #{advBannerSLinkType,jdbcType=INTEGER},
+            </if>
+            <if test="advBannerSUrl != null">
+                #{advBannerSUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advBannerSImgUrl != null">
+                #{advBannerSImgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advBannerLIsLink != null">
+                #{advBannerLIsLink,jdbcType=INTEGER},
+            </if>
+            <if test="advBannerLLinkType != null">
+                #{advBannerLLinkType,jdbcType=INTEGER},
+            </if>
+            <if test="advBannerLUrl != null">
+                #{advBannerLUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advBannerLImgUrl != null">
+                #{advBannerLImgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advState != null">
+                #{advState,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="editAdvert" parameterType="com.sun3d.why.model.AppAdvertRecommend">
+        update app_advert_recommend
+        <set>
+            <if test="advPostion != null">
+                adv_postion = #{advPostion,jdbcType=VARCHAR},
+            </if>
+            <if test="isContainActivtiyAdv != null">
+                is_contain_activtiy_adv = #{isContainActivtiyAdv,jdbcType=INTEGER},
+            </if>
+            <if test="advBannerFIsLink != null">
+                adv_banner_f_is_link = #{advBannerFIsLink,jdbcType=INTEGER},
+            </if>
+            <if test="advBannerFLinkType != null">
+                adv_banner_f_link_type = #{advBannerFLinkType,jdbcType=INTEGER},
+            </if>
+            <if test="advBannerFUrl != null">
+                adv_banner_f_url = #{advBannerFUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advBannerFImgUrl != null">
+                adv_banner_f_img_url = #{advBannerFImgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advBannerSIsLink != null">
+                adv_banner_s_is_link = #{advBannerSIsLink,jdbcType=INTEGER},
+            </if>
+            <if test="advBannerSLinkType != null">
+                adv_banner_s_link_type = #{advBannerSLinkType,jdbcType=INTEGER},
+            </if>
+            <if test="advBannerSUrl != null">
+                adv_banner_s_url = #{advBannerSUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advBannerSImgUrl != null">
+                adv_banner_s_img_url = #{advBannerSImgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advBannerLIsLink != null">
+                adv_banner_l_is_link = #{advBannerLIsLink,jdbcType=INTEGER},
+            </if>
+            <if test="advBannerLLinkType != null">
+                adv_banner_l_link_type = #{advBannerLLinkType,jdbcType=INTEGER},
+            </if>
+            <if test="advBannerLUrl != null">
+                adv_banner_l_url = #{advBannerLUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advBannerLImgUrl != null">
+                adv_banner_l_img_url = #{advBannerLImgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advState != null">
+                adv_state = #{advState,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where advert_id = #{advertId,jdbcType=VARCHAR}
+    </update>
+    <!--why3.5 app查询广告位列表-->
+    <select id="queryAppAdvertRecommendList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select a.is_contain_activtiy_adv,a.adv_banner_f_is_link,a.adv_banner_f_link_type,a.adv_banner_f_url,a.adv_banner_f_img_url,
+              a.adv_banner_s_is_link,a.adv_banner_s_link_type,a.adv_banner_s_url,a.adv_banner_s_img_url,a.adv_banner_l_is_link,
+              a.adv_banner_l_link_type,a.adv_banner_l_url,a.adv_banner_l_img_url,b.advert_url,b.advert_img_url,b.advert_sort
+        from app_advert_recommend a left join app_advert_recommend_rfer b on a.advert_id = b.advert_refer_id
+        where a.adv_state = 1
+        <if test="advPostion != null">
+            and a.adv_postion = #{advPostion}
+        </if>
+        order by a.update_time desc, b.advert_sort asc
+    </select>
+</mapper>

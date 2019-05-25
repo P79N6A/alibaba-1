@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CnwdEntryformCheckMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.cnwd.CnwdEntryformCheck" >
+    <id column="check_id" property="checkId" jdbcType="VARCHAR" />
+    <result column="check_entryform_id" property="checkEntryformId" jdbcType="VARCHAR" />
+    <result column="check_sys_user_id" property="checkSysUserId" jdbcType="VARCHAR" />
+    <result column="check_time" property="checkTime" jdbcType="TIMESTAMP" />
+    <result column="check_status" property="checkStatus" jdbcType="INTEGER" />
+    <result column="refusal_reason" property="refusalReason" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    check_id, check_entryform_id, check_sys_user_id, check_time, check_status, refusal_reason
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cnwd_entryform_check
+    where check_id = #{checkId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cnwd_entryform_check
+    where check_id = #{checkId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sun3d.why.model.cnwd.CnwdEntryformCheck" >
+    insert into cnwd_entryform_check (check_id, check_entryform_id, check_sys_user_id, 
+      check_time, check_status, refusal_reason
+      )
+    values (#{checkId,jdbcType=VARCHAR}, #{checkEntryformId,jdbcType=VARCHAR}, #{checkSysUserId,jdbcType=VARCHAR}, 
+      #{checkTime,jdbcType=TIMESTAMP}, #{checkStatus,jdbcType=INTEGER}, #{refusalReason,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sun3d.why.model.cnwd.CnwdEntryformCheck" >
+    insert into cnwd_entryform_check
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="checkId != null" >
+        check_id,
+      </if>
+      <if test="checkEntryformId != null" >
+        check_entryform_id,
+      </if>
+      <if test="checkSysUserId != null" >
+        check_sys_user_id,
+      </if>
+      <if test="checkTime != null" >
+        check_time,
+      </if>
+      <if test="checkStatus != null" >
+        check_status,
+      </if>
+      <if test="refusalReason != null" >
+        refusal_reason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="checkId != null" >
+        #{checkId,jdbcType=VARCHAR},
+      </if>
+      <if test="checkEntryformId != null" >
+        #{checkEntryformId,jdbcType=VARCHAR},
+      </if>
+      <if test="checkSysUserId != null" >
+        #{checkSysUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null" >
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkStatus != null" >
+        #{checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="refusalReason != null" >
+        #{refusalReason,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sun3d.why.model.cnwd.CnwdEntryformCheck" >
+    update cnwd_entryform_check
+    <set >
+      <if test="checkEntryformId != null" >
+        check_entryform_id = #{checkEntryformId,jdbcType=VARCHAR},
+      </if>
+      <if test="checkSysUserId != null" >
+        check_sys_user_id = #{checkSysUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null" >
+        check_time = #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkStatus != null" >
+        check_status = #{checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="refusalReason != null" >
+        refusal_reason = #{refusalReason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where check_id = #{checkId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sun3d.why.model.cnwd.CnwdEntryformCheck" >
+    update cnwd_entryform_check
+    set check_entryform_id = #{checkEntryformId,jdbcType=VARCHAR},
+      check_sys_user_id = #{checkSysUserId,jdbcType=VARCHAR},
+      check_time = #{checkTime,jdbcType=TIMESTAMP},
+      check_status = #{checkStatus,jdbcType=INTEGER},
+      refusal_reason = #{refusalReason,jdbcType=VARCHAR}
+    where check_id = #{checkId,jdbcType=VARCHAR}
+  </update>
+    <select id="queryByEntryId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cnwd_entryform_check
+    where check_entryform_id = #{entryId,jdbcType=VARCHAR}
+  </select>
+</mapper>

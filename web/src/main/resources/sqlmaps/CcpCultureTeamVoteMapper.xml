@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ccp.CcpCultureTeamVoteMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ccp.CcpCultureTeamVote" >
+    <id column="VOTE_ID" property="voteId" jdbcType="VARCHAR" />
+    <result column="CULTURE_TEAM_ID" property="cultureTeamId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    VOTE_ID, CULTURE_TEAM_ID, USER_ID, CREATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_culture_team_vote
+    where VOTE_ID = #{voteId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_culture_team_vote
+    where VOTE_ID = #{voteId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.ccp.CcpCultureTeamVote" >
+    insert into ccp_culture_team_vote
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      VOTE_ID,
+      <if test="cultureTeamId != null" >
+        CULTURE_TEAM_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{voteId,jdbcType=VARCHAR},
+      <if test="cultureTeamId != null" >
+        #{cultureTeamId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.ccp.CcpCultureTeamVote" >
+    update ccp_culture_team_vote
+    <set >
+      <if test="cultureTeamId != null" >
+        CULTURE_TEAM_ID = #{cultureTeamId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where VOTE_ID = #{voteId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryTodayVoteCount" resultType="java.lang.Integer" parameterType="com.sun3d.why.model.ccp.CcpCultureTeamVote">
+    select count(*)
+    from ccp_culture_team_vote
+    where CULTURE_TEAM_ID = #{cultureTeamId} and USER_ID = #{userId} and DATE_FORMAT(CREATE_TIME, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')
+  </select>
+</mapper>

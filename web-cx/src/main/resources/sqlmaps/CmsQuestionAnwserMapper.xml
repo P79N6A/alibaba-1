@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsQuestionAnwserMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsQuestionAnwser" >
+    <id column="ANWSER_ID" property="anwserId" jdbcType="VARCHAR" />
+    <result column="ANWSER_IMG_URL" property="anwserImgUrl" jdbcType="VARCHAR" />
+    <result column="ANWSER_QUESTION" property="anwserQuestion" jdbcType="VARCHAR" />
+    <result column="ANWSER_CODE" property="anwserCode" jdbcType="VARCHAR" />
+    <result column="ANWSER_CREATE_TIME" property="anwserCreateTime" jdbcType="TIMESTAMP" />
+    <result column="ANWSER_CREATE_USER" property="anwserCreateUser" jdbcType="VARCHAR" />
+    <result column="ANWSER_UPDATE_TIME" property="anwserUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="ANWSER_UPDATE_USER" property="anwserUpdateUser" jdbcType="VARCHAR" />
+    <result column="ANWSER_ALL_CODE" property="anwserAllCode" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <!--查询互动列表条数 -->
+  <select id="queryQuestionAnwserByCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+    SELECT
+    count(*)
+    FROM
+    cms_question_anwser qa
+    WHERE  1=1
+    <if test="searchKey != null" >
+      and qa.ANWSER_QUESTION LIKE #{searchKey,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <!--查询互动答题内容-->
+  <select id="queryQuestionAnwserByContent" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT
+    qa.ANWSER_ID,
+    qa.ANWSER_IMG_URL,
+    qa.ANWSER_QUESTION,
+    qa.ANWSER_CODE,
+    qa.ANWSER_CREATE_TIME,
+    qa.ANWSER_CREATE_USER,
+    qa.ANWSER_UPDATE_TIME,
+    su.USER_NICK_NAME AS ANWSER_UPDATE_USER,
+    qa.ANWSER_ALL_CODE
+    FROM cms_question_anwser qa
+    LEFT JOIN sys_user su on qa.ANWSER_UPDATE_USER=su.USER_ID
+    WHERE 1=1
+    <if test="searchKey != null" >
+      and qa.ANWSER_QUESTION LIKE #{searchKey,jdbcType=INTEGER}
+    </if>
+    ORDER BY qa.ANWSER_UPDATE_TIME desc
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+  
+  <!--根据ID查询互动答题内容-->
+  <select id="queryQuestionAnwserById" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT
+    ANWSER_ID,
+    ANWSER_IMG_URL,
+    ANWSER_QUESTION,
+    ANWSER_CODE,
+    ANWSER_ALL_CODE
+    FROM cms_question_anwser
+    WHERE ANWSER_ID = #{anwserId,jdbcType=VARCHAR}
+  </select>
+  
+  	<!-- 添加互动 -->
+	<insert id="addQuestionAnwser" parameterType="com.sun3d.why.model.CmsQuestionAnwser">
+		insert into cms_question_anwser
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="anwserId != null">
+				ANWSER_ID,
+			</if>
+			<if test="anwserImgUrl != null">
+				ANWSER_IMG_URL,
+			</if>
+			<if test="anwserQuestion != null">
+				ANWSER_QUESTION,
+			</if>
+			<if test="anwserAllCode != null">
+				ANWSER_ALL_CODE,
+			</if>
+			<if test="anwserCode != null">
+				ANWSER_CODE,
+			</if>
+			<if test="anwserCreateTime != null">
+				ANWSER_CREATE_TIME,
+			</if>
+			<if test="anwserCreateUser != null">
+				ANWSER_CREATE_USER,
+			</if>
+			<if test="anwserUpdateTime != null">
+				ANWSER_UPDATE_TIME,
+			</if>
+			<if test="anwserUpdateUser != null">
+				ANWSER_UPDATE_USER,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="anwserId != null">
+				#{anwserId,jdbcType=VARCHAR},
+			</if>
+			<if test="anwserImgUrl != null">
+				#{anwserImgUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="anwserQuestion != null">
+				#{anwserQuestion,jdbcType=VARCHAR},
+			</if>
+			<if test="anwserAllCode != null">
+				#{anwserAllCode,jdbcType=VARCHAR},
+			</if>
+			<if test="anwserCode != null">
+				#{anwserCode,jdbcType=VARCHAR},
+			</if>
+			<if test="anwserCreateTime != null">
+				#{anwserCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="anwserCreateUser != null">
+				#{anwserCreateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="anwserUpdateTime != null">
+				#{anwserUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="anwserUpdateUser != null">
+				#{anwserUpdateUser,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<!--编辑互动 -->
+	<update id="editQuestionAnwser" parameterType="com.sun3d.why.model.CmsQuestionAnwser">
+		update cms_question_anwser
+		<set>
+			<if test="anwserImgUrl != null">
+				ANWSER_IMG_URL = #{anwserImgUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="anwserQuestion != null">
+				ANWSER_QUESTION = #{anwserQuestion,jdbcType=VARCHAR},
+			</if>
+			<if test="anwserAllCode != null">
+				ANWSER_ALL_CODE = #{anwserAllCode,jdbcType=VARCHAR},
+			</if>
+			<if test="anwserCode != null">
+				ANWSER_CODE = #{anwserCode,jdbcType=VARCHAR},
+			</if>
+			<if test="anwserUpdateTime != null">
+				ANWSER_UPDATE_TIME = #{anwserUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="anwserUpdateUser != null">
+				ANWSER_UPDATE_USER = #{anwserUpdateUser,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ANWSER_ID = #{anwserId,jdbcType=VARCHAR}
+	</update>
+  
+  <delete id="deleteQuestionAnwser" parameterType="java.lang.String">
+		delete from
+		cms_question_anwser
+		where ANWSER_ID = #{anwserId,jdbcType=VARCHAR}
+  </delete>
+
+  <!--文化云3.1前端首页互动天地查询数据-->
+  <select id="queryQuestionAnswer" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT
+    qa.ANWSER_IMG_URL,
+    qa.ANWSER_QUESTION,
+    qa.ANWSER_CODE,
+    qa.ANWSER_ALL_CODE
+    FROM cms_question_anwser qa
+    order by qa.anwser_create_time asc
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+
+  <!--文化云3.1前端首页互动天地查询个数-->
+  <select id="queryQuestionAnswerCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+    SELECT count(*)
+    FROM cms_question_anwser qa
+  </select>
+</mapper>

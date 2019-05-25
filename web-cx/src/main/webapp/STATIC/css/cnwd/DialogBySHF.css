@@ -1,0 +1,110 @@
+﻿#DialogBySHFLayer
+{
+    width:100%;
+    height:100%;
+    left:0;
+    top:0;
+    position:fixed;
+    z-index:500;
+   /*  background-color:#fff;
+   filter:alpha(Opacity=40);
+   -moz-opacity:0.4;
+   opacity: 0.4; */
+}
+/*弹出的提示框*/
+#DialogBySHF
+{
+    position:fixed;
+    border-radius:3px;
+    box-shadow:0 0 62px rgba(0, 0, 0, .2);
+    background-color:#fff;
+    z-index:600;
+}
+#DialogBySHF #Title
+{
+    margin:0;
+    width:100%;
+    height:35px;
+    background-color:#ffa500;
+    color:#FFFFFF;
+    font-family: 'microsoft yahei';
+    font-size:18px;
+    text-align:center;
+    cursor:move;
+    line-height:35px;
+    border-radius:3px 3px 0 0;
+    -moz-user-select:none;
+    -webkit-user-select:none;
+    user-select:none;   
+    display: none;
+}
+#DialogBySHF #Close
+{
+    position:absolute;
+    right:7px;
+    top:6px;
+    height:21px;
+    line-height:21px;
+    width:21px;
+    cursor:pointer;
+    display:block;
+    border:1px solid #da8e02;
+    box-shadow:0 0 4px rgba(255, 255, 255, .9);
+    border-radius:3px;
+}
+#DialogBySHF #Container
+{
+    padding:0px 5px 5px 5px;
+    /*width:390px;
+    height:355px;*/
+}
+#DialogBySHF #Container table,#DialogBySHF #Container iframe
+{
+    width:100%;
+    height:100%;
+}
+#DialogBySHF #Container table td
+{
+    vertical-align:middle;
+}
+#DialogBySHF #Container table #TipLine
+{
+    padding:0 30px;
+    font-family: 'microsoft yahei';
+    color: #262626;
+    font-size: 24px;
+    text-align: center;
+}
+#DialogBySHF #Container table #BtnLine
+{
+    height:40px;
+    text-align:center;
+}
+#DialogBySHF #Container table #BtnLine input
+{
+    width: 180px;
+    height: 40px;
+    color: #fff;
+    font-size: 18px;
+    letter-spacing: 10px;
+   background: url(../../image/cnwd/images/btn_bgone.png) no-repeat; 
+   border: none;
+    border-radius:2px;
+    font-family: 'microsoft yahei';
+    
+   margin-top: -11px;
+    text-align:center;
+}
+/* #DialogBySHF #Container table #BtnLine input:hover
+{
+    background-color: #F8F8F8;
+    background-image: -moz-linear-gradient(center top , #F8F8F8, #F1F1F1);
+    border: 1px solid #C6C6C6;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    color: #333333;
+} */
+#DialogBySHF #Container table #BtnLine input:focus
+{
+    border: 1px solid #4D90FE;
+    outline: medium none;
+}

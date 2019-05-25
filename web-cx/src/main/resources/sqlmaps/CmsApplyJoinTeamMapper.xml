@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsApplyJoinTeamMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsApplyJoinTeam" >
+    <id column="APPLY_ID" property="applyId" jdbcType="VARCHAR" />
+    <result column="TUSER_ID" property="tuserId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="APPLY_REASON" property="applyReason" jdbcType="LONGVARCHAR" />
+    <result column="APPLY_TIME" property="applyTime" jdbcType="TIMESTAMP" />
+    <result column="APPLY_CHECK_STATE" property="applyCheckState" jdbcType="INTEGER" />
+    <result column="APPLY_CHECK_TIME" property="applyCheckTime" jdbcType="TIMESTAMP" />
+    <result column="APPLY_CHECK_REASON" property="applyCheckReason" jdbcType="VARCHAR" />
+    <result column="APPLY_IS_STATE" property="applyIsState" jdbcType="INTEGER" />
+    <result column="APPLY_CREATE_TIME" property="applyCreateTime" jdbcType="TIMESTAMP" />
+    <result column="APPLY_UPDATE_TIME" property="applyUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="APPLY_CREATE_USER" property="applyCreateUser" jdbcType="VARCHAR" />
+    <result column="APPLY_UPDATE_USER" property="applyUpdateUser" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <insert id="addApplyJoinTeam" parameterType="com.sun3d.why.model.CmsApplyJoinTeam" >
+    insert into cms_apply_join_team
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="applyId != null" >
+        apply_id,
+      </if>
+      <if test="tuserId != null" >
+        tuser_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="applyReason != null" >
+        apply_reason,
+      </if>
+      <if test="applyTime != null" >
+        apply_time,
+      </if>
+      <if test="applyCheckState != null" >
+        apply_check_state,
+      </if>
+      <if test="applyCheckTime != null" >
+        apply_check_time,
+      </if>
+      <if test="applyCheckReason != null" >
+        apply_check_reason,
+      </if>
+      <if test="applyIsState != null" >
+        apply_is_state,
+      </if>
+      <if test="applyCreateTime != null" >
+        apply_create_time,
+      </if>
+      <if test="applyUpdateTime != null" >
+        apply_update_time,
+      </if>
+      <if test="applyCreateUser != null" >
+        apply_create_user,
+      </if>
+      <if test="applyUpdateUser != null" >
+        apply_update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="applyId != null" >
+        #{applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="tuserId != null" >
+        #{tuserId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyReason != null" >
+        #{applyReason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="applyTime != null" >
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyCheckState != null" >
+        #{applyCheckState,jdbcType=INTEGER},
+      </if>
+      <if test="applyCheckTime != null" >
+        #{applyCheckTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyCheckReason != null" >
+        #{applyCheckReason,jdbcType=VARCHAR},
+      </if>
+      <if test="applyIsState != null" >
+        #{applyIsState,jdbcType=INTEGER},
+      </if>
+      <if test="applyCreateTime != null" >
+        #{applyCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyUpdateTime != null" >
+        #{applyUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyCreateUser != null" >
+        #{applyCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="applyUpdateUser != null" >
+        #{applyUpdateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="queryApplyJoinTeamCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(*) from cms_apply_join_team
+    where 1=1
+    <if test="tuserId != null">
+      and tuser_id = #{tuserId}
+    </if>
+    <if test="userId != null">
+      and user_id = #{userId}
+    </if>
+    <if test="applyIsState != null">
+      and apply_is_state = #{applyIsState}
+    </if>
+    <if test="applyCheckState != null">
+      and apply_check_state = #{applyCheckState}
+    </if>
+    <if test="applyCheckState == null">
+      and apply_check_state in (1,3)
+    </if>
+  </select>
+
+  <!--前端2.0更新申请-->
+  <update id="editApplyJoinTeamById" parameterType="com.sun3d.why.model.CmsApplyJoinTeam">
+    update cms_apply_join_team
+    <set >
+      <if test="tuserId != null" >
+        tuser_id = #{tuserId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyReason != null" >
+        apply_reason = #{applyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null" >
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyCheckState != null" >
+        apply_check_state = #{applyCheckState,jdbcType=INTEGER},
+      </if>
+      <if test="applyCheckTime != null" >
+        apply_check_time = #{applyCheckTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyCheckReason != null" >
+        apply_check_reason = #{applyCheckReason,jdbcType=VARCHAR},
+      </if>
+      <if test="applyIsState != null" >
+        apply_is_state = #{applyIsState,jdbcType=INTEGER},
+      </if>
+      <if test="applyCreateTime != null" >
+        apply_create_time = #{applyCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyUpdateTime != null" >
+        apply_update_time = #{applyUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyCreateUser != null" >
+        apply_create_user = #{applyCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="applyUpdateUser != null" >
+        apply_update_user = #{applyUpdateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where apply_id = #{applyId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="queryApplyJoinTeamById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select apply_id,tuser_id,user_id,apply_reason,apply_time,apply_check_state,apply_check_time,apply_check_reason,
+      apply_is_state,apply_create_time,apply_update_time,apply_create_user,apply_update_user
+    from cms_apply_join_team where apply_id = #{applyId,jdbcType=VARCHAR}
+  </select>
+  <!--app根据用户或团体id获取审核状态 -->
+  <select id="queryApplyJoinTeamByStatus" resultType="java.lang.Integer"  parameterType="java.util.Map">
+    select apply_check_state from cms_apply_join_team
+    where 1=1
+    <if test="teamUserId != null">
+      and tuser_id = #{teamUserId}
+    </if>
+    <if test="userId != null">
+      and user_id = #{userId}
+    </if>
+    <if test="applyCheckState != null" >
+     AND apply_check_state = #{applyCheckState,jdbcType=INTEGER}
+    </if>
+    <if test="applyIsState != null" >
+     AND apply_is_state = #{applyIsState,jdbcType=INTEGER}
+    </if>
+  </select>
+  <!--app判断该用户是否为该团体下管理员 -->
+  <select id="queryApplyJoinTeamManage" resultType="java.lang.Integer"  parameterType="java.util.Map">
+    SELECT COUNT(*) from cms_apply_join_team ca
+    INNER  JOIN cms_team_user c on ca.tuser_id=c.TUSER_ID
+    where 1=1
+    <if test="tuserId != null">
+      and tuser_id = #{tuserId}
+    </if>
+    <if test="userId != null">
+      and user_id = #{userId}
+    </if>
+    <if test="applyIsState != null" >
+      AND apply_is_state = #{applyIsState,jdbcType=INTEGER}
+    </if>
+  </select>
+
+</mapper>

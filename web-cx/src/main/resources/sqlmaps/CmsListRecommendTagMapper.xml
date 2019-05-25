@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsListRecommendTagMapper">
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsListRecommendTag" >
+		<id column="LIST_RECOMMEND_ID" property="listRecommendId" jdbcType="VARCHAR" />
+		<result column="TAG_ID" property="tagId" jdbcType="VARCHAR" />
+		<result column="LIST_TYPE" property="listType" jdbcType="INTEGER" />
+		<result column="LIST_ASSORTMENT" property="listAssortment" jdbcType="INTEGER" />
+		<result column="RECOMMEND_UPDATE_TIME" property="recommendUpdateTime" jdbcType="TIMESTAMP" />
+		<result column="RECOMMEND_UPDATE_USER" property="recommentUpdateUser" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		LIST_RECOMMEND_ID,TAG_ID,LIST_TYPE,LIST_ASSORTMENT,RECOMMEND_UPDATE_TIME,RECOMMEND_UPDATE_USER
+	</sql>
+
+	<!-- 根据id查询用户信息 -->
+	<select id="querySysUserByUserId" resultMap="BaseResultMap"
+			parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_USER
+		where LIST_RECOMMEND_ID = #{listRecommendId,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 根据id删除对象信息 -->
+	<delete id="deleteCmsListRecommendTagId" parameterType="java.lang.String">
+		delete from
+		 CMS_LIST_RECOMMEND_TAG
+		where LIST_RECOMMEND_ID = #{listRecommendId,jdbcType=VARCHAR}
+	</delete>
+
+	<!-- 插入用户 -->
+	<insert id="addCmsListRecommendTag" parameterType="com.sun3d.why.model.CmsListRecommendTag">
+		insert into CMS_LIST_RECOMMEND_TAG
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="listRecommendId != null">
+				LIST_RECOMMEND_ID,
+			</if>
+			<if test="tagId != null">
+				TAG_ID,
+			</if>
+			<if test="listType != null">
+				LIST_TYPE,
+			</if>
+			<if test="listAssortment != null">
+				LIST_ASSORTMENT,
+			</if>
+			<if test="recommendUpdateTime != null">
+				RECOMMEND_UPDATE_TIME,
+			</if>
+			<if test="recommentUpdateUser != null">
+				RECOMMEND_UPDATE_USER,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="listRecommendId != null">
+				#{listRecommendId,jdbcType=VARCHAR},
+			</if>
+			<if test="tagId != null">
+				#{tagId,jdbcType=VARCHAR},
+			</if>
+			<if test="listType != null">
+				#{listType,jdbcType=INTEGER},
+			</if>
+			<if test="listAssortment != null">
+				#{listAssortment,jdbcType=INTEGER},
+			</if>
+			<if test="recommendUpdateTime != null">
+				#{recommendUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="recommentUpdateUser != null">
+				#{recommentUpdateUser,jdbcType=VARCHAR},
+			</if>
+
+		</trim>
+	</insert>
+
+	<select id="queryCmsListRecommendTagList" resultMap="BaseResultMap">
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			CMS_LIST_RECOMMEND_TAG
+
+	</select>
+
+	<!--app查询标签id集合 -->
+	<select id="queryAppListRecommendTagList" resultMap="BaseResultMap">
+		SELECT
+		ct.TAG_ID
+		FROM
+		cms_list_recommend_tag ct
+		WHERE
+		1 = 1
+		AND ct.LIST_TYPE = 1
+		AND ct.LIST_ASSORTMENT = 1
+		ORDER BY RAND() LIMIT 1
+	</select>
+</mapper>

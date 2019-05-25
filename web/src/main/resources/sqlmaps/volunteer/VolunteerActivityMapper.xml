@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sun3d.why.dao.volunteer.VolunteerActivityMapper">
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.volunteer.VolunteerActivity">
+    <id column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+    <result column="service_type" jdbcType="VARCHAR" property="serviceType" />
+    <result column="recruitment_status" jdbcType="INTEGER" property="recruitmentStatus" />
+    <result column="recruit_object_type" jdbcType="VARCHAR" property="recruitObjectType" />
+    <result column="respective_region" jdbcType="VARCHAR" property="respectiveRegion" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="coordinate" jdbcType="VARCHAR" property="coordinate" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="limit_num" jdbcType="INTEGER" property="limitNum" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="service_time" jdbcType="VARCHAR" property="serviceTime" />
+    <result column="publish" jdbcType="INTEGER" property="publish" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="attachment" jdbcType="VARCHAR" property="attachment" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_id" jdbcType="VARCHAR" property="createId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_id" jdbcType="VARCHAR" property="updateId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    uuid, name, pic_url, service_type, recruitment_status, recruit_object_type, respective_region,
+    address, coordinate, phone, limit_num, start_time, end_time, service_time, publish, 
+    description, attachment, status, create_id, create_time, update_id, update_time
+  </sql>
+  <select id="queryNewVolunteerActivityList" parameterType="com.sun3d.why.model.volunteer.VolunteerActivity" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_volunteer_activity
+    where status != 9
+      <if test="name != null">
+         and name like CONCAT ('%',#{name,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="serviceType != null">
+          and service_type = #{serviceType,jdbcType=VARCHAR}
+      </if>
+      <if test="recruitmentStatus != null">
+          and recruitment_status = #{recruitmentStatus,jdbcType=INTEGER}
+      </if>
+      <if test="recruitObjectType != null">
+          and recruit_object_type = #{recruitObjectType,jdbcType=VARCHAR}
+      </if>
+      <if test="respectiveRegion != null">
+          and respective_region like CONCAT ('%',#{respectiveRegion,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="address != null">
+          and address CONCAT like ('%',#{address,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="coordinate != null">
+          and coordinate like ('%',#{coordinate,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="phone != null">
+          and phone = #{phone,jdbcType=VARCHAR}
+      </if>
+      <if test="serviceTime != null">
+         and service_time = #{serviceTime,jdbcType=VARCHAR}
+      </if>
+      <if test="publish != null">
+          and publish = #{publish,jdbcType=INTEGER}
+      </if>
+      <if test="description != null">
+          and description like ('%',#{description,jdbcType=VARCHAR},'%')
+      </if>
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+
+
+  <select id="queryNewVolunteerActivityListCount" parameterType="com.sun3d.why.model.volunteer.VolunteerActivity" resultType="Integer">
+    select
+    count(*)
+    from t_volunteer_activity
+    where status != 9
+    <if test="name != null">
+      and name like CONCAT ('%',#{name,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="serviceType != null">
+      and service_type = #{serviceType,jdbcType=VARCHAR}
+    </if>
+    <if test="recruitmentStatus != null">
+      and recruitment_status = #{recruitmentStatus,jdbcType=INTEGER}
+    </if>
+    <if test="recruitObjectType != null">
+      and recruit_object_type = #{recruitObjectType,jdbcType=VARCHAR}
+    </if>
+    <if test="respectiveRegion != null">
+      and respective_region like CONCAT ('%',#{respectiveRegion,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="address != null">
+      and address CONCAT like ('%',#{address,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="coordinate != null">
+      and coordinate like ('%',#{coordinate,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="phone != null">
+      and phone = #{phone,jdbcType=VARCHAR}
+    </if>
+    <if test="serviceTime != null">
+      and service_time = #{serviceTime,jdbcType=VARCHAR}
+    </if>
+    <if test="publish != null">
+      and publish = #{publish,jdbcType=INTEGER}
+    </if>
+    <if test="description != null">
+      and description like ('%',#{description,jdbcType=VARCHAR},'%')
+    </if>
+  </select>
+
+    <select id="queryNewVolunteerActivityById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_volunteer_activity
+        where status != 9 and uuid = #{uuid,jdbcType=VARCHAR}
+    </select>
+
+  <insert id="insert" parameterType="com.sun3d.why.model.volunteer.VolunteerActivity">
+    insert into t_volunteer_activity (uuid, name, pic_url, 
+      service_type, recruitment_status, recruit_object_type,
+      respective_region, address, coordinate, 
+      phone, limit_num, start_time, 
+      end_time, service_time, publish, 
+      description, attachment, status, 
+      create_id, create_time, update_id, 
+      update_time)
+    values (#{uuid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{picUrl,jdbcType=VARCHAR}, 
+      #{serviceType,jdbcType=VARCHAR}, #{recruitmentStatus,jdbcType=INTEGER}, #{recruitObjectType,jdbcType=VARCHAR},
+      #{respectiveRegion,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{coordinate,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{limitNum,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{serviceTime,jdbcType=VARCHAR}, #{publish,jdbcType=INTEGER}, 
+      #{description,jdbcType=VARCHAR}, #{attachment,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{createId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateId,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="addNewVolunteerActivity" parameterType="com.sun3d.why.model.volunteer.VolunteerActivity">
+    insert into t_volunteer_activity
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        uuid,
+      <if test="name != null">
+        name,
+      </if>
+      <if test="picUrl != null">
+        pic_url,
+      </if>
+      <if test="serviceType != null">
+        service_type,
+      </if>
+      <if test="recruitmentStatus != null">
+        recruitment_status,
+      </if>
+      <if test="recruitObjectType != null">
+        recruit_object_type,
+      </if>
+      <if test="respectiveRegion != null">
+        respective_region,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="coordinate != null">
+        coordinate,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="limitNum != null">
+        limit_num,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="serviceTime != null">
+        service_time,
+      </if>
+      <if test="publish != null">
+        publish,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="attachment != null">
+        attachment,
+      </if>
+        status,
+        create_id,
+        create_time,
+        update_id,
+        update_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+        #{uuid,jdbcType=VARCHAR},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null">
+        #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceType != null">
+        #{serviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitmentStatus != null">
+        #{recruitmentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="recruitObjectType != null">
+        #{recruitObjectType,jdbcType=VARCHAR},
+      </if>
+      <if test="respectiveRegion != null">
+        #{respectiveRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="coordinate != null">
+        #{coordinate,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="limitNum != null">
+        #{limitNum,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceTime != null">
+        #{serviceTime,jdbcType=VARCHAR},
+      </if>
+      <if test="publish != null">
+        #{publish,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="attachment != null">
+        #{attachment,jdbcType=VARCHAR},
+      </if>
+        #{status,jdbcType=INTEGER},
+        #{createId,jdbcType=VARCHAR},
+        sysdate(),
+        #{updateId,jdbcType=VARCHAR},
+        sysdate(),
+    </trim>
+  </insert>
+  <update id="updateNewVolunteerActivity" parameterType="com.sun3d.why.model.volunteer.VolunteerActivity">
+    update t_volunteer_activity
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null">
+        pic_url = #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceType != null">
+        service_type = #{serviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitmentStatus != null">
+        recruitment_status = #{recruitmentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="recruitObjectType != null">
+        recruit_object_type = #{recruitObjectType,jdbcType=VARCHAR},
+      </if>
+      <if test="respectiveRegion != null">
+        respective_region = #{respectiveRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="coordinate != null">
+        coordinate = #{coordinate,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="limitNum != null">
+        limit_num = #{limitNum,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceTime != null">
+        service_time = #{serviceTime,jdbcType=VARCHAR},
+      </if>
+      <if test="publish != null">
+        publish = #{publish,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="attachment != null">
+        attachment = #{attachment,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+        update_id = #{updateId,jdbcType=VARCHAR},
+        update_time = sysdate()
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+
+    <update id="deleteNewVolunteerActivity" parameterType="map">
+        update t_volunteer_activity set status = 9,
+            update_id = #{updateId,jdbcType=VARCHAR},
+            update_time = sysdate()
+        where uuid = #{uuid,jdbcType=VARCHAR}
+    </update>
+
+    <update id="auditNewVolunteerActivity" parameterType="com.sun3d.why.model.volunteer.VolunteerActivity">
+        update t_volunteer_activity
+        set status = #{status, jdbcType=INTEGER} ,
+            update_id = #{updateId,jdbcType=VARCHAR},
+            update_time = sysdate()
+        where uuid = #{uuid,jdbcType=VARCHAR}
+    </update>
+
+  <select id="queryVolunteerActivityByRelationJson" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_volunteer_activity
+    where status != 9 and uuid in (
+      select r.volunteer_activity_id
+        from t_volunteer_relation r
+        where r.status != 9
+          and r.volunteer_id in
+          <foreach collection="volunteerIds" item="volunteerId" index="index" open="(" separator="," close=")">#{volunteerId}</foreach>
+    )
+  </select>
+
+</mapper>

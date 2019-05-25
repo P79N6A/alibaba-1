@@ -1,0 +1,61 @@
+2019-05-13 09:19:54 INFO  support.ClassPathXmlApplicationContext (AbstractApplicationContext.java:510) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4fb64261: startup date [Mon May 13 09:19:54 CST 2019]; root of context hierarchy
+2019-05-13 09:19:54 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring.xml]
+2019-05-13 09:19:54 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-datasource.xml]
+2019-05-13 09:19:55 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-redis.xml]
+2019-05-13 09:19:55 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-cache.xml]
+2019-05-13 09:19:55 INFO  support.PropertySourcesPlaceholderConfigurer (PropertiesLoaderSupport.java:172) - Loading properties file from class path resource [systemconfig.properties]
+2019-05-13 09:55:00 INFO  util.Version ( Version.java:27) - HV000001: Hibernate Validator 5.1.2.Final
+2019-05-13 13:05:42 INFO  support.ClassPathXmlApplicationContext (AbstractApplicationContext.java:510) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4fb64261: startup date [Mon May 13 13:05:42 CST 2019]; root of context hierarchy
+2019-05-13 13:05:42 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring.xml]
+2019-05-13 13:05:42 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-datasource.xml]
+2019-05-13 13:05:43 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-redis.xml]
+2019-05-13 13:05:43 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-cache.xml]
+2019-05-13 13:05:43 INFO  support.PropertySourcesPlaceholderConfigurer (PropertiesLoaderSupport.java:172) - Loading properties file from class path resource [systemconfig.properties]
+2019-05-13 13:07:39 INFO  util.Version ( Version.java:27) - HV000001: Hibernate Validator 5.1.2.Final
+2019-05-13 15:30:54 INFO  support.ClassPathXmlApplicationContext (AbstractApplicationContext.java:510) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4fb64261: startup date [Mon May 13 15:30:54 CST 2019]; root of context hierarchy
+2019-05-13 15:30:54 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring.xml]
+2019-05-13 15:30:54 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-datasource.xml]
+2019-05-13 15:30:55 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-redis.xml]
+2019-05-13 15:30:55 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-cache.xml]
+2019-05-13 15:30:56 INFO  support.PropertySourcesPlaceholderConfigurer (PropertiesLoaderSupport.java:172) - Loading properties file from class path resource [systemconfig.properties]
+2019-05-13 16:39:13 INFO  support.ClassPathXmlApplicationContext (AbstractApplicationContext.java:510) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4fb64261: startup date [Mon May 13 16:39:13 CST 2019]; root of context hierarchy
+2019-05-13 16:39:13 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring.xml]
+2019-05-13 16:39:13 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-datasource.xml]
+2019-05-13 16:39:14 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-redis.xml]
+2019-05-13 16:39:14 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-cache.xml]
+2019-05-13 16:39:15 INFO  support.PropertySourcesPlaceholderConfigurer (PropertiesLoaderSupport.java:172) - Loading properties file from class path resource [systemconfig.properties]
+2019-05-13 16:40:42 INFO  util.Version ( Version.java:27) - HV000001: Hibernate Validator 5.1.2.Final
+2019-05-13 19:07:05 INFO  support.ClassPathXmlApplicationContext (AbstractApplicationContext.java:510) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4fb64261: startup date [Mon May 13 19:07:05 CST 2019]; root of context hierarchy
+2019-05-13 19:07:05 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring.xml]
+2019-05-13 19:07:05 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-datasource.xml]
+2019-05-13 19:07:06 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-redis.xml]
+2019-05-13 19:07:06 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-cache.xml]
+2019-05-13 19:07:06 INFO  support.PropertySourcesPlaceholderConfigurer (PropertiesLoaderSupport.java:172) - Loading properties file from class path resource [systemconfig.properties]
+2019-05-13 19:20:12 INFO  support.ClassPathXmlApplicationContext (AbstractApplicationContext.java:510) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@149494d8: startup date [Mon May 13 19:20:12 CST 2019]; root of context hierarchy
+2019-05-13 19:20:12 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring.xml]
+2019-05-13 19:20:12 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-datasource.xml]
+2019-05-13 19:20:13 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-redis.xml]
+2019-05-13 19:20:13 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-cache.xml]
+2019-05-13 19:20:13 INFO  support.PropertySourcesPlaceholderConfigurer (PropertiesLoaderSupport.java:172) - Loading properties file from class path resource [systemconfig.properties]
+2019-05-13 19:20:13 INFO  annotation.AutowiredAnnotationBeanPostProcessor (AutowiredAnnotationBeanPostProcessor.java:153) - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-05-13 19:26:02 INFO  support.ClassPathXmlApplicationContext (AbstractApplicationContext.java:510) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@149494d8: startup date [Mon May 13 19:26:02 CST 2019]; root of context hierarchy
+2019-05-13 19:26:02 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring.xml]
+2019-05-13 19:26:02 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-datasource.xml]
+2019-05-13 19:26:03 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-redis.xml]
+2019-05-13 19:26:03 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-cache.xml]
+2019-05-13 19:26:03 INFO  support.PropertySourcesPlaceholderConfigurer (PropertiesLoaderSupport.java:172) - Loading properties file from class path resource [systemconfig.properties]
+2019-05-13 19:26:03 INFO  annotation.AutowiredAnnotationBeanPostProcessor (AutowiredAnnotationBeanPostProcessor.java:153) - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-05-13 19:26:46 INFO  support.ClassPathXmlApplicationContext (AbstractApplicationContext.java:510) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@27d415d9: startup date [Mon May 13 19:26:46 CST 2019]; root of context hierarchy
+2019-05-13 19:26:46 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring.xml]
+2019-05-13 19:26:46 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-datasource.xml]
+2019-05-13 19:26:47 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-redis.xml]
+2019-05-13 19:26:47 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-cache.xml]
+2019-05-13 19:26:47 INFO  support.PropertySourcesPlaceholderConfigurer (PropertiesLoaderSupport.java:172) - Loading properties file from class path resource [systemconfig.properties]
+2019-05-13 19:26:47 INFO  annotation.AutowiredAnnotationBeanPostProcessor (AutowiredAnnotationBeanPostProcessor.java:153) - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-05-13 19:28:46 INFO  support.ClassPathXmlApplicationContext (AbstractApplicationContext.java:510) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@149494d8: startup date [Mon May 13 19:28:46 CST 2019]; root of context hierarchy
+2019-05-13 19:28:46 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring.xml]
+2019-05-13 19:28:46 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-datasource.xml]
+2019-05-13 19:28:47 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-redis.xml]
+2019-05-13 19:28:47 INFO  xml.XmlBeanDefinitionReader (XmlBeanDefinitionReader.java:317) - Loading XML bean definitions from class path resource [spring/spring-cache.xml]
+2019-05-13 19:28:47 INFO  support.PropertySourcesPlaceholderConfigurer (PropertiesLoaderSupport.java:172) - Loading properties file from class path resource [systemconfig.properties]
+2019-05-13 19:28:47 INFO  annotation.AutowiredAnnotationBeanPostProcessor (AutowiredAnnotationBeanPostProcessor.java:153) - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsUserLoginStatisticsMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsUserLoginStatistics" >
+    <id column="S_ID" property="sId" jdbcType="VARCHAR" />
+    <result column="S_TYPE" property="sType" jdbcType="INTEGER" />
+    <result column="S_CATEGORY" property="sCategory" jdbcType="INTEGER" />
+    <result column="S_COUNT" property="sCount" jdbcType="INTEGER" />
+    <result column="S_TIME" property="sTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <insert id="addUserLoginStatistics" parameterType="com.sun3d.why.model.CmsUserLoginStatistics" >
+    insert into cms_user_login_statistics
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sId != null" >
+        s_id,
+      </if>
+      <if test="sType != null" >
+        s_type,
+      </if>
+      <if test="sCategory != null" >
+        s_category,
+      </if>
+      <if test="sCount != null" >
+        s_count,
+      </if>
+      <if test="sTime != null" >
+        s_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sId != null" >
+        #{sId,jdbcType=VARCHAR},
+      </if>
+      <if test="sType != null" >
+        #{sType,jdbcType=INTEGER},
+      </if>
+      <if test="sCategory != null" >
+        #{sCategory,jdbcType=INTEGER},
+      </if>
+      <if test="sCount != null" >
+        #{sCount,jdbcType=INTEGER},
+      </if>
+      <if test="sTime != null" >
+        #{sTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteUserLoginStatistics">
+    delete from cms_user_login_statistics
+  </delete>
+
+  <!--文化云平台会员登陆渠道统计-->
+  <select id="queryTerminalUserLoginTypeStatistics" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT IF (login_type = 1, 1, 2) AS s_category, count(login_type) AS s_count
+    FROM cms_terminal_user
+    WHERE last_login_time >= #{startTime} and last_login_time &lt; #{endTime} and user_is_disable =1 and login_type is not null and last_login_time is not null group by login_type
+  </select>
+
+  <!--查询-->
+  <select id="queryUserLoginStatistics" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select s_id,s_type,s_category,s_count,s_time from cms_user_login_statistics where 1=1
+    <if test="sType != null">
+      and s_type = #{sType}
+    </if>
+    order by s_category asc
+  </select>
+
+</mapper>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="css/normalize.css">
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<title>报名平台</title>
+<script type="text/javascript">
+	var phoneWidth = parseInt(window.screen.width);
+	var phoneScale = phoneWidth / 750;
+	var ua = navigator.userAgent; //浏览器类型
+	if(/Android (\d+\.\d+)/.test(ua)) { //判断是否是安卓系统
+		var version = parseFloat(RegExp.$1); //安卓系统的版本号
+		if(version > 2.3) {
+			document.write('<meta name="viewport" content="width=750,user-scalable=no, minimum-scale = ' + phoneScale + ', maximum-scale = ' + (phoneScale) + ', target-densitydpi=device-dpi">');
+		} else {
+			document.write('<meta name="viewport" content="width=750,user-scalable=no, target-densitydpi=device-dpi">');
+		}
+	} else {
+		document.write('<meta name="viewport" content="width=750,user-scalable=no, target-densitydpi=device-dpi">');
+	}
+</script>
+<style type="text/css">
+html,body{font-family:arial,\5FAE\8F6F\96C5\9ED1,\9ED1\4F53,\5b8b\4f53,sans-serif; -webkit-text-size-adjust:none;/*Google Chrome*/min-height: 100%;}
+img {vertical-align: middle;}
+* {-webkit-tap-highlight-color: transparent;}
+body {background: url(image/img1.jpg) no-repeat center;background-size: 100% 100%;}
+.signupPH {width: 750px;margin: 0 auto;}
+.signupPH .jz694 {width: 694px;margin: 0 auto;}
+.signupPH .logo {display: block;margin-top: 50px;}
+.signupPH .tit {display: block;margin: 0 auto;margin-top: 60px;}
+.signformph {width: 100%;background-color: #fff;border-radius: 5px;overflow: hidden;margin-top: 50px;padding-bottom: 150px;margin-bottom: 50px;}
+.signformph .pp1 {font-size: 34px;color: #333;text-align: center;margin-top: 80px;}
+/*.signformph .zhuc {display: block;width: 400px;height: 166px;line-height: 166px;margin: 0 auto;margin-top: 50px; font-size: 38px;color: #fff;text-align: center; background-color: #d68186;border: 1px solid #b3656a;border-radius: 8px;overflow: hidden;}*/
+.signformph .zhuc {display: block;width: 550px;padding: 25px 16px; margin: 0 auto;margin-top: 50px;text-align: center; font-size: 28px;color: #fff; background-color: #d68186;border: 1px solid #b3656a;border-radius: 8px;overflow: hidden;}
+.signformph .lianjie {border-top: 1px dashed #dedede;width: 642px;margin: 0 auto;padding-top: 30px;margin-top: 30px;}
+.signformph .lianjie a {display: block;width: 520px;margin: 0 auto; font-size: 24px;color: #555c81;margin-bottom: 30px;line-height: 36px;}
+.signformph .lianjie a img {margin-right: 10px;}
+.tanpc {background: url(image/pic5.png) repeat;width: 100%;height: 100%;position: fixed;left: 0;top: 0;z-index: 5;display: none; }
+.tanpc .tan {width: 483px;height: 290px;background-color: #fff;position: absolute;top: 0;right: 0;bottom: 0;left: 0;margin: auto;border-radius: 5px;overflow: hidden;}
+.tanpc .tan .w1 {font-size: 28px;color: #333;text-align: center;margin-top: 75px;}
+.tanpc .tan .qued {display: block;width: 228px;height: 72px;line-height: 72px;background-color: #6f78af;font-size: 26px;color: #fff;text-align: center;margin: 0 auto;margin-top: 50px;border-radius: 8px;border: 1px solid #515a8f;}
+</style>
+</head>
+<body>
+
+<div class="signupPH">
+	<div class="jz694">
+		<img class="logo" src="image/img2.png">
+		<img class="tit" src="image/img3.png">
+		<div class="signformph">
+			<!-- <p class="pp1">报名时间：12-19 ~ 12.31</p> -->
+			<!-- <a class="zhuc" href="javascript:;">新用户注册报名</a> -->
+			<div class="zhuc">报名入口已于12月19日10:00正式启动<br>请大家进入文化云官方网站www.wenhuayun.cn进行上传操作！</div>
+			<div class="lianjie">
+				<a href="http://www.wenhuayun.cn/information/preInfo.do?informationId=59b2450b38e54d49bcd5f4c4e24c2a31"><img src="image/img4.png">2016年上海市民文化节公共文化配送产品设计大赛启动</a>
+				<a href="http://www.wenhuayun.cn/information/preInfo.do?informationId=f4c208df214c4f298138396d6e884bf4"><img src="image/img4.png">2017年上海市民公共文化配送产品征集公告</a>
+				<a href="http://www.wenhuayun.cn/information/preInfo.do?informationId=63e590e7d6e84c438366fabbea1d2441"><img src="image/img4.png">2017年上海市公共文化配送产品征集工作信息发布会</a>
+			</div>
+			<img style="width:420px;height:auto;display:block;margin:0 auto;" src="image/pic6.jpg">
+		</div>
+	</div>
+	<!-- 弹出层 -->
+	<div class="tanpc">
+		<div class="tan">
+				<p class="w1" style="font-size:18px;">报名入口将在&nbsp;12月19日&nbsp;10点&nbsp;正式开启</p>
+			<a class="qued" href="javascript:;">确 定</a>
+		</div>
+	</div>
+</div>
+
+</body>
+<script type="text/javascript">
+$(function () {
+	// $('.signformph .zhuc').bind('click', function () {
+	// 	$('.tanpc').fadeIn(100);
+	// });
+	// $('.tanpc .tan .qued').bind('click', function () {
+	// 	$('.tanpc').fadeOut(100);
+	// });
+});
+</script>
+</html>

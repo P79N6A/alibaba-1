@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsActivityTempMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.temp.CmsActivityTemp" >
+    <id column="ACTIVITY_ID" property="activityId" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_NAME" property="activityName" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_ICON_URL" property="activityIconUrl" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_DETAIL_URL" property="activityDetailUrl" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_AREA" property="activityArea" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_ADDRESS" property="activityAddress" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_TIME" property="activityTime" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_CREATE_TIME" property="activityCreateTime" jdbcType="TIMESTAMP" />
+    <result column="ACTIVITY_UPDATE_TIME" property="activityUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="ACTIVITY_CREATE_USER" property="activityCreateUser" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_UPDATE_USER" property="activityUpdateUser" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column" >
+    ACTIVITY_ID, ACTIVITY_NAME,
+    ACTIVITY_ICON_URL, ACTIVITY_DETAIL_URL,
+    ACTIVITY_AREA,ACTIVITY_ADDRESS,
+    ACTIVITY_TIME,ACTIVITY_CREATE_TIME,
+    ACTIVITY_UPDATE_TIME,ACTIVITY_CREATE_USER,
+    ACTIVITY_UPDATE_USER
+  </sql>
+
+  <select id="queryByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+      SELECT
+      ACTIVITY_ID, ACTIVITY_NAME,
+      ACTIVITY_ICON_URL, ACTIVITY_DETAIL_URL,
+      ACTIVITY_AREA,ACTIVITY_ADDRESS,
+      ACTIVITY_TIME
+      FROM  cms_activity_temp
+      WHERE ACTIVITY_AREA=#{areaCode}
+      <if test="firstResult != null">
+        limit ${firstResult},${rows}
+      </if>
+  </select>
+
+
+  <select id="countByCondition" parameterType="java.util.Map" resultType="java.lang.Integer" >
+    select count(*) from cms_activity_temp
+    WHERE ACTIVITY_AREA=#{areaCode}
+  </select>
+
+
+
+</mapper>

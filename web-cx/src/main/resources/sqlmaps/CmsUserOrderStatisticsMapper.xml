@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsUserOrderStatisticsMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsUserOrderStatistics" >
+    <id column="S_ID" property="sId" jdbcType="VARCHAR" />
+    <result column="S_TYPE" property="sType" jdbcType="INTEGER" />
+    <result column="S_CATEGORY" property="sCategory" jdbcType="INTEGER" />
+    <result column="S_COUNT" property="sCount" jdbcType="DOUBLE" />
+    <result column="S_TIME" property="sTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <insert id="addUserOrderStatistics" parameterType="com.sun3d.why.model.CmsUserOrderStatistics" >
+    insert into cms_user_order_statistics
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sId != null" >
+        s_id,
+      </if>
+      <if test="sType != null" >
+        s_type,
+      </if>
+      <if test="sCategory != null" >
+        s_category,
+      </if>
+      <if test="sCount != null" >
+        s_count,
+      </if>
+      <if test="sTime != null" >
+        s_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sId != null" >
+        #{sId,jdbcType=VARCHAR},
+      </if>
+      <if test="sType != null" >
+        #{sType,jdbcType=INTEGER},
+      </if>
+      <if test="sCategory != null" >
+        #{sCategory,jdbcType=INTEGER},
+      </if>
+      <if test="sCount != null" >
+        #{sCount,jdbcType=INTEGER},
+      </if>
+      <if test="sTime != null" >
+        #{sTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteUserOrderStatistics">
+    delete from cms_user_order_statistics
+  </delete>
+
+  <!--文化云平台会员每周平均订票率统计-->
+  <select id="queryTerminalUserOrderStatistics" parameterType="java.util.Map" resultMap="BaseResultMap">
+    (select 1 as s_category,count(*) as s_count from cms_terminal_user where USER_IS_DISABLE =1 and create_time &lt; #{endTime} and user_id not in (SELECT  user_id
+    FROM cms_activity_order where order_create_time >= #{startTime} and order_create_time &lt; #{endTime} and order_pay_status in (1,2,3,4,5) and user_id is not null
+    group by USER_ID)) UNION(select a.s_category,count(a.s_count) as s_count from(SELECT  if(count(user_id)>2,3, 2) as s_category,count(user_id) as s_count
+    FROM cms_activity_order where order_create_time >= #{startTime} and order_create_time &lt; #{endTime} and order_pay_status in (1,2,3,4,5) and user_id is not null group by USER_ID) a group by a.s_category);
+  </select>
+
+  <!--查询-->
+  <select id="queryUserOrderStatistics" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select s_id,s_type,s_category,s_count,s_time from cms_user_order_statistics where 1=1
+    <if test="sType != null">
+      and s_type = #{sType}
+    </if>
+    order by s_category asc
+  </select>
+</mapper>

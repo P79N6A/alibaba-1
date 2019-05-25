@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsTagMapper">
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsTag">
+		<id column="TAG_ID" property="tagId" jdbcType="VARCHAR" />
+		<result column="TAG_NAME" property="tagName" jdbcType="VARCHAR" />
+		<result column="TAG_TYPE" property="tagType" jdbcType="VARCHAR" />
+		<result column="TAG_SEARCH_STR" property="tagSearchStr"
+			jdbcType="VARCHAR" />
+		<result column="TAG_CREATE_USER" property="tagCreateUser"
+			jdbcType="VARCHAR" />
+		<result column="TAG_CREATE_TIME" property="tagCreateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="TAG_UPDATE_USER" property="tagUpdateUser"
+			jdbcType="VARCHAR" />
+		<result column="TAG_UPDATE_TIME" property="tagUpdateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="TAG_DEPT" property="tagDept" jdbcType="VARCHAR" />
+		<result column="TAG_IS_DELETE" property="tagIsDelete" jdbcType="INTEGER" />
+		<result column="TAG_IMAGE_URL" property="tagImageUrl" jdbcType="VARCHAR" />
+		<result column="TAG_RECOMMEND" property="tagRecommend" jdbcType="INTEGER" />
+		<result column="TAG_COLOR" property="tagColor" jdbcType="VARCHAR" />
+		<result column="TAG_INITIAL" property="tagInitial" jdbcType="VARCHAR" />
+		<!--app活动推荐 -->
+		<result column="DICT_NAME" property="dictName" jdbcType="VARCHAR" />
+		<result column="DICT_CODE" property="dictCode" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		TAG_ID, TAG_NAME, TAG_TYPE, TAG_SEARCH_STR,
+		TAG_CREATE_USER, TAG_CREATE_TIME,
+		TAG_UPDATE_USER,
+		TAG_UPDATE_TIME,
+		TAG_DEPT, TAG_IS_DELETE,TAG_IMAGE_URL,TAG_RECOMMEND,TAG_COLOR,TAG_INITIAL
+	</sql>
+	<!-- 分页信息 -->
+	<sql id="pagination_condition">
+		limit ${firstResult},${rows}
+	</sql>
+
+	<!-- 根据标签Id查询标签信息 -->
+	<select id="queryCmsTagByTagId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from cms_tag
+		where TAG_ID = #{tagId,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 根据标签Id删除标签信息 -->
+	<delete id="deleteByTagId" parameterType="java.lang.String">
+		delete from
+		cms_tag
+		where TAG_ID = #{tagId,jdbcType=VARCHAR}
+	</delete>
+
+	<!-- 根据标签插入标签信息 -->
+	<insert id="addCmsTag" parameterType="com.sun3d.why.model.CmsTag">
+		insert into cms_tag
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="tagId != null">
+				TAG_ID,
+			</if>
+			<if test="tagName != null">
+				TAG_NAME,
+			</if>
+			<if test="tagType != null">
+				TAG_TYPE,
+			</if>
+			<if test="tagSearchStr != null">
+				TAG_SEARCH_STR,
+			</if>
+			<if test="tagCreateUser != null">
+				TAG_CREATE_USER,
+			</if>
+			<if test="tagCreateTime != null">
+				TAG_CREATE_TIME,
+			</if>
+			<if test="tagUpdateUser != null">
+				TAG_UPDATE_USER,
+			</if>
+			<if test="tagUpdateTime != null">
+				TAG_UPDATE_TIME,
+			</if>
+			<if test="tagDept != null">
+				TAG_DEPT,
+			</if>
+			<if test="tagIsDelete != null">
+				TAG_IS_DELETE,
+			</if>
+			<if test="tagImageUrl != null">
+				TAG_IMAGE_URL,
+			</if>
+			<if test="tagRecommend != null">
+				TAG_RECOMMEND,
+			</if>
+			<if test="tagColor != null">
+				TAG_COLOR,
+			</if>
+			<if test="tagInitial != null">
+				TAG_INITIAL,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="tagId != null">
+				#{tagId,jdbcType=VARCHAR},
+			</if>
+			<if test="tagName != null">
+				#{tagName,jdbcType=VARCHAR},
+			</if>
+			<if test="tagType != null">
+				#{tagType,jdbcType=VARCHAR},
+			</if>
+			<if test="tagSearchStr != null">
+				#{tagSearchStr,jdbcType=VARCHAR},
+			</if>
+			<if test="tagCreateUser != null">
+				#{tagCreateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="tagCreateTime != null">
+				#{tagCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tagUpdateUser != null">
+				#{tagUpdateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="tagUpdateTime != null">
+				#{tagUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tagDept != null">
+				#{tagDept,jdbcType=VARCHAR},
+			</if>
+			<if test="tagIsDelete != null">
+				#{tagIsDelete,jdbcType=INTEGER},
+			</if>
+			<if test="tagImageUrl != null">
+				#{tagImageUrl,jdbcType=INTEGER},
+			</if>
+
+			<if test="tagRecommend != null">
+				#{tagRecommend,jdbcType=INTEGER},
+			</if>
+			<if test="tagColor != null">
+				#{tagColor,jdbcType=VARCHAR},
+			</if>
+			<if test="tagInitial != null">
+				#{tagInitial,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 根据标签Id更新标签信息 -->
+	<update id="editCmsTag" parameterType="com.sun3d.why.model.CmsTag">
+		update cms_tag
+		<set>
+			<if test="tagName != null">
+				TAG_NAME = #{tagName,jdbcType=VARCHAR},
+			</if>
+			<if test="tagType != null">
+				TAG_TYPE = #{tagType,jdbcType=VARCHAR},
+			</if>
+			<if test="tagSearchStr != null">
+				TAG_SEARCH_STR = #{tagSearchStr,jdbcType=VARCHAR},
+			</if>
+			<if test="tagCreateUser != null">
+				TAG_CREATE_USER = #{tagCreateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="tagCreateTime != null">
+				TAG_CREATE_TIME = #{tagCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tagUpdateUser != null">
+				TAG_UPDATE_USER = #{tagUpdateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="tagUpdateTime != null">
+				TAG_UPDATE_TIME = #{tagUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tagDept != null">
+				TAG_DEPT = #{tagDept,jdbcType=VARCHAR},
+			</if>
+			<if test="tagIsDelete != null">
+				TAG_IS_DELETE = #{tagIsDelete,jdbcType=INTEGER},
+			</if>
+			<if test="tagImageUrl != null">
+				TAG_IMAGE_URL = #{tagImageUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="tagRecommend != null">
+				TAG_RECOMMEND = #{tagRecommend,jdbcType=INTEGER},
+			</if>
+			<if test="tagColor != null">
+				TAG_COLOR = #{tagColor,jdbcType=VARCHAR},
+			</if>
+			<if test="tagInitial != null">
+				TAG_INITIAL = #{tagInitial,jdbcType=VARCHAR},
+			</if>
+
+		</set>
+		where TAG_ID = #{tagId,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 分页列表 start -->
+	<select id="selectTagList" resultType="hashmap" parameterType="hashmap">
+	select
+	ct.TAG_ID,ct.TAG_NAME,ct.TAG_TYPE,sd.DICT_NAME,ct.TAG_CREATE_TIME,su.USER_ACCOUNT
+	from cms_tag ct left join sys_user su on ct.TAG_CREATE_USER =
+	su.user_id
+	left join sys_dict sd on sd.dict_id = ct.TAG_TYPE
+	where 1 = 1 and ct.TAG_IS_DELETE = 1
+		<if test="tagName != null and tagName != ''">
+			and TAG_NAME like '%${tagName}%'
+		</if>
+		<if test="tagType != null and tagType != ''">
+			and TAG_TYPE = #{tagType}
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+		<if test="firstResult != null">
+			<include refid="pagination_condition" />
+		</if>
+	</select>
+	<!-- 分页列表 end -->
+	
+	<!-- 更加hashMap 条件查询满足条件的数量 -->
+	<select id="countTagList" resultType="integer" parameterType="hashmap">
+		select count(ct.tag_id) from cms_tag ct left join sys_user su on ct.TAG_CREATE_USER =
+		su.user_id
+		where 1 = 1 and ct.TAG_IS_DELETE = 1
+		<if test="tagName != null and tagName != ''">
+			and TAG_NAME like '%${tagName}%'
+		</if>
+		<if test="tagType != null and tagType != ''">
+			and TAG_TYPE = #{tagType}
+		</if>
+	</select>
+
+	<!-- 根据hashMap 查询标签信息 -->
+	<select id="queryCmsTagByCondition"  resultMap="BaseResultMap" parameterType="hashmap">
+		select TAG_ID, TAG_NAME, TAG_TYPE, TAG_SEARCH_STR,
+               TAG_IMAGE_URL,TAG_RECOMMEND
+		from cms_tag
+		where 1 = 1
+		<if test="tagType != null">
+			and tag_Type  = #{tagType}
+		</if>
+		<if test="tagIsDelete != null">
+			and Tag_Is_Delete = #{tagIsDelete}
+		</if>
+		ORDER  BY  TAG_RECOMMEND DESC, TAG_UPDATE_TIME DESC
+	</select>
+
+
+	<!-- 根据hashMap 查询推荐或非推荐标签-->
+	<select id="queryRecCmsTagByCondition"  resultMap="BaseResultMap" parameterType="hashmap">
+		select
+		TAG_ID, TAG_NAME, TAG_TYPE,
+		TAG_IMAGE_URL
+		from cms_tag
+		where 1 = 1
+		<if test="tagType != null">
+			and tag_Type  = #{tagType}
+		</if>
+		<if test="tagIsDelete != null">
+			and Tag_Is_Delete = #{tagIsDelete}
+		</if>
+		<if test="recState != null">
+			and TAG_RECOMMEND=#{recState}
+		</if>
+	</select>
+
+
+
+	<select id="queryTagsByDictTagType"  resultMap="BaseResultMap" parameterType="java.util.Map">
+		select TAG_ID,TAG_NAME,d.DICT_CODE as tag_type from cms_tag t LEFT JOIN sys_dict d ON  t.TAG_TYPE = d.DICT_ID
+		where 1 = 1
+		<if test="tagIsDelete != null">
+			and Tag_Is_Delete = #{tagIsDelete}
+		</if>
+		<if test="sysDicts != null">
+			and
+			TAG_TYPE in
+			<foreach item="item" index="index" collection="sysDicts" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		order by TAG_RECOMMEND desc,TAG_UPDATE_TIME desc
+		<!--<if test="relateId != null">-->
+			<!--and r.RELATE_ID  = #{relateId}-->
+		<!--</if>-->
+		<!--<if test="type != null">-->
+			<!--and r.TYPE = #{type}-->
+		<!--</if>-->
+		limit 0,6
+	</select>
+	<!--app推荐活动标签 -->
+	<select id="queryAppTagsByDictTagType"  resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT t.TAG_NAME,t.TAG_IMAGE_URL,t.TAG_ID from cms_tag t
+		RIGHT JOIN (
+		SELECT
+		sy.DICT_ID,sy.DICT_CODE
+		FROM
+		sys_dict sy
+		WHERE
+		sy.DICT_PARENT_ID IN (
+		SELECT
+		s.DICT_ID
+		FROM
+		`sys_dict` s
+		WHERE 1=1
+		<if test="dictName != null">
+			and DICT_NAME = #{dictName}
+		</if>
+		<if test="dictCode != null">
+			and DICT_CODE = #{dictCode}
+		</if>
+		)
+		<if test="themsCode!=null">
+			AND DICT_CODE = #{themsCode}
+		</if>
+		) sys on t.TAG_TYPE=sys.DICT_ID
+		where t.TAG_IS_DELETE = 1
+		AND t.TAG_RECOMMEND=1
+		ORDER BY t.TAG_UPDATE_TIME DESC
+	</select>
+
+	<select id="queryTeamTags"  resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM cms_tag
+		WHERE TAG_ID  IN
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+
+	<select id="queryRecommendTag" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM sys_dict sd  JOIN cms_tag tg
+		ON sd.DICT_ID=tg.TAG_TYPE
+		WHERE sd.DICT_PARENT_ID = #{_parameter}
+		AND tg.TAG_RECOMMEND=1
+		/*GROUP BY sd.DICT_PARENT_ID*/
+	</select>
+
+
+	<select id="queryExtTagByName" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT  <include refid="Base_Column_List" />
+		FROM  cms_tag
+		WHERE
+		TAG_TYPE = #{tagType}
+		AND
+		TAG_NAME LIKE #{tagName}
+	</select>
+
+
+
+	<select id="queryExtTagByColor" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT  <include refid="Base_Column_List" />
+		FROM  cms_tag
+		WHERE
+		TAG_IS_DELETE = 1
+		AND TAG_TYPE = #{tagType}
+		AND TAG_COLOR = #{tagColor}
+	</select>
+
+
+	<select id="getTagsByDictTagType" parameterType="java.lang.String" resultMap="BaseResultMap">
+			SELECT
+			TAG_ID, TAG_NAME,TAG_TYPE,DICT_CODE as dictCode
+			FROM
+				cms_tag,sys_dict
+			WHERE
+				tag_type IN (
+					SELECT
+						dict_id
+					FROM
+						sys_dict
+					WHERE
+						DICT_PARENT_ID IN (
+							SELECT
+								dict_id
+							FROM
+								sys_dict
+							WHERE
+								DICT_CODE = 'TAG_TYPE'
+							AND DICT_NAME = #{_parameter}
+						)
+				)
+
+			AND TAG_RECOMMEND=1 and cms_tag.TAG_TYPE= sys_dict.DICT_ID
+	</select>
+	<!--app获取活动与展馆标签集合 -->
+	<select id="queryAppTagByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+	SELECT
+ t.TAG_NAME,t.TAG_ID
+ FROM sys_dict s
+ LEFT JOIN cms_tag t on t.TAG_TYPE=s.DICT_ID
+ WHERE 1=1
+ <if test="dictCode!=null">
+	 and s.DICT_CODE=#{dictCode}
+ </if>
+ <if test="dictState!=null">
+	 AND s.DICT_STATE = #{dictState}
+		</if>
+  ORDER BY
+	s.DICT_UPDATE_TIME DESC,t.TAG_UPDATE_TIME DESC
+	</select>
+
+	<!--文化云3.1前端首页根据栏目名称查标签数据-->
+	<select id="queryTagIdByTagName" parameterType="java.util.Map" resultType="java.lang.String">
+		SELECT a.tag_id,a.tag_name
+		FROM cms_tag a INNER JOIN sys_dict b ON b.dict_id = a.tag_type
+		WHERE a.tag_is_delete = 1
+        AND b.dict_state = 1
+		AND b.dict_code = #{dictCode}
+		AND a.tag_name = #{tagName}
+		LIMIT 1;
+	</select>
+	<!--app根据标签id查询标签名称 -->
+	<select id="queryAppTagNameById"  resultMap="BaseResultMap" resultType="java.lang.String">
+		SELECT
+		ct.TAG_NAME
+		FROM
+		cms_tag ct
+		WHERE
+		1 = 1
+		AND ct.TAG_ID =#{tags}
+	<!--	<foreach item="item" index="index" collection="array"
+				 open="(" separator="," close=")">
+			#{item}
+		</foreach>-->
+	</select>
+</mapper>

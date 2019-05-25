@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title></title>
+		<script type="text/javascript">
+			var phoneWidth = parseInt(window.screen.width);
+			var phoneScale = phoneWidth / 750;
+			var ua = navigator.userAgent; //浏览器类型
+			if (/Android (\d+\.\d+)/.test(ua)) { //判断是否是安卓系统
+				var version = parseFloat(RegExp.$1); //安卓系统的版本号
+				if (version > 2.3) {
+					document.write('<meta name="viewport" content="width=750,user-scalable=no, minimum-scale = ' + phoneScale + ', maximum-scale = ' + (phoneScale) + ', target-densitydpi=device-dpi">');
+				} else {
+					document.write('<meta name="viewport" content="width=750,user-scalable=no, target-densitydpi=device-dpi">');
+				}
+			} else {
+				document.write('<meta name="viewport" content="width=750, user-scalable=no, target-densitydpi=device-dpi">');
+			}
+		</script>
+		<style>
+			body,
+			div,
+			dl,
+			dt,
+			dd,
+			ul,
+			ol,
+			li,
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6,
+			input,
+			button,
+			textarea,
+			p,
+			blockquote,
+			th,
+			td {
+				margin: 0;
+				padding: 0;
+			}
+			
+			img {
+				border: none;
+			}
+			
+			em,
+			strong {
+				font-style: normal;
+				font-weight: normal;
+			}
+			
+			li {
+				list-style: none;
+			}
+			
+			table {
+				border-collapse: collapse;
+				border-spacing: 0;
+			}
+			
+			q:before,
+			q:after {
+				content: '';
+			}
+			
+			a {
+				text-decoration: none;
+			}
+			
+			html {
+				font-family: '微软雅黑', 'Hiragino Sans GB';
+			}
+			
+			.placeholder {
+				color: #bfbfbf;
+			}
+			
+			.main {
+				position: relative;
+				width: 750px;
+				margin: auto;
+			}
+			
+			.time {
+				position: absolute;
+				font-size: 30px;
+				width: 100%;
+				color: #fff;
+				top: 235px;
+				left: 0px;
+				text-align: center;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div class="main">
+			<div class="time">
+				<span id="demo"></span><span>文化上海云</span>
+			</div>
+			<img src="images/data.jpg" />
+		</div>
+		<script>
+			var _date = new Date()
+			var mydate = _date.toLocaleDateString();
+			document.getElementById("demo").innerHTML = mydate;
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ccp.CcpDramaVoteMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ccp.CcpDramaVote" >
+    <id column="DRAMA_VOTE_ID" property="dramaVoteId" jdbcType="VARCHAR" />
+    <result column="DRAMA_ID" property="dramaId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    DRAMA_VOTE_ID, DRAMA_ID, USER_ID, CREATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_drama_vote
+    where DRAMA_VOTE_ID = #{dramaVoteId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_drama_vote
+    where DRAMA_VOTE_ID = #{dramaVoteId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.ccp.CcpDramaVote" >
+    insert into ccp_drama_vote
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      DRAMA_VOTE_ID,
+      <if test="dramaId != null" >
+        DRAMA_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{dramaVoteId,jdbcType=VARCHAR},
+      <if test="dramaId != null" >
+        #{dramaId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.ccp.CcpDramaVote" >
+    update ccp_drama_vote
+    <set >
+      <if test="dramaId != null" >
+        DRAMA_ID = #{dramaId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where DRAMA_VOTE_ID = #{dramaVoteId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryTodayVoteCount" resultType="java.lang.Integer" parameterType="com.sun3d.why.model.ccp.CcpDramaVote" >
+    select count(*)
+    from ccp_drama_vote
+    where DRAMA_ID = #{dramaId} and USER_ID = #{userId} and DATE_FORMAT(CREATE_TIME, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')
+  </select>
+</mapper>

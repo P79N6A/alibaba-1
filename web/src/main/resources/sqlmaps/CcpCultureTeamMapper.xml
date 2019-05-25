@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ccp.CcpCultureTeamMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ccp.CcpCultureTeam" >
+    <id column="CULTURE_TEAM_ID" property="cultureTeamId" jdbcType="VARCHAR" />
+    <result column="CULTURE_TEAM_TOWN" property="cultureTeamTown" jdbcType="VARCHAR" />
+    <result column="CULTURE_TEAM_NAME" property="cultureTeamName" jdbcType="VARCHAR" />
+    <result column="CULTURE_TEAM_COUNT" property="cultureTeamCount" jdbcType="VARCHAR" />
+    <result column="CULTURE_TEAM_TYPE" property="cultureTeamType" jdbcType="INTEGER" />
+    <result column="CULTURE_TEAM_RULE" property="cultureTeamRule" jdbcType="VARCHAR" />
+    <result column="CULTURE_TEAM_SITE" property="cultureTeamSite" jdbcType="VARCHAR" />
+    <result column="CULTURE_TEAM_ADDRESS" property="cultureTeamAddress" jdbcType="VARCHAR" />
+    <result column="CULTURE_TEAM_ADDRESS_URL" property="cultureTeamAddressUrl" jdbcType="VARCHAR" />
+    <result column="CULTURE_TEAM_INTRO" property="cultureTeamIntro" jdbcType="VARCHAR" />
+    <result column="CULTURE_TEAM_CONTENT" property="cultureTeamContent" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="CULTURE_TEAM_FAMILY" property="cultureTeamFamily" jdbcType="LONGVARCHAR" />
+    <result column="CULTURE_TEAM_PRIZE" property="cultureTeamPrize" jdbcType="LONGVARCHAR" />
+    <result column="CULTURE_TEAM_MEDIA" property="cultureTeamMedia" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <resultMap extends="BaseResultMap" id="BaseResultDtoMap" type="com.sun3d.why.dao.dto.CcpCultureTeamDto">
+  	<result column="IS_VOTE" property="isVote" jdbcType="INTEGER" />
+  	<result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="VOTE_COUNT" property="voteCount" jdbcType="INTEGER" />
+    <result column="reviewType" property="reviewType" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    CULTURE_TEAM_ID, CULTURE_TEAM_TOWN, CULTURE_TEAM_NAME, CULTURE_TEAM_COUNT, CULTURE_TEAM_TYPE, 
+    CULTURE_TEAM_RULE, CULTURE_TEAM_SITE, CULTURE_TEAM_ADDRESS, CULTURE_TEAM_ADDRESS_URL, 
+    CULTURE_TEAM_INTRO, CULTURE_TEAM_CONTENT,CULTURE_TEAM_FAMILY, CULTURE_TEAM_PRIZE, CULTURE_TEAM_MEDIA, CREATE_TIME, CREATE_USER
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultDtoMap" parameterType="java.lang.String" >
+    select 
+    cct.CULTURE_TEAM_ID, cct.CULTURE_TEAM_TOWN, cct.CULTURE_TEAM_NAME, cct.CULTURE_TEAM_COUNT, cct.CULTURE_TEAM_TYPE, 
+    cct.CULTURE_TEAM_RULE, cct.CULTURE_TEAM_SITE, cct.CULTURE_TEAM_ADDRESS, cct.CULTURE_TEAM_ADDRESS_URL, 
+    cct.CULTURE_TEAM_INTRO, cct.CULTURE_TEAM_CONTENT,cct.CULTURE_TEAM_FAMILY, cct.CULTURE_TEAM_PRIZE, cct.CULTURE_TEAM_MEDIA, cct.CREATE_TIME, cct.CREATE_USER,
+    (SELECT count(vote.VOTE_ID)
+       FROM ccp_culture_team_vote vote
+       WHERE vote.CULTURE_TEAM_ID = cct.CULTURE_TEAM_ID
+	 ) as VOTE_COUNT
+	from ccp_culture_team cct
+    where CULTURE_TEAM_ID = #{cultureTeamId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_culture_team
+    where CULTURE_TEAM_ID = #{cultureTeamId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.ccp.CcpCultureTeam" >
+    insert into ccp_culture_team
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      CULTURE_TEAM_ID,
+      <if test="cultureTeamTown != null" >
+        CULTURE_TEAM_TOWN,
+      </if>
+      <if test="cultureTeamName != null" >
+        CULTURE_TEAM_NAME,
+      </if>
+      <if test="cultureTeamCount != null" >
+        CULTURE_TEAM_COUNT,
+      </if>
+      <if test="cultureTeamType != null" >
+        CULTURE_TEAM_TYPE,
+      </if>
+      <if test="cultureTeamRule != null" >
+        CULTURE_TEAM_RULE,
+      </if>
+      <if test="cultureTeamSite != null" >
+        CULTURE_TEAM_SITE,
+      </if>
+      <if test="cultureTeamAddress != null" >
+        CULTURE_TEAM_ADDRESS,
+      </if>
+      <if test="cultureTeamAddressUrl != null" >
+        CULTURE_TEAM_ADDRESS_URL,
+      </if>
+      <if test="cultureTeamIntro != null" >
+        CULTURE_TEAM_INTRO,
+      </if>
+      <if test="cultureTeamContent != null" >
+        CULTURE_TEAM_CONTENT,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="cultureTeamFamily != null" >
+        CULTURE_TEAM_FAMILY,
+      </if>
+      <if test="cultureTeamPrize != null" >
+        CULTURE_TEAM_PRIZE,
+      </if>
+      <if test="cultureTeamMedia != null" >
+        CULTURE_TEAM_MEDIA,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{cultureTeamId,jdbcType=VARCHAR},
+      <if test="cultureTeamTown != null" >
+        #{cultureTeamTown,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureTeamName != null" >
+        #{cultureTeamName,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureTeamCount != null" >
+        #{cultureTeamCount,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureTeamType != null" >
+        #{cultureTeamType,jdbcType=INTEGER},
+      </if>
+      <if test="cultureTeamRule != null" >
+        #{cultureTeamRule,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureTeamSite != null" >
+        #{cultureTeamSite,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureTeamAddress != null" >
+        #{cultureTeamAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureTeamAddressUrl != null" >
+        #{cultureTeamAddressUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureTeamIntro != null" >
+        #{cultureTeamIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureTeamContent != null" >
+        #{cultureTeamContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureTeamFamily != null" >
+        #{cultureTeamFamily,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cultureTeamPrize != null" >
+        #{cultureTeamPrize,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cultureTeamMedia != null" >
+        #{cultureTeamMedia,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.ccp.CcpCultureTeam" >
+    update ccp_culture_team
+    <set >
+      <if test="cultureTeamTown != null" >
+        CULTURE_TEAM_TOWN = #{cultureTeamTown,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureTeamName != null" >
+        CULTURE_TEAM_NAME = #{cultureTeamName,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureTeamCount != null" >
+        CULTURE_TEAM_COUNT = #{cultureTeamCount,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureTeamType != null" >
+        CULTURE_TEAM_TYPE = #{cultureTeamType,jdbcType=INTEGER},
+      </if>
+      <if test="cultureTeamRule != null" >
+        CULTURE_TEAM_RULE = #{cultureTeamRule,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureTeamSite != null" >
+        CULTURE_TEAM_SITE = #{cultureTeamSite,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureTeamAddress != null" >
+        CULTURE_TEAM_ADDRESS = #{cultureTeamAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureTeamAddressUrl != null" >
+        CULTURE_TEAM_ADDRESS_URL = #{cultureTeamAddressUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureTeamIntro != null" >
+        CULTURE_TEAM_INTRO = #{cultureTeamIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureTeamContent != null" >
+        CULTURE_TEAM_CONTENT = #{cultureTeamContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureTeamFamily != null" >
+        CULTURE_TEAM_FAMILY = #{cultureTeamFamily,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cultureTeamPrize != null" >
+        CULTURE_TEAM_PRIZE = #{cultureTeamPrize,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cultureTeamMedia != null" >
+        CULTURE_TEAM_MEDIA = #{cultureTeamMedia,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where CULTURE_TEAM_ID = #{cultureTeamId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryCultureTeamCountByCondition" resultType="java.lang.Integer" parameterType="java.util.Map">
+    SELECT
+		COUNT(*)
+	FROM ccp_culture_team cct
+	WHERE 1=1
+		<if test="cultureTeamId != null">
+            AND cct.CULTURE_TEAM_ID = #{cultureTeamId}
+        </if>
+        <if test="cultureTeamType != null">
+            AND cct.CULTURE_TEAM_TYPE like #{cultureTeamType}
+        </if>
+		<if test="cultureTeamName != null">
+            AND cct.CULTURE_TEAM_NAME like #{cultureTeamName}
+        </if>
+  </select>
+  
+  <select id="queryCultureTeamByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT
+		cct.CULTURE_TEAM_ID, 
+		cct.CULTURE_TEAM_TOWN, 
+		cct.CULTURE_TEAM_NAME, 
+		cct.CULTURE_TEAM_COUNT, 
+		cct.CULTURE_TEAM_TYPE, 
+	    cct.CULTURE_TEAM_RULE, 
+	    cct.CULTURE_TEAM_SITE, 
+	    cct.CULTURE_TEAM_ADDRESS, 
+	    cct.CULTURE_TEAM_ADDRESS_URL, 
+	    cct.CULTURE_TEAM_INTRO, 
+	    cct.CULTURE_TEAM_CONTENT,
+	    cct.CULTURE_TEAM_FAMILY, 
+	    cct.CULTURE_TEAM_PRIZE, 
+	    cct.CULTURE_TEAM_MEDIA, 
+	    cct.CREATE_TIME, 
+	    u.USER_ACCOUNT AS CREATE_USER
+	FROM ccp_culture_team cct
+	LEFT JOIN sys_user u ON cct.CREATE_USER = u.USER_ID
+	WHERE 1=1
+		<if test="cultureTeamId != null">
+            AND cct.CULTURE_TEAM_ID = #{cultureTeamId}
+        </if>
+        <if test="cultureTeamType != null">
+            AND cct.CULTURE_TEAM_TYPE like #{cultureTeamType}
+        </if>
+		<if test="cultureTeamName != null">
+            AND cct.CULTURE_TEAM_NAME like #{cultureTeamName}
+        </if>
+	ORDER BY cct.CREATE_TIME DESC
+	<if test="firstResult != null">
+        limit ${firstResult},${rows}
+    </if>
+  </select>
+  
+  <select id="queryWcCultureTeamByCondition" resultMap="BaseResultDtoMap" parameterType="java.util.Map">
+    SELECT
+		cct.CULTURE_TEAM_ID, 
+		cct.CULTURE_TEAM_TOWN, 
+		cct.CULTURE_TEAM_NAME, 
+		cct.CULTURE_TEAM_COUNT, 
+		cct.CULTURE_TEAM_TYPE, 
+	    cct.CULTURE_TEAM_RULE, 
+	    cct.CULTURE_TEAM_SITE, 
+	    cct.CULTURE_TEAM_ADDRESS, 
+	    cct.CULTURE_TEAM_ADDRESS_URL, 
+	    cct.CULTURE_TEAM_INTRO, 
+	    cct.CULTURE_TEAM_CONTENT,
+	    cct.CULTURE_TEAM_FAMILY, 
+	    cct.CULTURE_TEAM_PRIZE, 
+	    cct.CULTURE_TEAM_MEDIA, 
+	    <if test="userId!=null">
+	    	IF((SELECT count(DISTINCT vote.VOTE_ID)
+	        FROM ccp_culture_team_vote vote
+	        WHERE vote.CULTURE_TEAM_ID = cct.CULTURE_TEAM_ID and vote.USER_ID = #{userId} and DATE_FORMAT(vote.CREATE_TIME, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')
+	        )>0,1,0) as IS_VOTE,
+	    </if>
+	    (SELECT count(DISTINCT vote.VOTE_ID)
+	        FROM ccp_culture_team_vote vote
+	        WHERE vote.CULTURE_TEAM_ID = cct.CULTURE_TEAM_ID
+	        ) as VOTE_COUNT,
+	    cct.CREATE_TIME
+	FROM ccp_culture_team cct
+	WHERE 1=1
+		<if test="cultureTeamId != null">
+            AND cct.CULTURE_TEAM_ID = #{cultureTeamId}
+        </if>
+        <if test="cultureTeamType != null">
+            AND cct.CULTURE_TEAM_TYPE like #{cultureTeamType}
+        </if>
+	group by cct.CULTURE_TEAM_ID
+    order by 
+    <if test="reviewType==6">convert(cct.CULTURE_TEAM_NAME USING gbk),</if>
+    <if test="reviewType==7">VOTE_COUNT DESC,</if>
+    cct.CREATE_TIME desc
+    <if test="reviewType==6">
+	    <if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</if>
+	<if test="reviewType==7">
+		limit ${firstResult},${rows}
+	</if>
+  </select>
+</mapper>

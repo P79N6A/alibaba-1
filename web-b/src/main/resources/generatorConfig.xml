@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+	
+ <classPathEntry location="C:\Users\Administrator\.m2\repository\mysql\mysql-connector-java\5.1.29\mysql-connector-java-5.1.29.jar" />  
+
+  <context id="context1" defaultModelType="flat"  >
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+     connectionURL="jdbc:mysql://192.168.5.211:3306/eme_dev" userId="developer" password="developer" />
+  
+  	<!-- model的配置 -->
+    <javaModelGenerator targetPackage="com.sun3d.why.model" targetProject="web-b/src/main/java" />
+    
+    
+    <sqlMapGenerator targetPackage="sqlmaps" targetProject="web-b/src/main/resources" />
+    
+    
+    <javaClientGenerator targetPackage="com.sun3d.why.dao" targetProject="web-b" type="XMLMAPPER" />
+   
+   
+    <table tableName="bp_info_tag" domainObjectName="BpInfoTag"
+    
+   			enableCountByExample="false"  
+            enableDeleteByExample="false" enableSelectByExample="false"  
+            enableUpdateByExample="false" >
+    
+    
+    </table>	
+    
+  </context>
+</generatorConfiguration>

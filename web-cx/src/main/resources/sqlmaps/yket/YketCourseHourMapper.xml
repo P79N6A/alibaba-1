@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.YketCourseHourMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.bean.yket.YketCourseHour" >
+    <id column="hour_id" property="hourId" jdbcType="VARCHAR" />
+    <result column="hour_name" property="hourName" jdbcType="VARCHAR" />
+    <result column="course_id" property="courseId" jdbcType="VARCHAR" />
+    <result column="course_duration" property="courseDuration" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="video_url" property="videoUrl" jdbcType="VARCHAR" />
+    <result column="msg" property="msg" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    hour_id, hour_name, course_id, course_duration, sort, deleted, video_url, msg, create_user, 
+    update_user, create_date, update_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from yket_course_hour
+    where hour_id = #{hourId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from yket_course_hour
+    where hour_id = #{hourId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sun3d.why.model.bean.yket.YketCourseHour" >
+    insert into yket_course_hour (hour_id, hour_name, course_id, 
+      course_duration, sort, deleted, 
+      video_url, msg, create_user, 
+      update_user, create_date, update_date
+      )
+    values (#{hourId,jdbcType=VARCHAR}, #{hourName,jdbcType=VARCHAR}, #{courseId,jdbcType=VARCHAR}, 
+      #{courseDuration,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{deleted,jdbcType=BIT}, 
+      #{videoUrl,jdbcType=VARCHAR}, #{msg,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+      #{updateUser,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sun3d.why.model.bean.yket.YketCourseHour" >
+    insert into yket_course_hour
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hourId != null" >
+        hour_id,
+      </if>
+      <if test="hourName != null" >
+        hour_name,
+      </if>
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="courseDuration != null" >
+        course_duration,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="videoUrl != null" >
+        video_url,
+      </if>
+      <if test="msg != null" >
+        msg,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hourId != null" >
+        #{hourId,jdbcType=VARCHAR},
+      </if>
+      <if test="hourName != null" >
+        #{hourName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseDuration != null" >
+        #{courseDuration,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="videoUrl != null" >
+        #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null" >
+        #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sun3d.why.model.bean.yket.YketCourseHour" >
+    update yket_course_hour
+    <set >
+      <if test="hourName != null" >
+        hour_name = #{hourName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseId != null" >
+        course_id = #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseDuration != null" >
+        course_duration = #{courseDuration,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="videoUrl != null" >
+        video_url = #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null" >
+        msg = #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where hour_id = #{hourId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sun3d.why.model.bean.yket.YketCourseHour" >
+    update yket_course_hour
+    set hour_name = #{hourName,jdbcType=VARCHAR},
+      course_id = #{courseId,jdbcType=VARCHAR},
+      course_duration = #{courseDuration,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=BIT},
+      video_url = #{videoUrl,jdbcType=VARCHAR},
+      msg = #{msg,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where hour_id = #{hourId,jdbcType=VARCHAR}
+  </update>
+  <select id="queryCourseTimeList" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	 select 
+  	  hour_id, hour_name, course_id, 
+      course_duration, sort, deleted, 
+      video_url, msg, create_user, 
+      update_user, create_date, update_date
+      from yket_course_hour where deleted=0
+      <if test="courseId != null" >
+        and course_id = #{courseId,jdbcType=VARCHAR}
+      </if>
+      order by sort asc,create_date desc 
+      <if test="firstResult != null">
+        limit ${firstResult},${rows}
+      </if>
+  </select>
+  <select id="countCourseTime" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	  select 
+  	  count(*)
+  	  from yket_course_hour where deleted=0
+      <if test="courseId != null" >
+        and course_id = #{courseId,jdbcType=VARCHAR}
+      </if>
+  </select>
+  <select id="maxSort" resultType="java.lang.Integer">
+ 	SELECT MAX(sort) FROM yket_course_hour  
+ </select>
+  <select id="moveUp" resultMap="BaseResultMap" parameterType="java.util.Map">
+ 	  SELECT
+	  hour_id, hour_name, course_id, 
+      course_duration, sort, deleted, 
+      video_url, msg, create_user, 
+      update_user, create_date, update_date
+      FROM
+	     yket_course_hour
+      WHERE
+         deleted=0
+	     and sort &lt;= #{sort}
+	  order by sort desc  
+      LIMIT 2
+</select> 
+<select id="moveDown" resultMap="BaseResultMap" parameterType="java.util.Map">
+ 	  SELECT
+		hour_id, hour_name, course_id, 
+	    course_duration, sort, deleted, 
+	    video_url, msg, create_user, 
+	    update_user, create_date, update_date
+      FROM
+	     yket_course_hour
+      WHERE
+         deleted=0
+	     and sort &gt;= #{sort}
+	  order by sort asc 
+      LIMIT 2
+</select> 
+<select id="queryHourName" resultType="java.lang.Integer" parameterType="java.util.Map">
+	select count(*) from yket_course_hour where hour_name=#{hourName,jdbcType=VARCHAR} and course_id=#{courseId,jdbcType=VARCHAR} and deleted=0 
+</select>	
+</mapper>

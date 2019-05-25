@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CountyStatisticsDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.countyStatistics.CountyStatisticsDetail" >
+    <id column="user_account" property="userAccount" jdbcType="VARCHAR" />
+    <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+    <result column="publishActivity" property="publishActivity" jdbcType="INTEGER" />
+	<result column="activityCanBook" property="activityCanBook" jdbcType="INTEGER" />
+	<result column="roomPublish" property="roomPublish" jdbcType="INTEGER" />
+	<result column="roomCanBook" property="roomCanBook" jdbcType="INTEGER" />
+  </resultMap>
+   
+   <select id="getCountyActivityStatistics" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+		s.USER_ID,s.user_account,d.dept_name, publishActivity,activityCanBook
+		FROM
+			sys_user s
+		LEFT JOIN sys_user_role r ON s.user_id = r.USER_ID 
+		LEFT JOIN sys_dept d on s.USER_DEPT_ID=d.DEPT_ID 
+		LEFT JOIN (
+		      SELECT ACTIVITY_CREATE_USER,count(ACTIVITY_CREATE_USER) as publishActivity 
+		      from cms_activity 
+		      where     ACTIVITY_IS_DEL=1  AND ACTIVITY_STATE=6
+		       <if test="startTime==null and endTime ==null">
+		          AND  DATE_FORMAT(PUBLIC_TIME,"%Y-%m-%d")=DATE_FORMAT(NOW(),"%Y-%m-%d")  
+			   </if>
+			   <if test="startTime!=null">
+			      AND  DATE_FORMAT(PUBLIC_TIME,"%Y-%m-%d")>=DATE_FORMAT(#{startTime,jdbcType=TIMESTAMP},"%Y-%m-%d")
+			   </if>
+			   <if test="endTime!=null">
+			      AND  DATE_FORMAT(#{endTime,jdbcType=TIMESTAMP},"%Y-%m-%d")>=DATE_FORMAT(PUBLIC_TIME,"%Y-%m-%d")
+			   </if>			      
+		      GROUP BY ACTIVITY_CREATE_USER) T1 on s.user_id= T1.ACTIVITY_CREATE_USER                               
+		LEFT JOIN (
+				SELECT ACTIVITY_CREATE_USER,count(ACTIVITY_CREATE_USER) as activityCanBook 
+				from cms_activity  
+				where  ACTIVITY_IS_DEL=1 and  ACTIVITY_IS_RESERVATION !='1'   AND  ACTIVITY_STATE=6
+			   <if test="startTime==null and endTime ==null">
+		          AND  DATE_FORMAT(PUBLIC_TIME,"%Y-%m-%d")=DATE_FORMAT(NOW(),"%Y-%m-%d")  
+			   </if>
+			   <if test="startTime!=null">
+			      AND  DATE_FORMAT(PUBLIC_TIME,"%Y-%m-%d")>=DATE_FORMAT(#{startTime,jdbcType=TIMESTAMP},"%Y-%m-%d")
+			   </if>
+			   <if test="endTime!=null">
+			      AND  DATE_FORMAT(#{endTime,jdbcType=TIMESTAMP},"%Y-%m-%d")>=DATE_FORMAT(PUBLIC_TIME,"%Y-%m-%d")
+			   </if>		
+				GROUP BY ACTIVITY_CREATE_USER) T2 on s.user_id= T2.ACTIVITY_CREATE_USER                              
+		 where  r.ROLE_ID in(
+		         SELECT ROLE_ID from sys_role 
+		         where   ROLE_NAME IN  
+		         <foreach item="item" index="index" collection="roleNames" open="(" separator="," close=")">  
+                   #{item}  
+                 </foreach>)
+                 AND (s.USER_DEPT_ID =#{userCounty,jdbcType=VARCHAR} or d.DEPT_PARENT_ID=#{userCounty,jdbcType=VARCHAR})    
+		         GROUP BY s.USER_ID
+		         order by d.dept_name
+   </select>
+    <select id="getCountyRoomStatistics" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+			cv.VENUE_ID,
+			cv.venue_name as dept_name,
+			count(cv.VENUE_ID) AS roomPublish,
+			T.bookableToom as roomCanBook
+		FROM
+			cms_venue cv
+		LEFT JOIN cms_room cr 
+			   ON cv.VENUE_ID = cr.ROOM_VENUE_ID
+		LEFT JOIN sys_dept sd 
+			   ON cv.VENUE_DEPT_ID = sd.DEPT_ID
+ 		LEFT JOIN (
+			SELECT
+				tcv.VENUE_ID,
+				tcv.venue_name,
+				count(tcv.VENUE_ID) AS bookableToom
+			FROM
+				cms_venue tcv
+			LEFT JOIN cms_room tcr 
+				   ON tcv.VENUE_ID = tcr.ROOM_VENUE_ID
+				   AND EXISTS (
+					SELECT
+						ROOM_ID
+					FROM
+						cms_room_book
+					WHERE
+						book_status = 1
+						AND tcr.ROOM_ID = ROOM_ID
+						AND CUR_DATE >= CURDATE()
+					)
+			LEFT JOIN sys_dept tsd 
+				   ON tcv.VENUE_DEPT_ID = tsd.DEPT_ID
+			WHERE
+			tcr.ROOM_IS_DEL = 1
+			AND tcv.VENUE_IS_DEL = 1
+			AND tcr.ROOM_STATE = 6
+			AND tsd.DEPT_PARENT_ID = #{userCounty,jdbcType=VARCHAR}   
+	
+			GROUP BY tcv.VENUE_ID
+		) T ON cv.VENUE_ID = T.VENUE_ID
+		WHERE
+			cr.ROOM_IS_DEL = 1
+			AND cv.VENUE_IS_DEL = 1
+			AND cr.ROOM_STATE = 6
+			AND sd.DEPT_PARENT_ID =  #{userCounty,jdbcType=VARCHAR}
+			GROUP BY	cv.VENUE_ID
+   </select> 
+</mapper>

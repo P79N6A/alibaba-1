@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+
+
+<mapper namespace="com.sun3d.why.dao.StatisticsMapper" >
+
+    <!--public List<Map<String,String>> getVenueListBySearchKey(String searchKey);-->
+    <!--public List<Map<String,String>> getActivityStatic(StatisticsSearchParamter sp);-->
+    <!--public List<Map<String,String>> getVenueStatic(StatisticsSearchParamter sp);-->
+    <!--public List<Map<String,String>> getUserStatic(StatisticsSearchParamter sp);-->
+    <!--public List<Map<String,String>> getStatic(StatisticsSearchParamter sp);-->
+    
+    <select id="getVenueListBySearchKey" parameterType="hashmap" resultType="hashmap">
+
+        select venue_id,venue_name from cms_venue where 1=1
+        <if test="area != null and area != ''">
+            and venue_area=#{area}
+        </if>
+        order by venue_name
+    </select>
+
+    <!--venue_name like '%${searchkey}%'-->
+    <!--CONCAT('%',#{searchkey},'%' )-->
+    <!--private String country;-->
+    <!--private String province;-->
+    <!--private String area;-->
+    <!--private String activityType;-->
+    <!--private String activityId;-->
+    <!--private String venueId;-->
+    <!--datetype-->
+    <!--private String dayDuration;-->
+    <!--private String weekDuration;-->
+    <!--private String monthDuration;-->
+    <!--private String startDate;-->
+    <!--private String endDate;-->
+    <!--private String userSource;-->
+    <!--private String platform;-->
+
+    <select id="getActivityStatic" parameterType="com.sun3d.why.model.StatisticsSearchParamter" resultType="map">
+
+        select
+        <choose>
+            <when test="datetype=='day'">
+                date_format(cdate,'%Y-%m-%d')
+            </when>
+            <when test="datetype=='week'">
+                concat(left(cdate,4),'年第',week(cdate),'周')
+            </when>
+            <when test="datetype=='month'">
+                left(cdate,7)
+            </when>
+            <otherwise>
+                date_format(cdate,'%Y-%m-%d')
+            </otherwise>
+        </choose>
+        as cdate,sum(val1) as val1,sum(val2) as  val2,sum(val3) as  val3,sum(val4) as val4,sum(val5) as val5
+        from stat_data where datatype='newactivitystat'
+        <if test="activityArea !=null and activityArea!=''">
+            and carea=#{activityArea}
+        </if>
+        <if test="venueId !=null and venueId!=''">
+            and vname=#{venueId}
+        </if>
+        <if test="activityType !=null and activityType!=''">
+            and ctype=#{activityType}
+        </if>
+        <if test="startDate !=null and startDate!='' and endDate !=null and endDate!=''">
+            and cdate between #{startDate}  and #{endDate}
+        </if>
+        <choose>
+            <when test="datetype=='day'">
+                and datediff(now(),cdate) between 0 and  #{dateDuratiion}   group by cdate
+            </when>
+            <when test="datetype=='week'">
+                and (week(now())-week(cdate)) between 0 and  #{dateDuratiion} group by week(cdate)
+            </when>
+            <when test="datetype=='month'">
+                and left(cdate,7) > left(date_add(now(),INTERVAL -#{dateDuratiion} MONTH),7) group by left(cdate,7)
+            </when>
+            <otherwise>
+                group by cdate
+            </otherwise>
+        </choose>
+        order by cdate
+
+    </select>
+
+    <select id="getVenueStatic" parameterType="com.sun3d.why.model.StatisticsSearchParamter" resultType="map">
+        select
+        <choose>
+            <when test="datetype=='day'">
+                date_format(cdate,'%Y-%m-%d')
+            </when>
+            <when test="datetype=='week'">
+                concat(left(cdate,4),'年第',week(cdate),'周')
+            </when>
+            <when test="datetype=='month'">
+                left(cdate,7)
+            </when>
+            <otherwise>
+                date_format(cdate,'%Y-%m-%d')
+            </otherwise>
+        </choose>
+        as cdate,sum(val1) as val1,sum(val2) as  val2
+        from stat_data where datatype='newvenuestat'
+        <if test="activityArea !=null and activityArea!=''">
+            and carea=#{activityArea}
+        </if>
+        <if test="venueId !=null and venueId!=''">
+            and vname=#{venueId}
+        </if>
+        <if test="activityType !=null and activityType!=''">
+            and activityType=#{ctype}
+        </if>
+        <if test="startDate !=null and startDate!='' and endDate !=null and endDate!=''">
+            and cdate between #{startDate}  and #{endDate}
+        </if>
+        <choose>
+            <when test="datetype=='day'">
+                and datediff(now(),cdate) between 0 and  #{dateDuratiion}   group by cdate
+            </when>
+            <when test="datetype=='week'">
+                and (week(now())-week(cdate)) between 0 and  #{dateDuratiion} group by week(cdate)
+            </when>
+            <when test="datetype=='month'">
+                and left(cdate,7) > left(date_add(now(),INTERVAL -#{dateDuratiion} MONTH),7) group by left(cdate,7)
+            </when>
+            <otherwise>
+                group by cdate
+            </otherwise>
+        </choose>
+        order by cdate
+    </select>
+
+
+    <select id="getUserStatic" parameterType="com.sun3d.why.model.StatisticsSearchParamter" resultType="map">
+        select
+        <choose>
+            <when test="datetype=='day'">
+                date_format(cdate,'%Y-%m-%d')
+            </when>
+            <when test="datetype=='week'">
+                concat(left(cdate,4),'年第',week(cdate),'周')
+            </when>
+            <when test="datetype=='month'">
+                left(cdate,7)
+            </when>
+            <otherwise>
+                date_format(cdate,'%Y-%m-%d')
+            </otherwise>
+        </choose>
+        as cdate,sum(val1) as val1,sum(val2) as val2,sum(val3) as val3
+        from stat_data   a inner join stat_why_dic  b on a.carea=b.name and b.type='sourcecode'
+
+        where datatype='user_reg'
+        <if test="activityArea !=null and activityArea!=''">
+            and name=#{activityArea}
+        </if>
+        <if test="platform !=null and platform!=''">
+            and clevel=#{platform}
+        </if>
+        <if test="startDate !=null and startDate!='' and endDate !=null and endDate!=''">
+            and cdate between #{startDate}  and #{endDate}
+        </if>
+        <choose>
+            <when test="datetype=='day'">
+                and datediff(now(),cdate) between 0 and  #{dateDuratiion}   group by cdate
+            </when>
+            <when test="datetype=='week'">
+                and (week(now())-week(cdate)) between 0 and  #{dateDuratiion} group by week(cdate)
+            </when>
+            <when test="datetype=='month'">
+                and left(cdate,7) > left(date_add(now(),INTERVAL -#{dateDuratiion} MONTH),7) group by left(cdate,7)
+            </when>
+            <otherwise>
+                group by cdate
+            </otherwise>
+        </choose>
+        order by cdate
+    </select>
+
+
+
+    <!--活动统计数据生成-->
+    <insert id="generateActivityStatistics">
+
+    insert into stat_data(datatype,city,carea,ctype,vname,val1,val2,val3,val4,val5,cdate)
+select datatype,left(venue_city,2),left(venue_area,2),tag_id,venue_id,activitycount,bookactivitycount,ticketcount,bookingcount,checkcount,date_format(date_add(now(),INTERVAL -1 DAY),'%Y-%m-%d') from
+(
+ select 'newactivitystat' as  datatype,venue_city,venue_area,tag_id,venue_id,
+ (select count(*) from cms_activity m inner join cms_activity_venue_relevance n on m.activity_id=n.activity_id inner join cms_venue o on n.venue_id=o.venue_id  where o.venue_id=a.venue_id   and datediff(now(),activity_create_time)=1 and activity_is_del=1  and activity_type=b.tag_id ) as activitycount,
+ (select count(*) from cms_activity m inner join cms_activity_venue_relevance n on m.activity_id=n.activity_id inner join cms_venue o on n.venue_id=o.venue_id  where datediff(now(),activity_create_time)=1 and o.venue_id=a.venue_id   and activity_is_del=1  and activity_type=b.tag_id and ACTIVITY_IS_RESERVATION = 2) as bookactivitycount,
+ ifnull(( select sum(ORDER_COUNT) from  cms_activity m inner join cms_activity_venue_relevance n on m.activity_id=n.activity_id inner join cms_venue o on n.venue_id=o.venue_id   inner join cms_activity_event p on m.activity_id=p.activity_id where datediff(now(),activity_create_time)=1 and o.venue_id=a.venue_id   and m.activity_is_del=1  and m.activity_type=b.tag_id group by o.venue_id,m.activity_type),0) as ticketcount,
+ ifnull(( select count(*) from  cms_activity m inner join cms_activity_venue_relevance n on m.activity_id=n.activity_id inner join cms_venue o on n.venue_id=o.venue_id   inner join cms_activity_order p on m.activity_id=p.activity_id where datediff(now(),order_create_time)=1 and  o.venue_id=a.venue_id   and m.activity_is_del=1  and m.activity_type=b.tag_id group by o.venue_id,m.activity_type),0) as bookingcount,
+  ifnull(( select count(*) from  cms_activity m inner join cms_activity_venue_relevance n on m.activity_id=n.activity_id inner join cms_venue o on n.venue_id=o.venue_id   inner join cms_activity_order p on m.activity_id=p.activity_id where ORDER_PAY_STATUS = 4 and datediff(now(),order_update_time)=1 and  o.venue_id=a.venue_id   and m.activity_is_del=1  and m.activity_type=b.tag_id group by o.venue_id,m.activity_type),0) as checkcount
+ from cms_venue a,cms_tag b where  tag_type='411c6c38e1e3415ebff5f3230cb973c1'  and tag_is_delete = 1 and VENUE_IS_DEL = 1
+ )  a where (activitycount+bookactivitycount+ticketcount+bookingcount+checkcount) > 0
+
+
+
+    </insert>
+
+
+    <insert id="generateVenueStatistics">
+         insert into stat_data(datatype,city,carea,vname,val1,val2,cdate)
+select 'newvenuestat' as  datatype,venue_city,venue_area,venue_id,count(b.room_id) as roomnum,count(c.`ROOM_ID`) as openroom, date_format(date_add(now(),INTERVAL -1 DAY),'%Y-%m-%d')
+ from cms_venue a
+left join cms_room b on a.venue_id=b.`ROOM_VENUE_ID`
+ left join (select distinct room_id  from cms_room  where  room_state=6 and  room_is_del = 1 and (`ROOM_DAY_MONDAY` =1 or
+  `ROOM_DAY_TUESDAY` =1 or
+  `ROOM_DAY_WEDNESDAY` =1 or
+  `ROOM_DAY_THURSDAY` =1 or
+  `ROOM_DAY_FRIDAY` = 1 or
+  `ROOM_DAY_SATURDAY` = 1 or
+  `ROOM_DAY_SUNDAY`  = 1) and datediff(now(),room_create_time) = 1  ) as c on b.room_id=c.room_id
+ where room_is_del = 1  and  room_state=6 and datediff(now(),b.room_create_time) = 1
+group by venue_id,venue_name,venue_area
+
+
+    </insert>
+</mapper>
+
+

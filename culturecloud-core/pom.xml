@@ -1,0 +1,536 @@
+﻿<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.culturecloud</groupId>
+  <artifactId>culturecloud-core-ak</artifactId>
+  <version>1.0</version>
+  <packaging>jar</packaging>
+
+  <name>culturecloud-core-ak</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <springframework.version>4.1.3.RELEASE</springframework.version>
+    <jackson.version>1.7.1</jackson.version>
+	<jersey.version>1.18.2</jersey.version>
+  </properties>
+
+  <dependencies>
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty</artifactId>
+			<version>3.5.6.Final</version>
+		</dependency>
+		<!-- spring jar -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+			
+	
+	
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>2.0</version>
+		</dependency> 
+		
+<!-- 		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>jersey-server</artifactId>
+		  <version>${jersey.version}</version>
+		</dependency>
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>jersey-json</artifactId>
+		  <version>${jersey.version}</version>
+		</dependency>
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>jersey-core</artifactId>
+		  <version>${jersey.version}</version>
+		</dependency>	 -->				
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-json</artifactId>
+			<version>1.8</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>1.8</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-core</artifactId>
+			<version>1.8</version>
+		</dependency>
+		<!--jersey -->
+
+		<!--JAXB API -->
+		<dependency>
+			<groupId>javax.xml.ws</groupId>
+			<artifactId>jaxws-api</artifactId>
+			<version>2.1</version>
+		</dependency>
+		<!-- Json鏀寔 -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-jaxrs</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<!-- 娣诲姞Hibernate渚濊禆 -->
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+			<version>1.0.1.Final</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>transactions-hibernate3</artifactId>
+		  <version>3.9.2</version>
+		</dependency>
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>antlr</artifactId>
+		  <version>2.7.7</version>
+		</dependency>				
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>fakepath</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+<!-- 		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.4.2</version>
+		</dependency> -->
+<!-- 		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.4.2</version>
+		</dependency> -->
+		<dependency>
+			<groupId>javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.11.0.GA</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>javax.el-api</artifactId>
+			<version>2.2.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>javax.el</artifactId>
+			<version>2.2.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.zhkj.path</groupId>
+			<artifactId>asm</artifactId>
+			<version>3.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.zhkj.path</groupId>
+			<artifactId>aspectj</artifactId>
+			<version>1.6.12</version>
+		</dependency>
+		<dependency>
+			<groupId>com.zhkj.path</groupId>
+			<artifactId>aspectjr</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.zhkj.path</groupId>
+			<artifactId>aspectjweaver.jar</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.zhkj.path</groupId>
+			<artifactId>c3p0-0.9.5-pre10</artifactId>
+			<version>1.0</version>
+			<classifier>pre10</classifier>
+		</dependency>
+		<dependency>
+			<groupId>com.zhkj.path</groupId>
+			<artifactId>c3p0-oracle-thin-extras</artifactId>
+			<version>0.9.5</version>
+			<classifier>pre10</classifier>
+		</dependency>
+		<dependency>
+			<groupId>com.zhkj.path</groupId>
+			<artifactId>cglib-nodep</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.zhkj.path</groupId>
+			<artifactId>hibernate3</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.zhkj.path</groupId>
+			<artifactId>jersey-spring</artifactId>
+			<version>1.8</version>
+		</dependency>
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>jersey-spring3</artifactId>
+		  <version>2.10.1</version>
+		  <classifier>sources</classifier>
+		</dependency>		
+<!-- 		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>jersey-spring3</artifactId>
+		  <version>2.10.1</version>
+		</dependency>	
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>jersey-spring3</artifactId>
+		  <version>2.10.1</version>
+		  <classifier>sources</classifier>
+		</dependency> -->			
+		<dependency>
+			<groupId>com.zhkj.path</groupId>
+			<artifactId>jsr311-api</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.zhkj.path</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.15</version>
+		</dependency>
+		<dependency>
+			<groupId>com.zhkj.path</groupId>
+			<artifactId>ojdbc</artifactId>
+			<version>6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.zhkj.path</groupId>
+			<artifactId>struts2-json-plugin</artifactId>
+			<version>2.3.1.2</version>
+		</dependency>
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>validation-api</artifactId>
+		  <version>1.1.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>		
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>atomikos-util</artifactId>
+		  <version>3.9.2</version>
+		</dependency>	
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>atomikos-licensing</artifactId>
+		  <version>3.9.2</version>
+		</dependency>	
+		<!-- Atomikos -->
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>transactions-jta</artifactId>
+		  <version>3.9.2</version>
+		</dependency>	
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>transactions-api</artifactId>
+		  <version>3.9.2</version>
+		</dependency>
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>transactions-jdbc</artifactId>
+		  <version>3.9.2</version>
+		</dependency>	
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>transactions</artifactId>
+		  <version>3.9.2</version>
+		</dependency>	
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>mysql-connector-java</artifactId>
+		  <version>5.1.10</version>
+		  <classifier>bin</classifier> 
+		</dependency> 
+
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>hibernate-validator</artifactId>
+		  <version>5.1.2.Final</version>
+		</dependency>
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>jboss-logging</artifactId>
+		  <version>3.1.4.GA</version>
+		</dependency>
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>classmate</artifactId>
+		  <version>1.0.0</version>
+		</dependency>
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>netty-servlet-bridge</artifactId>
+		  <version>1.0.1</version>
+		  <classifier>sources</classifier>
+		</dependency>				
+		<dependency>
+		  <groupId>com.zhkj.path</groupId>
+		  <artifactId>servlet-api</artifactId>
+		  <version>1.0</version>
+		</dependency>
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>jmock</artifactId>
+		  <version>1.1.0</version>
+		</dependency>
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>easymock</artifactId>
+		  <version>2.2</version>
+		</dependency>
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>jaxen</artifactId>
+		  <version>1.1-beta-6</version>
+		</dependency>		
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>mybatis</artifactId>
+		  <version>3.2.8</version>
+		</dependency>	
+		<!-- mybatis-spring start-->
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>mybatis-spring</artifactId>
+		  <version>1.2.2</version>
+		</dependency>
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>commons-pool</artifactId>
+		  <version>1.5.5</version>
+		</dependency>	
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>commons-dbcp</artifactId>
+		  <version>1.4</version>
+		</dependency>	
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>commons-collections</artifactId>
+		  <version>3.2</version>
+		</dependency>
+		<dependency>
+		  <groupId>javax.persistence</groupId>
+		  <artifactId>persistence-api</artifactId>
+		  <version>1.0</version>
+		</dependency>		
+		<dependency>
+    		<groupId>com.sdicons.jsontools</groupId>
+            <artifactId>jsontools-core</artifactId>
+            <version>1.7</version>
+	    </dependency>
+	    <dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>	
+		<!-- mybatis-spring end -->	
+		<!-- 鑷畾涔塲ar spring-jersey start -->	
+		<dependency>
+		  <groupId>fakepath</groupId>
+		  <artifactId>spring-jersey</artifactId>
+		  <version>1.0</version>
+		</dependency>
+		 
+    <!-- redis -->
+    <dependency>
+		<groupId>redis.clients</groupId>
+		<artifactId>jedis</artifactId>
+		<version>2.4.2</version>
+	</dependency>
+	    
+	    
+	<dependency>
+		<groupId>org.springframework.data</groupId>
+		<artifactId>spring-data-redis</artifactId>
+		<version>1.4.1.RELEASE</version>
+	</dependency>
+	
+	<!-- kafka -->
+	
+	<dependency>
+				<groupId>org.apache.kafka</groupId>
+				<artifactId>kafka_2.10</artifactId>
+				<version>0.8.1.1</version>
+		</dependency>
+	  	
+	  	<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>3.4.6</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.101tec</groupId>
+			<artifactId>zkclient</artifactId>
+			<version>0.3</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-pool2</artifactId>
+		    <version>2.4.2</version>
+		</dependency>
+	
+		<dependency>
+        <groupId>org.springframework.integration</groupId>
+        <artifactId>spring-integration-kafka</artifactId>
+        <version>1.1.1.RELEASE</version>
+    </dependency>
+		
+	</dependencies>
+
+  <!--  
+ 	<repositories>
+		<repository>
+			<id>ebim</id>
+			<name>ebim</name>
+			<url>
+			http://182.92.77.217:8081/nexus/content/groups/public/
+			http://192.168.5.115:8081/nexus/content/groups/public/</url>
+		</repository>
+		
+	</repositories>
+	-->
+  <repositories>
+	  <repository>
+		  <id>nexus</id>
+		  <name>maven-public</name>
+		  <url>http://120.77.150.198:8081/repository/maven-public/</url>
+	  </repository>
+	</repositories>
+	
+	
+	<distributionManagement>
+		<repository>
+			<id>releases</id>
+			<name>maven-releases</name>
+			<url>http://120.77.150.198:8081/repository/maven-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshot</id>
+			<name>hnct-snapshot</name>
+			<url>http://120.77.150.198:8081/repository/hnct-snapshot/</url>
+		</snapshotRepository>
+  </distributionManagement>
+	
+  
+  
+  <build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<defaultGoal>install</defaultGoal>
+	</build>
+  
+</project>

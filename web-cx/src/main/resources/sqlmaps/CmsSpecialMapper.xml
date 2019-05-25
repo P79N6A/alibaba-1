@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsSpecialMapper">
+    <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsActivity">
+        <id column="ACTIVITY_ID" property="activityId" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_NAME" property="activityName"
+                jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_LINKMAN" property="activityLinkman"
+                jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_TYPE" property="activityType"
+                jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_TEL" property="activityTel" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_ICON_URL" property="activityIconUrl"
+                jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_PROVINCE" property="activityProvince"
+                jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_CITY" property="activityCity"
+                jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_AREA" property="activityArea"
+                jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_ADDRESS" property="activityAddress"
+                jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_LON" property="activityLon" jdbcType="DOUBLE"/>
+        <result column="ACTIVITY_LAT" property="activityLat" jdbcType="DOUBLE"/>
+        <result column="ACTIVITY_TIME" property="activityTime"
+                jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_IS_FREE" property="activityIsFree"
+                jdbcType="INTEGER"/>
+        <result column="ACTIVITY_PRICE" property="activityPrice"
+                jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_IS_DETAILS" property="activityIsDetails"
+                jdbcType="INTEGER"/>
+        <result column="ACTIVITY_IS_RESERVATION" property="activityIsReservation"
+                jdbcType="INTEGER"/>
+        <result column="ACTIVITY_RESERVATION_COUNT" property="activityReservationCount"
+                jdbcType="INTEGER"/>
+        <result column="ACTIVITY_START_TIME" property="activityStartTime"
+                jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_END_TIME" property="activityEndTime"
+                jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_IS_DEL" property="activityIsDel"
+                jdbcType="INTEGER"/>
+        <result column="ACTIVITY_STATE" property="activityState"
+                jdbcType="INTEGER"/>
+        <result column="ACTIVITY_CREATE_TIME" property="activityCreateTime"
+                jdbcType="TIMESTAMP"/>
+        <result column="ACTIVITY_UPDATE_TIME" property="activityUpdateTime"
+                jdbcType="TIMESTAMP"/>
+        <result column="ACTIVITY_CREATE_USER" property="activityCreateUser"
+                jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_UPDATE_USER" property="activityUpdateUser"
+                jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_DEPT" property="activityDept"
+                jdbcType="LONGVARCHAR"/>
+        <result column="ACTIVITY_RECOMMEND" property="activityRecommend"
+                jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_RECOMMEND_USERID" property="activityRecommendUserId"
+                jdbcType="VARCHAR"/>
+        <!-- <result column="ACTIVITY_RECOMMEND_AREA" property="activityRecommendArea"
+            jdbcType="VARCHAR"/> -->
+        <result column="WEEK_BROWSE_COUNT" property="weekBrowseCount"
+                jdbcType="INTEGER"/>
+        <result column="MONTH_BROWSE_COUNT" property="monthBrowseCount"
+                jdbcType="INTEGER"/>
+        <result column="YEAR_BROWSE_COUNT" property="yearBrowseCount"
+                jdbcType="INTEGER"/>
+        <result column="year_collect_count" property="yearCollectCount"
+                jdbcType="INTEGER"/>
+        <result column="venue_id" property="venueId" jdbcType="VARCHAR"/>
+        <result column="venue_name" property="venueName" jdbcType="VARCHAR"/>
+        <result column="venue_type" property="venueType" jdbcType="VARCHAR"/>
+        <result column="venue_area" property="venueArea" jdbcType="VARCHAR"/>
+        <result column="user_account" property="userAccount" jdbcType="VARCHAR"/>
+        <result column="user_account2" property="userAccount2" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_MEMO" property="activityMemo"
+                jdbcType="LONGVARCHAR"/>
+        <result column="ACTIVITY_CONTENT" property="activityContent"
+                jdbcType="LONGVARCHAR"/>
+        <result column="ACTIVITY_CROWD" property="activityCrowd"
+                jdbcType="LONGVARCHAR"/>
+        <result column="ACTIVITY_MOOD" property="activityMood"
+                jdbcType="LONGVARCHAR"/>
+        <result column="ACTIVITY_TIME_DES" property="activityTimeDes"
+                jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_SALES_ONLINE" property="activitySalesOnline"
+                jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_Count" property="activityCount"
+                jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_LOCATION" property="activityLocation"
+                jdbcType="VARCHAR"/>
+        <result column="SYS_NO" property="sysNo"
+                jdbcType="VARCHAR"/>
+        <result column="SYS_ID" property="sysId"
+                jdbcType="VARCHAR"/>
+        <result column="AVAILABLE_COUNT" property="availableCount" jdbcType="INTEGER"/>
+        <result column="ACTIVITY_RECOMMEND_TIME" property="activityRecommendTime"
+                jdbcType="TIMESTAMP"/>
+        <result column="RECOMMEND_ID" property="recommendId" jdbcType="VARCHAR"/>
+        <!--app新添加字段 -->
+        <result column="eventDateTimes" property="eventDateTimes" jdbcType="VARCHAR"/>
+        <result column="EVENT_DATE" property="eventDate" jdbcType="VARCHAR"/>
+        <result column="eventimes" property="eventimes" jdbcType="VARCHAR"/>
+        <result column="eventIds" property="eventIds" jdbcType="VARCHAR"/>
+        <result column="dateNums" property="dateNums" jdbcType="INTEGER"/>
+        <result column="collectNum" property="collectNum" jdbcType="INTEGER"/>
+        <result column="EVENT_COUNT" property="eventCount" jdbcType="INTEGER"/>
+        <result column="CREATE_ACTIVITY_CODE" property="createActivityCode" jdbcType="INTEGER"/>
+        <result column="ACTIVITY_THEME" property="activityTheme" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_HOST" property="activityHost" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_ORGANIZER" property="activityOrganizer" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_COORGANIZER" property="activityCoorganizer" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_PERFORMED" property="activityPerformed" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_PROMPT" property="activityPrompt" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_SPEAKER" property="activitySpeaker" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_PERSONAL" property="activityPersonal" jdbcType="INTEGER"/>
+        <result column="ACTIVITY_ATTACHMENT" property="activityAttachment" jdbcType="LONGVARCHAR"/>
+
+        <result column="ACTIVITY_TERMINAL_USER_ID" property="activityTerminalUserId" jdbcType="VARCHAR"/>
+        <!--app新添加字段 -->
+        <result column="eventDateTimes" property="eventDateTimes" jdbcType="VARCHAR"/>
+        <result column="EVENT_DATE" property="eventDate" jdbcType="VARCHAR"/>
+        <result column="eventimes" property="eventimes" jdbcType="VARCHAR"/>
+        <result column="eventIds" property="eventIds" jdbcType="VARCHAR"/>
+        <!--<result column="dateNums" property="dateNums" jdbcType="INTEGER" />-->
+        <result column="collectNum" property="collectNum" jdbcType="INTEGER"/>
+        <result column="EVENT_COUNT" property="eventCount" jdbcType="INTEGER"/>
+        <result column="CREATE_ACTIVITY_CODE" property="createActivityCode" jdbcType="INTEGER"/>
+        <result column="TAG_ID" property="tagId" jdbcType="VARCHAR"/>
+        <result column="TAG_NAME" property="tagName" jdbcType="VARCHAR"/>
+        <result column="TAG_IMAGE_URL" property="tagImageUrl" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_THEME" property="activityTheme" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_HOST" property="activityHost" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_ORGANIZER" property="activityOrganizer" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_COORGANIZER" property="activityCoorganizer" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_PERFORMED" property="activityPerformed" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_PROMPT" property="activityPrompt" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_SPEAKER" property="activitySpeaker" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_PERSONAL" property="activityPersonal" jdbcType="INTEGER"/>
+        <result column="ACTIVITY_ATTACHMENT" property="activityAttachment" jdbcType="LONGVARCHAR"/>
+        <!--app字段 end -->
+    </resultMap>
+    <!-- 查询前台活动列表页信息 -->
+    <select id="querySpecialOneList" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        a.ACTIVITY_ID,
+        a.ACTIVITY_NAME,
+        a.ACTIVITY_START_TIME,
+        a.ACTIVITY_END_TIME,
+        a.ACTIVITY_CITY,
+        a.ACTIVITY_AREA,
+        a.ACTIVITY_ADDRESS,
+        a.ACTIVITY_ICON_URL,
+        (
+        SELECT
+        count(cs.RELATE_ID)
+        FROM
+        cms_collect cs
+        WHERE
+        a.activity_id = cs.RELATE_ID
+        AND cs.TYPE = 2
+        ) AS collectNum,
+        st.YEAR_BROWSE_COUNT
+        FROM
+        cms_activity a
+        LEFT JOIN (
+        SELECT
+        activity_id,
+        count(activity_id) AS YEAR_BROWSE_COUNT
+        FROM
+        cms_activity_user_statistics AS a
+        WHERE
+        OPERATE_TYPE = 1
+        AND DATE_SUB(CURDATE(), INTERVAL 1 YEAR) &lt;= a.CREATE_TIME
+        GROUP BY
+        activity_id
+        ) AS st ON st.activity_id = a.activity_id
+        WHERE
+            a.ACTIVITY_ID IN (
+                '7fe02ce0cc014070b6cc1cb0e85a94eb',
+                '90f94b13f75a4f30b262608b449edd9e',
+                '6d75015d05a140e8ab6cc888fecb09a9',
+                'f3e6f547d6ea45c4a343354267a899f5',
+                '414567d230394cc2b2b6533bcded80e5',
+                'ac69fc1ed40348c8aa7a6231ea0f4d5c',
+                '674034d946694680a681c2c60a5ba552',
+                'f7a57f03831c47c5b46d2c1f15253ad7',
+                '9c49c0a630a74b01876d77e10161c5f1',
+                '479b540c548240fb9bb627107e777276',
+                'd180f3af9eca4c828b37aa96180f9123',
+                '396c40c6e92f423688dcafba62f05f05'
+            )
+            ORDER BY
+	a.ACTIVITY_END_TIME DESC
+    </select>
+    <!-- 查询前台活动列表页信息 -->
+    <select id="querySpecialTwoList" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        a.ACTIVITY_ID,
+        a.ACTIVITY_NAME,
+        a.ACTIVITY_START_TIME,
+        a.ACTIVITY_END_TIME,
+        a.ACTIVITY_CITY,
+        a.ACTIVITY_AREA,
+        a.ACTIVITY_ADDRESS,
+        a.ACTIVITY_ICON_URL,
+        (
+        SELECT
+        count(cs.RELATE_ID)
+        FROM
+        cms_collect cs
+        WHERE
+        a.activity_id = cs.RELATE_ID
+        AND cs.TYPE = 2
+        ) AS collectNum,
+        st.YEAR_BROWSE_COUNT
+        FROM
+        cms_activity a
+        LEFT JOIN (
+        SELECT
+        activity_id,
+        count(activity_id) AS YEAR_BROWSE_COUNT
+        FROM
+        cms_activity_user_statistics AS a
+        WHERE
+        OPERATE_TYPE = 1
+        AND DATE_SUB(CURDATE(), INTERVAL 1 YEAR) &lt;= a.CREATE_TIME
+        GROUP BY
+        activity_id
+        ) AS st ON st.activity_id = a.activity_id
+        WHERE
+        a.ACTIVITY_ID IN (
+                'a9771c3e5b6b49f3bab70299eb07a817',
+                '2f1a4941c23b45e6830e30167364f678',
+                'fd43b5a5fcf3439ea10b99586f17b01d',
+                'aeca43c74ace4b76b0d3b329f2ad8f68',
+                '6c3804d4d33140029188073250acc903',
+                '128e6b13abbf4d4dbacf9c0f13624acf',
+                '89c2803267a84417b17048ac3e498a30',
+                '04e91f86620e4bb0be76864420a13394',
+                '491f473d552d484aafca0b26b935206c',
+                '84693f39405d462f94e39b34371538d2',
+                '694e47d0cd144a5fab0c3fa795bb4f71',
+                '0f07a35e8a89462580b199fbee37e28e'
+
+        )
+        ORDER BY
+        a.ACTIVITY_END_TIME DESC
+    </select>
+</mapper>

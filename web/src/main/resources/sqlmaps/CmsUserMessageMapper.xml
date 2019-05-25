@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsUserMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsUserMessage" >
+    <id column="USER_MESSAGE_ID" property="userMessageId" jdbcType="VARCHAR" />
+    <result column="USER_MESSAGE_ACCEPT_USER" property="userMessageAcceptUser" jdbcType="VARCHAR" />
+    <result column="USER_MESSAGE_TYPE" property="userMessageType" jdbcType="VARCHAR" />
+    <result column="USER_MESSAGE_SEND_USER" property="userMessageSendUser" jdbcType="VARCHAR" />
+    <result column="USER_MESSAGE_CREATE_TIME" property="userMessageCreateTime" jdbcType="TIMESTAMP" />
+    <result column="USER_MESSAGE_CONTENT" property="userMessageContent" jdbcType="LONGVARCHAR" />
+    <result column="USER_MESSAGE_STATUS" property="userMessageStatus" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <select id="queryByUserId" resultMap="BaseResultMap"  parameterType="java.util.Map">
+      SELECT
+      um.USER_MESSAGE_ID,
+      um.USER_MESSAGE_CONTENT,
+      sd.DICT_NAME USER_MESSAGE_TYPE
+      FROM cms_user_message um
+      JOIN cms_terminal_user cu
+      ON um.USER_MESSAGE_ACCEPT_USER = cu.USER_ID
+      JOIN sys_dict sd
+      ON sd.DICT_ID = um.USER_MESSAGE_TYPE
+      WHERE cu.USER_ID=#{userId,jdbcType=VARCHAR}
+      ORDER  BY um.USER_MESSAGE_CREATE_TIME DESC
+    <if test="firstResult != null">
+      LIMIT ${firstResult},${rows}
+    </if>
+  </select>
+
+  <select id="countUserMessage" parameterType="java.lang.String" resultType="java.lang.Integer" >
+    select count(*) from cms_user_message
+    <if test="_parameter != null" >
+      WHERE  USER_MESSAGE_ACCEPT_USER=#{userId,jdbcType=VARCHAR}
+    </if>
+    AND  USER_MESSAGE_STATUS='N'
+  </select>
+
+
+  <delete id="deleteById" parameterType="java.lang.String">
+    DELETE FROM cms_user_message
+    WHERE USER_MESSAGE_ID = #{userMessageId,jdbcType=VARCHAR}
+  </delete>
+
+
+
+
+
+  <sql id="Base_Column_List" >
+    USER_MESSAGE_ID, USER_MESSAGE_ACCEPT_USER, USER_MESSAGE_TYPE, USER_MESSAGE_SEND_USER, 
+    USER_MESSAGE_CREATE_TIME,USER_MESSAGE_CONTENT
+  </sql>
+
+
+  <insert id="insertSelective" parameterType="com.sun3d.why.model.CmsUserMessage" >
+    insert into cms_user_message (USER_MESSAGE_ID, USER_MESSAGE_ACCEPT_USER, 
+      USER_MESSAGE_TYPE, USER_MESSAGE_SEND_USER, USER_MESSAGE_CREATE_TIME, 
+      USER_MESSAGE_CONTENT)
+    values (#{userMessageId,jdbcType=VARCHAR}, #{userMessageAcceptUser,jdbcType=VARCHAR}, 
+      #{userMessageType,jdbcType=VARCHAR}, #{userMessageSendUser,jdbcType=VARCHAR}, #{userMessageCreateTime,jdbcType=TIMESTAMP}, 
+      #{userMessageContent,jdbcType=LONGVARCHAR})
+  </insert>
+
+
+  <insert id="addUserMessage" parameterType="com.sun3d.why.model.CmsUserMessage" >
+    insert into cms_user_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userMessageId != null" >
+        USER_MESSAGE_ID,
+      </if>
+      <if test="userMessageAcceptUser != null" >
+        USER_MESSAGE_ACCEPT_USER,
+      </if>
+      <if test="userMessageType != null" >
+        USER_MESSAGE_TYPE,
+      </if>
+      <if test="userMessageSendUser != null" >
+        USER_MESSAGE_SEND_USER,
+      </if>
+      <if test="userMessageCreateTime != null" >
+        USER_MESSAGE_CREATE_TIME,
+      </if>
+      <if test="userMessageContent != null" >
+        USER_MESSAGE_CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userMessageId != null" >
+        #{userMessageId,jdbcType=VARCHAR},
+      </if>
+      <if test="userMessageAcceptUser != null" >
+        #{userMessageAcceptUser,jdbcType=VARCHAR},
+      </if>
+      <if test="userMessageType != null" >
+        #{userMessageType,jdbcType=VARCHAR},
+      </if>
+      <if test="userMessageSendUser != null" >
+        #{userMessageSendUser,jdbcType=VARCHAR},
+      </if>
+      <if test="userMessageCreateTime != null" >
+        #{userMessageCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userMessageContent != null" >
+        #{userMessageContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.sun3d.why.model.CmsUserMessage" >
+    update cms_user_message
+    <set >
+      <if test="userMessageAcceptUser != null" >
+        USER_MESSAGE_ACCEPT_USER = #{userMessageAcceptUser,jdbcType=VARCHAR},
+      </if>
+      <if test="userMessageType != null" >
+        USER_MESSAGE_TYPE = #{userMessageType,jdbcType=VARCHAR},
+      </if>
+      <if test="userMessageSendUser != null" >
+        USER_MESSAGE_SEND_USER = #{userMessageSendUser,jdbcType=VARCHAR},
+      </if>
+      <if test="userMessageCreateTime != null" >
+        USER_MESSAGE_CREATE_TIME = #{userMessageCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userMessageContent != null" >
+        USER_MESSAGE_CONTENT = #{userMessageContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where USER_MESSAGE_ID = #{userMessageId,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sun3d.why.model.CmsUserMessage" >
+    update cms_user_message
+    set USER_MESSAGE_ACCEPT_USER = #{userMessageAcceptUser,jdbcType=VARCHAR},
+      USER_MESSAGE_TYPE = #{userMessageType,jdbcType=VARCHAR},
+      USER_MESSAGE_SEND_USER = #{userMessageSendUser,jdbcType=VARCHAR},
+      USER_MESSAGE_CREATE_TIME = #{userMessageCreateTime,jdbcType=TIMESTAMP},
+      USER_MESSAGE_CONTENT = #{userMessageContent,jdbcType=LONGVARCHAR}
+    where USER_MESSAGE_ID = #{userMessageId,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.sun3d.why.model.CmsUserMessage" >
+    update cms_user_message
+    set USER_MESSAGE_ACCEPT_USER = #{userMessageAcceptUser,jdbcType=VARCHAR},
+      USER_MESSAGE_TYPE = #{userMessageType,jdbcType=VARCHAR},
+      USER_MESSAGE_SEND_USER = #{userMessageSendUser,jdbcType=VARCHAR},
+      USER_MESSAGE_CREATE_TIME = #{userMessageCreateTime,jdbcType=TIMESTAMP}
+    where USER_MESSAGE_ID = #{userMessageId,jdbcType=VARCHAR}
+  </update>
+    <!--app查询用户消息列表 -->
+  <select id="queryUserMessageById" resultMap="BaseResultMap"  parameterType="java.lang.String">
+SELECT
+  cum.USER_MESSAGE_ACCEPT_USER,
+  cum.USER_MESSAGE_CONTENT,
+  sd.DICT_NAME as USER_MESSAGE_TYPE,
+  cum.USER_MESSAGE_ID
+FROM
+	cms_user_message cum
+ LEFT JOIN sys_dict sd on cum.USER_MESSAGE_TYPE=sd.dict_id
+WHERE
+	1 = 1
+AND cum.USER_MESSAGE_ACCEPT_USER=#{userId,jdbcType=VARCHAR}
+ORDER BY cum.USER_MESSAGE_CREATE_TIME DESC
+   </select>
+
+  <select id="queryCmsUserMessageById" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select <include refid="Base_Column_List"/>
+    from cms_user_message
+    where USER_MESSAGE_ID= #{userMessageId,jdbcType=VARCHAR}
+  </select>
+  <!--app根据用户id更新消息状态-->
+  <update id="updateUserMessageById" parameterType="com.sun3d.why.model.CmsUserMessage">
+    update
+    cms_user_message
+    set USER_MESSAGE_STATUS = 'Y'
+    where USER_MESSAGE_ACCEPT_USER = #{userMessageAcceptUser}
+  </update>
+</mapper>

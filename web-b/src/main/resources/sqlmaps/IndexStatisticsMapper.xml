@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.IndexStatisticsMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.IndexStatistics" >
+    <result column="AREA" property="area" jdbcType="VARCHAR" />
+    <result column="STATISTICS_COUNT" property="statisticsCount" jdbcType="INTEGER" />
+    <result column="STATISTICS_TYPE" property="statisticsType" jdbcType="INTEGER" />
+    <result column="STATISTICS_TIME" property="statisticsTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    AREA, STATISTICS_COUNT, STATISTICS_TYPE, STATISTICS_TIME
+  </sql>
+  <select id="queryByMap" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from index_statistics where 1=1
+    <if test="area != null" >
+      and area = #{area}
+    </if>
+
+  </select>
+  <delete id="deleteInfo"  >
+    delete from index_statistics
+  </delete>
+
+  <insert id="addIndexStatistics" parameterType="com.sun3d.why.model.IndexStatistics" >
+    insert into index_statistics
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="area != null" >
+        AREA,
+      </if>
+      <if test="statisticsCount != null" >
+        STATISTICS_COUNT,
+      </if>
+      <if test="statisticsType != null" >
+        STATISTICS_TYPE,
+      </if>
+      <if test="statisticsTime != null" >
+        STATISTICS_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="statisticsCount != null" >
+        #{statisticsCount,jdbcType=INTEGER},
+      </if>
+      <if test="statisticsType != null" >
+        #{statisticsType,jdbcType=INTEGER},
+      </if>
+
+      <if test="statisticsTime != null" >
+        #{statisticsTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+
+</mapper>

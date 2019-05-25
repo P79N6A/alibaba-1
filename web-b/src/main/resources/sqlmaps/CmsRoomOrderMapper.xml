@@ -1,0 +1,1315 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsRoomOrderMapper">
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsRoomOrder">
+		<id column="ROOM_ORDER_ID" property="roomOrderId" jdbcType="VARCHAR" />
+		<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+		<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+		<result column="USER_TEL" property="userTel" jdbcType="VARCHAR" />
+		<result column="TUSER_ID" property="tuserId" jdbcType="VARCHAR" />
+		<result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+		<result column="VENUE_ID" property="venueId" jdbcType="VARCHAR" />
+		<result column="ROOM_ID" property="roomId" jdbcType="VARCHAR" />
+		<result column="BOOK_STATUS" property="bookStatus" jdbcType="INTEGER" />
+		<result column="BOOK_ID" property="bookId" jdbcType="VARCHAR" />
+		<result column="VALID_CODE" property="validCode" jdbcType="VARCHAR" />
+		<result column="ORDER_CREATE_TIME" property="orderCreateTime"  jdbcType="TIMESTAMP" />
+		<result column="ORDER_UPDATE_TIME" property="orderUpdateTime" jdbcType="TIMESTAMP" />
+		<result column="ORDER_UPDATE_USER" property="orderUpdateUser" jdbcType="VARCHAR" />
+		<result column="room_open_time" property="roomOpenTime" jdbcType="VARCHAR" />
+		<!--app新添加字段 -->
+		<result column="room_pic_url" property="roomPicUrl" jdbcType="VARCHAR" />
+		<result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+		<result column="room_no" property="roomNo" jdbcType="VARCHAR" />
+		<result column="room_area" property="roomArea" jdbcType="VARCHAR" />
+		<result column="room_capacity" property="roomCapacity"
+			jdbcType="VARCHAR" />
+		<result column="room_fee" property="roomFee" jdbcType="VARCHAR" />
+		<result column="SYS_USER_ID" property="sysUserId" jdbcType="VARCHAR" />
+		<result column="venue_name" property="venueName" jdbcType="VARCHAR" />
+		<result column="venue_city" property="venueCity" jdbcType="VARCHAR" />
+		<result column="venue_area" property="venueArea" jdbcType="VARCHAR" />
+		<result column="venue_address" property="venueAddress" jdbcType="VARCHAR" />
+		<result column="room_name" property="roomName" jdbcType="VARCHAR" />
+
+		<result column="tuser_team_name" property="tuserTeamName"
+			jdbcType="VARCHAR" />
+		<result column="open_period" property="openPeriod" jdbcType="VARCHAR" />
+		<result column="cur_date" property="curDate" jdbcType="TIMESTAMP" />
+		<result column="room_is_free" property="roomIsFree" jdbcType="INTEGER" />
+
+		<result column="SYS_NO" property="sysNo" jdbcType="VARCHAR" />
+		<result column="SYS_ID" property="sysId" jdbcType="VARCHAR" />
+		<result column="commentNums" property="commentNums" jdbcType="INTEGER" />
+		<!--app添加字段
+		<result column="DICT_NAME" property="dictName" jdbcType="VARCHAR" />
+		<result column="curDates" property="curDates" jdbcType="VARCHAR" />-->
+		<result column="SYS_USER_ID" property="sysUserId" jdbcType="VARCHAR" />
+		<result column="SYS_USER_NAME" property="sysUserName" jdbcType="VARCHAR" />
+		
+		<result column="PURPOSE" property="purpose" jdbcType="VARCHAR"/>
+		<result column="CHECK_STATUS" property="checkStatus" jdbcType="INTEGER"/>
+		<result column="TUSER_NAME" property="tuserName" jdbcType="VARCHAR"/>
+		
+		<result column="USER_TYPE" property="userType" jdbcType="INTEGER"/>
+		<result column="TUSER_IS_DISPLAY" property="tuserIsDisplay" jdbcType="INTEGER"/>
+	</resultMap>
+
+	<insert id="addRoomOrder" parameterType="com.sun3d.why.model.CmsRoomOrder">
+		insert into cms_room_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="roomOrderId != null">
+				ROOM_ORDER_ID,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="userName != null">
+				USER_NAME,
+			</if>
+			<if test="userTel != null">
+				USER_TEL,
+			</if>
+			<if test="tuserId != null">
+				TUSER_ID,
+			</if>
+			<if test="orderNo != null">
+				ORDER_NO,
+			</if>
+			<if test="venueId != null">
+				VENUE_ID,
+			</if>
+			<if test="roomId != null">
+				ROOM_ID,
+			</if>
+			<if test="bookStatus != null">
+				BOOK_STATUS,
+			</if>
+			<if test="bookId != null">
+				BOOK_ID,
+			</if>
+			<if test="validCode != null">
+				VALID_CODE,
+			</if>
+			<if test="orderCreateTime != null">
+				ORDER_CREATE_TIME,
+			</if>
+			<if test="orderUpdateTime != null">
+				ORDER_UPDATE_TIME,
+			</if>
+			<if test="orderUpdateUser != null">
+				ORDER_UPDATE_USER,
+			</if>
+			<if test="sysId != null">
+				SYS_ID,
+			</if>
+			<if test="sysNo != null">
+				SYS_NO,
+			</if>
+			<if test="purpose != null">
+				PURPOSE,
+			</if>
+			<if test="checkStatus != null">
+				CHECK_STATUS,
+			</if>
+			<if test="tuserName != null">
+				TUSER_NAME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="roomOrderId != null">
+				#{roomOrderId,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="userTel != null">
+				#{userTel,jdbcType=VARCHAR},
+			</if>
+			<if test="tuserId != null">
+				#{tuserId,jdbcType=VARCHAR},
+			</if>
+			<if test="orderNo != null">
+				#{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="venueId != null">
+				#{venueId,jdbcType=VARCHAR},
+			</if>
+			<if test="roomId != null">
+				#{roomId,jdbcType=VARCHAR},
+			</if>
+			<if test="bookStatus != null">
+				#{bookStatus,jdbcType=INTEGER},
+			</if>
+			<if test="bookId != null">
+				#{bookId,jdbcType=VARCHAR},
+			</if>
+			<if test="validCode != null">
+				#{validCode,jdbcType=VARCHAR},
+			</if>
+			<if test="orderCreateTime != null">
+				#{orderCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderUpdateTime != null">
+				#{orderUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderUpdateUser != null">
+				#{orderUpdateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="sysId != null">
+				#{sysId,jdbcType=VARCHAR},
+			</if>
+			<if test="sysNo != null">
+				#{sysNo,jdbcType=VARCHAR},
+			</if>
+			
+			<if test="purpose != null">
+				#{purpose,jdbcType=VARCHAR},
+			</if>
+			<if test="checkStatus != null">
+				#{checkStatus,jdbcType=INTEGER},
+			</if>
+				<if test="tuserName != null">
+				#{tuserName,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="editCmsRoomOrder" parameterType="com.sun3d.why.model.CmsRoomOrder">
+		update cms_room_order
+		<set>
+			<if test="userId != null">
+				USER_ID = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				USER_NAME = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="userTel != null">
+				USER_TEL = #{userTel,jdbcType=VARCHAR},
+			</if>
+			<if test="tuserId != null">
+				TUSER_ID = #{tuserId,jdbcType=VARCHAR},
+			</if>
+			<if test="orderNo != null">
+				ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="venueId != null">
+				VENUE_ID = #{venueId,jdbcType=VARCHAR},
+			</if>
+			<if test="roomId != null">
+				ROOM_ID = #{roomId,jdbcType=VARCHAR},
+			</if>
+			<if test="bookStatus != null">
+				BOOK_STATUS = #{bookStatus,jdbcType=INTEGER},
+			</if>
+			<if test="bookId != null">
+				BOOK_ID = #{bookId,jdbcType=VARCHAR},
+			</if>
+			<if test="validCode != null">
+				VALID_CODE = #{validCode,jdbcType=VARCHAR},
+			</if>
+			<if test="orderCreateTime != null">
+				ORDER_CREATE_TIME =
+				#{orderCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderUpdateTime != null">
+				ORDER_UPDATE_TIME =
+				#{orderUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderUpdateUser != null">
+				ORDER_UPDATE_USER = #{orderUpdateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="sysId != null">
+				SYS_ID = #{sysId,jdbcType=VARCHAR},
+			</if>
+			<if test="sysNo != null">
+				SYS_NO = #{sysNo,jdbcType=VARCHAR},
+			</if>
+			<if test="sysUserId != null">
+				sys_user_id = #{sysUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="purpose != null">
+				PURPOSE = #{purpose,jdbcType=VARCHAR},
+			</if>
+			<if test="checkStatus != null">
+				CHECK_STATUS = #{checkStatus,jdbcType=INTEGER},
+			</if>
+			<if test="tuserName != null">
+				TUSER_NAME = #{tuserName,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ROOM_ORDER_ID = #{roomOrderId,jdbcType=VARCHAR}
+	</update>
+
+	<!--前端2.0我的场馆 当前预定列表 start -->
+	<select id="queryRoomOrderList" resultMap="BaseResultMap"  parameterType="java.util.Map">
+		SELECT
+		c.USER_ID,
+		c.TUSER_ID,
+		c.ORDER_NO,
+		c.USER_TEL,
+		c.VALID_CODE,
+		c.BOOK_STATUS,
+		c.ORDER_CREATE_TIME,
+		c.ROOM_ID,
+		c.VENUE_ID,
+		c.ROOM_ORDER_ID,
+		c.ORDER_UPDATE_TIME,
+		c.CHECK_STATUS,
+		t.TUSER_NAME as tuser_team_name,
+		t.T_CREATE_TIME,
+		r.ROOM_NAME,
+		r.ROOM_IS_FREE,
+		v.venue_city,
+		v.venue_area,
+		v.venue_address,
+		v.venue_name,
+		r.room_no,
+		r.room_pic_url,
+		r.room_fee,
+		rb.OPEN_PERIOD as open_period,
+		rb.CUR_DATE as cur_date
+		FROM cms_room_order c
+		LEFT JOIN cms_team_user t on c.TUSER_ID = t.TUSER_ID
+		LEFT JOIN cms_venue v on c.VENUE_ID = v.VENUE_ID
+		LEFT JOIN cms_room r on c.ROOM_ID = r.ROOM_ID
+		LEFT JOIN cms_room_book rb on c.BOOK_ID = rb.BOOK_ID
+		where 1=1
+		AND c.BOOK_STATUS = 1
+		AND NOW() &lt; CONCAT(rb.cur_date," ",left(rb.open_period,5))
+		<if test="userId != null and userId != '' ">
+			AND c.USER_ID = #{userId}
+		</if>
+		order by c.ORDER_CREATE_TIME desc
+		limit ${firstResult},${rows}
+	</select>
+	<!--前端2.0我的场馆 当前预定列表 end -->
+
+	<!--前端2.0我的场馆 当前预定总数 start -->
+	<select id="queryRoomOrderListCount" resultType="java.lang.Integer"  parameterType="java.util.Map">
+		SELECT
+		count(c.room_order_id)
+		FROM cms_room_order c
+		LEFT JOIN cms_team_user t on c.TUSER_ID = t.TUSER_ID
+		LEFT JOIN cms_venue v on c.VENUE_ID = v.VENUE_ID
+		LEFT JOIN cms_room r on c.ROOM_ID = r.ROOM_ID
+		LEFT JOIN cms_room_book rb on c.BOOK_ID = rb.BOOK_ID
+		where 1=1
+		AND c.BOOK_STATUS = 1
+		AND NOW() &lt; CONCAT(rb.cur_date," ",left(rb.open_period,5))
+		<if test="userId != null and userId != ''">
+			AND c.USER_ID = #{userId}
+		</if>
+	</select>
+	<!--前端2.0我的场馆 当前预定总数 end -->
+
+	<!--前端2.0我的场馆 历史预定列表 start -->
+	<select id="queryRoomOrderHistoryList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT
+		c.USER_ID,
+		c.TUSER_ID,
+		c.ORDER_NO,
+		c.USER_TEL,
+		c.VALID_CODE,
+		4 as BOOK_STATUS,
+		c.ORDER_CREATE_TIME as orderCreateTime,
+		c.ROOM_ID,
+		c.VENUE_ID,
+		c.ROOM_ORDER_ID,
+		c.ORDER_UPDATE_TIME,
+		c.CHECK_STATUS,
+		t.TUSER_NAME as tuser_team_name,
+		t.T_CREATE_TIME,
+		r.ROOM_NAME,
+		r.ROOM_IS_FREE,
+		v.venue_city,
+		v.venue_area,
+		v.VENUE_ADDRESS,
+		v.VENUE_NAME,
+		r.room_no,
+		r.ROOM_PIC_URL,
+		rb.OPEN_PERIOD as open_period,
+		rb.CUR_DATE as cur_date
+		FROM cms_room_order c
+		LEFT JOIN cms_team_user t on c.TUSER_ID = t.TUSER_ID
+		LEFT JOIN cms_venue v on c.VENUE_ID = v.VENUE_ID
+		LEFT JOIN cms_room r on c.ROOM_ID = r.ROOM_ID
+		LEFT JOIN cms_room_book rb on c.BOOK_ID = rb.BOOK_ID
+		where 1=1
+		AND c.BOOK_STATUS = 1
+		AND NOW() &gt; CONCAT(rb.cur_date," ",left(rb.open_period,5))
+		<if test="userId != null and userId != '' ">
+			AND c.USER_ID = #{userId}
+		</if>
+		union all
+		SELECT
+		c.USER_ID,
+		c.TUSER_ID,
+		c.ORDER_NO,
+		c.USER_TEL,
+		c.VALID_CODE,
+		c.BOOK_STATUS,
+		c.CHECK_STATUS,
+		c.ORDER_CREATE_TIME as orderCreateTime,
+		c.ROOM_ID,
+		c.VENUE_ID,
+		c.ROOM_ORDER_ID,
+		c.ORDER_UPDATE_TIME,
+		t.TUSER_NAME as tuser_team_name,
+		t.T_CREATE_TIME,
+		r.ROOM_NAME,
+		r.ROOM_IS_FREE,
+		v.venue_city,
+		v.venue_area,
+		v.VENUE_ADDRESS,
+		v.VENUE_NAME,
+		r.room_no,
+		r.ROOM_PIC_URL,
+		rb.OPEN_PERIOD as open_period,
+		rb.CUR_DATE as cur_date
+		FROM cms_room_order c
+		LEFT JOIN cms_team_user t on c.TUSER_ID = t.TUSER_ID
+		LEFT JOIN cms_venue v on c.VENUE_ID = v.VENUE_ID
+		LEFT JOIN cms_room r on c.ROOM_ID = r.ROOM_ID
+		LEFT JOIN cms_room_book rb on c.BOOK_ID = rb.BOOK_ID
+		where 1=1
+		AND c.BOOK_STATUS in (2,3,5,6)
+		<if test="userId != null and userId != '' ">
+			AND c.USER_ID = #{userId}
+		</if>
+		order by orderCreateTime desc
+		limit ${firstResult},${rows}
+	</select>
+	<!--前端2.0我的场馆 历史预定列表 end -->
+
+	<!--前端2.0我的场馆 历史预定总数 start -->
+	<select id="queryRoomOrderListHistoryCount" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		select sum(recordCount) from (
+		SELECT
+		count(c.room_order_id) recordCount
+		FROM cms_room_order c
+		LEFT JOIN cms_team_user t on c.TUSER_ID = t.TUSER_ID
+		LEFT JOIN cms_venue v on c.VENUE_ID = v.VENUE_ID
+		LEFT JOIN cms_room r on c.ROOM_ID = r.ROOM_ID
+		LEFT JOIN cms_room_book rb on c.BOOK_ID = rb.BOOK_ID
+		where 1=1
+		AND c.BOOK_STATUS = 1
+		AND NOW() &gt; CONCAT(rb.cur_date," ",left(rb.open_period,5))
+		<if test="userId != null and userId != ''">
+			AND c.USER_ID = #{userId}
+		</if>
+		union all
+		SELECT count(c.room_order_id) recordCount
+		FROM cms_room_order c
+		LEFT JOIN cms_team_user t on c.TUSER_ID = t.TUSER_ID
+		LEFT JOIN cms_venue v on c.VENUE_ID = v.VENUE_ID
+		LEFT JOIN cms_room r on c.ROOM_ID = r.ROOM_ID
+		LEFT JOIN cms_room_book rb on c.BOOK_ID = rb.BOOK_ID
+		where 1=1
+		AND c.BOOK_STATUS in (2,3,5,6)
+		<if test="userId != null and userId != ''">
+			AND c.USER_ID = #{userId}
+		</if>
+		) t
+	</select>
+	<!--前端2.0我的场馆 历史预定总数 end -->
+
+	<!--前端2.0我的场馆 取消订单 start -->
+	<delete id="deleteRoomOrder" parameterType="java.lang.String">
+		delete from
+		cms_room_order
+		WHERE 1=1
+		AND ROOM_ORDER_ID = #{roomOrderId}
+	</delete>
+	<!--前端2.0我的场馆 取消订单 end -->
+
+	<select id="queryAllRoomOrderList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		ro.ROOM_ORDER_ID,ro.USER_ID,ro.USER_NAME,ro.USER_TEL,ro.TUSER_ID,
+		tus.TUSER_NAME as
+		tuser_team_name,ro.ORDER_NO,ro.VENUE_ID,ro.ROOM_ID,ro.ROOM_ID,
+		ro.BOOK_STATUS,ro.BOOK_ID,ro.VALID_CODE,ro.ORDER_CREATE_TIME,ro.ORDER_UPDATE_TIME,
+		rb.OPEN_PERIOD as OPEN_PERIOD,
+		concat(rb.cur_date," ",left(rb.open_period,5)) as room_open_time,
+		su.USER_NICK_NAME as SYS_USER_NAME
+		from cms_room_order ro
+		left join
+		cms_team_user tus on ro.TUSER_ID = tus.TUSER_ID
+		left join
+		sys_user su on ro.SYS_USER_ID = su.USER_ID
+		left join cms_room_book
+		rb on ro.BOOK_ID = rb.BOOK_ID
+		where 1=1
+		<if test="roomOrderId != null">
+			AND ro.ROOM_ORDER_ID = #{roomOrderId}
+		</if>
+		<if test="roomId != null">
+			AND ro.ROOM_ID = #{roomId}
+		</if>
+		<if test="orderNo != null">
+			AND ro.ORDER_NO LIKE #{orderNo}
+		</if>
+		order by ro.ORDER_UPDATE_TIME desc
+		limit ${firstResult},${rows}
+	</select>
+
+	<select id="queryAllRoomOrderCount" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		select count(ro.ROOM_ORDER_ID)
+		from cms_room_order ro
+		left join
+		cms_team_user tus on ro.TUSER_ID = tus.TUSER_ID
+		left join cms_room_book
+		rb on ro.BOOK_ID = rb.BOOK_ID
+		where 1=1
+		<if test="roomOrderId != null">
+			AND ro.ROOM_ORDER_ID = #{roomOrderId}
+		</if>
+		<if test="roomId != null">
+			AND ro.ROOM_ID = #{roomId}
+		</if>
+		<if test="orderNo != null">
+			AND ro.ORDER_NO LIKE #{orderNo}
+		</if>
+	</select>
+
+	<!--app根据展馆id查询活动室信息 -->
+	<select id="queryVenueRooms" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT
+		COUNT(cro.ORDER_NO) as order_num,
+		r.room_id as ROOM_ID,
+		r.ROOM_NO
+		as ROOM_No,
+		r.ROOM_NAME as room_name,
+		r.ROOM_AREA as room_Area,
+		r.ROOM_CAPACITY as room_Capacity
+		FROM
+		cms_room_order cro
+		RIGHT JOIN (
+		SELECT
+		c.room_id,
+		c.ROOM_NAME,
+		c.ROOM_NO,
+		c.ROOM_AREA,
+		c.ROOM_CAPACITY
+		FROM
+		cms_room c
+		LEFT JOIN cms_venue v ON c.ROOM_VENUE_ID = v.VENUE_ID
+		WHERE
+		1=1
+		<if test="venueId != null and venueId != ''">
+			AND v.VENUE_ID = #{venueId}
+		</if>
+		) r ON cro.ROOM_ID = r.room_id
+		and cro.BOOK_STATUS=1
+		GROUP BY r.ROOM_ID
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</select>
+
+
+
+	<select id="queryCmsRoomOrderById" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		ROOM_ORDER_ID,USER_ID,USER_NAME,USER_TEL,TUSER_ID,ORDER_NO,VENUE_ID,ROOM_ID,
+		BOOK_STATUS,BOOK_ID,VALID_CODE,ORDER_CREATE_TIME,ORDER_UPDATE_TIME,ORDER_UPDATE_USER,SYS_NO,SYS_ID,PURPOSE,CHECK_STATUS,
+		TUSER_NAME
+		from cms_room_order
+		where ROOM_ORDER_ID = #{roomOrderId}
+	</select>
+	<!--app当前预定活动室数量 -->
+	<select id="queryRoomOrderCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) from
+		cms_room_order cro
+		where cro.ROOM_ID= #{0}
+		and cro.BOOK_STATUS in (0,1)
+	</select>
+
+
+	<select id="querySendMsg" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		c.USER_TEL,
+		c.USER_NAME,
+		v.VENUE_NAME as venue_name,
+		r.ROOM_NAME as room_name,
+		rb.OPEN_PERIOD as open_period,
+		rb.CUR_DATE as cur_date,
+		t.TUSER_NAME as tuser_team_name,
+		v.VENUE_ADDRESS as venue_address,
+		r.ROOM_NO as room_no,
+		c.VALID_CODE
+		FROM cms_room_order c
+		LEFT JOIN cms_team_user t on c.TUSER_ID = t.TUSER_ID
+		LEFT JOIN
+		cms_venue v on c.VENUE_ID = v.VENUE_ID
+		LEFT JOIN cms_room r on
+		c.ROOM_ID = r.ROOM_ID
+		LEFT JOIN cms_room_book rb on c.BOOK_ID =
+		rb.BOOK_ID
+		where 1=1
+		AND c.BOOK_STATUS = 1
+		and c.ROOM_ORDER_ID =
+		#{roomOrderId}
+	</select>
+	<!--app根据订单号查询活动室订单信息 -->
+	<select id="queryValidateCode" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT
+		c.ROOM_ORDER_ID,
+		c.BOOK_STATUS,
+		c.ORDER_NO,
+		c.USER_TEL,
+		c.VALID_CODE,
+		c.CHECK_STATUS,
+		t.TUSER_NAME as tuser_team_name,
+		r.ROOM_NAME,
+		v.venue_address,
+		v.venue_name,
+		rb.OPEN_PERIOD as open_period,
+		rb.CUR_DATE as cur_date
+		FROM cms_room_order c
+		LEFT JOIN cms_team_user t
+		on c.TUSER_ID = t.TUSER_ID
+		LEFT JOIN cms_venue v on c.VENUE_ID =
+		v.VENUE_ID
+		LEFT JOIN cms_room r on c.ROOM_ID = r.ROOM_ID
+		LEFT JOIN
+		cms_room_book rb on c.BOOK_ID = rb.BOOK_ID
+		where 1=1
+		<if test="bookStatus != null">
+			AND c.BOOK_STATUS = #{bookStatus,jdbcType=INTEGER}
+		</if>
+		<if test="validCode != null and validCode != '' ">
+			AND c.VALID_CODE = #{validCode}
+		</if>
+	</select>
+
+
+	<!--app根据订单号查询活动室订单信息 -->
+	<select id="queryBookCountByArea" resultType="hashmap"
+		parameterType="java.util.Map">
+		SELECT count(*) as statisticsCount, v.VENUE_AREA as area
+		FROM cms_room_order c
+		LEFT JOIN cms_venue v on c.VENUE_ID = v.VENUE_ID
+		where 1=1
+		AND c.BOOK_STATUS in (1,3)
+		GROUP by v.VENUE_AREA
+	</select>
+
+    <!--app根据用户id获取当前我的活动室订单 -->
+	<select id="queryCurrentRoomOrderListById" resultMap="BaseResultMap"
+			parameterType="java.util.Map">
+SELECT
+		right(cv.VENUE_CITY,3) as city,
+		right(cv.VENUE_AREA,3) as area,
+	cro.ORDER_NO,
+	cro.ROOM_ORDER_ID,
+	cv.VENUE_NAME,
+	cv.VENUE_ADDRESS,
+	cro.ORDER_CREATE_TIME,
+	cr.ROOM_NAME,
+	cr.ROOM_FEE,
+	cr.ROOM_ID,
+	cro.VALID_CODE,
+	cro.CHECK_STATUS,
+	cr.ROOM_PIC_URL,
+	ctu.TUSER_NAME as tuser_team_name,
+	cro.VENUE_ID,
+	count(c.COMMENT_ID) AS commentNums,
+	rb.OPEN_PERIOD AS open_period,
+	rb.CUR_DATE AS cur_date
+FROM
+	cms_room_order cro
+LEFT JOIN cms_venue cv ON cro.VENUE_ID = cv.VENUE_ID
+LEFT JOIN cms_team_user ctu ON cro.TUSER_ID = ctu.TUSER_ID
+LEFT JOIN cms_comment c ON cro.VENUE_ID = c.COMMENT_RK_ID
+LEFT JOIN cms_room cr ON cr.ROOM_ID = cro.ROOM_ID
+LEFT JOIN cms_room_book rb ON cro.BOOK_ID = rb.BOOK_ID
+WHERE
+	1 = 1
+		<if test="userId != null and userId != '' ">
+			AND cro.USER_ID = #{userId}
+		</if>
+AND cro.BOOK_STATUS = 1
+		<if test="roomTime != null and roomTime != ''">
+        AND concat(rb.CUR_DATE," ",substring(rb.OPEN_PERIOD,1,5))&gt;= #{roomTime}
+		</if>
+GROUP BY
+	cro.ROOM_ORDER_ID
+ORDER BY
+	cro.ORDER_UPDATE_TIME DESC
+		<if test="firstResult != null">
+		limit ${firstResult},${rows}
+		</if>
+</select>
+
+
+	<!--app根据用户id获取过去我的活动室订单 -->
+	<select id="queryPastRoomOrderListById" resultMap="BaseResultMap"
+			parameterType="java.util.Map">
+		SELECT
+		cro.ORDER_NO,
+		cro.ROOM_ORDER_ID,
+		cv.VENUE_NAME,
+		cv.VENUE_ADDRESS,
+		cr.ROOM_ID,
+		rb.CUR_DATE,
+		rb.OPEN_PERIOD,
+		cro.BOOK_STATUS,
+		cro.CHECK_STATUS,
+        cro.ORDER_CREATE_TIME
+		FROM
+		cms_room_order cro
+		LEFT JOIN cms_venue cv ON cro.VENUE_ID = cv.VENUE_ID
+		LEFT JOIN cms_room cr ON cr.ROOM_ID = cro.ROOM_ID
+		LEFT JOIN cms_room_book rb ON cro.BOOK_ID = rb.BOOK_ID
+		WHERE
+		1 = 1
+		<if test="userId != null and userId != '' ">
+			AND cro.USER_ID = #{userId}
+		</if>
+		AND (concat(rb.CUR_DATE," ",substring(rb.OPEN_PERIOD,1,5))&lt; #{roomTime} or cro.BOOK_STATUS in(2,3,5))
+		AND cro.BOOK_STATUS !=4
+		 <!--<if test="roomTime != null and roomTime != ''">
+			AND concat(rb.CUR_DATE," ",substring(rb.OPEN_PERIOD,1,5))&lt;= #{roomTime}
+		</if>-->
+		GROUP BY
+		cro.ROOM_ORDER_ID
+		ORDER BY
+		cro.ORDER_UPDATE_TIME DESC
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</select>
+    <!--app删除以往活动室订单 -->
+	<update id="deleteRoomOrderById" >
+		UPDATE cms_room_order SET BOOK_STATUS=4
+		WHERE 1=1
+		AND ROOM_ORDER_ID = #{0} and USER_ID=#{1}
+	</update>
+
+
+	<select id="getRoomBookCountOneDay" resultType="java.lang.Integer"
+			parameterType="java.lang.String">
+		select count(ro.ROOM_ORDER_ID)
+		from cms_room_order ro
+		inner join
+		cms_terminal_user tu on ro.USER_ID = tu.USER_ID
+		where 1=1
+		and ro.BOOK_STATUS in (0,1)
+		and ro.ORDER_CREATE_TIME &gt; CURDATE()
+		and ro.ORDER_CREATE_TIME &lt; ADDDATE(CURDATE(),INTERVAL 1 DAY)
+		AND ro.USER_ID=#{userId}
+	</select>
+	<!--取票机验证活动室订单
+	<select id="queryRoomValidateCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+SELECT
+    c.ROOM_ID,
+	c.ORDER_NO,
+	c.BOOK_STATUS,
+	ct.TUSER_NAME AS tuser_team_name,
+	c.VALID_CODE,
+	c.ROOM_ORDER_ID,
+	c.USER_NAME,
+	s.DICT_NAME,
+	GROUP_CONCAT(r.ROOM_NAME SEPARATOR ',') AS room_name,
+	v.VENUE_NAME,
+	v.venue_address,
+	GROUP_CONCAT(rb.OPEN_PERIOD SEPARATOR ',') AS open_period,
+	GROUP_CONCAT(rb.CUR_DATE SEPARATOR ',') AS curDates
+FROM
+	cms_room_order c
+LEFT JOIN cms_room_book rb ON c.BOOK_ID = rb.BOOK_ID
+LEFT JOIN cms_venue v ON c.VENUE_ID = v.VENUE_ID
+LEFT JOIN cms_room r ON r.ROOM_ID = c.ROOM_ID
+LEFT JOIN sys_dict s ON s.DICT_ID = v.VENUE_MOOD
+LEFT JOIN cms_team_user ct ON ct.TUSER_ID = c.TUSER_ID
+WHERE 1=1
+AND c.VALID_CODE = #{orderValidateCode}
+	</select>
+ -->
+
+	<select id="queryRoomOrderListByBookId" resultMap="BaseResultMap"  parameterType="java.lang.String">
+		SELECT
+		c.ROOM_ORDER_ID,
+		c.USER_ID,
+		c.USER_NAME,
+		c.TUSER_ID,
+		c.ORDER_NO,
+		c.USER_TEL,
+		c.VALID_CODE,
+		c.BOOK_STATUS,
+		c.CHECK_STATUS,
+		c.ORDER_CREATE_TIME,
+		c.ORDER_UPDATE_TIME,
+		t.TUSER_NAME as tuser_team_name,
+		t.T_CREATE_TIME,
+		rb.OPEN_PERIOD as open_period,
+		rb.CUR_DATE as cur_date
+		FROM cms_room_order c
+		LEFT JOIN cms_team_user t on c.TUSER_ID = t.TUSER_ID
+		LEFT JOIN cms_venue v on c.VENUE_ID = v.VENUE_ID
+		LEFT JOIN cms_room r on c.ROOM_ID = r.ROOM_ID
+		LEFT JOIN cms_room_book rb on c.BOOK_ID = rb.BOOK_ID
+		where 1=1
+		AND c.BOOK_STATUS in (0,1)
+		AND rb.BOOK_ID = #{bookId}
+		order by c.ORDER_CREATE_TIME desc
+	</select>
+	
+	<select id="queryRoomOrderListByRoomId" resultMap="BaseResultMap"  parameterType="java.lang.String">
+		SELECT
+		c.ROOM_ORDER_ID,
+		c.USER_ID,
+		c.USER_NAME,
+		c.TUSER_ID,
+		c.ORDER_NO,
+		c.USER_TEL,
+		c.VALID_CODE,
+		c.BOOK_STATUS,
+		c.CHECK_STATUS,
+		c.ORDER_CREATE_TIME,
+		c.ORDER_UPDATE_TIME,
+		t.TUSER_NAME as tuser_team_name,
+		t.T_CREATE_TIME,
+		rb.OPEN_PERIOD as open_period,
+		rb.CUR_DATE as cur_date
+		FROM cms_room_order c
+		LEFT JOIN cms_team_user t on c.TUSER_ID = t.TUSER_ID
+		LEFT JOIN cms_venue v on c.VENUE_ID = v.VENUE_ID
+		LEFT JOIN cms_room r on c.ROOM_ID = r.ROOM_ID
+		LEFT JOIN cms_room_book rb on c.BOOK_ID = rb.BOOK_ID
+		where 1=1
+		AND c.ROOM_ID = #{roomId}
+		order by c.ORDER_CREATE_TIME desc
+	</select>
+	<!--验证系统验证活动室信息 或 取票机获取活动室详情 或我的订单搜索活动室订单详情-->
+	<select id="queryRoomOrderByValidateCode" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+		c.ORDER_NO,
+		c.BOOK_STATUS,
+		c.CHECK_STATUS,
+		ct.TUSER_NAME AS tuser_team_name,
+		c.VALID_CODE,
+		c.ROOM_ORDER_ID,
+		c.USER_NAME,
+		c.USER_TEL,
+		s.DICT_NAME,
+		GROUP_CONCAT(r.ROOM_NAME SEPARATOR ',') AS room_name,
+		v.VENUE_NAME,
+		v.venue_address,
+		GROUP_CONCAT(rb.OPEN_PERIOD SEPARATOR ',') AS open_period,
+		GROUP_CONCAT(rb.CUR_DATE SEPARATOR ',') AS curDates,
+		c.ORDER_CREATE_TIME,
+		r.ROOM_ID
+		FROM
+		cms_room_order c
+		LEFT JOIN cms_room_book rb ON c.BOOK_ID = rb.BOOK_ID
+		LEFT JOIN cms_venue v ON c.VENUE_ID = v.VENUE_ID
+		LEFT JOIN cms_room r ON r.ROOM_ID = c.ROOM_ID
+		LEFT JOIN sys_dict s ON s.DICT_ID = v.VENUE_MOOD
+		LEFT JOIN cms_team_user ct ON ct.TUSER_ID = c.TUSER_ID
+		WHERE 1=1
+		<if test="orderValidateCode!=null">
+			AND c.VALID_CODE LIKE #{orderValidateCode}
+		</if>
+		<if test="orderNumber!=null">
+            AND c.ORDER_NO LIKE #{orderNumber}
+		</if>
+		<if test="venueName!=null">
+            AND v.VENUE_NAME  LIKE #{venueName} ESCAPE '/'
+		</if>
+	     	AND c.BOOK_STATUS!=4
+	</select>
+	<!--app获取用户活动室订单信息（当前与历史） -->
+	<select id="queryRoomOrderListById" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+		cro.ORDER_NO,
+		cro.ROOM_ORDER_ID,
+		cv.VENUE_NAME,
+		cv.VENUE_ADDRESS,
+		cro.ORDER_CREATE_TIME,
+		cr.ROOM_NAME,
+		cr.ROOM_FEE,
+		cr.ROOM_IS_FREE,
+		cr.ROOM_ID,
+		cro.VALID_CODE,
+		cr.ROOM_PIC_URL,
+		ctu.TUSER_NAME as tuser_team_name,
+		cro.VENUE_ID,
+		rb.OPEN_PERIOD AS open_period,
+		rb.CUR_DATE AS curDates,
+		rb.DAY_OF_WEEK AS dayOfWeek,
+		cro.BOOK_STATUS,
+		cro.CHECK_STATUS
+		FROM
+		cms_room_order cro
+		LEFT JOIN cms_venue cv ON cro.VENUE_ID = cv.VENUE_ID
+		LEFT JOIN cms_team_user ctu ON cro.TUSER_ID = ctu.TUSER_ID
+		LEFT JOIN cms_comment c ON cro.VENUE_ID = c.COMMENT_RK_ID
+		LEFT JOIN cms_room cr ON cr.ROOM_ID = cro.ROOM_ID
+		LEFT JOIN cms_room_book rb ON cro.BOOK_ID = rb.BOOK_ID
+		WHERE
+		1 = 1
+		<if test="userId != null and userId != '' ">
+			AND cro.USER_ID = #{userId}
+		</if>
+		<if test="bookStatus != null and bookStatus != '' ">
+			AND cro.BOOK_STATUS = #{bookStatus}
+		</if>
+		<if test="orderValidateCode!=null">
+			AND (cro.VALID_CODE LIKE #{orderValidateCode}
+		</if>
+		<if test="orderNumber!=null">
+			OR cro.ORDER_NO LIKE #{orderNumber}
+		</if>
+		<if test="venueName!=null">
+			OR cv.VENUE_NAME LIKE #{venueName} escape '/')
+		</if>
+		GROUP BY
+		cro.ROOM_ORDER_ID
+		ORDER BY
+		cro.ORDER_UPDATE_TIME DESC
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</select>
+
+	<!--why3.5 app显示或搜索用户活动室订单信息（当前未过期订单） -->
+	<select id="queryAppRoomOrderByUserId" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+		cro.ORDER_NO,
+		cro.ROOM_ORDER_ID,
+		cv.VENUE_NAME,
+		cv.VENUE_ADDRESS,
+		cro.ORDER_CREATE_TIME,
+		cr.ROOM_NAME,
+		cr.ROOM_FEE,
+		cr.ROOM_IS_FREE,
+		cr.ROOM_ID,
+		cro.VALID_CODE,
+		cr.ROOM_PIC_URL,
+		ctu.TUSER_NAME as tuser_team_name,
+		cro.VENUE_ID,
+		rb.OPEN_PERIOD AS open_period,
+		rb.CUR_DATE AS curDates,
+		rb.DAY_OF_WEEK AS dayOfWeek,
+		cro.BOOK_STATUS,
+		cro.CHECK_STATUS,
+		cro.USER_NAME,
+		cro.USER_TEL,
+		user.USER_TYPE,
+		ctu.TUSER_IS_DISPLAY,
+		cro.TUSER_ID,
+		cro.TUSER_NAME
+		FROM
+		cms_room_order cro
+		LEFT JOIN cms_venue cv ON cro.VENUE_ID = cv.VENUE_ID
+		LEFT JOIN cms_team_user ctu ON cro.TUSER_ID = ctu.TUSER_ID
+		LEFT JOIN cms_comment c ON cro.VENUE_ID = c.COMMENT_RK_ID
+		LEFT JOIN cms_room cr ON cr.ROOM_ID = cro.ROOM_ID
+		LEFT JOIN cms_room_book rb ON cro.BOOK_ID = rb.BOOK_ID
+		LEFT JOIN cms_terminal_user user ON user.USER_ID = cro.USER_ID
+		WHERE cro.BOOK_STATUS = 1
+		and CONCAT(rb.CUR_DATE,' ',left(rb.OPEN_PERIOD,5)) >= DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i')
+		<if test="userId != null and userId != '' ">
+			AND cro.USER_ID = #{userId}
+		</if>
+		<if test="roomName != null and roomName != ''">
+			AND cr.ROOM_NAME LIKE CONCAT('%',#{roomName},'%')
+		</if>
+		<if test="curDateStart != null and curDateStart != ''">
+			 AND
+            rb.CUR_DATE &gt;=#{curDateStart,jdbcType=VARCHAR}
+		</if>
+		<if test="curDateEnd != null and curDateEnd != ''">
+			 AND
+            rb.CUR_DATE &lt;=#{curDateEnd,jdbcType=VARCHAR}
+		</if>
+		<if test="sysUserId != null">
+		AND
+		 (
+             ('${userLabel1}' = cv.VENUE_DEPT_LABEL) or
+             ('${userLabel2}' = cv.VENUE_DEPT_LABEL) or
+             ('${userLabel3}' = cv.VENUE_DEPT_LABEL)
+        )
+        </if>
+        <if test="userDeptPath != null and userDeptPath != ''">
+        and cv.VENUE_DEPT like '${userDeptPath}%'
+        </if>
+		GROUP BY
+		cro.ROOM_ORDER_ID
+		ORDER BY
+		cro.ORDER_UPDATE_TIME DESC
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</select>
+	
+	<select id="queryAppRoomOrderByUserIdCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+		SELECT
+		COUNT(DISTINCT cro.ROOM_ORDER_ID)
+		FROM
+		cms_room_order cro
+		LEFT JOIN cms_venue cv ON cro.VENUE_ID = cv.VENUE_ID
+		LEFT JOIN cms_team_user ctu ON cro.TUSER_ID = ctu.TUSER_ID
+		LEFT JOIN cms_comment c ON cro.VENUE_ID = c.COMMENT_RK_ID
+		LEFT JOIN cms_room cr ON cr.ROOM_ID = cro.ROOM_ID
+		LEFT JOIN cms_room_book rb ON cro.BOOK_ID = rb.BOOK_ID
+		LEFT JOIN cms_terminal_user user ON user.USER_ID = cro.USER_ID
+		WHERE cro.BOOK_STATUS = 1
+		and CONCAT(rb.CUR_DATE,' ',left(rb.OPEN_PERIOD,5)) >= DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i')
+		<if test="userId != null and userId != '' ">
+			AND cro.USER_ID = #{userId}
+		</if>
+		<if test="roomName != null and roomName != ''">
+			AND cr.ROOM_NAME LIKE CONCAT('%',#{roomName},'%')
+		</if>
+		<if test="curDateStart != null and curDateStart != ''">
+			 AND
+            rb.CUR_DATE &gt;=#{curDateStart,jdbcType=VARCHAR}
+		</if>
+		<if test="curDateEnd != null and curDateEnd != ''">
+			 AND
+            rb.CUR_DATE &lt;=#{curDateEnd,jdbcType=VARCHAR}
+		</if>
+		<if test="sysUserId != null">
+		AND
+		 (
+             ('${userLabel1}' = cv.VENUE_DEPT_LABEL) or
+             ('${userLabel2}' = cv.VENUE_DEPT_LABEL) or
+             ('${userLabel3}' = cv.VENUE_DEPT_LABEL)
+        )
+        </if>
+        <if test="userDeptPath != null and userDeptPath != ''">
+        and cv.VENUE_DEPT like '${userDeptPath}%'
+        </if>
+		
+	</select>
+
+	<!--why3.5 app显示或搜索用户活动室历史订单信息（过期订单，即历史订单） -->
+	<select id="queryAppRoomHistoryOrderByUserId" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+		cro.ORDER_NO,
+		cro.ROOM_ORDER_ID,
+		cv.VENUE_NAME,
+		cv.VENUE_ADDRESS,
+		cro.ORDER_CREATE_TIME,
+		cr.ROOM_NAME,
+		cr.ROOM_FEE,
+		cr.ROOM_IS_FREE,
+		cr.ROOM_ID,
+		cro.VALID_CODE,
+		cr.ROOM_PIC_URL,
+		ctu.TUSER_NAME as tuser_team_name,
+		cro.VENUE_ID,
+		rb.OPEN_PERIOD AS open_period,
+		rb.CUR_DATE AS curDates,
+		rb.DAY_OF_WEEK AS dayOfWeek,
+		cro.BOOK_STATUS,
+		cro.CHECK_STATUS,
+		cro.USER_NAME,
+		cro.USER_TEL,
+		user.USER_TYPE,
+		ctu.TUSER_IS_DISPLAY,
+		cro.TUSER_ID,
+		cro.TUSER_NAME
+		FROM
+		cms_room_order cro
+		LEFT JOIN cms_venue cv ON cro.VENUE_ID = cv.VENUE_ID
+		LEFT JOIN cms_team_user ctu ON cro.TUSER_ID = ctu.TUSER_ID
+		LEFT JOIN cms_comment c ON cro.VENUE_ID = c.COMMENT_RK_ID
+		LEFT JOIN cms_room cr ON cr.ROOM_ID = cro.ROOM_ID
+		LEFT JOIN cms_room_book rb ON cro.BOOK_ID = rb.BOOK_ID
+		LEFT JOIN cms_terminal_user user ON user.USER_ID = cro.USER_ID
+		WHERE 1=1
+		and(cro.BOOK_STATUS in (2,3,4,5,6)
+		or CONCAT(rb.CUR_DATE,' ',left(rb.OPEN_PERIOD,5)) &lt; DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i'))
+		<if test="userId != null and userId != '' ">
+			AND cro.USER_ID = #{userId}
+		</if>
+		<if test="roomName != null and roomName != ''">
+			AND cr.ROOM_NAME LIKE CONCAT('%',#{roomName},'%')
+		</if>
+		<if test="bookStatus != null and bookStatus!= ''">
+			AND cro.BOOK_STATUS = #{bookStatus}
+		</if>
+		<if test="sysUserId != null">
+		AND
+		 (
+             ('${userLabel1}' = cv.VENUE_DEPT_LABEL) or
+             ('${userLabel2}' = cv.VENUE_DEPT_LABEL) or
+             ('${userLabel3}' = cv.VENUE_DEPT_LABEL)
+        )
+        </if>
+        <if test="userDeptPath != null and userDeptPath != ''">
+        and cv.VENUE_DEPT like '${userDeptPath}%'
+        </if>
+		GROUP BY
+		cro.ROOM_ORDER_ID
+		ORDER BY
+		cro.ORDER_UPDATE_TIME DESC
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</select>
+	
+	<select id="queryAppRoomHistoryOrderByUserIdCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+		SELECT
+		COUNT(DISTINCT cro.ROOM_ORDER_ID)
+		FROM
+		cms_room_order cro
+		INNER JOIN cms_venue cv ON cro.VENUE_ID = cv.VENUE_ID
+		LEFT JOIN cms_team_user ctu ON cro.TUSER_ID = ctu.TUSER_ID
+		LEFT JOIN cms_comment c ON cro.VENUE_ID = c.COMMENT_RK_ID
+		LEFT JOIN cms_room cr ON cr.ROOM_ID = cro.ROOM_ID
+		LEFT JOIN cms_room_book rb ON cro.BOOK_ID = rb.BOOK_ID
+		LEFT JOIN cms_terminal_user user ON user.USER_ID = cro.USER_ID
+		WHERE 1=1
+		and(cro.BOOK_STATUS in (2,3,4,5,6)
+		or CONCAT(rb.CUR_DATE,' ',left(rb.OPEN_PERIOD,5)) &lt; DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i'))
+		<if test="userId != null and userId != '' ">
+			AND cro.USER_ID = #{userId}
+		</if>
+		<if test="roomName != null and roomName != ''">
+			AND cr.ROOM_NAME LIKE CONCAT('%',#{roomName},'%')
+		</if>
+		<if test="bookStatus != null and bookStatus!= ''">
+			AND cro.BOOK_STATUS = #{bookStatus}
+		</if>
+		<if test="sysUserId != null">
+		AND
+		 (
+             ('${userLabel1}' = cv.VENUE_DEPT_LABEL) or
+             ('${userLabel2}' = cv.VENUE_DEPT_LABEL) or
+             ('${userLabel3}' = cv.VENUE_DEPT_LABEL)
+        )
+        </if>
+        <if test="userDeptPath != null and userDeptPath != ''">
+        and cv.VENUE_DEPT like '${userDeptPath}%'
+        </if>
+		 
+	</select>
+	
+	<!-- why3.5.2 app显示或搜索用户活动室 待审核订单-->
+	<select id="queryAppUserCheckOrderByUserId" resultMap="BaseResultMap" parameterType="java.util.Map">
+	SELECT
+		cro.ORDER_NO,
+		cro.ROOM_ORDER_ID,
+		cv.VENUE_NAME,
+		cv.VENUE_ADDRESS,
+		cro.ORDER_CREATE_TIME,
+		cr.ROOM_NAME,
+		cr.ROOM_FEE,
+		cr.ROOM_IS_FREE,
+		cr.ROOM_ID,
+		cr.room_pic_url,
+		cro.VALID_CODE,
+		cr.ROOM_PIC_URL,
+		ctu.TUSER_NAME as tuser_team_name,
+		cro.VENUE_ID,
+		rb.OPEN_PERIOD AS open_period,
+		rb.CUR_DATE AS curDates,
+		rb.DAY_OF_WEEK AS dayOfWeek,
+		cro.BOOK_STATUS,
+		cro.CHECK_STATUS,
+		cro.USER_NAME,
+		cro.USER_TEL,
+		user.USER_TYPE,
+		user.USER_ID,
+		ctu.TUSER_IS_DISPLAY,
+		cro.TUSER_ID,
+		cro.TUSER_NAME
+		FROM
+		cms_room_order cro
+		LEFT JOIN cms_venue cv ON cro.VENUE_ID = cv.VENUE_ID
+		LEFT JOIN cms_team_user ctu ON cro.TUSER_ID = ctu.TUSER_ID
+		LEFT JOIN cms_comment c ON cro.VENUE_ID = c.COMMENT_RK_ID
+		LEFT JOIN cms_room cr ON cr.ROOM_ID = cro.ROOM_ID
+		LEFT JOIN cms_room_book rb ON cro.BOOK_ID = rb.BOOK_ID
+		LEFT JOIN cms_terminal_user user ON user.USER_ID = cro.USER_ID
+		WHERE cro.BOOK_STATUS =0
+		and CONCAT(rb.CUR_DATE,' ',left(rb.OPEN_PERIOD,5)) >= DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i')
+		<if test="userId != null and userId != '' ">
+			AND cro.USER_ID = #{userId,jdbcType=VARCHAR}
+		</if>
+		<if test="roomName != null and roomName != ''">
+			AND cr.ROOM_NAME LIKE CONCAT('%',#{roomName},'%' )
+		</if>
+		<if test="tuserIsDisplay != null and tuserIsDisplay >0">
+			AND ctu.TUSER_IS_DISPLAY = #{tuserIsDisplay,jdbcType=VARCHAR}
+		</if>
+		<choose>
+			<when test="tuserIsDisplay != null and tuserIsDisplay >0">
+			AND ctu.TUSER_IS_DISPLAY = #{tuserIsDisplay,jdbcType=VARCHAR}	
+			</when>
+			<when test="tuserIsDisplay != null and tuserIsDisplay ==0">
+			AND ctu.TUSER_IS_DISPLAY = #{tuserIsDisplay,jdbcType=VARCHAR}	
+			AND cro.TUSER_ID IS NOT NULL
+			</when>
+			<when test="tuserIsDisplay != null and tuserIsDisplay ==-1">
+			AND cro.TUSER_ID IS NULL
+			</when>
+		</choose>
+		<if test="userType != null and userType !=''">
+			AND user.USER_TYPE = #{userType,jdbcType=VARCHAR}
+		</if>
+		<if test="curDateStart != null and curDateStart != ''">
+			 AND
+            rb.CUR_DATE &gt;=#{curDateStart,jdbcType=VARCHAR}
+		</if>
+		<if test="curDateEnd != null and curDateEnd != ''">
+			 AND
+            rb.CUR_DATE &lt;=#{curDateEnd,jdbcType=VARCHAR}
+		</if>
+		<if test="orderCreateTimeStart != null and orderCreateTimeStart != ''">
+			 AND
+            cro.ORDER_CREATE_TIME &gt;=#{orderCreateTimeStart,jdbcType=VARCHAR}
+		</if>
+		<if test="orderCreateTimeEnd != null and orderCreateTimeEnd != ''">
+			 AND
+            cro.ORDER_CREATE_TIME &lt;=#{orderCreateTimeEnd,jdbcType=VARCHAR}
+		</if>
+		<if test="sysUserId != null">
+		AND
+		 (
+             ('${userLabel1}' = cv.VENUE_DEPT_LABEL) or
+             ('${userLabel2}' = cv.VENUE_DEPT_LABEL) or
+             ('${userLabel3}' = cv.VENUE_DEPT_LABEL)
+        )
+        </if>
+        <if test="userDeptPath != null and userDeptPath != ''">
+        and cv.VENUE_DEPT like '${userDeptPath}%'
+        </if>
+		GROUP BY
+		cro.ROOM_ORDER_ID
+		ORDER BY
+		cro.ORDER_UPDATE_TIME DESC
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	
+	</select>
+	
+	<select id="queryAppUserCheckOrderByUserIdCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+	SELECT
+		COUNT(DISTINCT cro.ROOM_ORDER_ID)
+		FROM
+		cms_room_order cro
+		LEFT JOIN cms_venue cv ON cro.VENUE_ID = cv.VENUE_ID
+		LEFT JOIN cms_team_user ctu ON cro.TUSER_ID = ctu.TUSER_ID
+		LEFT JOIN cms_comment c ON cro.VENUE_ID = c.COMMENT_RK_ID
+		LEFT JOIN cms_room cr ON cr.ROOM_ID = cro.ROOM_ID
+		LEFT JOIN cms_room_book rb ON cro.BOOK_ID = rb.BOOK_ID
+		LEFT JOIN cms_terminal_user user ON user.USER_ID = cro.USER_ID
+		WHERE cro.BOOK_STATUS =0
+		and CONCAT(rb.CUR_DATE,' ',left(rb.OPEN_PERIOD,5)) >= DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i')
+		<if test="userId != null and userId != '' ">
+			AND cro.USER_ID = #{userId,jdbcType=VARCHAR}
+		</if>
+		<if test="roomName != null and roomName != ''">
+			AND cr.ROOM_NAME LIKE CONCAT('%',#{roomName},'%' )
+		</if>
+		<if test="tuserIsDisplay != null and tuserIsDisplay >0">
+			AND ctu.TUSER_IS_DISPLAY = #{tuserIsDisplay,jdbcType=VARCHAR}
+		</if>
+		<choose>
+			<when test="tuserIsDisplay != null and tuserIsDisplay >0">
+			AND ctu.TUSER_IS_DISPLAY = #{tuserIsDisplay,jdbcType=VARCHAR}	
+			</when>
+			<when test="tuserIsDisplay != null and tuserIsDisplay ==0">
+			AND ctu.TUSER_IS_DISPLAY = #{tuserIsDisplay,jdbcType=VARCHAR}	
+			AND cro.TUSER_ID IS NOT NULL
+			</when>
+			<when test="tuserIsDisplay != null and tuserIsDisplay ==-1">
+			AND cro.TUSER_ID IS NULL
+			</when>
+		</choose>
+		<if test="userType != null and userType !=''">
+			AND user.USER_TYPE = #{userType,jdbcType=VARCHAR}
+		</if>
+		<if test="curDateStart != null and curDateStart != ''">
+			 AND
+            rb.CUR_DATE &gt;=#{curDateStart,jdbcType=VARCHAR}
+		</if>
+		<if test="curDateEnd != null and curDateEnd != ''">
+			 AND
+            rb.CUR_DATE &lt;=#{curDateEnd,jdbcType=VARCHAR}
+		</if>
+		<if test="orderCreateTimeStart != null and orderCreateTimeStart != ''">
+			 AND
+            cro.ORDER_CREATE_TIME &gt;=#{orderCreateTimeStart,jdbcType=VARCHAR}
+		</if>
+		<if test="orderCreateTimeEnd != null and orderCreateTimeEnd != ''">
+			 AND
+            cro.ORDER_CREATE_TIME &lt;=#{orderCreateTimeEnd,jdbcType=VARCHAR}
+		</if>
+		<if test="sysUserId != null">
+		AND
+		 (
+             ('${userLabel1}' = cv.VENUE_DEPT_LABEL) or
+             ('${userLabel2}' = cv.VENUE_DEPT_LABEL) or
+             ('${userLabel3}' = cv.VENUE_DEPT_LABEL)
+        )
+        </if>
+        <if test="userDeptPath != null and userDeptPath != ''">
+        and cv.VENUE_DEPT like '${userDeptPath}%'
+        </if>
+	</select>
+	
+	
+	<!-- why 3.5.2查询用户是否有某活动室的预定订单 -->
+	<select id="queryRoomBookOrder" resultMap="BaseResultMap" parameterType="java.util.Map">
+	
+	SELECT
+		c.USER_ID,
+		c.TUSER_ID,
+		c.ORDER_NO,
+		c.USER_TEL,
+		c.VALID_CODE,
+		c.BOOK_STATUS,
+		c.ORDER_CREATE_TIME,
+		c.ROOM_ID,
+		c.VENUE_ID,
+		c.ROOM_ORDER_ID,
+		c.ORDER_UPDATE_TIME,
+		c.CHECK_STATUS,
+		c.TUSER_NAME,
+		t.TUSER_NAME as tuser_team_name,
+		t.T_CREATE_TIME,
+		r.ROOM_NAME,
+		r.ROOM_IS_FREE,
+		v.venue_city,
+		v.venue_area,
+		v.venue_address,
+		v.venue_name,
+		r.room_no,
+		r.room_pic_url,
+		r.room_fee,
+		rb.OPEN_PERIOD as open_period,
+		rb.CUR_DATE as cur_date
+		FROM cms_room_order c
+		LEFT JOIN cms_team_user t on c.TUSER_ID = t.TUSER_ID
+		LEFT JOIN cms_venue v on c.VENUE_ID = v.VENUE_ID
+		LEFT JOIN cms_room r on c.ROOM_ID = r.ROOM_ID
+		LEFT JOIN cms_room_book rb on c.BOOK_ID = rb.BOOK_ID
+		where 1=1
+		
+		AND c.USER_ID = #{userId}
+		
+		AND c.ROOM_ID=#{roomId}
+		
+		AND c.BOOK_ID=#{bookId}
+	</select>
+	
+</mapper>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsUserTagMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsUserTag" >
+    <id column="TAG_ID" property="tagId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_SELECT_TAG" property="userSelectTag" jdbcType="VARCHAR" />
+    <result column="TAG_CREATE_TIME" property="tagCreateTime" jdbcType="TIMESTAMP" />
+    <result column="TAG_CREATE_USER" property="tagCreateUser" jdbcType="VARCHAR" />
+    <result column="TAG_UPDATE_TIME" property="tagUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="TAG_UPDATE_USER" property="tagUpdateUser" jdbcType="VARCHAR" />
+  </resultMap>
+   <!--app查询用户是否选择标签 -->
+  <select id="queryAppUserTagCount" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    SELECT
+	COUNT(*)
+FROM
+	cms_user_tag cut
+WHERE
+	1 = 1
+    AND cut.USER_ID = #{userId,jdbcType=VARCHAR}
+  </select>
+  <!--app查询用户选择喜欢标签列表 -->
+  <select id="queryActivityUserTagListById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT
+    cut.USER_SELECT_TAG
+    FROM
+    cms_user_tag cut
+    WHERE
+    1 = 1
+    AND cut.USER_ID = #{userId,jdbcType=VARCHAR}
+    ORDER BY TAG_UPDATE_TIME DESC
+  </select>
+  <!--app删除用户喜欢选择标签列表 -->
+  <delete id="deleteAppUserListTagsById" parameterType="com.sun3d.why.model.CmsUserTag" >
+    delete from cms_user_tag
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </delete>
+
+
+  <!--app批量添加用户选择标签 -->
+  <insert id="addUserTags" parameterType="java.util.List">
+    <selectKey keyProperty="id" order="BEFORE"
+               resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cms_user_tag(TAG_ID,USER_ID,USER_SELECT_TAG,TAG_CREATE_TIME,TAG_CREATE_USER,TAG_UPDATE_TIME,TAG_UPDATE_USER)
+    values
+    <foreach collection="list" item="item" index="index" separator="," >
+      (#{item.tagId},#{item.userId},#{item.userSelectTag},#{item.tagCreateTime},#{item.tagCreateUser},#{item.tagUpdateTime},#{item.tagUpdateUser})
+    </foreach>
+  </insert>
+</mapper>

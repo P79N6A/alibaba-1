@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sun3d.why.dao.RecruitmentManagementMapper">
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.volunteer.RecruitmentManagement">
+    <id column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="volunteer_id" jdbcType="VARCHAR" property="volunteerId" />
+    <result column="activity_id" jdbcType="VARCHAR" property="activityId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
+    <result column="application_time" jdbcType="TIMESTAMP" property="applicationTime" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="whether_to_pass" jdbcType="VARCHAR" property="whetherToPass" />
+    <result column="auditor" jdbcType="VARCHAR" property="auditor" />
+    <result column="audit_time" jdbcType="TIMESTAMP" property="auditTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    uuid, volunteer_id, activity_id, name, id_card, application_time, status, whether_to_pass, 
+    auditor, audit_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_recruitment_management
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_recruitment_management
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sun3d.why.model.volunteer.RecruitmentManagement">
+    insert into t_recruitment_management (uuid, volunteer_id, activity_id, 
+      name, id_card, application_time, 
+      status, whether_to_pass, auditor, 
+      audit_time)
+    values (#{uuid,jdbcType=VARCHAR}, #{volunteerId,jdbcType=VARCHAR}, #{activityId,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, #{applicationTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=VARCHAR}, #{whetherToPass,jdbcType=VARCHAR}, #{auditor,jdbcType=VARCHAR}, 
+      #{auditTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sun3d.why.model.volunteer.RecruitmentManagement">
+    insert into t_recruitment_management
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="volunteerId != null">
+        volunteer_id,
+      </if>
+      <if test="activityId != null">
+        activity_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="idCard != null">
+        id_card,
+      </if>
+      <if test="applicationTime != null">
+        application_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="whetherToPass != null">
+        whether_to_pass,
+      </if>
+      <if test="auditor != null">
+        auditor,
+      </if>
+      <if test="auditTime != null">
+        audit_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="volunteerId != null">
+        #{volunteerId,jdbcType=VARCHAR},
+      </if>
+      <if test="activityId != null">
+        #{activityId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationTime != null">
+        #{applicationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherToPass != null">
+        #{whetherToPass,jdbcType=VARCHAR},
+      </if>
+      <if test="auditor != null">
+        #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null">
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sun3d.why.model.volunteer.RecruitmentManagement">
+    update t_recruitment_management
+    <set>
+      <if test="volunteerId != null">
+        volunteer_id = #{volunteerId,jdbcType=VARCHAR},
+      </if>
+      <if test="activityId != null">
+        activity_id = #{activityId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationTime != null">
+        application_time = #{applicationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherToPass != null">
+        whether_to_pass = #{whetherToPass,jdbcType=VARCHAR},
+      </if>
+      <if test="auditor != null">
+        auditor = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null">
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sun3d.why.model.volunteer.RecruitmentManagement">
+    update t_recruitment_management
+    set volunteer_id = #{volunteerId,jdbcType=VARCHAR},
+      activity_id = #{activityId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      application_time = #{applicationTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      whether_to_pass = #{whetherToPass,jdbcType=VARCHAR},
+      auditor = #{auditor,jdbcType=VARCHAR},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

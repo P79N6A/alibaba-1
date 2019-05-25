@@ -1,0 +1,115 @@
+/*响应式弹窗*/
+
+.clearfix:after {
+	content: '\20';
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+
+.clearfix {
+	display: block;
+	zoom: 1;
+}
+
+.dialogResponse {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 1000;
+	margin: auto;
+	background: rgba(0, 0, 0, 0.7);
+	border-radius: 10px;
+	overflow: hidden;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+@media screen and (max-width: 750px) {
+	.dialogResponse-tag {
+		min-width: 460px;
+		max-width: 600px;
+	}
+	.dialogResponse-main {
+		background-color: #fff;
+		border-radius: 10px;
+	}
+	.dialogResponse-title {
+		line-height: 60px;
+		text-align: center;
+		padding: 20px;
+		font-size: 32px;
+		border-bottom: 1px solid #C0C0C0;
+	}
+	.dialogResponse-content {
+		line-height: 50px;
+		padding: 36px 20px 70px;
+		font-size: 28px;
+	}
+	.dialogResponse-footer {
+		margin-top: 50px;
+	}
+	.dialogResponse-btn1 {
+		border: 2px solid #fff;
+		background-color: transparent;
+		text-align: center;
+		font-size: 32px;
+		width: 200px;
+		margin: auto;
+		color: #fff;
+		line-height: 64px;
+		border-radius: 5px;
+	}
+}
+
+@media screen and (min-width: 751px) {
+	.dialogResponse-tag {
+		min-width: 300px;
+		max-width: 600px;
+	}
+	.dialogResponse-main {
+		background-color: #fff;
+		border-radius: 10px;
+	}
+	.dialogResponse-title {
+		line-height: 20px;
+		text-align: center;
+		padding: 20px;
+		font-size: 24px;
+		border-bottom: 1px solid #C0C0C0;
+	}
+	.dialogResponse-content {
+		line-height: 50px;
+		padding: 15px 30px 30px;
+		font-size: 18px;
+	}
+	.dialogResponse-footer {
+		margin-top: 30px;
+	}
+	.dialogResponse-btn1 {
+		border: 2px solid #fff;
+		background-color: transparent;
+		text-align: center;
+		font-size: 24px;
+		width: 200px;
+		margin: auto;
+		color: #fff;
+		line-height: 40px;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+}

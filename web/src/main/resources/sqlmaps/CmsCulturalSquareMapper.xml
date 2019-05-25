@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsCulturalSquareMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.dao.dto.CmsCulturalSquareDto" >
+    <id column="square_id" property="squareId" jdbcType="VARCHAR" />
+    <result column="head_url" property="headUrl" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="publish_time" property="publishTime" jdbcType="VARCHAR" />
+    <result column="context_dec" property="contextDec" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="out_id" property="outId" jdbcType="VARCHAR" />
+    <result column="ext0" property="ext0" jdbcType="VARCHAR" />
+    <result column="ext1" property="ext1" jdbcType="VARCHAR" />
+    <result column="ext2" property="ext2" jdbcType="VARCHAR" />
+    <result column="ext3" property="ext3" jdbcType="VARCHAR" />
+    <result column="ext4" property="ext4" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="top" property="top" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    square_id, head_url, user_name, publish_time, context_dec, type, out_id, ext0, ext1, 
+    ext2, ext3, ext4, status, top
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cms_cultural_square
+    where square_id = #{squareId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cms_cultural_square
+    where square_id = #{squareId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sun3d.why.dao.dto.CmsCulturalSquareDto" >
+    insert into cms_cultural_square (square_id, head_url, user_name, 
+      publish_time, context_dec, type, 
+      out_id, ext0, ext1, 
+      ext2, ext3, ext4, status, 
+      top)
+    values (#{squareId,jdbcType=VARCHAR}, #{headUrl,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{publishTime,jdbcType=VARCHAR}, #{contextDec,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{outId,jdbcType=VARCHAR}, #{ext0,jdbcType=VARCHAR}, #{ext1,jdbcType=VARCHAR}, 
+      #{ext2,jdbcType=VARCHAR}, #{ext3,jdbcType=VARCHAR}, #{ext4,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{top,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sun3d.why.dao.dto.CmsCulturalSquareDto" >
+    insert into cms_cultural_square
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="squareId != null" >
+        square_id,
+      </if>
+      <if test="headUrl != null" >
+        head_url,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="publishTime != null" >
+        publish_time,
+      </if>
+      <if test="contextDec != null" >
+        context_dec,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="outId != null" >
+        out_id,
+      </if>
+      <if test="ext0 != null" >
+        ext0,
+      </if>
+      <if test="ext1 != null" >
+        ext1,
+      </if>
+      <if test="ext2 != null" >
+        ext2,
+      </if>
+      <if test="ext3 != null" >
+        ext3,
+      </if>
+      <if test="ext4 != null" >
+        ext4,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="top != null" >
+        top,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="squareId != null" >
+        #{squareId,jdbcType=VARCHAR},
+      </if>
+      <if test="headUrl != null" >
+        #{headUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        #{publishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="contextDec != null" >
+        #{contextDec,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="outId != null" >
+        #{outId,jdbcType=VARCHAR},
+      </if>
+      <if test="ext0 != null" >
+        #{ext0,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null" >
+        #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null" >
+        #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="ext4 != null" >
+        #{ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="top != null" >
+        #{top,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sun3d.why.dao.dto.CmsCulturalSquareDto" >
+    update cms_cultural_square
+    <set >
+      <if test="headUrl != null" >
+        head_url = #{headUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        publish_time = #{publishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="contextDec != null" >
+        context_dec = #{contextDec,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="outId != null" >
+        out_id = #{outId,jdbcType=VARCHAR},
+      </if>
+      <if test="ext0 != null" >
+        ext0 = #{ext0,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null" >
+        ext1 = #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        ext2 = #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null" >
+        ext3 = #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="ext4 != null" >
+        ext4 = #{ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="top != null" >
+        top = #{top,jdbcType=INTEGER},
+      </if>
+    </set>
+    where square_id = #{squareId,jdbcType=VARCHAR}
+  </update>
+  <update id="update" parameterType="com.sun3d.why.dao.dto.CmsCulturalSquareDto" >
+    update cms_cultural_square
+    set head_url = #{headUrl,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      publish_time = #{publishTime,jdbcType=VARCHAR},
+      context_dec = #{contextDec,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      out_id = #{outId,jdbcType=VARCHAR},
+      ext0 = #{ext0,jdbcType=VARCHAR},
+      ext1 = #{ext1,jdbcType=VARCHAR},
+      ext2 = #{ext2,jdbcType=VARCHAR},
+      ext3 = #{ext3,jdbcType=VARCHAR},
+      ext4 = #{ext4,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      top = #{top,jdbcType=INTEGER}
+    where square_id = #{squareId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryCulturalSquareByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+        	c.square_id, 
+        	c.head_url, 
+        	c.user_name, 
+        	c.publish_time, 
+        	c.context_dec, 
+        	c.type, 
+        	c.out_id, 
+        	c.ext0, 
+        	c.ext1, 
+    		c.ext2, 
+    		c.ext3, 
+    		c.ext4,
+    		c.status,
+    		c.top,
+	        <if test="userId!=null">
+	            (SELECT count(*)
+	            FROM cms_user_wantgo cau
+	            WHERE cau.RELATE_ID = c.out_id
+	            AND cau.USER_ID =#{userId}
+	            ) AS userIsWant,
+	        </if>
+	        (SELECT count(*)
+	        FROM cms_user_wantgo cau
+	        WHERE cau.RELATE_ID = c.out_id
+	        ) AS wantCount
+        FROM cms_cultural_square c 
+        LEFT JOIN cms_activity a ON a.ACTIVITY_ID = c.out_id and c.type = 1
+        WHERE 1 = 1 and c.status=1
+        <!-- 活动判断状态 -->
+        and ((a.ACTIVITY_STATE is not null and a.ACTIVITY_STATE = 6) OR a.ACTIVITY_STATE is null)
+        ORDER BY  c.top desc,c.publish_time DESC
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+	</select>
+	
+	<delete id="deleteByOutId" parameterType="java.lang.String" >
+    delete from cms_cultural_square
+    where out_id = #{outId,jdbcType=VARCHAR}
+  </delete>
+</mapper>

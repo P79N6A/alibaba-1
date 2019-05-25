@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.DcScoreMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.DcScore" >
+    <id column="SCORE_ID" property="scoreId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="VIDEO_ID" property="videoId" jdbcType="VARCHAR" />
+    <result column="VIDEO_SCORE" property="videoScore" jdbcType="INTEGER" />
+    <result column="VIDEO_REASON" property="videoReason" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    SCORE_ID, USER_ID, VIDEO_ID, VIDEO_SCORE, VIDEO_REASON, CREATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from dc_score
+    where SCORE_ID = #{scoreId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from dc_score
+    where SCORE_ID = #{scoreId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.DcScore" >
+    insert into dc_score
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      SCORE_ID,
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="videoId != null" >
+        VIDEO_ID,
+      </if>
+      <if test="videoScore != null" >
+        VIDEO_SCORE,
+      </if>
+      <if test="videoReason != null" >
+        VIDEO_REASON,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{scoreId,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoId != null" >
+        #{videoId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoScore != null" >
+        #{videoScore,jdbcType=INTEGER},
+      </if>
+      <if test="videoReason != null" >
+        #{videoReason,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.DcScore" >
+    update dc_score
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoId != null" >
+        VIDEO_ID = #{videoId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoScore != null" >
+        VIDEO_SCORE = #{videoScore,jdbcType=INTEGER},
+      </if>
+      <if test="videoReason != null" >
+        VIDEO_REASON = #{videoReason,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SCORE_ID = #{scoreId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryScoreByCondition" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from dc_score
+  	where 1=1
+  	<if test="userId!=null">
+  		and USER_ID = #{userId,jdbcType=VARCHAR}
+  	</if>
+  	<if test="videoId!=null">
+  		and VIDEO_ID = #{videoId,jdbcType=VARCHAR}
+  	</if>
+  </select>
+  
+  <select id="queryScoreListByCondition" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.DcScore">
+  	select <include refid="Base_Column_List" />
+  	from dc_score
+  	where 1=1
+  	<if test="userId!=null">
+  		and USER_ID = #{userId,jdbcType=VARCHAR}
+  	</if>
+  	<if test="videoId!=null">
+  		and VIDEO_ID = #{videoId,jdbcType=VARCHAR}
+  	</if>
+  </select>
+</mapper>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ccp.CcpJiazhouInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ccp.CcpJiazhouInfo" >
+    <id column="JIAZHOUINFO_ID" property="jiazhouInfoId" jdbcType="VARCHAR" />   
+    <result column="JIAZHOUINFO_TITLE" property="jiazhouInfoTitle" jdbcType="VARCHAR" />
+    <result column="AUTHOR_NAME" property="authorName" jdbcType="VARCHAR" />
+    <result column="PUBLISHER_NAME" property="publisherName" jdbcType="VARCHAR" />
+    <result column="JIAZHOUINFO_SORT" property="jiazhouInfoSort" jdbcType="VARCHAR" />
+    <result column="JIAZHOUINFO_TAGS" property="jiazhouInfoTags" jdbcType="VARCHAR" />    
+    <result column="SHARE_TITLE" property="shareTitle" jdbcType="VARCHAR" />
+    <result column="SHARE_SUMMARY" property="shareSummary" jdbcType="VARCHAR" />
+    <result column="JIAZHOUINFO_ICON_URL" property="jiazhouInfoIconUrl" jdbcType="VARCHAR" />
+    <result column="SHARE_ICON_URL" property="shareIconUrl" jdbcType="VARCHAR" />
+    <result column="SHARE_COUNT" property="shareCount" jdbcType="INTEGER" />
+    <result column="BROWSE_COUNT" property="browseCount" jdbcType="INTEGER" />
+    <result column="JIAZHOUINFO_CREATE_TIME" property="jiazhouInfoCreateTime" jdbcType="TIMESTAMP" />
+    <result column="JIAZHOUINFO_UPDATE_TIME" property="jiazhouInfoUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="JIAZHOUINFO_CREATE_USER" property="jiazhouInfoCreateUser" jdbcType="VARCHAR" />
+    <result column="JIAZHOUINFO_UPDATE_USER" property="jiazhouInfoUpdateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.sun3d.why.model.ccp.CcpJiazhouInfo" extends="BaseResultMap" >
+    <result column="JIAZHOUINFO_CONTENT" property="jiazhouInfoContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    JIAZHOUINFO_ID, JIAZHOUINFO_SORT,JIAZHOUINFO_TAGS, JIAZHOUINFO_TITLE, AUTHOR_NAME, PUBLISHER_NAME,
+    SHARE_TITLE, SHARE_SUMMARY, SHARE_COUNT, BROWSE_COUNT,
+    JIAZHOUINFO_ICON_URL, SHARE_ICON_URL,JIAZHOUINFO_CREATE_TIME,
+    JIAZHOUINFO_UPDATE_TIME, JIAZHOUINFO_CREATE_USER, JIAZHOUINFO_UPDATE_USER
+  </sql>
+  <sql id="Blob_Column_List" >
+    JIAZHOUINFO_CONTENT
+  </sql>
+   
+  <!--查询资讯列表信息-->
+  <select id="ccpJiazhouInfoList" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    SELECT
+     <include refid="Base_Column_List" />
+     ,
+     <include refid="Blob_Column_List" />
+     ,t.TAG_NAME tagName
+    FROM
+	 ccp_jiazhou_info j
+         LEFT JOIN cms_tag t ON t.TAG_ID = j.JIAZHOUINFO_SORT
+    WHERE 1=1
+    order by JIAZHOUINFO_CREATE_TIME desc
+  </select>
+  
+  <!--根据Id查询资讯信息-->
+   <select id="selectByCcpJiazhouInfoId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    SELECT
+     <include refid="Base_Column_List" />
+     ,
+     <include refid="Blob_Column_List" />
+    FROM
+	 ccp_jiazhou_info
+    WHERE 
+      JIAZHOUINFO_ID = #{jiazhouInfoId,jdbcType=VARCHAR}  
+  </select>    
+  
+    <!--查询资讯详情点赞-->
+  <select id="selectByCcpJiazhouInfoLoveCount" parameterType="java.util.Map"
+          resultType="java.lang.Integer" >
+    SELECT
+      COUNT(*)
+    FROM
+    cms_user_wantgo u	 
+		LEFT JOIN ccp_jiazhou_info j ON u.RELATE_ID = j.JIAZHOUINFO_ID
+    WHERE 
+      j.JIAZHOUINFO_ID = #{jiazhouInfoId,jdbcType=VARCHAR} 
+    <if test="userId != null" >
+      AND  u.USER_ID = #{userId,jdbcType=VARCHAR}
+    </if>
+    <if test="type != null" >
+      AND  u.RELATE_TYPE = #{type,jdbcType=INTEGER}
+    </if>      
+  </select>
+  
+</mapper>

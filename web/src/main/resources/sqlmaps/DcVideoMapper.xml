@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.DcVideoMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.DcVideo" >
+    <id column="VIDEO_ID" property="videoId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="VIDEO_GUIDE" property="videoGuide" jdbcType="VARCHAR" />
+    <result column="VIDEO_ACTIVITY_CENTER" property="videoActivityCenter" jdbcType="VARCHAR" />
+    <result column="VIDEO_TELEPHONE" property="videoTelephone" jdbcType="VARCHAR" />
+    <result column="VIDEO_TYPE" property="videoType" jdbcType="VARCHAR" />
+    <result column="VIDEO_TEAM_NAME" property="videoTeamName" jdbcType="VARCHAR" />
+    <result column="VIDEO_TEAM_COUNT" property="videoTeamCount" jdbcType="INTEGER" />
+    <result column="VIDEO_TEAM_REMARK" property="videoTeamRemark" jdbcType="VARCHAR" />
+    <result column="VIDEO_URL" property="videoUrl" jdbcType="VARCHAR" />
+    <result column="VIDEO_IMG_URL" property="videoImgUrl" jdbcType="VARCHAR" />
+    <result column="VIDEO_NAME" property="videoName" jdbcType="VARCHAR" />
+    <result column="VIDEO_LENGTH" property="videoLength" jdbcType="INTEGER" />
+    <result column="VIDEO_INTRO" property="videoIntro" jdbcType="VARCHAR" />
+    <result column="VIDEO_STATUS" property="videoStatus" jdbcType="INTEGER" />
+    <result column="VIDEO_TREVIEW_USER" property="videoTreviewUser" jdbcType="VARCHAR" />
+    <result column="VIDEO_TREVIEW_TIME" property="videoTreviewTime" jdbcType="TIMESTAMP" />
+    <result column="VIDEO_SREVIEW_USER" property="videoSreviewUser" jdbcType="VARCHAR" />
+    <result column="VIDEO_SREVIEW_TIME" property="videoSreviewTime" jdbcType="TIMESTAMP" />
+    <result column="VIDEO_SREVIEW_REASON" property="videoSreviewReason" jdbcType="VARCHAR" />
+    <result column="VIDEO_EXPERT_SCORE" property="videoExpertScore" jdbcType="VARCHAR" />
+    <result column="VIDEO_PUBLIC_SCORE" property="videoPublicScore" jdbcType="VARCHAR" />
+    <result column="VIDEO_TOTAL_SCORE" property="videoTotalScore" jdbcType="VARCHAR" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    
+    <result column="USER_AREA" property="userArea" jdbcType="VARCHAR" />
+    <result column="VIDEO_REVIEW_USER" property="videoReviewUser" jdbcType="VARCHAR" />
+    <result column="VIDEO_REVIEW_TIME" property="videoReviewTime" jdbcType="VARCHAR" />
+    <result column="VIDEO_REVIEW_RESULT" property="videoReviewResult" jdbcType="VARCHAR" />
+    <result column="VIDEO_REVIEW_REASON" property="videoReviewReason" jdbcType="VARCHAR" />
+    <result column="IS_VOTE" property="isVote" jdbcType="INTEGER" />
+    <result column="VOTE_COUNT" property="voteCount" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    	dv.VIDEO_ID, 
+	    dv.USER_ID, 
+	    dv.VIDEO_GUIDE,
+	    dv.VIDEO_ACTIVITY_CENTER, 
+	    dv.VIDEO_TELEPHONE, 
+	    dv.VIDEO_TYPE, 
+	    dv.VIDEO_TEAM_NAME, 
+	    dv.VIDEO_TEAM_COUNT, 
+	    dv.VIDEO_TEAM_REMARK, 
+	    dv.VIDEO_URL, 
+	    dv.VIDEO_IMG_URL, 
+	    dv.VIDEO_NAME, 
+	    dv.VIDEO_LENGTH, 
+	    dv.VIDEO_INTRO, 
+	    dv.VIDEO_STATUS, 
+	    su.USER_ACCOUNT as VIDEO_TREVIEW_USER, 
+	    dv.VIDEO_TREVIEW_TIME, 
+	    dfu.USER_NAME as CREATE_USER, 
+	    dv.CREATE_TIME,
+	    dfu.USER_AREA
+    from dc_video dv
+    left join dc_front_user dfu on dv.USER_ID = dfu.USER_ID
+    left join sys_user su on su.USER_ID = dv.VIDEO_TREVIEW_USER
+    where dv.VIDEO_ID = #{videoId,jdbcType=VARCHAR}
+    
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from dc_video
+    where VIDEO_ID = #{videoId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.DcVideo" >
+    insert into dc_video
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      VIDEO_ID,
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="videoGuide != null" >
+        VIDEO_GUIDE,
+      </if>
+      <if test="videoActivityCenter != null" >
+        VIDEO_ACTIVITY_CENTER,
+      </if>
+      <if test="videoTelephone != null" >
+        VIDEO_TELEPHONE,
+      </if>
+      <if test="videoType != null" >
+        VIDEO_TYPE,
+      </if>
+      <if test="videoTeamName != null" >
+        VIDEO_TEAM_NAME,
+      </if>
+      <if test="videoTeamCount != null" >
+        VIDEO_TEAM_COUNT,
+      </if>
+      <if test="videoTeamRemark != null" >
+        VIDEO_TEAM_REMARK,
+      </if>
+      <if test="videoUrl != null" >
+        VIDEO_URL,
+      </if>
+      <if test="videoImgUrl != null" >
+        VIDEO_IMG_URL,
+      </if>
+      <if test="videoName != null" >
+        VIDEO_NAME,
+      </if>
+      <if test="videoLength != null" >
+        VIDEO_LENGTH,
+      </if>
+      <if test="videoIntro != null" >
+        VIDEO_INTRO,
+      </if>
+      <if test="videoStatus != null" >
+        VIDEO_STATUS,
+      </if>
+      <if test="videoTreviewUser != null" >
+        VIDEO_TREVIEW_USER,
+      </if>
+      <if test="videoTreviewTime != null" >
+        VIDEO_TREVIEW_TIME,
+      </if>
+      <if test="videoSreviewUser != null" >
+        VIDEO_SREVIEW_USER,
+      </if>
+      <if test="videoSreviewTime != null" >
+        VIDEO_SREVIEW_TIME,
+      </if>
+      <if test="videoSreviewReason != null" >
+        VIDEO_SREVIEW_REASON,
+      </if>
+      <if test="videoExpertScore != null" >
+        VIDEO_EXPERT_SCORE,
+      </if>
+      <if test="videoPublicScore != null" >
+        VIDEO_PUBLIC_SCORE,
+      </if>
+      <if test="videoTotalScore != null" >
+        VIDEO_TOTAL_SCORE,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{videoId,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoGuide != null" >
+        #{videoGuide,jdbcType=VARCHAR},
+      </if>
+      <if test="videoActivityCenter != null" >
+        #{videoActivityCenter,jdbcType=VARCHAR},
+      </if>
+      <if test="videoTelephone != null" >
+        #{videoTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="videoType != null" >
+        #{videoType,jdbcType=VARCHAR},
+      </if>
+      <if test="videoTeamName != null" >
+        #{videoTeamName,jdbcType=VARCHAR},
+      </if>
+      <if test="videoTeamCount != null" >
+        #{videoTeamCount,jdbcType=INTEGER},
+      </if>
+      <if test="videoTeamRemark != null" >
+        #{videoTeamRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUrl != null" >
+        #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="videoImgUrl != null" >
+        #{videoImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="videoName != null" >
+        #{videoName,jdbcType=VARCHAR},
+      </if>
+      <if test="videoLength != null" >
+        #{videoLength,jdbcType=INTEGER},
+      </if>
+      <if test="videoIntro != null" >
+        #{videoIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="videoStatus != null" >
+        #{videoStatus,jdbcType=INTEGER},
+      </if>
+      <if test="videoTreviewUser != null" >
+        #{videoTreviewUser,jdbcType=VARCHAR},
+      </if>
+      <if test="videoTreviewTime != null" >
+        #{videoTreviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="videoSreviewUser != null" >
+        #{videoSreviewUser,jdbcType=VARCHAR},
+      </if>
+      <if test="videoSreviewTime != null" >
+        #{videoSreviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="videoSreviewReason != null" >
+        #{videoSreviewReason,jdbcType=VARCHAR},
+      </if>
+      <if test="videoExpertScore != null" >
+        #{videoExpertScore,jdbcType=VARCHAR},
+      </if>
+      <if test="videoPublicScore != null" >
+        #{videoPublicScore,jdbcType=VARCHAR},
+      </if>
+      <if test="videoTotalScore != null" >
+        #{videoToatlScore,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.DcVideo" >
+    update dc_video
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoGuide != null" >
+        VIDEO_GUIDE = #{videoGuide,jdbcType=VARCHAR},
+      </if>
+      <if test="videoActivityCenter != null" >
+        VIDEO_ACTIVITY_CENTER = #{videoActivityCenter,jdbcType=VARCHAR},
+      </if>
+      <if test="videoTelephone != null" >
+        VIDEO_TELEPHONE = #{videoTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="videoType != null" >
+        VIDEO_TYPE = #{videoType,jdbcType=VARCHAR},
+      </if>
+      <if test="videoTeamName != null" >
+        VIDEO_TEAM_NAME = #{videoTeamName,jdbcType=VARCHAR},
+      </if>
+      <if test="videoTeamCount != null" >
+        VIDEO_TEAM_COUNT = #{videoTeamCount,jdbcType=INTEGER},
+      </if>
+      <if test="videoTeamRemark != null" >
+        VIDEO_TEAM_REMARK = #{videoTeamRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUrl != null" >
+        VIDEO_URL = #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="videoImgUrl != null" >
+        VIDEO_IMG_URL = #{videoImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="videoName != null" >
+        VIDEO_NAME = #{videoName,jdbcType=VARCHAR},
+      </if>
+      <if test="videoLength != null" >
+        VIDEO_LENGTH = #{videoLength,jdbcType=INTEGER},
+      </if>
+      <if test="videoIntro != null" >
+        VIDEO_INTRO = #{videoIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="videoStatus != null" >
+        VIDEO_STATUS = #{videoStatus,jdbcType=INTEGER},
+      </if>
+      <if test="videoTreviewUser != null" >
+        VIDEO_TREVIEW_USER = #{videoTreviewUser,jdbcType=VARCHAR},
+      </if>
+      <if test="videoTreviewTime != null" >
+        VIDEO_TREVIEW_TIME = #{videoTreviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="videoSreviewUser != null" >
+        VIDEO_SREVIEW_USER = #{videoSreviewUser,jdbcType=VARCHAR},
+      </if>
+      <if test="videoSreviewTime != null" >
+        VIDEO_SREVIEW_TIME = #{videoSreviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="videoSreviewReason != null" >
+        VIDEO_SREVIEW_REASON = #{videoSreviewReason,jdbcType=VARCHAR},
+      </if>
+      <if test="videoExpertScore != null" >
+        VIDEO_EXPERT_SCORE = #{videoExpertScore,jdbcType=VARCHAR},
+      </if>
+      <if test="videoExpertScore != null" >
+        VIDEO_EXPERT_SCORE = #{videoExpertScore,jdbcType=VARCHAR},
+      </if>
+      <if test="videoPublicScore != null" >
+        VIDEO_PUBLIC_SCORE = #{videoPublicScore,jdbcType=VARCHAR},
+      </if>
+      <if test="videoTotalScore != null" >
+        VIDEO_TOTAL_SCORE = #{videoTotalScore,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where VIDEO_ID = #{videoId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryDcVideoByCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select COUNT(*)
+    from dc_video dv
+    left join dc_front_user dfu on dv.USER_ID = dfu.USER_ID
+    where 1=1
+    <if test="userId != null" >
+        and dv.USER_ID = #{userId,jdbcType=VARCHAR}
+    </if>
+    <if test="userArea!=null and userArea!=''">
+    	and dfu.USER_AREA = #{userArea}
+    </if>
+    <if test="videoType!=null">
+    	<choose>
+		    <when test="videoType=='戏曲/曲艺'">
+		    	and (dv.VIDEO_TYPE = '沪剧' or dv.VIDEO_TYPE = '越剧' or dv.VIDEO_TYPE = '京剧' or dv.VIDEO_TYPE = '其他')
+		    </when>
+		    <otherwise>
+		    	and dv.VIDEO_TYPE = #{videoType}
+		    </otherwise>
+	    </choose>
+    </if>
+    <if test="videoStatus!=null">
+    	and dv.VIDEO_STATUS = #{videoStatus}
+    </if>
+    <choose>
+    	<when test="searchType==1 and searchKey!=null and searchKey!=''">
+    		and dv.VIDEO_NAME like #{searchKey}
+    	</when>
+    	<when test="searchType==2 and searchKey!=null and searchKey!=''">
+    		and dv.VIDEO_GUIDE like #{searchKey}
+    	</when>
+    	<when test="searchType==3 and searchKey!=null and searchKey!=''">
+    		and dv.VIDEO_TEAM_NAME like #{searchKey}
+    	</when>
+    </choose>
+    <choose>
+    	<when test="reviewType==1">
+	    	and dv.VIDEO_STATUS in (1,2,3)
+	    </when>
+	    <when test="reviewType==2">
+	    	and dv.VIDEO_STATUS in (3,4,5)
+	    </when>
+	    <when test="reviewType==3">
+	    	and dv.VIDEO_STATUS in (4,5)
+	    </when>
+	    <when test="reviewType==4">
+	    	and dv.VIDEO_STATUS = 5
+	    </when>
+	    <when test="reviewType==5">
+	    	and dv.VIDEO_STATUS = 5
+	    </when>
+    </choose>
+    <if test="isYesterday==1">
+    	and DATE_FORMAT(dv.CREATE_TIME, '%Y-%m-%d') = DATE_FORMAT(date_sub(curdate(),interval 1 day), '%Y-%m-%d')
+    </if>
+  </select>
+  
+  <select id="queryDcVideoByContent" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select 
+	    dv.VIDEO_ID, 
+	    dv.USER_ID, 
+	    dv.VIDEO_ACTIVITY_CENTER,
+	    dv.VIDEO_GUIDE, 
+	    dv.VIDEO_TELEPHONE, 
+	    dv.VIDEO_TYPE, 
+	    dv.VIDEO_TEAM_NAME, 
+	    dv.VIDEO_TEAM_COUNT, 
+	    dv.VIDEO_TEAM_REMARK, 
+	    dv.VIDEO_URL, 
+	    dv.VIDEO_IMG_URL, 
+	    dv.VIDEO_NAME, 
+	    dv.VIDEO_LENGTH, 
+	    dv.VIDEO_INTRO, 
+	    dv.VIDEO_STATUS, 
+	    su.USER_ACCOUNT as VIDEO_TREVIEW_USER, 
+	    dv.VIDEO_TREVIEW_TIME, 
+	    dfu.USER_NAME as CREATE_USER, 
+	    dv.CREATE_TIME,
+	    dv.VIDEO_SREVIEW_REASON,
+	    <choose>
+		    <when test="reviewType==2">
+		    	su2.USER_ACCOUNT as VIDEO_REVIEW_USER,
+		    	dr.REVIEW_RESULT as VIDEO_REVIEW_RESULT,
+		    	DATE_FORMAT(dr.CREATE_TIME, '%Y-%m-%d %H:%i') as VIDEO_REVIEW_TIME,
+		    	dr.REVIEW_REASON as VIDEO_REVIEW_REASON,
+		    	if(dr.REVIEW_RESULT is null,0,1) isReview,
+		    </when>
+		    <when test="reviewType==3">
+		    	su2.USER_ACCOUNT as VIDEO_SREVIEW_USER,
+		    	dv.VIDEO_SREVIEW_TIME,
+		    	dv.VIDEO_SREVIEW_REASON,
+		    	GROUP_CONCAT(su3.USER_ACCOUNT) as VIDEO_REVIEW_USER,
+		    	GROUP_CONCAT(dr.REVIEW_RESULT) as VIDEO_REVIEW_RESULT,
+		    	GROUP_CONCAT(IFNULL(dr.REVIEW_REASON,'0')) as VIDEO_REVIEW_REASON,
+		    </when>
+		    <when test="reviewType==4">
+		    	su2.USER_ACCOUNT as VIDEO_REVIEW_USER,
+		    	ds.VIDEO_SCORE as VIDEO_REVIEW_RESULT,
+		    	DATE_FORMAT(ds.CREATE_TIME, '%Y-%m-%d %H:%i') as VIDEO_REVIEW_TIME,
+		    	ds.VIDEO_REASON as VIDEO_REVIEW_REASON,
+		    	if(ds.VIDEO_SCORE>0,1,0) isScore,
+		    </when>
+		    <when test="reviewType==5">
+		    	dv.VIDEO_EXPERT_SCORE,
+		    	dv.VIDEO_PUBLIC_SCORE,
+		    	dv.VIDEO_TOTAL_SCORE,
+		    	GROUP_CONCAT(su2.USER_ACCOUNT) as VIDEO_REVIEW_USER,
+		    	GROUP_CONCAT(ds.VIDEO_SCORE) as VIDEO_REVIEW_RESULT,
+		    	GROUP_CONCAT(IFNULL(ds.VIDEO_REASON,'0')) as VIDEO_REVIEW_REASON,
+		    	GROUP_CONCAT(DATE_FORMAT(ds.CREATE_TIME, '%Y-%m-%d %H:%i')) as VIDEO_REVIEW_TIME,
+		    	<!-- 详情查看总票数 -->
+		    	<if test="videoId!=null">
+			    	(SELECT count(DISTINCT vote.VOTE_ID)
+			        FROM dc_vote vote
+			        WHERE vote.VIDEO_ID = dv.VIDEO_ID
+			        ) as VOTE_COUNT,
+			    </if>
+		    </when>
+    	</choose>
+	    dfu.USER_AREA
+    from dc_video dv
+    left join dc_front_user dfu on dv.USER_ID = dfu.USER_ID
+    left join sys_user su on su.USER_ID = dv.VIDEO_TREVIEW_USER
+    <choose>
+	    <when test="reviewType==2">
+	    	left join dc_review dr on dr.USER_ID = #{videoReviewUser} and dr.VIDEO_ID = dv.VIDEO_ID
+	    	left join sys_user su2 on su2.USER_ID = dr.USER_ID
+	    </when>
+	    <when test="reviewType==3">
+	    	left join dc_review dr on dr.VIDEO_ID = dv.VIDEO_ID
+	    	left join sys_user su2 on su2.USER_ID = dv.VIDEO_SREVIEW_USER
+	    	left join sys_user su3 on su3.USER_ID = dr.USER_ID
+	    </when>
+	    <when test="reviewType==4">
+	    	left join dc_score ds on ds.USER_ID = #{videoReviewUser} and ds.VIDEO_ID = dv.VIDEO_ID
+	    	left join sys_user su2 on su2.USER_ID = ds.USER_ID
+	    </when>
+	    <when test="reviewType==5">
+	    	left join dc_score ds on ds.VIDEO_ID = dv.VIDEO_ID
+	    	left join sys_user su2 on su2.USER_ID = ds.USER_ID
+	    </when>
+    </choose>
+    where 1=1
+    <if test="userId != null" >
+        and dv.USER_ID = #{userId,jdbcType=VARCHAR}
+    </if>
+    <if test="videoId!=null">
+    	and dv.VIDEO_ID = #{videoId}
+    </if>
+    <if test="userArea!=null and userArea!=''">
+    	and dfu.USER_AREA = #{userArea}
+    </if>
+    <if test="videoType!=null">
+    	<choose>
+		    <when test="videoType=='戏曲/曲艺'">
+		    	and (dv.VIDEO_TYPE = '沪剧' or dv.VIDEO_TYPE = '越剧' or dv.VIDEO_TYPE = '京剧' or dv.VIDEO_TYPE = '其他')
+		    </when>
+		    <otherwise>
+		    	and dv.VIDEO_TYPE = #{videoType}
+		    </otherwise>
+	    </choose>
+    </if>
+    <if test="videoStatus!=null">
+    	and dv.VIDEO_STATUS = #{videoStatus}
+    </if>
+    <choose>
+    	<when test="searchType==1 and searchKey!=null and searchKey!=''">
+    		and dv.VIDEO_NAME like #{searchKey}
+    	</when>
+    	<when test="searchType==2 and searchKey!=null and searchKey!=''">
+    		and dv.VIDEO_GUIDE like #{searchKey}
+    	</when>
+    	<when test="searchType==3 and searchKey!=null and searchKey!=''">
+    		and dv.VIDEO_TEAM_NAME like #{searchKey}
+    	</when>
+    </choose>
+    <choose>
+    	<when test="reviewType==1">
+	    	and dv.VIDEO_STATUS in (1,2,3)
+	    </when>
+	    <when test="reviewType==2">
+	    	and dv.VIDEO_STATUS in (3,4,5)
+	    </when>
+	    <when test="reviewType==3">
+	    	and dv.VIDEO_STATUS in (4,5)
+	    </when>
+	    <when test="reviewType==4">
+	    	and dv.VIDEO_STATUS = 5
+	    </when>
+	    <when test="reviewType==5">
+	    	and dv.VIDEO_STATUS = 5
+	    </when>
+    </choose>
+    group by dv.VIDEO_ID
+    order by 
+    	<if test="reviewType==2">isReview,VIDEO_REVIEW_TIME,</if>
+    	<if test="reviewType==4">isScore,VIDEO_REVIEW_TIME,</if>
+    	<if test="reviewType==5">dv.VIDEO_TOTAL_SCORE DESC,</if>
+    	dv.CREATE_TIME DESC
+    <if test="firstResult != null">
+		limit ${firstResult},${rows}
+	</if>
+  </select>
+  
+  <select id="checkDcVideo" resultType="java.lang.Integer" parameterType="java.util.Map">
+  
+   select COUNT(dv.VIDEO_ID)
+    from dc_video dv
+    where 1 = 1
+      and VIDEO_GUIDE = #{videoGuide,jdbcType=VARCHAR}
+       
+      and VIDEO_ACTIVITY_CENTER = #{videoActivityCenter,jdbcType=VARCHAR}
+      
+      and VIDEO_TYPE = #{videoType,jdbcType=VARCHAR}
+      
+      <if test="videoId != null">
+      and VIDEO_ID != #{videoId,jdbcType=VARCHAR}
+      </if>
+  
+  </select>
+  
+  <select id="queryStatistics" resultType="java.lang.String">
+  	SELECT CONCAT(DATE_FORMAT(dv.CREATE_TIME, '%m-%d'),':',COUNT(*)) 
+  	FROM dc_video dv
+  	left join dc_front_user dfu on dv.USER_ID = dfu.USER_ID
+	WHERE DATE_FORMAT(dv.CREATE_TIME, '%Y-%m-%d') >= '2016-10-21' and DATE_FORMAT(dv.CREATE_TIME, '%Y-%m-%d') &lt;= '2016-10-31'
+	<if test="area!=null">
+    	and dfu.USER_AREA = #{area}
+    </if>
+	GROUP BY DATE_FORMAT(dv.CREATE_TIME, '%Y-%m-%d')
+  </select>
+  
+  <select id="queryWcDcVideoByContent" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.DcVideo">
+    select 
+	    dv.VIDEO_ID, 
+	    dv.USER_ID, 
+	    dv.VIDEO_ACTIVITY_CENTER,
+	    dv.VIDEO_GUIDE, 
+	    dv.VIDEO_TELEPHONE, 
+	    dv.VIDEO_TYPE, 
+	    dv.VIDEO_TEAM_NAME, 
+	    dv.VIDEO_TEAM_COUNT, 
+	    dv.VIDEO_TEAM_REMARK, 
+	    dv.VIDEO_URL, 
+	    dv.VIDEO_IMG_URL, 
+	    dv.VIDEO_NAME, 
+	    dv.VIDEO_LENGTH, 
+	    dv.VIDEO_INTRO, 
+	    dv.VIDEO_STATUS,
+	    <if test="userId!=null">
+	    	IF((SELECT count(DISTINCT vote.VOTE_ID)
+	        FROM dc_vote vote
+	        WHERE vote.VIDEO_ID = dv.VIDEO_ID and vote.USER_ID = #{userId} and DATE_FORMAT(vote.CREATE_TIME, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')
+	        )>0,1,0) as IS_VOTE,
+	    </if>
+	    (SELECT count(DISTINCT vote.VOTE_ID)
+	        FROM dc_vote vote
+	        WHERE vote.VIDEO_ID = dv.VIDEO_ID
+	        ) as VOTE_COUNT,
+	    dv.CREATE_TIME
+    from dc_video dv
+    where 1=1 and dv.VIDEO_STATUS = 5
+    <if test="videoId!=null">
+    	and dv.VIDEO_ID = #{videoId}
+    </if>
+    <if test="videoType!=null">
+    	<choose>
+		    <when test="videoType=='戏曲/曲艺'">
+		    	and (dv.VIDEO_TYPE = '沪剧' or dv.VIDEO_TYPE = '越剧' or dv.VIDEO_TYPE = '京剧' or dv.VIDEO_TYPE = '其他')
+		    </when>
+		    <otherwise>
+		    	and dv.VIDEO_TYPE = #{videoType}
+		    </otherwise>
+	    </choose>
+    </if>
+    group by dv.VIDEO_ID
+    order by 
+    	<if test="reviewType==6">convert(dv.VIDEO_NAME USING gbk),</if>
+    	<if test="reviewType==7">VOTE_COUNT DESC,</if>
+    	dv.CREATE_TIME DESC
+    <if test="reviewType==6">
+	    <if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</if>
+	<if test="reviewType==7">
+		limit 0,16
+	</if>
+  </select>
+</mapper>

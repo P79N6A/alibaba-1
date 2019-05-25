@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CcpAssociationResMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CcpAssociationRes" >
+    <id column="RES_ID" property="resId" jdbcType="VARCHAR" />
+    <result column="ASSN_ID" property="assnId" jdbcType="VARCHAR" />
+    <result column="ASSN_RES_URL" property="assnResUrl" jdbcType="VARCHAR" />
+    <result column="ASSN_RES_COVER" property="assnResCover" jdbcType="VARCHAR" />
+    <result column="ASSN_RES_NAME" property="assnResName" jdbcType="VARCHAR" />
+    <result column="RES_TYPE" property="resType" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    RES_ID, ASSN_ID, ASSN_RES_URL, ASSN_RES_COVER, ASSN_RES_NAME, RES_TYPE, CREATE_TIME, 
+    CREATE_USER, UPDATE_TIME, UPDATE_USER
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_association_res
+    where RES_ID = #{resId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_association_res
+    where RES_ID = #{resId,jdbcType=VARCHAR}
+  </delete>
+  
+  <delete id="deleteByAssnId" parameterType="java.lang.String" >
+    delete from ccp_association_res
+    where ASSN_ID = #{assnId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.CcpAssociationRes" >
+    insert into ccp_association_res
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      RES_ID,
+      <if test="assnId != null" >
+        ASSN_ID,
+      </if>
+      <if test="assnResUrl != null" >
+        ASSN_RES_URL,
+      </if>
+      <if test="assnResCover != null" >
+        ASSN_RES_COVER,
+      </if>
+      <if test="assnResName != null" >
+        ASSN_RES_NAME,
+      </if>
+      <if test="resType != null" >
+        RES_TYPE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{resId,jdbcType=VARCHAR},
+      <if test="assnId != null" >
+        #{assnId,jdbcType=VARCHAR},
+      </if>
+      <if test="assnResUrl != null" >
+        #{assnResUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="assnResCover != null" >
+        #{assnResCover,jdbcType=VARCHAR},
+      </if>
+      <if test="assnResName != null" >
+        #{assnResName,jdbcType=VARCHAR},
+      </if>
+      <if test="resType != null" >
+        #{resType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.CcpAssociationRes" >
+    update ccp_association_res
+    <set >
+      <if test="assnId != null" >
+        ASSN_ID = #{assnId,jdbcType=VARCHAR},
+      </if>
+      <if test="assnResUrl != null" >
+        ASSN_RES_URL = #{assnResUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="assnResCover != null" >
+        ASSN_RES_COVER = #{assnResCover,jdbcType=VARCHAR},
+      </if>
+      <if test="assnResName != null" >
+        ASSN_RES_NAME = #{assnResName,jdbcType=VARCHAR},
+      </if>
+      <if test="resType != null" >
+        RES_TYPE = #{resType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RES_ID = #{resId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryAssnResByAssnId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_association_res
+    where ASSN_ID = #{assnId,jdbcType=VARCHAR}
+    order by CREATE_TIME
+  </select>
+</mapper>

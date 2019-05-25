@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.BpProductMapper">
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.BpProduct">
+		<id column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+		<result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+		<result column="PRODUCT_ICON_URL" property="productIconUrl"
+			jdbcType="VARCHAR" />
+		<result column="PRODUCT_MODULE" property="productModule"
+			jdbcType="VARCHAR" />	
+		<result column="PRODUCT_CONTACTMAN" property="productContactman"
+			jdbcType="VARCHAR" />
+		<result column="PRODUCT_CONTACTWAY" property="productContactway"
+			jdbcType="VARCHAR" />
+		<result column="PRODUCT_SHOWTYPE" property="productShowtype"
+			jdbcType="INTEGER" />	
+		<result column="PRODUCT_VIDEO" property="productVideo"
+			jdbcType="VARCHAR" />
+		<result column="PRODUCT_STATUS" property="productStatus"
+			jdbcType="INTEGER" />
+		<result column="PRODUCT_SORT" property="productSort" jdbcType="INTEGER" />
+		<result column="PRODUCT_CREATE_TIME" property="productCreateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="PRODUCT_UPDATE_TIME" property="productUpdateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="PRODUCT_CREATE_USER" property="productCreateUser"
+			jdbcType="VARCHAR" />
+		<result column="PRODUCT_UPDATE_USER" property="productUpdateUser"
+			jdbcType="VARCHAR" />
+		<result column="PRODUCT_IMAGES" property="productImages"
+			jdbcType="LONGVARCHAR" />
+		<result column="PRODUCT_INFO" property="productInfo" jdbcType="LONGVARCHAR" />
+		<result column="PRODUCT_REMARK" property="productRemark"
+			jdbcType="LONGVARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		PRODUCT_ID, PRODUCT_NAME, PRODUCT_ICON_URL,PRODUCT_MODULE, PRODUCT_CONTACTMAN,
+		PRODUCT_CONTACTWAY,PRODUCT_SHOWTYPE,
+		PRODUCT_VIDEO, PRODUCT_STATUS, PRODUCT_SORT, PRODUCT_CREATE_TIME,
+		PRODUCT_UPDATE_TIME,
+		PRODUCT_CREATE_USER, PRODUCT_UPDATE_USER, PRODUCT_IMAGES, PRODUCT_INFO, PRODUCT_REMARK
+	</sql>
+	<insert id="addBpProduct" parameterType="com.sun3d.why.model.BpProduct">
+		INSERT INTO BP_PRODUCT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="productId != null">
+				PRODUCT_ID,
+			</if>
+			<if test="productName != null">
+				PRODUCT_NAME,
+			</if>
+			<if test="productIconUrl != null">
+				PRODUCT_ICON_URL,
+			</if>
+			<if test="productModule != null">
+				PRODUCT_MODULE,
+			</if>
+			<if test="productContactman != null">
+				PRODUCT_CONTACTMAN,
+			</if>
+			<if test="productContactway != null">
+				PRODUCT_CONTACTWAY,
+			</if>
+			<if test="productShowtype != null">
+				PRODUCT_SHOWTYPE,
+			</if>
+			<if test="productVideo != null">
+				PRODUCT_VIDEO,
+			</if>
+			<if test="productStatus != null">
+				PRODUCT_STATUS,
+			</if>
+			<if test="productSort != null">
+				PRODUCT_SORT,
+			</if>
+			<if test="productCreateTime != null">
+				PRODUCT_CREATE_TIME,
+			</if>
+			<if test="productUpdateTime != null">
+				PRODUCT_UPDATE_TIME,
+			</if>
+			<if test="productCreateUser != null">
+				PRODUCT_CREATE_USER,
+			</if>
+			<if test="productUpdateUser != null">
+				PRODUCT_UPDATE_USER,
+			</if>
+			<if test="productImages != null">
+				PRODUCT_IMAGES,
+			</if>
+			<if test="productInfo != null">
+				PRODUCT_INFO,
+			</if>
+			<if test="productRemark != null">
+				PRODUCT_REMARK,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="productId != null">
+				#{productId,jdbcType=VARCHAR},
+			</if>
+			<if test="productName != null">
+				#{productName,jdbcType=VARCHAR},
+			</if>
+			<if test="productIconUrl != null">
+				#{productIconUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="productModule != null">
+				#{productModule,jdbcType=VARCHAR},
+			</if>
+			<if test="productContactman != null">
+				#{productContactman,jdbcType=VARCHAR},
+			</if>
+			<if test="productContactway != null">
+				#{productContactway,jdbcType=VARCHAR},
+			</if>
+			<if test="productShowtype != null">
+				#{productShowtype,jdbcType=INTEGER},
+			</if>
+			<if test="productVideo != null">
+				#{productVideo,jdbcType=VARCHAR},
+			</if>
+			<if test="productStatus != null">
+				#{productStatus,jdbcType=INTEGER},
+			</if>
+			<if test="productSort != null">
+				#{productSort,jdbcType=INTEGER},
+			</if>
+			<if test="productCreateTime != null">
+				#{productCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="productUpdateTime != null">
+				#{productUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="productCreateUser != null">
+				#{productCreateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="productUpdateUser != null">
+				#{productUpdateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="productImages != null">
+				#{productImages,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="productInfo != null">
+				#{productInfo,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="productRemark != null">
+				#{productRemark,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<select id="queryBpProductCountByCondition" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM BP_PRODUCT B
+		LEFT JOIN sys_user S ON B.`PRODUCT_UPDATE_USER` =
+		S.`USER_ID`
+		LEFT JOIN sys_user SU ON B.`PRODUCT_CREATE_USER` =
+		SU.`USER_ID`
+		WHERE 1=1
+		AND B.PRODUCT_STATUS != 2
+		<if test="searchKey != null and searchKey != ''">
+			and (B.PRODUCT_NAME like '%${searchKey}%' or
+			s.USER_NICK_NAME like '%${searchKey}%' or su.USER_NICK_NAME like
+			'%${searchKey}%')
+		</if>
+		<if test="productName != null">
+			AND B.PRODUCT_NAME LIKE #{productName}
+		</if>
+		<if test="productStatus != null">
+			AND B.PRODUCT_STATUS = #{productStatus}
+		</if>
+		<if test="producId != null">
+			AND B.PRODUCT_ID = #{producId}
+		</if>
+		
+		<if test="createStartTime != null ">
+			AND B.PRODUCT_CREATE_TIME <![CDATA[>=]]> #{createStartTime}
+		</if>
+		<if test="createEndTime != null ">
+			AND B.PRODUCT_CREATE_TIME <![CDATA[<=]]> #{createEndTime}
+		</if>
+		
+	</select>
+	
+	<select id="queryBpProductByCondition" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		SELECT
+		B.PRODUCT_ID,B.PRODUCT_NAME,B.PRODUCT_ICON_URL,D.DICT_NAME AS PRODUCT_MODULE,B.PRODUCT_CONTACTMAN,
+		B.PRODUCT_CONTACTWAY,B.PRODUCT_SHOWTYPE,B.PRODUCT_IMAGES,B.PRODUCT_VIDEO,B.PRODUCT_INFO,
+		B.PRODUCT_REMARK,B.PRODUCT_STATUS,B.PRODUCT_SORT,B.PRODUCT_CREATE_TIME,
+		B.PRODUCT_UPDATE_TIME,	
+		SU.`USER_NICK_NAME` AS PRODUCT_CREATE_USER,S.`USER_NICK_NAME` AS PRODUCT_UPDATE_USER
+		FROM BP_PRODUCT B 
+		LEFT JOIN sys_dict D ON B.PRODUCT_MODULE = D.DICT_ID
+		LEFT JOIN sys_user S ON B.`PRODUCT_UPDATE_USER` = S.`USER_ID`
+		LEFT JOIN sys_user SU ON B.`PRODUCT_CREATE_USER` = SU.`USER_ID`
+		WHERE 1=1
+		AND B.PRODUCT_STATUS != 2
+		<if test="searchKey != null and searchKey != ''">
+			AND B.PRODUCT_NAME LIKE '%${searchKey}%'
+		</if>
+		<if test="productName != null">
+			AND B.PRODUCT_NAME LIKE #{productName}
+		</if>
+		<if test="productStatus != null">
+			AND B.PRODUCT_STATUS = #{productStatus}
+		</if>
+		<if test="producId != null">
+			AND B.PRODUCT_ID = #{producId}
+		</if>
+		<if test="createStartTime != null ">
+			AND B.PRODUCT_CREATE_TIME <![CDATA[>=]]> #{createStartTime}
+		</if>
+		<if test="createEndTime != null ">
+			AND B.PRODUCT_CREATE_TIME <![CDATA[<=]]> #{createEndTime}
+		</if>
+		ORDER BY B.PRODUCT_UPDATE_TIME desc
+		limit #{firstResult},#{rows}
+	</select>
+	
+	<select id="queryBpProductById" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		B.PRODUCT_ID,B.PRODUCT_NAME,B.PRODUCT_ICON_URL,B.PRODUCT_MODULE,B.PRODUCT_CONTACTMAN,
+		B.PRODUCT_CONTACTWAY,B.PRODUCT_SHOWTYPE,B.PRODUCT_IMAGES,B.PRODUCT_VIDEO,B.PRODUCT_INFO,
+		B.PRODUCT_REMARK,B.PRODUCT_STATUS,B.PRODUCT_SORT,B.PRODUCT_CREATE_TIME,
+		B.PRODUCT_UPDATE_TIME,	
+		SU.`USER_NICK_NAME` AS PRODUCT_CREATE_USER,S.`USER_NICK_NAME` AS PRODUCT_UPDATE_USER
+		FROM BP_PRODUCT B 
+		LEFT JOIN sys_dict D ON B.PRODUCT_MODULE = D.DICT_ID
+		LEFT JOIN sys_user S ON B.`PRODUCT_UPDATE_USER` = S.`USER_ID`
+		LEFT JOIN sys_user SU ON B.`PRODUCT_CREATE_USER` = SU.`USER_ID`
+		WHERE PRODUCT_ID = #{productId,jdbcType=VARCHAR}
+		limit 0,1
+	</select>
+	<update id="updateProductStatusById" parameterType="java.util.Map">
+		UPDATE
+		BP_PRODUCT
+		SET
+		PRODUCT_STATUS = #{productStatus,jdbcType=INTEGER},
+		PRODUCT_UPDATE_USER = #{userId,jdbcType=VARCHAR},
+		PRODUCT_UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+		WHERE PRODUCT_ID = #{productId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateBpProduct" parameterType="com.sun3d.why.model.BpProduct">
+		UPDATE BP_PRODUCT
+		<set>
+			<if test="productId != null">
+				PRODUCT_ID = #{productId,jdbcType=VARCHAR},
+			</if>
+			<if test="productName != null">
+				PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+			</if>
+			<if test="productIconUrl != null">
+				PRODUCT_ICON_URL = #{productIconUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="productModule != null">
+				PRODUCT_MODULE = #{productModule,jdbcType=VARCHAR},
+			</if>		
+				PRODUCT_CONTACTMAN = #{productContactman,jdbcType=VARCHAR},
+				PRODUCT_CONTACTWAY = #{productContactway,jdbcType=VARCHAR},
+				
+			<if test="productShowtype != null">
+				PRODUCT_SHOWTYPE = #{productShowtype,jdbcType=INTEGER},
+			</if>
+			
+				PRODUCT_IMAGES = #{productImages,jdbcType=LONGVARCHAR},
+			
+				PRODUCT_VIDEO = #{productVideo,jdbcType=VARCHAR},
+			
+			<if test="productStatus != null">
+				PRODUCT_STATUS = #{productStatus,jdbcType=INTEGER},
+			</if>
+			<if test="productImages != null">
+				PRODUCT_IMAGES = #{productImages,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="productCreateTime != null">
+				PRODUCT_CREATE_TIME =
+				#{productCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="productUpdateTime != null">
+				PRODUCT_UPDATE_TIME =
+				#{productUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="productCreateUser != null">
+				PRODUCT_CREATE_USER =
+				#{productCreateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="productUpdateUser != null">
+				PRODUCT_UPDATE_USER =
+				#{productUpdateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="productInfo != null">
+				PRODUCT_INFO = #{productInfo,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="productRemark != null">
+				PRODUCT_REMARK = #{productRemark,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		WHERE PRODUCT_ID = #{productId,jdbcType=VARCHAR}
+	</update>
+</mapper>

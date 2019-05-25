@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsActivityRoomMapper">
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsActivityRoom">
+		<id column="ROOM_ID" property="roomId" jdbcType="VARCHAR" />
+		<result column="ROOM_NAME" property="roomName" jdbcType="VARCHAR" />
+		<result column="ROOM_PIC_URL" property="roomPicUrl" jdbcType="VARCHAR" />
+		<result column="ROOM_CAPACITY" property="roomCapacity"
+			jdbcType="INTEGER" />
+		<result column="ROOM_DAY_MONDAY" property="roomDayMonday"
+			jdbcType="INTEGER" />
+		<result column="ROOM_DAY_TUESDAY" property="roomDayTuesday"
+			jdbcType="INTEGER" />
+		<result column="ROOM_DAY_WEDNESDAY" property="roomDayWednesday"
+			jdbcType="INTEGER" />
+		<result column="ROOM_DAY_THURSDAY" property="roomDayThursday"
+			jdbcType="INTEGER" />
+		<result column="ROOM_DAY_FRIDAY" property="roomDayFriday"
+			jdbcType="INTEGER" />
+		<result column="ROOM_DAY_SATURDAY" property="roomDaySaturday"
+			jdbcType="INTEGER" />
+		<result column="ROOM_DAY_SUNDAY" property="roomDaySunday"
+			jdbcType="INTEGER" />
+		<result column="ROOM_FEE" property="roomFee" jdbcType="VARCHAR" />
+		<result column="ROOM_CREATE_TIME" property="roomCreateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="ROOM_CREATE_USER" property="roomCreateUser"
+			jdbcType="VARCHAR" />
+		<result column="ROOM_UPDATE_TIME" property="roomUpdateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="ROOM_UPDATE_USER" property="roomUpdateUser"
+			jdbcType="VARCHAR" />
+		<result column="ROOM_IS_DEL" property="roomIsDel" jdbcType="INTEGER" />
+		<result column="ROOM_STATE" property="roomState" jdbcType="INTEGER" />
+		<result column="ROOM_VENUE_ID" property="roomVenueId" jdbcType="VARCHAR" />
+		<result column="ROOM_NO" property="roomNo" jdbcType="VARCHAR" />
+		<result column="ROOM_IS_CLOSED" property="roomIsClosed"
+			jdbcType="INTEGER" />
+		<result column="ROOM_CONSULT_TEL" property="roomConsultTel"
+			jdbcType="VARCHAR" />
+		<result column="ROOM_IS_FREE" property="roomIsFree" jdbcType="INTEGER" />
+		<result column="ROOM_AREA" property="roomArea" jdbcType="VARCHAR" />
+		<result column="ROOM_RELEASE_NOTICE" property="roomReleaseNotice"
+			jdbcType="LONGVARCHAR" />
+		<result column="ROOM_FACILITY_INFO" property="roomFacilityInfo"
+			jdbcType="LONGVARCHAR" />
+		<result column="ROOM_INTRO" property="roomIntro"
+				jdbcType="LONGVARCHAR" />
+		<result column="ROOM_REMARK" property="roomRemark"
+				jdbcType="LONGVARCHAR" />
+		<result column="statistic_count" property="statisticCount"
+			jdbcType="INTEGER" />
+		<result column="venue_city" property="venueCity" jdbcType="VARCHAR" />
+		<result column="venue_area" property="venueArea" jdbcType="VARCHAR" />
+		<result column="SYS_NO" property="sysNo"
+			jdbcType="VARCHAR" />
+		<result column="SYS_ID" property="sysId"
+			jdbcType="VARCHAR" />
+		<result column="ROOM_TAG" property="roomTag"
+		jdbcType="VARCHAR" />
+		<result column="ROOM_FACILITY" property="roomFacilityDict"
+		jdbcType="VARCHAR" />
+		<result column="AVAILABLE_COUNT" property="availableCount"
+				jdbcType="INTEGER" />
+		<!--app添加字段 -->
+		<result column="roomTagName" property="roomTagName"
+				jdbcType="VARCHAR" />
+		<result column="dictName" property="dictName"
+				jdbcType="VARCHAR" />
+		<result column="VENUE_ID" property="venueId" jdbcType="VARCHAR" />
+		<result column="VENUE_NAME" property="venueName" jdbcType="VARCHAR" />
+		<result column="VENUE_ADDRESS" property="venueAddress"
+				jdbcType="VARCHAR" />
+		<result column="VENUE_IS_DEL" property="venueIsDel" jdbcType="INTEGER" />
+		<result column="VENUE_LON" property="venueLon" jdbcType="DOUBLE"/>
+        <result column="VENUE_LAT" property="venueLat" jdbcType="DOUBLE"/>
+		<result column="ROOM_REMARK" property="roomRemark" jdbcType="LONGVARCHAR" />
+		<result column="VENUE_IS_RESERVE" property="venueIsReserve" jdbcType="INTEGER" />
+		<result column="ROOM_SORT" property="roomSort" javaType="INTEGER"/>
+	</resultMap>
+
+	<select id="queryCmsActivityRoomById" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT a.ROOM_ID,a.ROOM_NAME,a.ROOM_PIC_URL,a.ROOM_INTRO,a.ROOM_REMARK,a.ROOM_CAPACITY,a.ROOM_DAY_MONDAY,a.ROOM_DAY_TUESDAY,a.ROOM_DAY_WEDNESDAY,
+		       a.ROOM_DAY_THURSDAY,a.ROOM_DAY_FRIDAY,a.ROOM_DAY_SATURDAY,a.ROOM_DAY_SUNDAY,a.ROOM_FEE,a.ROOM_CREATE_TIME,a.ROOM_CREATE_USER,a.ROOM_UPDATE_TIME,
+	           a.ROOM_UPDATE_USER,a.ROOM_IS_DEL,a.ROOM_STATE,a.ROOM_VENUE_ID,a.ROOM_NO,a.ROOM_IS_CLOSED,a.ROOM_CONSULT_TEL,a.ROOM_IS_FREE,a.ROOM_AREA,
+	           a.ROOM_RELEASE_NOTICE,a.ROOM_FACILITY_INFO,a.SYS_NO,a.SYS_ID,a.ROOM_TAG,a.ROOM_FACILITY,b.venue_city,b.venue_area,b.venue_address
+		FROM CMS_ROOM a LEFT JOIN cms_venue b ON a.room_venue_id = b.venue_id
+        WHERE a.ROOM_ID = #{roomId,jdbcType=VARCHAR}
+	</select>
+
+	<insert id="addCmsActivityRoom" parameterType="com.sun3d.why.model.CmsActivityRoom">
+		INSERT INTO CMS_ROOM
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="roomId != null">
+				ROOM_ID,
+			</if>
+			<if test="roomName != null">
+				ROOM_NAME,
+			</if>
+			<if test="roomPicUrl != null">
+				ROOM_PIC_URL,
+			</if>
+			<if test="roomCapacity != null">
+				ROOM_CAPACITY,
+			</if>
+			<if test="roomDayMonday != null">
+				ROOM_DAY_MONDAY,
+			</if>
+			<if test="roomDayTuesday != null">
+				ROOM_DAY_TUESDAY,
+			</if>
+			<if test="roomDayWednesday != null">
+				ROOM_DAY_WEDNESDAY,
+			</if>
+			<if test="roomDayThursday != null">
+				ROOM_DAY_THURSDAY,
+			</if>
+			<if test="roomDayFriday != null">
+				ROOM_DAY_FRIDAY,
+			</if>
+			<if test="roomDaySaturday != null">
+				ROOM_DAY_SATURDAY,
+			</if>
+			<if test="roomDaySunday != null">
+				ROOM_DAY_SUNDAY,
+			</if>
+			<if test="roomFee != null">
+				ROOM_FEE,
+			</if>
+			<if test="roomCreateTime != null">
+				ROOM_CREATE_TIME,
+			</if>
+			<if test="roomCreateUser != null">
+				ROOM_CREATE_USER,
+			</if>
+			<if test="roomUpdateTime != null">
+				ROOM_UPDATE_TIME,
+			</if>
+			<if test="roomUpdateUser != null">
+				ROOM_UPDATE_USER,
+			</if>
+			<if test="roomIsDel != null">
+				ROOM_IS_DEL,
+			</if>
+			<if test="roomState != null">
+				ROOM_STATE,
+			</if>
+			<if test="roomVenueId != null">
+				ROOM_VENUE_ID,
+			</if>
+			<if test="roomNo != null">
+				ROOM_NO,
+			</if>
+			<if test="roomIsClosed != null">
+				ROOM_IS_CLOSED,
+			</if>
+			<if test="roomConsultTel != null">
+				ROOM_CONSULT_TEL,
+			</if>
+			<if test="roomIsFree != null">
+				ROOM_IS_FREE,
+			</if>
+			<if test="roomArea != null">
+				ROOM_AREA,
+			</if>
+			<if test="roomReleaseNotice != null">
+				ROOM_RELEASE_NOTICE,
+			</if>
+			<if test="roomFacilityInfo != null">
+				ROOM_FACILITY_INFO,
+			</if>
+			<if test="sysId != null">
+				SYS_ID,
+			</if>
+			<if test="sysNo != null">
+				SYS_NO,
+			</if>
+			<if test="roomTag != null">
+				ROOM_TAG,
+			</if>
+			<if test="roomFacilityDict != null">
+				ROOM_FACILITY,
+			</if>
+			<if test="roomIntro != null">
+				ROOM_INTRO,
+			</if>
+			<if test="roomRemark != null">
+				ROOM_REMARK,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="roomId != null">
+				#{roomId,jdbcType=VARCHAR},
+			</if>
+			<if test="roomName != null">
+				#{roomName,jdbcType=VARCHAR},
+			</if>
+			<if test="roomPicUrl != null">
+				#{roomPicUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="roomCapacity != null">
+				#{roomCapacity,jdbcType=INTEGER},
+			</if>
+			<if test="roomDayMonday != null">
+				#{roomDayMonday,jdbcType=INTEGER},
+			</if>
+			<if test="roomDayTuesday != null">
+				#{roomDayTuesday,jdbcType=INTEGER},
+			</if>
+			<if test="roomDayWednesday != null">
+				#{roomDayWednesday,jdbcType=INTEGER},
+			</if>
+			<if test="roomDayThursday != null">
+				#{roomDayThursday,jdbcType=INTEGER},
+			</if>
+			<if test="roomDayFriday != null">
+				#{roomDayFriday,jdbcType=INTEGER},
+			</if>
+			<if test="roomDaySaturday != null">
+				#{roomDaySaturday,jdbcType=INTEGER},
+			</if>
+			<if test="roomDaySunday != null">
+				#{roomDaySunday,jdbcType=INTEGER},
+			</if>
+			<if test="roomFee != null">
+				#{roomFee,jdbcType=VARCHAR},
+			</if>
+			<if test="roomCreateTime != null">
+				#{roomCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="roomCreateUser != null">
+				#{roomCreateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="roomUpdateTime != null">
+				#{roomUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="roomUpdateUser != null">
+				#{roomUpdateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="roomIsDel != null">
+				#{roomIsDel,jdbcType=INTEGER},
+			</if>
+			<if test="roomState != null">
+				#{roomState,jdbcType=INTEGER},
+			</if>
+			<if test="roomVenueId != null">
+				#{roomVenueId,jdbcType=VARCHAR},
+			</if>
+			<if test="roomNo != null">
+				#{roomNo,jdbcType=VARCHAR},
+			</if>
+			<if test="roomIsClosed != null">
+				#{roomIsClosed,jdbcType=INTEGER},
+			</if>
+			<if test="roomConsultTel != null">
+				#{roomConsultTel,jdbcType=VARCHAR},
+			</if>
+			<if test="roomIsFree != null">
+				#{roomIsFree,jdbcType=INTEGER},
+			</if>
+			<if test="roomArea != null">
+				#{roomArea,jdbcType=VARCHAR},
+			</if>
+			<if test="roomReleaseNotice != null">
+				#{roomReleaseNotice,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="roomFacilityInfo != null">
+				#{roomFacilityInfo,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="sysId != null">
+				#{sysId,jdbcType=VARCHAR},
+			</if>
+			<if test="sysNo != null">
+				#{sysNo,jdbcType=VARCHAR},
+			</if>
+			<if test="roomTag != null">
+				#{roomTag,jdbcType=VARCHAR},
+			</if>
+			<if test="roomFacilityDict != null">
+				#{roomFacilityDict,jdbcType=VARCHAR},
+			</if>
+			<if test="roomIntro != null">
+				#{roomIntro,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="roomRemark != null">
+				#{roomRemark,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="editCmsActivityRoom" parameterType="com.sun3d.why.model.CmsActivityRoom">
+		UPDATE CMS_ROOM
+		<set>
+			<if test="roomId != null">
+				ROOM_ID = #{roomId,jdbcType=VARCHAR},
+			</if>
+			<if test="roomName != null">
+				ROOM_NAME = #{roomName,jdbcType=VARCHAR},
+			</if>
+			<if test="roomPicUrl != null">
+				ROOM_PIC_URL = #{roomPicUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="roomCapacity != null">
+				ROOM_CAPACITY = #{roomCapacity,jdbcType=INTEGER},
+			</if>
+			<if test="roomDayMonday != null">
+				ROOM_DAY_MONDAY = #{roomDayMonday,jdbcType=INTEGER},
+			</if>
+			<if test="roomDayTuesday != null">
+				ROOM_DAY_TUESDAY = #{roomDayTuesday,jdbcType=INTEGER},
+			</if>
+			<if test="roomDayWednesday != null">
+				ROOM_DAY_WEDNESDAY =
+				#{roomDayWednesday,jdbcType=INTEGER},
+			</if>
+			<if test="roomDayThursday != null">
+				ROOM_DAY_THURSDAY = #{roomDayThursday,jdbcType=INTEGER},
+			</if>
+			<if test="roomDayFriday != null">
+				ROOM_DAY_FRIDAY = #{roomDayFriday,jdbcType=INTEGER},
+			</if>
+			<if test="roomDaySaturday != null">
+				ROOM_DAY_SATURDAY = #{roomDaySaturday,jdbcType=INTEGER},
+			</if>
+			<if test="roomDaySunday != null">
+				ROOM_DAY_SUNDAY = #{roomDaySunday,jdbcType=INTEGER},
+			</if>
+			<if test="roomFee != null">
+				ROOM_FEE = #{roomFee,jdbcType=VARCHAR},
+			</if>
+			<if test="roomCreateTime != null">
+				ROOM_CREATE_TIME = #{roomCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="roomCreateUser != null">
+				ROOM_CREATE_USER = #{roomCreateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="roomUpdateTime != null">
+				ROOM_UPDATE_TIME = #{roomUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="roomUpdateUser != null">
+				ROOM_UPDATE_USER = #{roomUpdateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="roomIsDel != null">
+				ROOM_IS_DEL = #{roomIsDel,jdbcType=INTEGER},
+			</if>
+			<if test="roomState != null">
+				ROOM_STATE = #{roomState,jdbcType=INTEGER},
+			</if>
+			<if test="roomVenueId != null">
+				ROOM_VENUE_ID = #{roomVenueId,jdbcType=VARCHAR},
+			</if>
+			<if test="roomNo != null">
+				ROOM_NO = #{roomNo,jdbcType=VARCHAR},
+			</if>
+			<if test="roomIsClosed != null">
+				ROOM_IS_CLOSED = #{roomIsClosed,jdbcType=INTEGER},
+			</if>
+			<if test="roomConsultTel != null">
+				ROOM_CONSULT_TEL = #{roomConsultTel,jdbcType=VARCHAR},
+			</if>
+			<if test="roomIsFree != null">
+				ROOM_IS_FREE = #{roomIsFree,jdbcType=INTEGER},
+			</if>
+			<if test="roomArea != null">
+				ROOM_AREA = #{roomArea,jdbcType=VARCHAR},
+			</if>
+			<if test="roomReleaseNotice != null">
+				ROOM_RELEASE_NOTICE =
+				#{roomReleaseNotice,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="roomFacilityInfo != null">
+				ROOM_FACILITY_INFO = #{roomFacilityInfo,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="roomTag != null">
+				ROOM_TAG = #{roomTag,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="roomFacilityDict != null">
+				ROOM_FACILITY = #{roomFacilityDict,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="roomIntro != null">
+				ROOM_INTRO = #{roomIntro,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="roomRemark != null">
+				ROOM_REMARK = #{roomRemark,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		WHERE ROOM_ID = #{roomId,jdbcType=VARCHAR}
+	</update>
+
+	<delete id="deleteRecycleActivityRoom" parameterType="java.lang.String">
+		delete from
+		CMS_ROOM
+		where ROOM_ID = #{roomId,jdbcType=VARCHAR}
+	</delete>
+
+	<select id="queryCmsActivityRoomByCondition" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		SELECT A.ROOM_ID, A.ROOM_NAME, A.ROOM_PIC_URL, A.ROOM_CAPACITY,
+		A.ROOM_DAY_MONDAY, A.ROOM_DAY_TUESDAY, A.ROOM_DAY_WEDNESDAY,
+		A.ROOM_DAY_THURSDAY, A.ROOM_DAY_FRIDAY, A.ROOM_DAY_SATURDAY,
+		A.ROOM_DAY_SUNDAY, A.ROOM_FEE,
+		A.ROOM_CREATE_TIME, SU.USER_NICK_NAME AS ROOM_CREATE_USER,
+		A.ROOM_UPDATE_TIME, S.USER_NICK_NAME AS ROOM_UPDATE_USER,
+		A.ROOM_IS_DEL,A.ROOM_STATE,A.ROOM_VENUE_ID,ROOM_NO,A.ROOM_IS_CLOSED,A.ROOM_CONSULT_TEL,A.ROOM_IS_FREE,A.ROOM_AREA,
+		A.ROOM_RELEASE_NOTICE,A.ROOM_FACILITY_INFO,A.ROOM_TAG,A.ROOM_FACILITY,A.SYS_ID,A.SYS_NO,A.ROOM_REMARK
+		FROM CMS_ROOM A
+		LEFT JOIN CMS_VENUE V ON A.ROOM_VENUE_ID = V.VENUE_ID
+		LEFT JOIN SYS_USER S ON A.ROOM_UPDATE_USER = S.USER_ID
+		LEFT JOIN SYS_USER SU ON A.ROOM_CREATE_USER = SU.USER_ID
+		WHERE 1=1
+		<if test="searchKey != null and searchKey != ''">
+			AND (A.ROOM_NAME LIKE '%${searchKey}%' OR S.USER_NICK_NAME LIKE '%${searchKey}%' or SU.USER_NICK_NAME LIKE '%${searchKey}%')
+		</if>
+		<if test="roomName != null">
+			AND A.ROOM_NAME LIKE #{roomName}
+		</if>
+		<if test="roomIsDel != null">
+			AND A.ROOM_IS_DEL = #{roomIsDel}
+		</if>
+		<if test="roomState != null">
+			AND A.ROOM_STATE = #{roomState}
+		</if>
+		<if test="venueArea != null">
+			AND V.VENUE_AREA like #{venueArea}
+		</if>
+		<if test="venueType != null">
+			AND V.VENUE_TYPE = #{venueType}
+		</if>
+		<if test="venueId != null">
+			AND V.VENUE_ID = #{venueId}
+		</if>
+		<if test="venueDept != null">
+			AND V.VENUE_DEPT like #{venueDept}
+		</if>
+		<if test="venueIsDel != null">
+			AND V.VENUE_IS_DEL = #{venueIsDel}
+		</if>
+		ORDER BY A.ROOM_UPDATE_TIME DESC
+		limit #{firstResult},#{rows}
+	</select>
+
+	<select id="queryCmsActivityRoomCountByCondition" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM 
+		CMS_ROOM A 
+		LEFT JOIN CMS_VENUE V ON A.ROOM_VENUE_ID = V.VENUE_ID
+		LEFT JOIN SYS_USER S ON A.ROOM_UPDATE_USER = S.USER_ID
+		LEFT JOIN SYS_USER SU ON A.ROOM_CREATE_USER = SU.USER_ID
+		WHERE 1=1
+		<if test="searchKey != null and searchKey != ''">
+			AND (A.ROOM_NAME LIKE '%${searchKey}%' OR S.USER_NICK_NAME LIKE '%${searchKey}%' or SU.USER_NICK_NAME LIKE '%${searchKey}%')
+		</if>
+		<if test="roomName != null">
+			AND A.ROOM_NAME LIKE #{roomName}
+		</if>
+		<if test="roomIsDel != null">
+			AND A.ROOM_IS_DEL = #{roomIsDel}
+		</if>
+		<if test="roomState != null">
+			AND A.ROOM_STATE = #{roomState}
+		</if>
+		<if test="venueArea != null">
+			AND V.VENUE_AREA like #{venueArea}
+		</if>
+		<if test="venueType != null">
+			AND V.VENUE_TYPE = #{venueType}
+		</if>
+		<if test="venueId != null">
+			AND V.VENUE_ID = #{venueId}
+		</if>
+		<if test="venueDept != null">
+			AND V.VENUE_DEPT like #{venueDept}
+		</if>
+		<if test="venueIsDel != null">
+			AND V.VENUE_IS_DEL = #{venueIsDel}
+		</if>
+	</select>
+
+
+	<!-- 内容统计-活动室统计-begin -->
+	<select id="queryRoomStatistic" resultMap="BaseResultMap"
+		parameterType="com.sun3d.why.model.CmsActivityRoom">
+		select VENUE_AREA,count(*) as statistic_count
+		from
+		cms_room r
+		inner join cms_venue v on r.ROOM_VENUE_ID = v.VENUE_ID
+		where
+		v.VENUE_IS_DEL = 1 and v.VENUE_STATE = 6 and r.ROOM_IS_DEL = 1 and r.ROOM_STATE = 6
+		GROUP BY VENUE_AREA;
+	</select>
+	<!-- 内容统计-活动室统计-end -->
+	<!--app根据展馆id获取相关活动室信息 -->
+	<select id="queryAppActivityRoomById" parameterType="java.util.Map"
+			resultMap="BaseResultMap">
+		SELECT
+		cr.SYS_NO,
+		cr.ROOM_ID,
+		cr.ROOM_NAME,
+		cr.ROOM_AREA,
+		cr.ROOM_CAPACITY,
+		cr.ROOM_PIC_URL,
+		cr.ROOM_FEE,
+		cr.ROOM_NO,
+		cr.ROOM_IS_FREE,
+		GROUP_CONCAT(DISTINCT ct.TAG_NAME ORDER BY ct.TAG_UPDATE_TIME desc) AS roomTagName,
+		count(if(rb.BOOK_STATUS=1,true,null)) as roomCount
+		FROM
+		cms_room cr
+		LEFT JOIN cms_venue cv ON cr.ROOM_VENUE_ID = cv.VENUE_ID
+		LEFT JOIN cms_tag ct on FIND_IN_SET(ct.TAG_ID,cr.ROOM_TAG)
+		LEFT JOIN cms_room_book rb ON cr.ROOM_ID = rb.ROOM_ID
+		WHERE
+		1 = 1
+		<if test="roomIsDel != null">
+			AND cr.ROOM_IS_DEL = #{roomIsDel}
+		</if>
+	 	and cr.ROOM_STATE=6
+		<if test="venueId != null">
+			AND cv.VENUE_ID = #{venueId}
+		</if>
+		AND rb.CUR_DATE &gt;= CURDATE()
+		<!--  AND rb.CUR_DATE &lt; ADDDATE(CURDATE(), INTERVAL 5 DAY)-->
+		GROUP BY cr.ROOM_ID
+        ORDER BY cr.ROOM_UPDATE_TIME desc
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+</select>
+
+	<!--why3.5 app根据展馆id获取相关活动室个数 -->
+	<select id="queryAppActivityRoomCountById" parameterType="java.util.Map"
+			resultType="java.lang.Integer">
+		select count(*) from (SELECT
+		cr.SYS_NO,
+		cr.ROOM_ID,
+		cr.ROOM_NAME,
+		cr.ROOM_AREA,
+		cr.ROOM_CAPACITY,
+		cr.ROOM_PIC_URL,
+		GROUP_CONCAT(DISTINCT ct.TAG_NAME ORDER BY ct.TAG_UPDATE_TIME desc) AS roomTagName,
+		count(if(rb.BOOK_STATUS=1,true,null)) as roomCount
+		FROM
+		cms_room cr
+		LEFT JOIN cms_venue cv ON cr.ROOM_VENUE_ID = cv.VENUE_ID
+		LEFT JOIN cms_tag ct on FIND_IN_SET(ct.TAG_ID,cr.ROOM_TAG)
+		LEFT JOIN cms_room_book rb ON cr.ROOM_ID = rb.ROOM_ID
+		WHERE
+		1 = 1
+		<if test="roomIsDel != null">
+			AND cr.ROOM_IS_DEL = #{roomIsDel}
+		</if>
+		and cr.ROOM_STATE=6
+		<if test="venueId != null">
+			AND cv.VENUE_ID = #{venueId}
+		</if>
+		AND rb.CUR_DATE &gt;= CURDATE()
+		<!--  AND rb.CUR_DATE &lt; ADDDATE(CURDATE(), INTERVAL 5 DAY)-->
+		GROUP BY cr.ROOM_ID) b
+	</select>
+<!--app根据活动室id获取活动室详情 -->
+	<select id="queryAppActivityRoomByRoomId" parameterType="java.lang.String"
+			resultMap="BaseResultMap">
+	SELECT
+	cr.SYS_NO,
+	cv.VENUE_ID,
+	cv.VENUE_NAME,
+	cv.VENUE_ADDRESS,
+	cr.ROOM_ID,
+	cr.ROOM_NAME,
+	cr.ROOM_CAPACITY,
+	cr.ROOM_AREA,
+	cr.ROOM_PIC_URL,
+	cr.ROOM_CONSULT_TEL,
+	cr.ROOM_FEE,
+	cr.ROOM_IS_FREE,
+	cr.ROOM_CONSULT_TEL,
+	GROUP_CONCAT(
+			DISTINCT ct.TAG_NAME SEPARATOR ','
+		) AS roomTagName,
+	GROUP_CONCAT(
+			DISTINCT sd.DICT_NAME SEPARATOR ','
+		) AS dictName,
+	cr.ROOM_REMARK
+	FROM
+		cms_room cr
+	  LEFT JOIN cms_venue cv on cr.ROOM_VENUE_ID=cv.VENUE_ID
+	  LEFT JOIN cms_tag ct ON FIND_IN_SET(ct.TAG_ID, cr.ROOM_TAG)
+	  LEFT JOIN sys_dict sd ON FIND_IN_SET(sd.DICT_ID,cr.ROOM_FACILITY)
+	WHERE
+		1 = 1
+	and cr.ROOM_IS_DEL=1
+	and cr.ROOM_STATE=6
+	and cr.ROOM_ID = #{roomId,jdbcType=VARCHAR}
+	</select>
+
+	<!--查询场馆是可用活动室个数qww-->
+	<select id="queryActivityRoomCount" parameterType="java.lang.String"
+			resultMap="BaseResultMap">
+		select cr.room_id,cr.room_name,(select count(*) from cms_room_time crt
+		where crt.room_id=cr.room_id and crt.is_open = 1) as roomCount from cms_room cr where cr.room_venue_id = #{roomVenueId}
+	</select>
+
+	<select id="queryRelatedRoom" parameterType="java.util.Map"
+			resultMap="BaseResultMap">
+		SELECT  count(if(rb.BOOK_STATUS=1,true,null)) as AVAILABLE_COUNT,
+		A.ROOM_ID, A.ROOM_NAME, A.ROOM_PIC_URL, A.ROOM_CAPACITY,
+		A.ROOM_FEE,A.ROOM_CREATE_TIME, A.ROOM_UPDATE_TIME,
+		A.ROOM_IS_DEL,A.ROOM_STATE,A.ROOM_VENUE_ID,ROOM_NO,A.ROOM_IS_CLOSED,A.ROOM_CONSULT_TEL,A.ROOM_IS_FREE,A.ROOM_AREA,
+		A.ROOM_RELEASE_NOTICE,A.ROOM_FACILITY_INFO,A.ROOM_TAG,A.ROOM_FACILITY,A.SYS_ID,A.SYS_NO,A.ROOM_REMARK
+		FROM CMS_ROOM A
+		INNER JOIN CMS_VENUE V ON A.ROOM_VENUE_ID = V.VENUE_ID
+		LEFT JOIN CMS_ROOM_BOOK RB on A.ROOM_ID = RB.ROOM_ID
+		WHERE 1=1
+		AND RB.CUR_DATE >= CURDATE()
+		<!-- AND RB.CUR_DATE &lt; ADDDATE(CURDATE(),INTERVAL 5 DAY) -->
+		<if test="roomIsDel != null">
+			AND A.ROOM_IS_DEL = #{roomIsDel}
+		</if>
+		<if test="roomState != null">
+			AND A.ROOM_STATE = #{roomState}
+		</if>
+		<if test="venueIsDel != null">
+			AND V.VENUE_IS_DEL = #{venueIsDel}
+		</if>
+		<if test="venueId != null">
+			AND A.ROOM_VENUE_ID = #{venueId}
+		</if>
+		<if test="roomId != null">
+			AND A.ROOM_ID = #{roomId}
+		</if>
+		<if test="roomIdExclude != null">
+			AND A.ROOM_ID != #{roomIdExclude}
+		</if>
+		group by rb.ROOM_ID
+		ORDER BY A.ROOM_UPDATE_TIME DESC
+		limit #{firstResult},#{rows}
+	</select>
+
+	<select id="queryRelatedRoomCount" parameterType="java.util.Map"
+			resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM
+		CMS_ROOM A
+		INNER JOIN CMS_VENUE V ON A.ROOM_VENUE_ID = V.VENUE_ID
+		WHERE 1=1
+		<if test="roomIsDel != null">
+			AND A.ROOM_IS_DEL = #{roomIsDel}
+		</if>
+		<if test="roomState != null">
+			AND A.ROOM_STATE = #{roomState}
+		</if>
+		<if test="venueIsDel != null">
+			AND V.VENUE_IS_DEL = #{venueIsDel}
+		</if>
+		<if test="venueId != null">
+			AND A.ROOM_VENUE_ID = #{venueId}
+		</if>
+		<if test="roomId != null">
+			AND A.ROOM_ID = #{roomId}
+		</if>
+		<if test="roomIdExclude != null">
+			AND A.ROOM_ID != #{roomIdExclude}
+		</if>
+	</select>
+	
+	<select id="queryAllAppActivityRoomListCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+	
+		SELECT COUNT(DISTINCT r.`ROOM_ID`) FROM cms_room r 
+		
+		<!--  LEFT JOIN cms_tag t ON find_in_set(t.tag_id, r.`ROOM_TAG`)-->
+		<if test="roomTag != null">
+		<foreach item="tagId" index="index" collection="roomTag" >
+		INNER JOIN cms_tag t#{index} ON FIND_IN_SET( t#{index}.tag_id, r.`ROOM_TAG`) AND  t#{index}.`TAG_ID` =#{tagId}
+		</foreach>
+		</if>
+		<if test="roomFacility != null">
+		<foreach item="dictId" index="index" collection="roomFacility" >
+		INNER JOIN sys_dict d#{index} ON FIND_IN_SET( d#{index}.DICT_ID, r.`ROOM_FACILITY`) AND  d#{index}.`DICT_ID` =#{dictId}
+		</foreach>
+		</if>
+		WHERE r.ROOM_STATE=6 
+		<if test="areaTypeStart!=null">
+		  and CAST(r.ROOM_AREA as DECIMAL(9,2)) &gt;= #{areaTypeStart}
+		</if>
+		<if test="areaTypeEnd!=null">
+		  and CAST(r.ROOM_AREA as DECIMAL(9,2)) &lt;= #{areaTypeEnd}
+		</if>
+		<if test="roomCapacityStart!=null">
+		 and r.ROOM_CAPACITY &gt;= #{roomCapacityStart}
+		</if>
+		<if test="roomCapacityEnd!=null">
+		  and r.ROOM_CAPACITY &lt;= #{roomCapacityEnd}
+		</if>
+	</select> 
+	
+	<select id="queryAllAppActivityRoomList" parameterType="java.util.Map" resultMap="BaseResultMap">
+			
+		SELECT DISTINCT r.*,cv.VENUE_ID,cv.VENUE_NAME,cv.VENUE_ADDRESS, cv.VENUE_LON,cv.VENUE_LAT
+		
+		FROM cms_room r 
+		LEFT JOIN cms_room_book rb ON r.ROOM_ID = rb.ROOM_ID
+		LEFT JOIN CMS_VENUE cv ON r.ROOM_VENUE_ID = cv.VENUE_ID
+		<if test="roomTag != null">
+		<foreach item="tagId" index="index" collection="roomTag" >
+		INNER JOIN cms_tag t#{index} ON FIND_IN_SET( t#{index}.tag_id, r.`ROOM_TAG`) AND  t#{index}.`TAG_ID` =#{tagId}
+		</foreach>
+		</if>
+		<if test="roomFacility != null">
+		<foreach item="dictId" index="index" collection="roomFacility" >
+		INNER JOIN sys_dict d#{index} ON FIND_IN_SET( d#{index}.DICT_ID, r.`ROOM_FACILITY`) AND  d#{index}.`DICT_ID` =#{dictId}
+		</foreach>
+		</if>
+		WHERE r.ROOM_STATE=6 and rb.CUR_DATE &gt;= CURDATE() AND r.ROOM_IS_DEL=1 AND rb.`BOOK_STATUS`=1
+		<if test="areaTypeStart!=null">
+		  and CAST(r.ROOM_AREA as DECIMAL(9,2)) &gt;= #{areaTypeStart}
+		</if>
+		<if test="areaTypeEnd!=null">
+		  and CAST(r.ROOM_AREA as DECIMAL(9,2)) &lt;= #{areaTypeEnd}
+		</if>
+		<if test="roomCapacityStart!=null">
+		 and r.ROOM_CAPACITY &gt;= #{roomCapacityStart}
+		</if>
+		<if test="roomCapacityEnd!=null">
+		  and r.ROOM_CAPACITY &lt;= #{roomCapacityEnd}
+		</if>
+		order by ROOM_SORT DESC,rb.cur_date DESC
+		<if test="firstResult != null">
+		limit #{firstResult},#{rows}
+		</if>
+	</select>
+			
+	<select id="queryAllAppActivityRoomTagNames" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT GROUP_CONCAT(DISTINCT t.TAG_NAME ORDER BY t.TAG_UPDATE_TIME desc) AS roomTagName
+		
+		FROM cms_room r 
+	
+		LEFT JOIN cms_tag t ON find_in_set(t.tag_id, r.`ROOM_TAG`)
+		
+		WHERE r.room_id=#{roomid}
+		
+	</select>
+			
+</mapper>

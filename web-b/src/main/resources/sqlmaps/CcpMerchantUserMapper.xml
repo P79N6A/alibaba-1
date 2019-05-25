@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ccp.CcpMerchantUserMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ccp.CcpMerchantUser" >
+    <id column="MERCHANT_USER_ID" property="merchantUserId" jdbcType="VARCHAR" />
+    <result column="USER_COMPANY" property="userCompany" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_ACCOUNT" property="userAccount" jdbcType="VARCHAR" />
+    <result column="USER_PASSWORD" property="userPassword" jdbcType="VARCHAR" />
+    <result column="USER_MOBILE_NO" property="userMobileNo" jdbcType="VARCHAR" />
+    <result column="USER_EMAIL" property="userEmail" jdbcType="VARCHAR" />
+    <result column="USER_ADDRESS" property="userAddress" jdbcType="VARCHAR" />
+    <result column="SYS_USER_ID" property="sysUserId" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    
+    <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    MERCHANT_USER_ID, USER_COMPANY, USER_NAME, USER_ACCOUNT, USER_PASSWORD, USER_MOBILE_NO, 
+    USER_EMAIL, USER_ADDRESS, SYS_USER_ID, CREATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_merchant_user
+    where MERCHANT_USER_ID = #{merchantUserId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_merchant_user
+    where MERCHANT_USER_ID = #{merchantUserId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.ccp.CcpMerchantUser" >
+    insert into ccp_merchant_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      MERCHANT_USER_ID,
+      <if test="userCompany != null" >
+        USER_COMPANY,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="userAccount != null" >
+        USER_ACCOUNT,
+      </if>
+      <if test="userPassword != null" >
+        USER_PASSWORD,
+      </if>
+      <if test="userMobileNo != null" >
+        USER_MOBILE_NO,
+      </if>
+      <if test="userEmail != null" >
+        USER_EMAIL,
+      </if>
+      <if test="userAddress != null" >
+        USER_ADDRESS,
+      </if>
+      <if test="sysUserId != null" >
+        SYS_USER_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{merchantUserId,jdbcType=VARCHAR},
+      <if test="userCompany != null" >
+        #{userCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccount != null" >
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobileNo != null" >
+        #{userMobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddress != null" >
+        #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sysUserId != null" >
+        #{sysUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.ccp.CcpMerchantUser" >
+    update ccp_merchant_user
+    <set >
+      <if test="userCompany != null" >
+        USER_COMPANY = #{userCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccount != null" >
+        USER_ACCOUNT = #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        USER_PASSWORD = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobileNo != null" >
+        USER_MOBILE_NO = #{userMobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        USER_EMAIL = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddress != null" >
+        USER_ADDRESS = #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sysUserId != null" >
+        SYS_USER_ID = #{sysUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where MERCHANT_USER_ID = #{merchantUserId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryMerchantUserCountByCondition" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select count(*)
+    from ccp_merchant_user
+    where 1=1
+    <if test="userCompany != null" >
+      and USER_COMPANY = #{userCompany}
+    </if>
+    <if test="userName != null" >
+      and USER_NAME = #{userName}
+    </if>
+    <if test="userAccount != null" >
+      and USER_ACCOUNT = #{userAccount}
+    </if>
+    <if test="userPassword != null" >
+      and USER_PASSWORD = #{userPassword}
+    </if>
+    <if test="userMobileNo != null" >
+      and USER_MOBILE_NO = #{userMobileNo}
+    </if>
+    <if test="userEmail != null" >
+      and USER_EMAIL = #{userEmail}
+    </if>
+    <if test="userAddress != null" >
+      and USER_ADDRESS = #{userAddress}
+    </if>
+    <if test="sysUserId != null" >
+      and SYS_USER_ID = #{sysUserId}
+    </if>
+  </select>
+  
+  <select id="queryMerchantUserByCondition" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+	    cmu.MERCHANT_USER_ID, cmu.USER_COMPANY, cmu.USER_NAME, cmu.USER_ACCOUNT, cmu.USER_PASSWORD, cmu.USER_MOBILE_NO, 
+	    cmu.USER_EMAIL, cmu.USER_ADDRESS, cmu.SYS_USER_ID, cmu.CREATE_TIME, sur.ROLE_ID
+    from ccp_merchant_user cmu
+    left join sys_user_role sur on sur.USER_ID = cmu.SYS_USER_ID
+    where 1=1
+    <if test="userCompany != null" >
+      and cmu.USER_COMPANY = #{userCompany}
+    </if>
+    <if test="userName != null" >
+      and cmu.USER_NAME = #{userName}
+    </if>
+    <if test="userAccount != null" >
+      and cmu.USER_ACCOUNT = #{userAccount}
+    </if>
+    <if test="userPassword != null" >
+      and cmu.USER_PASSWORD = #{userPassword}
+    </if>
+    <if test="userMobileNo != null" >
+      and cmu.USER_MOBILE_NO = #{userMobileNo}
+    </if>
+    <if test="userEmail != null" >
+      and cmu.USER_EMAIL = #{userEmail}
+    </if>
+    <if test="userAddress != null" >
+      and cmu.USER_ADDRESS = #{userAddress}
+    </if>
+    <if test="sysUserId != null" >
+      and cmu.SYS_USER_ID = #{sysUserId}
+    </if>
+    order by cmu.CREATE_TIME desc
+    <if test="firstResult != null">
+		limit ${firstResult},${rows}
+	</if>
+  </select>
+</mapper>

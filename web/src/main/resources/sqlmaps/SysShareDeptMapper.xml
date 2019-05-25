@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.SysShareDeptMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.SysShareDept" >
+    <id column="SHARE_ID" property="shareId" jdbcType="VARCHAR" />
+    <result column="SOURCE_DEPTID" property="sourceDeptid" jdbcType="VARCHAR" />
+    <result column="TARGET_DEPTID" property="targetDeptid" jdbcType="VARCHAR" />
+    <result column="IS_SHARE" property="isShare" jdbcType="INTEGER" />
+    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="SHARE_DEPTH_PATH" property="shareDepthPath" jdbcType="LONGVARCHAR" />
+    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+    <result column="TARGET_DEPTNAME" property="targetDeptname" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <!-- 根据主键查询分享的部门信息 -->
+  <select id="querySysShareDeptByShareId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select SHARE_ID,SOURCE_DEPTID,SHARE_DEPTH_PATH,SOURCE_DEPTID,IS_SHARE
+    from sys_share_dept
+     where 1=1
+    <if test="shareId != null" >
+       and SHARE_ID = #{shareId}
+    </if>
+  </select>
+
+  <!-- 根据主键删除分享的部门信息 -->
+  <delete id="deleteByShareId" parameterType="java.lang.String" >
+    delete from sys_share_dept
+    where SHARE_ID = #{shareId,jdbcType=VARCHAR}
+  </delete>
+
+  <!-- 添加分享的部门信息 -->
+  <insert id="addSysShareDept" parameterType="com.sun3d.why.model.SysShareDept" >
+    insert into sys_share_dept
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shareId != null" >
+        SHARE_ID,
+      </if>
+      <if test="sourceDeptid != null" >
+        SOURCE_DEPTID,
+      </if>
+      <if test="targetDeptid != null" >
+        TARGET_DEPTID,
+      </if>
+      <if test="isShare != null" >
+        IS_SHARE,
+      </if>
+      <if test="updateUserId != null" >
+        UPDATE_USER_ID,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="shareDepthPath != null" >
+        SHARE_DEPTH_PATH,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shareId != null" >
+        #{shareId,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceDeptid != null" >
+        #{sourceDeptid,jdbcType=VARCHAR},
+      </if>
+      <if test="targetDeptid != null" >
+        #{targetDeptid,jdbcType=VARCHAR},
+      </if>
+      <if test="isShare != null" >
+        #{isShare,jdbcType=INTEGER},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shareDepthPath != null" >
+        #{shareDepthPath,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <!-- 根据分享id 修改的部门信息 -->
+  <update id="editBySysShareDept" parameterType="com.sun3d.why.model.SysShareDept" >
+    update sys_share_dept
+    <set >
+      <if test="sourceDeptid != null" >
+        SOURCE_DEPTID = #{sourceDeptid,jdbcType=VARCHAR},
+      </if>
+      <if test="targetDeptid != null" >
+        TARGET_DEPTID = #{targetDeptid,jdbcType=VARCHAR},
+      </if>
+      <if test="isShare != null" >
+        IS_SHARE = #{isShare,jdbcType=INTEGER},
+      </if>
+      <if test="updateUserId != null" >
+        UPDATE_USER_ID = #{updateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shareDepthPath != null" >
+        SHARE_DEPTH_PATH = #{shareDepthPath,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where SHARE_ID = #{shareId,jdbcType=VARCHAR}
+  </update>
+
+  <!--根据部门id 查询该部门的被分享信息 -->
+  <select id="queryShareDeptByTargetDeptId" resultMap="BaseResultMap" parameterType="hashmap" >
+    select SHARE_ID,SOURCE_DEPTID,SHARE_DEPTH_PATH,IS_SHARE
+    from sys_share_dept
+    where 1=1
+    <if test="shareId != null" >
+      and SHARE_ID = #{shareId}
+    </if>
+    <if test="targetDeptId != null" >
+      and TARGET_DEPTID = #{targetDeptId}
+    </if>
+    <if test="isShare != null" >
+      and IS_SHARE = #{isShare}
+    </if>
+  </select>
+
+  <!--查询该部门的分享信息 -->
+  <select id="queryShareDeptByCondition" resultMap="BaseResultMap" parameterType="hashmap" >
+    select SHARE_ID,TARGET_DEPTID,SHARE_DEPTH_PATH,IS_SHARE,UPDATE_TIME,
+    su.USER_NICK_NAME as UPDATE_USER_NAME,
+    sd.DEPT_NAME as TARGET_DEPTNAME
+    from sys_share_dept ssd
+    LEFT JOIN sys_user su on ssd.UPDATE_USER_ID=su.USER_ID
+    LEFT JOIN sys_dept sd on ssd.TARGET_DEPTID=sd.DEPT_ID
+    where 1=1
+    <if test="sourceDeptId != null" >
+      and SOURCE_DEPTID = #{sourceDeptId}
+    </if>
+    <if test="targetDeptId != null" >
+      and TARGET_DEPTID = #{targetDeptId}
+    </if>
+    <if test="isShare != null" >
+      and IS_SHARE = #{isShare}
+    </if>
+    ORDER BY UPDATE_TIME desc
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+
+	 <!--查询该部门的分享信息总数 -->
+  <select id="queryShareDeptByCount" resultType="java.lang.Integer" parameterType="hashmap" >
+    select count(*)
+    from sys_share_dept
+    where 1=1
+    <if test="sourceDeptId != null" >
+      and SOURCE_DEPTID = #{sourceDeptId}
+    </if>
+    <if test="targetDeptId != null" >
+      and TARGET_DEPTID = #{targetDeptId}
+    </if>
+    <if test="isShare != null" >
+      and IS_SHARE = #{isShare}
+    </if>
+  </select>
+</mapper>

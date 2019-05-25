@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 属性文件读入 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+				<value>classpath:pro.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!--上传路径配置 -->
+	<bean id="basePath" class="com.sun3d.why.model.extmodel.BasePath">
+		<property name="basePath" value="${basePath}"></property>
+		<property name="baseUrl" value="${baseUrl}"></property>
+	</bean>
+
+	<!--短信接口参数配置 -->
+	<bean id="smsConfig" class="com.sun3d.why.model.extmodel.SmsConfig">
+		<property name="smsUrl" value="${smsUrl}"></property>
+		<property name="uId" value="${uId}"></property>
+		<property name="pwd" value="${pwd}"></property>
+	</bean>
+
+
+
+	<!--最大票数参数配置 -->
+	<bean id="BookTicketConfig" class="com.sun3d.why.model.extmodel.BookTicketConfig">
+		<property name="maxBookTicketCount" value="${maxBookTicketCount}"></property>
+		<property name="checkConfig" value="${checkConfig}"></property>
+	</bean>
+
+
+	<!--最大票数参数配置 -->
+	<bean id="RoomBookConfig" class="com.sun3d.why.model.extmodel.RoomBookConfig">
+		<property name="maxRoomBookCount" value="${maxRoomBookCount}"></property>
+	</bean>
+	<!--app中分享URl -->
+	<bean id="shareUrlService" class="com.sun3d.why.model.extmodel.shareUrl">
+		<property name="shareUrl" value="${shareUrl}" />
+	</bean>
+	<!--静态地址 -->
+	<bean id="staticServer" class="com.sun3d.why.model.extmodel.StaticServer">
+		<property name="staticServerUrl" value="${staticServerUrl}"></property>
+		<property name="platformDataUrl" value="${platformDataUrl}"></property>
+		<property name="chinaServerUrl" value="${chinaServerUrl}"></property>
+		<property name="chinaPlatformDataUrl" value="${chinaPlatformDataUrl}"></property>
+		<property name="appVersionNo" value="${appVersionNo}"></property>
+		<property name="appVersionDescription" value="${appVersionDescription}"></property>
+		<property name="appIosUrl" value="${appIosUrl}"></property>
+		<property name="appAndroidUrl" value="${appAndroidUrl}"></property>
+		<property name="sentinelPool" value="${sentinelPool}"></property>
+		<property name="activeMqFailover" value="${activeMqFailover}"></property>
+		<property name="syncServerUrl" value="${syncServerUrl}"></property>
+		<property name="syncServerState" value="${syncServerState}"></property>
+		<property name="aliImgUrl" value="${aliImgUrl}"></property>
+		<property name="cityInfo" value="${cityInfo}"></property>
+	</bean>
+
+	<!--cookie时间 -->
+	<bean id="cookieInfo" class="com.sun3d.why.model.extmodel.CookieInfo">
+		<property name="cookieTime" value="${cookieTime}" />
+	</bean>
+	<!--微信token -->
+	<bean id="wxInfo" class="com.sun3d.why.model.extmodel.WxInfo">
+		<property name="wxToken" value="${wxToken}" ></property>
+		<!--微信appid -->
+		<property name="appId" value="${appId}" ></property>
+		<!--微信AppSecret -->
+		<property name="appSecret" value="${appSecret}" ></property>
+	</bean>
+	<!--activeMq配置 -->
+	<bean id="activeMQConfig" class="com.sun3d.why.model.extmodel.ActiveMQConfig">
+
+		<property name="activeMqFailover" value="${activeMqFailover}"></property>
+	</bean>
+	<!--app中token有效时间 -->
+	<bean id="tokenInfo" class="com.sun3d.why.model.extmodel.TokenInfo">
+		<property name="tokenTime" value="${tokenTime}" />
+	</bean>
+
+	<bean id="wxConfig" class="com.sun3d.why.model.extmodel.WxConfig">
+		<property name="wxCallBackUrl" value="${wxCallBackUrl}" />
+	</bean>
+	<!--app界面html URl-->
+	<bean id="nestedUrl" class="com.sun3d.why.model.extmodel.NestedUrl">
+		<property name="nestedUrl" value="${nestedUrl}" />
+	</bean>
+
+
+	<bean id="cacheService" class="com.sun3d.why.service.impl.CacheServiceImpl"></bean>
+
+	<bean id="cmsActivityOrderService" class="com.sun3d.why.service.impl.CmsActivityOrderServiceImpl"></bean>
+
+	<bean id="terminalUserService" class="com.sun3d.why.service.impl.CmsTerminalUserServiceImpl"></bean>
+
+	<!--<bean id="userMessageService" class="com.sun3d.why.service.impl.CmsUserMessageServiceImpl"></bean>-->
+
+	<bean id="cmsActivityEventService" class="com.sun3d.why.service.impl.CmsActivityEventServiceImpl"></bean>
+
+	<bean id="cmsActivityOrderDetailService"
+		class="com.sun3d.why.service.impl.CmsActivityOrderDetailServiceImpl"></bean>
+	<!-- 第三方系统配置 -->
+	<bean id="cmsApiOtherServer" class=" com.sun3d.why.webservice.api.util.CmsApiOtherServer">
+		<constructor-arg>
+
+			<map>
+				<entry key="puDongIp" value="${puDongIp}"></entry>
+				<entry key="jingAnIp" value="${jingAnIp}"></entry>
+				<entry key="jiaDingIp" value="${jiaDingIp}"></entry>
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<!--配置发送短信的号码-->
+	<bean id="mobileNos" class="com.sun3d.why.model.extmodel.MobileNos">
+		<property name="sendSmsMobileNo" value="${sendSmsMobileNo}"></property>
+	</bean>
+
+	<!--微信回调地址配置-->
+	<bean id="wxCallBack" class="com.sun3d.why.model.extmodel.WxCallBack">
+		<property name="wxSilentCallBack" value="${wxSilentCallBack}"></property>
+		<property name="wxAuthorizeCallBack" value="${wxAuthorizeCallBack}"></property>
+	</bean>
+
+	<!-- 自动扫描的包名 -->
+	<context:component-scan base-package="com.sun3d.why.*">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+</beans>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsUserWillStartMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsUserWillStart" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="click_time" property="clickTime" jdbcType="TIMESTAMP" />
+    <result column="version_no" property="versionNo" jdbcType="VARCHAR" />
+    <result column="tag_id" property="tagId" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <!--app即将开始时的活动数目-->
+  <select id="queryAppWillStartActivityCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT COUNT(*) from cms_activity ca WHERE 1=1
+    <if test="activityState != null">
+      and ca.activity_state = #{activityState}
+    </if>
+    <if test="activityIsDel != null">
+      AND ca.activity_is_del = #{activityIsDel}
+    </if>
+    and ca.ACTIVITY_START_TIME &gt;=NOW()
+    and ca.ACTIVITY_START_TIME &lt;date_add(now(),INTERVAL 7 DAY)
+    <if test="clickTime != null">
+      and ca.activity_create_time &gt;(SELECT cu.click_time from cms_user_will_start cu WHERE 1=1
+      and  cu.user_id = #{userId}
+      <if test="tagId != null and tagId != ''">
+        and cu.tag_id = #{tagId}
+      </if>
+      <if test="tag != null and tag != ''">
+        and cu.tag_id = #{tag}
+      </if>
+      )
+    </if>
+    <if test="tagId !=null and tagId != ''">
+      AND ca.ACTIVITY_TYPE like '%${tagId}%'
+    </if>
+  </select>
+  <!--根据用户id查询-->
+  <select id="queryUserWillStartByUserId" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select id,user_id,click_time,version_no,tag_id from cms_user_will_start where 1=1
+     <if test="userId != null and userId != ''">
+       and user_id = #{userId}
+     </if>
+    <if test="tagId != null and tagId != ''">
+      and tag_id = #{tagId}
+    </if>
+    <if test="tag != null and tag != ''">
+      and tag_id = #{tag}
+    </if>
+     limit 1
+  </select>
+
+  <insert id="addAppWillStart" parameterType="com.sun3d.why.model.CmsUserWillStart">
+    insert into cms_user_will_start (id, user_id, click_time, version_no, tag_id)
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{clickTime,jdbcType=TIMESTAMP},
+    #{versionNo,jdbcType=VARCHAR}, #{tagId,jdbcType=VARCHAR})
+  </insert>
+
+  <update id="editAppWillStartByUserId" parameterType="com.sun3d.why.model.CmsUserWillStart" >
+    update cms_user_will_start
+    <set>
+      <if test="clickTime != null" >
+        click_time = #{clickTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="versionNo != null" >
+        version_no = #{versionNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where 1=1
+    <if test="userId != null and userId != ''">
+      and user_id = #{userId,jdbcType=VARCHAR}
+    </if>
+    <if test="tagId != null and tagId != ''">
+      and tag_id = #{tagId,jdbcType=VARCHAR}
+    </if>
+  </update>
+
+  <select id="queryUserWillStartCountByUserId" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(*) from cms_user_will_start where 1=1
+    <if test="userId != null and userId != ''">
+      and user_id = #{userId}
+    </if>
+    <if test="tagId != null and tagId != ''">
+      and tag_id = #{tagId}
+    </if>
+    <if test="tag != null and tag != ''">
+      and tag_id = #{tag}
+    </if>
+  </select>
+</mapper>

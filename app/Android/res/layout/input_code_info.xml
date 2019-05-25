@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/white">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            >
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <RelativeLayout style="@style/item_ll_style">
+
+                <TextView
+                        android:id="@+id/relative_text"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:textColor="#999999"
+                        android:text="@string/order_context_prefix"/>
+
+                <TextView
+                        android:id="@+id/code_info_order_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#999999"
+                        android:layout_toRightOf="@+id/relative_text"
+                        android:text="@string/order_context"/>
+
+                <TextView
+                        android:id="@+id/code_info_verification"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/input_code_verification"
+                        android:text="@string/input_verification_text"
+                        android:visibility="gone"
+                        android:textColor="#2CDEB4"/>
+            </RelativeLayout>
+
+            <View
+                    style="@style/item_line_style"></View>
+
+            <LinearLayout style="@style/item_ll_style">
+
+                <TextView
+                        style="@style/item_name_style"
+                        android:text="@string/order_context_activity"/>
+
+                <TextView
+                        android:id="@+id/code_info_order_activity"
+                        style="@style/item_content_style"
+                        android:text="@string/order_context"/>
+            </LinearLayout>
+            <View
+                    style="@style/item_line_style"></View>
+            <LinearLayout
+                    style="@style/item_ll_style">
+
+                <TextView
+                        style="@style/item_name_style"
+                        android:text="@string/order_context_address"/>
+
+                <TextView
+                        android:id="@+id/code_info_order_address"
+                        style="@style/item_content_style"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:text="@string/order_context"/>
+            </LinearLayout>
+            <View
+                    style="@style/item_line_style"></View>
+            <LinearLayout
+                    style="@style/item_ll_style">
+
+                <TextView
+                        style="@style/item_name_style"
+                        android:text="@string/order_context_screenings"/>
+
+                <TextView
+                        android:id="@+id/code_info_order_screenings"
+                        style="@style/item_content_style"
+                        android:text="@string/order_context"/>
+            </LinearLayout>
+            <View
+                    style="@style/item_line_style"></View>
+            <LinearLayout
+                    style="@style/input_code_info_style"
+                    android:layout_height="match_parent"
+                    >
+
+                <TextView
+                        style="@style/item_name_style"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="座位 :"/>
+
+                <com.sun3d.ticketGdfs.view.MyGridView
+                        android:id="@+id/tv_mylist_item_seat_tab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_vertical"
+                        android:verticalSpacing="10dp"
+                        android:horizontalSpacing="10dp"
+                        android:columnWidth="@dimen/fragment_double_padding10"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:listSelector="@color/white"
+                        android:background="@color/transparent"
+                        android:numColumns="3">
+                </com.sun3d.ticketGdfs.view.MyGridView>
+            </LinearLayout>
+            <View
+                    style="@style/item_line_style"></View>
+            <LinearLayout
+                    style="@style/item_ll_style">
+
+                <TextView
+                        style="@style/item_name_style"
+                        android:text="@string/order_context_number"/>
+
+                <TextView
+                        android:id="@+id/code_info_order_number"
+                        style="@style/item_content_style"
+                        android:text="@string/order_context"/>
+            </LinearLayout>
+            <View
+                    style="@style/item_line_style"></View>
+            <View
+                    style="@style/item_line_w_style"></View>
+            <LinearLayout
+                    style="@style/item_ll_style">
+
+                <TextView
+                        style="@style/item_name_style"
+                        android:text="@string/order_context_ticket"/>
+
+                <TextView
+                        android:id="@+id/code_info_order_ticket"
+                        style="@style/item_content_style"
+                        android:text="@string/order_context"/>
+            </LinearLayout>
+            <View
+                    style="@style/item_line_style"></View>
+            <LinearLayout
+                    style="@style/item_ll_style">
+
+                <TextView
+                        style="@style/item_name_style"
+                        android:text="@string/order_context_phone"/>
+
+                <TextView
+                        android:id="@+id/code_info_order_phone"
+                        style="@style/item_content_style"
+                        android:text="@string/order_context"/>
+            </LinearLayout>
+
+            <View
+                    style="@style/item_line_style"></View>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+            android:id="@+id/input_code_ok"
+            android:layout_width="@dimen/code_info_confirm"
+            android:layout_height="@dimen/code_info_confirm_height"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/shape_input_veri"
+            android:text="@string/order_context_ok"
+            android:textColor="@color/white"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"/>
+
+    <ImageView
+            android:id="@+id/confirm_code_anim"
+            android:layout_width="@dimen/confirm_code_anim"
+            android:layout_height="@dimen/confirm_code_anim"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/input_code_verification"
+            android:layout_marginRight="@dimen/input_code_verification"
+            android:background="@drawable/sh_icon_been_verified"
+            android:visibility="gone"/>
+
+</RelativeLayout>

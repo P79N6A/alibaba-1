@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sun3d.why.dao.CcpCultureContestAnswerMapper">
+   <resultMap id="BaseResultMap" type="com.culturecloud.model.bean.culture.CcpCultureContestAnswer">
+    
+    <id column="culture_answer_id" jdbcType="VARCHAR" property="cultureAnswerId" />
+    <result column="culture_user_id" jdbcType="VARCHAR" property="cultureUserId" />
+    <result column="stage_number" jdbcType="INTEGER" property="stageNumber" />
+    <result column="answer_create_time" jdbcType="TIMESTAMP" property="answerCreateTime" />
+    <result column="answer_status" jdbcType="INTEGER" property="answerStatus" />
+    <result column="answer_time" jdbcType="INTEGER" property="answerTime" />
+    <result column="user_group_type" jdbcType="INTEGER" property="userGroupType" />
+    <result column="answer_use_time" jdbcType="TIMESTAMP" property="answerUseTime" />
+    <result column="answer_right_number" jdbcType="INTEGER" property="answerRightNumber" />
+  </resultMap>
+  
+  <!-- 扩展BLOB字段值 -->
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.culturecloud.model.bean.culture.CcpCultureContestAnswer">
+    <result column="answer_right_question" jdbcType="LONGVARCHAR" property="answerRightQuestion" />
+ 	<result column="answer_number" jdbcType="LONGVARCHAR" property="answerNumber" />
+  </resultMap>
+  
+  
+  <!-- 扩展类 -->
+  <resultMap type="com.sun3d.why.dao.dto.CcpCultureContestAnswerDto" id="BaseResultDtoMap" extends="ResultMapWithBLOBs">
+  		
+  		<result column="rowNo" jdbcType="INTEGER" property="rowno" />
+  		<result column="stage1" jdbcType="INTEGER" property="stage1" />
+  		<result column="stage2" jdbcType="INTEGER" property="stage2" />
+  		<result column="stage3" jdbcType="INTEGER" property="stage3" />
+  		<result column="sum" jdbcType="INTEGER" property="sum" />
+  		<result column="user_telephone" jdbcType="VARCHAR" property="userTelephone" />
+  		<result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+  		<result column="user_real_name" jdbcType="VARCHAR" property="realName" />
+  		<result column="user_area" jdbcType="VARCHAR" property="userArea" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List">
+    culture_answer_id, culture_user_id, stage_number, answer_create_time, answer_status, 
+    answer_time, user_group_type, answer_use_time, answer_right_number
+  </sql>
+  
+  
+  <sql id="Blob_Column_List">
+    answer_right_question, answer_number
+  </sql>
+  
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ccp_culture_contest_answer
+    where culture_answer_id = #{cultureAnswerId,jdbcType=VARCHAR}
+  </select>
+  
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ccp_culture_contest_answer
+    where culture_answer_id = #{cultureAnswerId,jdbcType=VARCHAR}
+  </delete>
+  
+  
+  
+  
+  
+  <insert id="insert" parameterType="com.culturecloud.model.bean.culture.CcpCultureContestAnswer">
+    insert into ccp_culture_contest_answer (culture_answer_id, culture_user_id, stage_number, 
+      answer_create_time, answer_status, answer_time, 
+      user_group_type, answer_use_time, answer_right_number, 
+      answer_right_question)
+    values (#{cultureAnswerId,jdbcType=VARCHAR}, #{cultureUserId,jdbcType=VARCHAR}, #{stageNumber,jdbcType=INTEGER}, 
+      #{answerCreateTime,jdbcType=TIMESTAMP}, #{answerStatus,jdbcType=INTEGER}, #{answerTime,jdbcType=INTEGER}, 
+      #{userGroupType,jdbcType=INTEGER}, #{answerUseTime,jdbcType=TIMESTAMP}, #{answerRightNumber,jdbcType=INTEGER}, 
+      #{answerRightQuestion,jdbcType=LONGVARCHAR})
+  </insert>
+  
+  
+  
+  
+  
+  <insert id="insertSelective" parameterType="com.culturecloud.model.bean.culture.CcpCultureContestAnswer">
+    insert into ccp_culture_contest_answer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cultureAnswerId != null">
+        culture_answer_id,
+      </if>
+      <if test="cultureUserId != null">
+        culture_user_id,
+      </if>
+      <if test="stageNumber != null">
+        stage_number,
+      </if>
+      <if test="answerCreateTime != null">
+        answer_create_time,
+      </if>
+      <if test="answerStatus != null">
+        answer_status,
+      </if>
+      <if test="answerTime != null">
+        answer_time,
+      </if>
+      <if test="userGroupType != null">
+        user_group_type,
+      </if>
+      <if test="answerUseTime != null">
+        answer_use_time,
+      </if>
+      <if test="answerRightNumber != null">
+        answer_right_number,
+      </if>
+      <if test="answerRightQuestion != null">
+        answer_right_question,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cultureAnswerId != null">
+        #{cultureAnswerId,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureUserId != null">
+        #{cultureUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="stageNumber != null">
+        #{stageNumber,jdbcType=INTEGER},
+      </if>
+      <if test="answerCreateTime != null">
+        #{answerCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="answerStatus != null">
+        #{answerStatus,jdbcType=INTEGER},
+      </if>
+      <if test="answerTime != null">
+        #{answerTime,jdbcType=INTEGER},
+      </if>
+      <if test="userGroupType != null">
+        #{userGroupType,jdbcType=INTEGER},
+      </if>
+      <if test="answerUseTime != null">
+        #{answerUseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="answerRightNumber != null">
+        #{answerRightNumber,jdbcType=INTEGER},
+      </if>
+      <if test="answerRightQuestion != null">
+        #{answerRightQuestion,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.culturecloud.model.bean.culture.CcpCultureContestAnswer">
+    <!--
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      This element was generated on Tue May 23 17:53:51 CST 2017.
+    -->
+    update ccp_culture_contest_answer
+    <set>
+      <if test="cultureUserId != null">
+        culture_user_id = #{cultureUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="stageNumber != null">
+        stage_number = #{stageNumber,jdbcType=INTEGER},
+      </if>
+      <if test="answerCreateTime != null">
+        answer_create_time = #{answerCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="answerStatus != null">
+        answer_status = #{answerStatus,jdbcType=INTEGER},
+      </if>
+      <if test="answerTime != null">
+        answer_time = #{answerTime,jdbcType=INTEGER},
+      </if>
+      <if test="userGroupType != null">
+        user_group_type = #{userGroupType,jdbcType=INTEGER},
+      </if>
+      <if test="answerUseTime != null">
+        answer_use_time = #{answerUseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="answerRightNumber != null">
+        answer_right_number = #{answerRightNumber,jdbcType=INTEGER},
+      </if>
+      <if test="answerRightQuestion != null">
+        answer_right_question = #{answerRightQuestion,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where culture_answer_id = #{cultureAnswerId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.culturecloud.model.bean.culture.CcpCultureContestAnswer">
+    <!--
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      This element was generated on Tue May 23 17:53:51 CST 2017.
+    -->
+    update ccp_culture_contest_answer
+    set culture_user_id = #{cultureUserId,jdbcType=VARCHAR},
+      stage_number = #{stageNumber,jdbcType=INTEGER},
+      answer_create_time = #{answerCreateTime,jdbcType=TIMESTAMP},
+      answer_status = #{answerStatus,jdbcType=INTEGER},
+      answer_time = #{answerTime,jdbcType=INTEGER},
+      user_group_type = #{userGroupType,jdbcType=INTEGER},
+      answer_use_time = #{answerUseTime,jdbcType=TIMESTAMP},
+      answer_right_number = #{answerRightNumber,jdbcType=INTEGER},
+      answer_right_question = #{answerRightQuestion,jdbcType=LONGVARCHAR}
+    where culture_answer_id = #{cultureAnswerId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.culturecloud.model.bean.culture.CcpCultureContestAnswer">
+    <!--
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      This element was generated on Tue May 23 17:53:51 CST 2017.
+    -->
+    update ccp_culture_contest_answer
+    set culture_user_id = #{cultureUserId,jdbcType=VARCHAR},
+      stage_number = #{stageNumber,jdbcType=INTEGER},
+      answer_create_time = #{answerCreateTime,jdbcType=TIMESTAMP},
+      answer_status = #{answerStatus,jdbcType=INTEGER},
+      answer_time = #{answerTime,jdbcType=INTEGER},
+      user_group_type = #{userGroupType,jdbcType=INTEGER},
+      answer_use_time = #{answerUseTime,jdbcType=TIMESTAMP},
+      answer_right_number = #{answerRightNumber,jdbcType=INTEGER}
+    where culture_answer_id = #{cultureAnswerId,jdbcType=VARCHAR}
+  </update>
+  
+  	 <!-- 所有用户的查询 -->
+	<select id="queryUserContestAnswerAllList" resultMap="BaseResultDtoMap" parameterType="java.util.Map">
+    	SELECT
+			user_group_type,
+			culture_user_id,
+			sum,
+			stage1,
+			stage2,
+			stage3,
+			culture_answer_id,
+			answer_create_time,
+			user_telephone,
+			USER_NAME,
+			user_real_name,
+			user_area
+		FROM
+			(
+				SELECT
+					s3.user_group_type,
+					stageFlag.culture_user_id,
+					(
+						IFNULL(stage1, 0) + IFNULL(stage2, 0) + IFNULL(stage3, 0)
+					) sum,
+					stage1,
+					stage2,
+					stage3,
+					culture_answer_id,
+					answer_create_time,
+					s3.user_telephone,
+					cms_user.USER_NAME,
+					s3.user_real_name,
+					s3.user_area
+				FROM
+					(
+						SELECT
+							user_group_type,
+							culture_user_id,
+							MAX(
+								CASE
+								WHEN stage_number = '1' THEN
+									numb
+								END
+							) AS stage1,
+							MAX(
+								CASE
+								WHEN stage_number = '2' THEN
+									numb
+								END
+							) AS stage2,
+							MAX(
+								CASE
+								WHEN stage_number = '3' THEN
+									numb
+								END
+							) AS stage3,
+							culture_answer_id,
+							answer_create_time,
+							user_telephone,
+							user_id,
+							user_real_name,
+							user_area
+						FROM
+							(
+								SELECT
+									s.user_telephone,
+									s.user_group_type,
+									s.culture_user_id,
+									s.stage_number,
+									s.culture_answer_id,
+									s.numb,
+									s.answer_create_time,
+									s.user_id,
+									s.user_real_name,
+									s.user_area
+								FROM
+									(
+										SELECT
+											A.culture_user_id,
+											u.user_telephone,
+											A.user_group_type,
+											A.stage_number,
+											A.culture_answer_id,
+											A.answer_right_number numb,
+											A.answer_create_time,
+											u.user_id,
+											u.user_real_name,
+											u.user_area
+										FROM
+											ccp_culture_contest_user u
+										LEFT JOIN ccp_culture_contest_answer a ON U.culture_user_id = A.culture_user_id
+										WHERE
+											a.user_group_type = #{userGroupType,jdbcType=INTEGER}
+										ORDER BY
+											A.answer_right_number DESC
+									) s
+								GROUP BY
+									s.stage_number,
+									s.culture_user_id
+							) s2
+						GROUP BY
+							s2.culture_user_id
+					) s3
+				LEFT JOIN cms_terminal_user cms_user ON s3.user_id = cms_user.USER_ID
+				RIGHT JOIN (
+					SELECT
+						culture_user_id,
+						stage
+					FROM
+						(
+							SELECT
+								culture_user_id,
+								MAX(stage_number) stage
+							FROM
+								ccp_culture_contest_answer
+							WHERE
+								user_group_type = #{userGroupType,jdbcType=INTEGER}
+								AND answer_status = 1
+							GROUP BY
+								culture_user_id
+						) st
+					WHERE
+						stage >= #{userStage,jdbcType=INTEGER}
+				) stageFlag ON s3.culture_user_id = stageFlag.culture_user_id
+			) inf
+			where 1 = 1
+		<if test="userTelephone !=null">
+  			and user_telephone = #{userTelephone}
+  		</if>
+  		
+  		<if test="userName !=null">
+  			and user_real_name  = #{userName}
+  		</if>
+  		
+		<if test="sortType !=null">
+  			ORDER BY ${sortType}
+  		</if>
+  		<if test="sortType == null">
+  			ORDER BY answer_create_time DESC
+  		</if>
+		<if test="firstResult != null">
+      		limit ${firstResult},${rows}
+    	</if>
+  	</select>
+  	
+  	
+  	
+  	
+  	
+  	
+  	<select id="queryUserContestAnswerDetailList" resultMap="BaseResultDtoMap" parameterType="java.util.Map">
+  		SELECT
+			(@rowNum :=@rowNum + 1) AS rowNo,
+			culture_answer_id,
+			culture_user_id,
+			stage_number,
+			answer_use_time,
+			answer_time,
+			answer_right_number,
+			answer_number
+		FROM
+			ccp_culture_contest_answer,
+			(SELECT(@rowNum := 0)) b
+		WHERE
+			culture_user_id = #{cultureUserId,jdbcType=VARCHAR}
+		ORDER BY stage_number,answer_status DESC,answer_use_time
+  	</select>
+  	
+  	
+  	
+  	
+  	<!-- 获取当前分数的排名 -->
+  	<select id="queryUserContestAnswerSort" resultType="java.util.Map" parameterType="java.util.Map">
+				SELECT
+					rowNo,
+					num,
+					max
+				FROM
+					(
+						SELECT
+							(@rowNum :=@rowNum + 1) AS rowNo,
+							culture_user_id,
+							num,
+							max,
+							answer_use_time
+						FROM
+							(
+								SELECT
+									culture_user_id,
+									sum(answer_right_number) num,
+									MAX(answer_right_number) max,
+									answer_use_time
+								FROM
+									ccp_culture_contest_answer
+								WHERE
+									user_group_type = #{userGroupType,jdbcType=INTEGER}
+									AND answer_status = 1
+								<if test="stageNumber !=null">
+						  			and stage_number = #{stageNumber}
+						  		</if>
+						  		
+								GROUP BY
+									culture_user_id
+							) s1,
+							(SELECT(@rowNum := 0)) b
+						ORDER BY	
+							max DESC,
+							answer_use_time
+					) s2
+				WHERE
+					s2.culture_user_id = #{cultureUserId,jdbcType=VARCHAR}
+  	</select>
+  	
+  	
+  	
+  	
+  	
+   	<!-- 明细中的总的名次排序 -->
+	<select id="queryUserContestAnswerSortAll" resultType="java.util.Map" parameterType="java.util.Map">
+			 SELECT
+				rowNo,
+				sum,
+				max
+			FROM
+				(
+					SELECT
+						(@rowNum :=@rowNum + 1) AS rowNo,
+						culture_user_id,
+						answer_use_time,
+						sum,
+						max
+					FROM
+						(
+							SELECT
+								culture_user_id,
+								stage_number,
+								answer_use_time,
+								sum(num) sum,
+								SUM(max) max
+							FROM
+								(
+									SELECT
+										culture_user_id,
+										stage_number,
+										sum(answer_right_number) num,
+										MAX(answer_right_number) max,
+										answer_use_time
+									FROM
+										ccp_culture_contest_answer
+									WHERE
+										user_group_type = #{userGroupType,jdbcType=INTEGER}
+									GROUP BY
+										culture_user_id,
+										stage_number
+								) s1,
+								(SELECT(@rowNum := 0)) b
+							GROUP BY culture_user_id
+						) s2
+					ORDER BY
+						max DESC,answer_use_time
+				)s3
+			WHERE culture_user_id = #{cultureUserId,jdbcType=VARCHAR}
+   	</select>
+</mapper>

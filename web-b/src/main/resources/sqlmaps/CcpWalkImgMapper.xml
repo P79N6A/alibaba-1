@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ccp.CcpWalkImgMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ccp.CcpWalkImg" >
+    <id column="WALK_IMG_ID" property="walkImgId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="WALK_IMG_URL" property="walkImgUrl" jdbcType="VARCHAR" />
+    <result column="WALK_IMG_NAME" property="walkImgName" jdbcType="VARCHAR" />
+    <result column="WALK_IMG_CONTENT" property="walkImgContent" jdbcType="VARCHAR" />
+    <result column="WALK_IMG_TIME" property="walkImgTime" jdbcType="VARCHAR" />
+    <result column="WALK_IMG_SITE" property="walkImgSite" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="WALK_STATUS" property="walkStatus" jdbcType="INTEGER" />
+    
+    <result column="IS_VOTE" property="isVote" jdbcType="INTEGER" />
+    <result column="VOTE_COUNT" property="voteCount" jdbcType="INTEGER" />
+    <result column="USER_HEAD_IMG_URL" property="userHeadImgUrl" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_REAL_NAME" property="userRealName" jdbcType="VARCHAR" />
+    <result column="USER_MOBILE" property="userMobile" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    WALK_IMG_ID, USER_ID, WALK_IMG_URL,WALK_IMG_NAME,WALK_IMG_CONTENT,WALK_IMG_TIME,WALK_IMG_SITE, CREATE_TIME,WALK_STATUS
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_walk_img
+    where WALK_IMG_ID = #{walkImgId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_walk_img
+    where WALK_IMG_ID = #{walkImgId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.ccp.CcpWalkImg" >
+    insert into ccp_walk_img
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      WALK_IMG_ID,
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="walkImgUrl != null" >
+        WALK_IMG_URL,
+      </if>
+      <if test="walkImgName != null" >
+        WALK_IMG_NAME,
+      </if>
+      <if test="walkImgContent != null" >
+        WALK_IMG_CONTENT,
+      </if>
+      <if test="walkImgTime != null" >
+        WALK_IMG_TIME,
+      </if>
+      <if test="walkImgSite != null" >
+        WALK_IMG_SITE,
+      </if>
+      <if test="walkStatus != null" >
+        WALK_STATUS,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{walkImgId,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="walkImgUrl != null" >
+        #{walkImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="walkImgName != null" >
+        #{walkImgName,jdbcType=VARCHAR},
+      </if>
+      <if test="walkImgContent != null" >
+        #{walkImgContent,jdbcType=VARCHAR},
+      </if>
+      <if test="walkImgTime != null" >
+        #{walkImgTime,jdbcType=VARCHAR},
+      </if>
+      <if test="walkImgSite != null" >
+        #{walkImgSite,jdbcType=VARCHAR},
+      </if>
+      <if test="walkStatus != null" >
+        #{walkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.ccp.CcpWalkImg" >
+    update ccp_walk_img
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="walkImgUrl != null" >
+        WALK_IMG_URL = #{walkImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="walkImgName != null" >
+        WALK_IMG_NAME = #{walkImgName,jdbcType=VARCHAR},
+      </if>
+      <if test="walkImgContent != null" >
+        WALK_IMG_CONTENT = #{walkImgContent,jdbcType=VARCHAR},
+      </if>
+      <if test="walkImgTime != null" >
+        WALK_IMG_TIME = #{walkImgTime,jdbcType=VARCHAR},
+      </if>
+      <if test="walkImgSite != null" >
+        WALK_IMG_SITE = #{walkImgSite,jdbcType=VARCHAR},
+      </if>
+      <if test="walkStatus != null" >
+        WALK_STATUS = #{walkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where WALK_IMG_ID = #{walkImgId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectWalkImgList" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.ccp.CcpWalkImg" >
+  	select 
+    	cci.WALK_IMG_ID, 
+    	cci.USER_ID, 
+    	cci.WALK_IMG_URL, 
+    	cci.WALK_IMG_NAME, 
+    	cci.WALK_IMG_CONTENT, 
+    	cci.WALK_IMG_TIME, 
+    	cci.WALK_IMG_SITE, 
+    	cci.WALK_STATUS,
+    	<if test="userId!=null">
+	    	IF((SELECT count(*)
+	        FROM ccp_walk_vote ccv
+	        WHERE ccv.WALK_IMG_ID = cci.WALK_IMG_ID 
+	        and ccv.USER_ID = #{userId} 
+	        and DATE_FORMAT(ccv.CREATE_TIME, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')
+	        )>0,1,0) as IS_VOTE,
+	    </if>
+    	(SELECT count(*)
+        FROM ccp_walk_vote ccv
+        WHERE ccv.WALK_IMG_ID = cci.WALK_IMG_ID 
+        ) as VOTE_COUNT,
+	    ctu.USER_NAME,
+		ctu.USER_HEAD_IMG_URL,
+    	cci.CREATE_TIME
+    from ccp_walk_img cci 
+    LEFT JOIN cms_terminal_user ctu ON ctu.USER_ID = cci.USER_ID
+    where 1=1
+    <if test="walkImgId != null">
+    	and cci.WALK_IMG_ID = #{walkImgId}
+    </if>
+    <!-- 查询自己上传的图片 -->
+	<if test="isMe==1">
+		and cci.USER_ID = #{userId}
+	</if>
+	GROUP BY cci.WALK_IMG_ID
+	ORDER BY <if test="isVoteSort==1">VOTE_COUNT desc,</if>cci.CREATE_TIME desc
+	<if test="firstResult != null">
+		limit ${firstResult},${rows}
+	</if>
+  </select>
+  
+  <select id="queryWalkImgCountByCondition" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select count(*)
+    from ccp_walk_img cci
+    LEFT JOIN cms_terminal_user ctu ON ctu.USER_ID = cci.USER_ID
+    LEFT JOIN ccp_walk_user ccu ON ccu.USER_ID = cci.USER_ID
+    where 1=1
+    <if test="userId != null" >
+      and cci.USER_ID = #{userId}
+    </if>
+    <if test="walkStatus != null" >
+      and cci.WALK_STATUS = #{walkStatus}
+    </if>
+    <if test="userName != null" >
+      and ctu.USER_NAME like #{userName}
+    </if>
+    <if test="userMobile != null" >
+      and ccu.USER_MOBILE like #{userMobile}
+    </if>
+    <if test="walkImgContent != null" >
+      and cci.WALK_IMG_CONTENT like #{walkImgContent}
+    </if>
+  </select>
+  
+  <select id="queryWalkImgByCondition" resultMap="BaseResultMap" parameterType="java.util.Map" >
+  	select 
+  		cci.WALK_IMG_ID, 
+    	cci.USER_ID, 
+    	cci.WALK_IMG_URL, 
+    	cci.WALK_IMG_NAME, 
+    	cci.WALK_IMG_CONTENT, 
+    	cci.WALK_IMG_TIME, 
+    	cci.WALK_IMG_SITE, 
+	    ctu.USER_NAME,
+	    ccu.USER_NAME as USER_REAL_NAME,
+	    ccu.USER_MOBILE,
+    	cci.CREATE_TIME,
+    	cci.WALK_STATUS
+    from ccp_walk_img cci
+    LEFT JOIN cms_terminal_user ctu ON ctu.USER_ID = cci.USER_ID
+    LEFT JOIN ccp_walk_user ccu ON ccu.USER_ID = cci.USER_ID
+    where 1=1
+    <if test="walkImgId != null" >
+      and cci.WALK_IMG_ID = #{walkImgId}
+    </if>
+    <if test="userId != null" >
+      and cci.USER_ID = #{userId}
+    </if>
+    <if test="walkStatus != null" >
+      and cci.WALK_STATUS = #{walkStatus}
+    </if>
+    <if test="userName != null" >
+      and ctu.USER_NAME like #{userName}
+    </if>
+    <if test="userMobile != null" >
+      and ccu.USER_MOBILE like #{userMobile}
+    </if>
+    <if test="walkImgContent != null" >
+      and cci.WALK_IMG_CONTENT like #{walkImgContent}
+    </if>
+    order by cci.CREATE_TIME desc
+    <if test="firstResult != null">
+		limit ${firstResult},${rows}
+	</if>
+  </select>
+</mapper>

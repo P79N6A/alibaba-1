@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.culturecloud.dao.beautycity.CcpBeautycityVenueMapper" >
+  <resultMap id="BaseResultMap" type="com.culturecloud.model.bean.beautycity.CcpBeautycityVenue" >
+    <id column="BEAUTYCITY_VENUE_ID" property="beautycityVenueId" jdbcType="VARCHAR" />
+    <result column="VENUE_ID" property="venueId" jdbcType="VARCHAR" />
+    <result column="VENUE_NAME" property="venueName" jdbcType="VARCHAR" />
+    <result column="VENUE_ICON_URL" property="venueIconUrl" jdbcType="VARCHAR" />
+    <result column="VENUE_SORT" property="venueSort" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="BaseResultResMap" type="com.culturecloud.model.response.beautycity.CcpBeautycityVenueResVO" >
+    <id column="BEAUTYCITY_VENUE_ID" property="beautycityVenueId" jdbcType="VARCHAR" />
+    <result column="VENUE_ID" property="venueId" jdbcType="VARCHAR" />
+    <result column="VENUE_NAME" property="venueName" jdbcType="VARCHAR" />
+    <result column="VENUE_ICON_URL" property="venueIconUrl" jdbcType="VARCHAR" />
+    <result column="VENUE_SORT" property="venueSort" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    
+    <result column="IS_PUBLISH" property="isPublish" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    BEAUTYCITY_VENUE_ID, VENUE_ID, VENUE_NAME, VENUE_ICON_URL, VENUE_SORT, CREATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_beautycity_venue
+    where BEAUTYCITY_VENUE_ID = #{beautycityVenueId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_beautycity_venue
+    where BEAUTYCITY_VENUE_ID = #{beautycityVenueId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.culturecloud.model.request.beautycity.CcpBeautycityVenueReqVO" >
+    insert into ccp_beautycity_venue
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      BEAUTYCITY_VENUE_ID,
+      <if test="venueId != null" >
+        VENUE_ID,
+      </if>
+      <if test="venueName != null" >
+        VENUE_NAME,
+      </if>
+      <if test="venueIconUrl != null" >
+        VENUE_ICON_URL,
+      </if>
+      <if test="venueSort != null" >
+        VENUE_SORT,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{beautycityVenueId,jdbcType=VARCHAR},
+      <if test="venueId != null" >
+        #{venueId,jdbcType=VARCHAR},
+      </if>
+      <if test="venueName != null" >
+        #{venueName,jdbcType=VARCHAR},
+      </if>
+      <if test="venueIconUrl != null" >
+        #{venueIconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="venueSort != null" >
+        #{venueSort,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.culturecloud.model.request.beautycity.CcpBeautycityVenueReqVO" >
+    update ccp_beautycity_venue
+    <set >
+      <if test="venueId != null" >
+        VENUE_ID = #{venueId,jdbcType=VARCHAR},
+      </if>
+      <if test="venueName != null" >
+        VENUE_NAME = #{venueName,jdbcType=VARCHAR},
+      </if>
+      <if test="venueIconUrl != null" >
+        VENUE_ICON_URL = #{venueIconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="venueSort != null" >
+        VENUE_SORT = #{venueSort,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where BEAUTYCITY_VENUE_ID = #{beautycityVenueId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectBeautycityVenueList" resultMap="BaseResultResMap" parameterType="com.culturecloud.model.request.beautycity.CcpBeautycityVenueReqVO" >
+    SELECT	
+		v.BEAUTYCITY_VENUE_ID, 
+		v.VENUE_ID, 
+		v.VENUE_NAME, 
+		v.VENUE_ICON_URL, 
+		v.VENUE_SORT, 
+		<if test="userId!=null">
+            COUNT(cbi.BEAUTYCITY_VENUE_ID) AS IS_PUBLISH,
+        </if>
+        v.CREATE_TIME
+	FROM ccp_beautycity_venue v
+	LEFT JOIN ccp_beautycity_img cbi ON cbi.BEAUTYCITY_VENUE_ID = v.BEAUTYCITY_VENUE_ID AND cbi.USER_ID = #{userId}
+	GROUP BY v.BEAUTYCITY_VENUE_ID
+	ORDER BY v.VENUE_SORT
+  </select>
+</mapper>

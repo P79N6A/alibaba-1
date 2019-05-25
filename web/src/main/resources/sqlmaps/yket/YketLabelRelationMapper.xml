@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.YketLabelRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.bean.yket.YketLabelRelationKey" >
+    <id column="label_id" property="labelId" jdbcType="VARCHAR" />
+    <id column="label_type" property="labelType" jdbcType="INTEGER" />
+    <id column="object_id" property="objectId" jdbcType="VARCHAR" />
+  </resultMap>
+   <resultMap id="objectResultMap" type="com.sun3d.why.model.bean.yket.YketLabel" >
+    <id column="label_id" property="labelId"  jdbcType="VARCHAR" />
+    <result column="label_name" property="labelName" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.sun3d.why.model.bean.yket.YketLabelRelationKey" >
+    delete from yket_label_relation
+    where label_id = #{labelId,jdbcType=VARCHAR}
+      and label_type = #{labelType,jdbcType=INTEGER}
+      and object_id = #{objectId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByObject" parameterType="com.sun3d.why.model.bean.yket.YketLabelRelationKey" >
+    delete from yket_label_relation
+    where  
+      label_type = #{labelType,jdbcType=INTEGER}
+      and object_id = #{objectId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sun3d.why.model.bean.yket.YketLabelRelationKey" >
+    insert into yket_label_relation (label_id, label_type, object_id
+      )
+    values (#{labelId,jdbcType=VARCHAR}, #{labelType,jdbcType=INTEGER}, #{objectId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sun3d.why.model.bean.yket.YketLabelRelationKey" >
+    insert into yket_label_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="labelId != null" >
+        label_id,
+      </if>
+      <if test="labelType != null" >
+        label_type,
+      </if>
+      <if test="objectId != null" >
+        object_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="labelId != null" >
+        #{labelId,jdbcType=VARCHAR},
+      </if>
+      <if test="labelType != null" >
+        #{labelType,jdbcType=INTEGER},
+      </if>
+      <if test="objectId != null" >
+        #{objectId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <!--  课程级别-->
+  <select id="selectObject" resultMap="objectResultMap">
+    select 
+    yl.label_id,
+    yl.label_name
+    from yket_label yl
+    left join yket_label_relation lr on yl.label_id=lr.label_id 
+    where  yl.deleted=0 and lr.object_id= #{objectId,jdbcType=VARCHAR} and yl.label_type=1
+  </select>
+  <!--  课程类别标签 -->
+  <select id="selectCourseType" resultMap="objectResultMap">
+    select 
+    yl.label_id,
+    yl.label_name
+    from yket_label yl
+    left join yket_label_relation lr on yl.label_id=lr.label_id 
+    where  yl.deleted=0 and lr.object_id= #{objectId,jdbcType=VARCHAR} and yl.label_type=2
+  </select>
+  <!--  课程标签 -->
+  <select id="selectCourseForm" resultMap="objectResultMap">
+    select 
+    yl.label_id,
+    yl.label_name
+    from yket_label yl
+    left join yket_label_relation lr on yl.label_id=lr.label_id 
+    where  yl.deleted=0 and lr.object_id= #{objectId,jdbcType=VARCHAR} and yl.label_type=3
+  </select>
+  
+  
+  
+</mapper>

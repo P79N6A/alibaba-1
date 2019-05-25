@@ -1,0 +1,3 @@
+@charset "utf-8";
+/* create by minh 低于IE9版本兼容 */
+.ticket-box{ -webkit-box-shadow: 0 0 20px #444444; -moz-box-shadow: 0 0 20px #444444; box-shadow: 0 0 20px #444444; behavior: url(css/PIE.htc);}

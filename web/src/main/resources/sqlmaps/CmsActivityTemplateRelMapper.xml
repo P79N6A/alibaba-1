@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsActivityTemplateRelMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsActivityTemplateRel" >
+    <result column="TEMPL_ID" property="templId" jdbcType="VARCHAR" />
+    <result column="FUN_ID" property="funId" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <insert id="addActivityTemplateRel" parameterType="com.sun3d.why.model.CmsActivityTemplateRel" >
+    insert into cms_activity_template_rel
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="templId != null" >
+        TEMPL_ID,
+      </if>
+      <if test="funId != null" >
+        FUN_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="templId != null" >
+        #{templId,jdbcType=VARCHAR},
+      </if>
+      <if test="funId != null" >
+        #{funId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <delete id="deleteById" parameterType="java.util.Map">
+    delete from cms_activity_template_rel
+    where 1=0
+    <if test="type == 'templId'" >
+    	or TEMPL_ID = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="type == 'funId'" >
+    	or FUN_ID = #{id,jdbcType=VARCHAR}
+    </if>
+  </delete>
+</mapper>

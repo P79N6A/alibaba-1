@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.train.CmsTrainEnrolmentMapper" >
+    <resultMap id="BaseResultMap" type="com.sun3d.why.model.train.CmsTrainEnrolment" >
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="spring_enrolment" property="springEnrolment" jdbcType="VARCHAR" />
+        <result column="autumn_enrolment" property="autumnEnrolment" jdbcType="VARCHAR" />
+        <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="spring_img" property="springImg" jdbcType="VARCHAR" />
+        <result column="autumn_img" property="autumnImg" jdbcType="VARCHAR" />
+        <result column="new_spring_count" property="newSpringCount" jdbcType="INTEGER" />
+        <result column="spring_count" property="springCount" jdbcType="INTEGER" />
+        <result column="summer_count" property="summerCount" jdbcType="INTEGER" />
+        <result column="autumn_count" property="autumnCount" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+    id, spring_enrolment, autumn_enrolment, create_user, create_time, spring_img, autumn_img, new_spring_count, spring_count,
+    summer_count, autumn_count
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from cms_train_enrolment
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cms_train_enrolment
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.sun3d.why.model.train.CmsTrainEnrolment" >
+    insert into cms_train_enrolment (id, spring_enrolment, autumn_enrolment,
+      create_user, create_time, spring_img,
+      autumn_img, new_spring_count,
+      spring_count, summer_count, autumn_count)
+    values (#{id,jdbcType=VARCHAR}, #{springEnrolment,jdbcType=VARCHAR}, #{autumnEnrolment,jdbcType=VARCHAR},
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{springImg,jdbcType=VARCHAR},
+      #{autumnImg,jdbcType=VARCHAR}, #{newSpringCount,jdbcType=INTEGER},
+      #{springCount,jdbcType=INTEGER}, #{summerCount,jdbcType=INTEGER}, #{autumnCount,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.sun3d.why.model.train.CmsTrainEnrolment" >
+        insert into cms_train_enrolment
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="springEnrolment != null" >
+                spring_enrolment,
+            </if>
+            <if test="autumnEnrolment != null" >
+                autumn_enrolment,
+            </if>
+            <if test="createUser != null" >
+                create_user,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="springImg != null" >
+                spring_img,
+            </if>
+            <if test="autumnImg != null" >
+                autumn_img,
+            </if>
+            <if test="newSpringCount != null" >
+                new_spring_count,
+            </if>
+            <if test="springCount != null" >
+                spring_count,
+            </if>
+            <if test="summerCount != null" >
+                summer_count,
+            </if>
+            <if test="autumnCount != null" >
+                autumn_count,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="springEnrolment != null" >
+                #{springEnrolment,jdbcType=VARCHAR},
+            </if>
+            <if test="autumnEnrolment != null" >
+                #{autumnEnrolment,jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null" >
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="springImg != null" >
+                #{springImg,jdbcType=VARCHAR},
+            </if>
+            <if test="autumnImg != null" >
+                #{autumnImg,jdbcType=VARCHAR},
+            </if>
+            <if test="newSpringCount != null" >
+                #{newSpringCount,jdbcType=INTEGER},
+            </if>
+            <if test="springCount != null" >
+                #{springCount,jdbcType=INTEGER},
+            </if>
+            <if test="summerCount != null" >
+                #{summerCount,jdbcType=INTEGER},
+            </if>
+            <if test="autumnCount != null" >
+                #{autumnCount,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.sun3d.why.model.train.CmsTrainEnrolment" >
+        update cms_train_enrolment
+        <set >
+            <if test="springEnrolment != null" >
+                spring_enrolment = #{springEnrolment,jdbcType=VARCHAR},
+            </if>
+            <if test="autumnEnrolment != null" >
+                autumn_enrolment = #{autumnEnrolment,jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null" >
+                create_user = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="springImg != null" >
+                spring_img = #{springImg,jdbcType=VARCHAR},
+            </if>
+            <if test="autumnImg != null" >
+                autumn_img = #{autumnImg,jdbcType=VARCHAR},
+            </if>
+            <if test="newSpringCount != null" >
+                new_spring_count = #{newSpringCount,jdbcType=INTEGER},
+            </if>
+            <if test="springCount != null" >
+                spring_count = #{springCount,jdbcType=INTEGER},
+            </if>
+            <if test="summerCount != null" >
+                summer_count = #{summerCount,jdbcType=INTEGER},
+            </if>
+            <if test="autumnCount != null" >
+                autumn_count = #{autumnCount,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.sun3d.why.model.train.CmsTrainEnrolment" >
+    update cms_train_enrolment
+    set spring_enrolment = #{springEnrolment,jdbcType=VARCHAR},
+      autumn_enrolment = #{autumnEnrolment,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      spring_img = #{springImg,jdbcType=VARCHAR},
+      autumn_img = #{autumnImg,jdbcType=VARCHAR},
+      new_spring_count = #{newSpringCount,jdbcType=INTEGER},
+      spring_count = #{springCount,jdbcType=INTEGER},
+      summer_count = #{summerCount,jdbcType=INTEGER},
+      autumn_count = #{autumnCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from cms_train_enrolment
+    </select>
+
+</mapper>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.DcFrontUserMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.DcFrontUser" >
+    <id column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_PWD" property="userPwd" jdbcType="VARCHAR" />
+    <result column="USER_AREA" property="userArea" jdbcType="VARCHAR" />
+    <result column="AREA_OFFICER" property="areaOfficer" jdbcType="VARCHAR" />
+    <result column="AREA_ACTIVITY_CENTER" property="areaActivityCenter" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    USER_ID, USER_NAME, USER_PWD, USER_AREA, AREA_OFFICER, AREA_ACTIVITY_CENTER
+  </sql>
+  
+  <select id="queryDcFrontUserByCondition"  resultMap="BaseResultMap" parameterType="com.sun3d.why.model.DcFrontUser" >
+    select 
+    <include refid="Base_Column_List" />
+    from dc_front_user
+    where 1=1 
+    <if test="userId != null" >
+       AND USER_ID = #{userId,jdbcType=VARCHAR}
+     </if>
+      <if test="userName != null" >
+       AND USER_NAME = #{userName,jdbcType=VARCHAR}
+      </if>
+      <if test="userPwd != null" >
+       AND USER_PWD = #{userPwd,jdbcType=VARCHAR}
+      </if>
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from dc_front_user
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from dc_front_user
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sun3d.why.model.DcFrontUser" >
+    insert into dc_front_user (USER_ID, USER_NAME, USER_PWD, 
+      USER_AREA, AREA_OFFICER,AREA_ACTIVITY_CENTER)
+    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userPwd,jdbcType=VARCHAR}, 
+      #{userArea,jdbcType=VARCHAR}, #{areaOfficer,jdbcType=VARCHAR}, #{areaActivityCenter,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sun3d.why.model.DcFrontUser" >
+    insert into dc_front_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="userPwd != null" >
+        USER_PWD,
+      </if>
+      <if test="userArea != null" >
+        USER_AREA,
+      </if>
+      <if test="areaOfficer != null" >
+        AREA_OFFICER,
+      </if>
+      <if test="areaActivityCenter != null" >
+        AREA_ACTIVITY_CENTER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null" >
+        #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userArea != null" >
+        #{userArea,jdbcType=VARCHAR},
+      </if>
+      <if test="areaOfficer != null" >
+        #{areaOfficer,jdbcType=VARCHAR},
+      </if>
+      <if test="areaActivityCenter != null" >
+        #{areaActivityCenter,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sun3d.why.model.DcFrontUser" >
+    update dc_front_user
+    <set >
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null" >
+        USER_PWD = #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userArea != null" >
+        USER_AREA = #{userArea,jdbcType=VARCHAR},
+      </if>
+      <if test="areaOfficer != null" >
+        AREA_OFFICER = #{areaOfficer,jdbcType=VARCHAR},
+      </if>
+      <if test="areaActivityCenter != null" >
+        AREA_ACTIVITY_CENTER = #{areaActivityCenter,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sun3d.why.model.DcFrontUser" >
+    update dc_front_user
+    set USER_NAME = #{userName,jdbcType=VARCHAR},
+      USER_PWD = #{userPwd,jdbcType=VARCHAR},
+      USER_AREA = #{userArea,jdbcType=VARCHAR},
+      AREA_OFFICER = #{areaOfficer,jdbcType=VARCHAR},
+      AREA_ACTIVITY_CENTER = #{areaActivityCenter,jdbcType=VARCHAR}
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+</mapper>

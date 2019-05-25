@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.train.CmsTrainOrderMapper">
+    <resultMap id="BaseResultMap" type="com.sun3d.why.model.train.CmsTrainOrderBean">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="train_id" property="trainId" jdbcType="VARCHAR"/>
+        <result column="order_num" property="orderNum" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="birthday" property="birthday" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="INTEGER"/>
+        <result column="id_card" property="idCard" jdbcType="VARCHAR"/>
+        <result column="phone_num" property="phoneNum" jdbcType="VARCHAR"/>
+        <result column="state" property="state" jdbcType="INTEGER"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="home_address" property="homeAddress" jdbcType="VARCHAR"/>
+        <result column="home_connector" property="homeConnector" jdbcType="VARCHAR"/>
+        <result column="connector_relationship" property="connectorRelationship" jdbcType="VARCHAR"/>
+        <result column="connector_phone_num" property="connectorPhoneNum" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="train_remark" property="trainRemark" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    t.id, t.train_id, t.order_num, t.name, t.birthday, t.sex, t.id_card, t.phone_num, t.state, t.create_user,
+    t.create_time, t.update_time, t.update_user,t.home_address,t.home_connector,t.connector_relationship,t.connector_phone_num,t.age,t.train_remark
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from cms_train_order t
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from cms_train_order
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.sun3d.why.model.train.CmsTrainOrder">
+    insert into cms_train_order (id, train_id, order_num,
+    name, birthday, sex,
+    id_card, phone_num, state,
+    create_user, create_time, update_time,
+    update_user)
+    values (#{id,jdbcType=VARCHAR}, #{trainId,jdbcType=VARCHAR}, #{orderNum,jdbcType=VARCHAR},
+    #{name,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER},
+    #{idCard,jdbcType=VARCHAR}, #{phoneNum,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER},
+    #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+    #{updateUser,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.sun3d.why.model.train.CmsTrainOrder">
+        insert into cms_train_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="trainId != null">
+                train_id,
+            </if>
+            <if test="orderNum != null">
+                order_num,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="idCard != null">
+                id_card,
+            </if>
+            <if test="phoneNum != null">
+                phone_num,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="updateUser != null">
+                update_user,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="trainId != null">
+                #{trainId,jdbcType=VARCHAR},
+            </if>
+            <if test="orderNum != null">
+                #{orderNum,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                #{birthday,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=INTEGER},
+            </if>
+            <if test="idCard != null">
+                #{idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNum != null">
+                #{phoneNum,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=INTEGER},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.sun3d.why.model.train.CmsTrainOrder">
+        update cms_train_order
+        <set>
+            <if test="trainId != null">
+                train_id = #{trainId,jdbcType=VARCHAR},
+            </if>
+            <if test="orderNum != null">
+                order_num = #{orderNum,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=INTEGER},
+            </if>
+            <if test="idCard != null">
+                id_card = #{idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNum != null">
+                phone_num = #{phoneNum,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                state = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.sun3d.why.model.train.CmsTrainOrder">
+    update cms_train_order
+    set train_id = #{trainId,jdbcType=VARCHAR},
+    order_num = #{orderNum,jdbcType=VARCHAR},
+    name = #{name,jdbcType=VARCHAR},
+    birthday = #{birthday,jdbcType=VARCHAR},
+    sex = #{sex,jdbcType=INTEGER},
+    id_card = #{idCard,jdbcType=VARCHAR},
+    phone_num = #{phoneNum,jdbcType=VARCHAR},
+    state = #{state,jdbcType=INTEGER},
+    create_user = #{createUser,jdbcType=VARCHAR},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    update_time = #{updateTime,jdbcType=TIMESTAMP},
+    update_user = #{updateUser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+    <sql id="Query_List_Where">
+        <if test="trainId != null ">
+            and t.train_id = '${trainId}'
+        </if>
+        <if test="orderNum != null ">
+            and t.order_num like '%${orderNum}%'
+        </if>
+        <if test="phoneNum != null ">
+            and t.phone_num like '%${phoneNum}%'
+        </if>
+        <if test="idCard != null ">
+            and t.id_card like '%${idCard}%'
+        </if>
+        <if test="state != null ">
+            and t.state = ${state}
+        </if>
+<!--        <if test="orderStartTime != null and orderEndTime != null and orderStartTime == orderEndTime">
+            and t.create_time between '${orderStartTime} 00:00:00' and '${orderEndTime} 23:59:59'
+        </if>
+        <if test="orderStartTime != orderEndTime">
+            <if test="orderStartTime != null">
+                and t.create_time &gt;='${orderStartTime}'
+            </if>
+            <if test="orderEndTime != null">
+                and t.create_time &lt;='${orderEndTime}'
+            </if>
+        </if>-->
+        <choose>
+            <when test="orderStartTime != null and orderEndTime != null and orderStartTime == orderEndTime">
+                and t.create_time between '${orderStartTime} 00:00:00' and '${orderEndTime} 23:59:59'
+            </when>
+            <when test="orderStartTime != null and orderStartTime != orderEndTime">
+                and t.create_time >= '${orderStartTime}'
+            </when>
+            <when test="orderEndTime != null and orderEndTime != orderStartTime">
+                and t.create_time &lt;='${orderEndTime}'
+            </when>
+        </choose>
+        <if test="sex != null">
+            and t.sex =${sex}
+        </if>
+    </sql>
+
+    <select id="queryTrainOrderList" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select<include refid="Base_Column_List"/>,ct.train_title trainTitle,ct.course_type  courseType,
+        ct.train_start_time  trainStartTime,ct.train_address  trainAddress
+        from cms_train_order t
+        left join cms_train ct on ct.id = t.train_id
+        where 1 = 1
+        <include refid="Query_List_Where"/>
+        <if test="courseType != null">
+            and ct.course_type = ${courseType}
+        </if>
+        <if test="userIsManger != null and userIsManger == 4">
+            <if test="deptId != null">
+                and ct.TRAIN_LOCATION LIKE CONCAT ('%',#{deptId,jdbcType=VARCHAR},'%')
+            </if>
+        </if>
+        <if test="userIsManger != null and userIsManger &lt; 4">
+            <if test="deptId != null">
+                and ct.TRAIN_AREA LIKE CONCAT ('%',#{deptId,jdbcType=VARCHAR},'%')
+                and ct.TRAIN_LOCATION LIKE CONCAT ('%',#{deptId,jdbcType=VARCHAR},'%')
+            </if>
+        </if>
+        ORDER by t.create_time desc
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+
+    <select id="queryTrainOrderListCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(t.id)
+        from cms_train_order t
+        left join cms_train ct on ct.id = t.train_id
+        where 1 = 1
+        <include refid="Query_List_Where"/>
+        <if test="courseType != null">
+            and ct.course_type = ${courseType}
+        </if>
+        <if test="userIsManger != null and userIsManger == 4">
+            <if test="deptId != null">
+                and ct.TRAIN_LOCATION LIKE CONCAT ('%',#{deptId,jdbcType=VARCHAR},'%')
+            </if>
+        </if>
+        <if test="userIsManger != null and userIsManger &lt; 4">
+            <if test="deptId != null">
+                and ct.TRAIN_AREA LIKE CONCAT ('%',#{deptId,jdbcType=VARCHAR},'%')
+                and ct.TRAIN_LOCATION LIKE CONCAT ('%',#{deptId,jdbcType=VARCHAR},'%')
+            </if>
+        </if>
+
+    </select>
+
+
+    <select id="queryTrainOrderListByTrain" resultMap="BaseResultMap"
+            parameterType="com.sun3d.why.model.train.CmsTrain">
+        select<include refid="Base_Column_List"/>,ct.train_title trainTitle
+        from cms_train_order t
+        left join cms_train ct on ct.id = t.train_id
+        where 1 = 1
+        and t.state in(1,3)
+        <if test="train.id != null">
+            and t.train_id = #{train.id,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="selectAllOrder" >
+        select<include refid="Base_Column_List"/>,ct.train_title trainTitle,ct.course_type  courseType,
+        ct.train_start_time  trainStartTime,ct.train_address  trainAddress
+        from cms_train_order t
+        left join cms_train ct on ct.id = t.train_id
+        where 1 = 1
+        <include refid="Query_List_Where"/>
+        ORDER by t.create_time desc
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+</mapper>

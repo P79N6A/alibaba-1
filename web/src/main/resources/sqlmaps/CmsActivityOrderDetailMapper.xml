@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsActivityOrderDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsActivityOrderDetail" >
+    <id column="ACTIVITY_ORDER_ID" property="activityOrderId" jdbcType="VARCHAR" />
+    <id column="ORDER_LINE" property="orderLine" jdbcType="INTEGER" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    <result column="SEAT_CODE" property="seatCode" jdbcType="VARCHAR" />
+    <result column="SEAT_VAL" property="seatVal" jdbcType="VARCHAR" />
+    <result column="SEAT_STATUS" property="seatStatus" jdbcType="INTEGER" />
+    <result column="MACHINE_CODE" property="machineCode" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    ACTIVITY_ORDER_ID, ORDER_LINE, UPDATE_TIME, UPDATE_USER, SEAT_CODE, SEAT_VAL, SEAT_STATUS
+  </sql>
+
+
+  <select id="queryCmsActivityOrderDetailByOrderId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from cms_activity_order_detail where 1=1
+    and  ACTIVITY_ORDER_ID = #{0}
+    order by ORDER_LINE asc
+  </select>
+
+
+  <select id="queryByDetailKey" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.CmsActivityOrderDetailKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from cms_activity_order_detail
+    where ACTIVITY_ORDER_ID = #{activityOrderId,jdbcType=VARCHAR}
+      and ORDER_LINE = #{orderLine,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByDetailKey" parameterType="com.sun3d.why.model.CmsActivityOrderDetailKey" >
+    delete from cms_activity_order_detail
+    where ACTIVITY_ORDER_ID = #{activityOrderId,jdbcType=VARCHAR}
+      and ORDER_LINE = #{orderLine,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="addCmsActivityOrderDetail" parameterType="com.sun3d.why.model.CmsActivityOrderDetail" >
+    insert into cms_activity_order_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="activityOrderId != null" >
+        ACTIVITY_ORDER_ID,
+      </if>
+      <if test="orderLine != null" >
+        ORDER_LINE,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER,
+      </if>
+      <if test="seatCode != null" >
+        SEAT_CODE,
+      </if>
+      <if test="seatVal != null" >
+        SEAT_VAL,
+      </if>
+      <if test="seatStatus != null" >
+        SEAT_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="activityOrderId != null" >
+        #{activityOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderLine != null" >
+        #{orderLine,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="seatCode != null" >
+        #{seatCode,jdbcType=VARCHAR},
+      </if>
+      <if test="seatVal != null" >
+        #{seatVal,jdbcType=VARCHAR},
+      </if>
+      <if test="seatStatus != null" >
+        #{seatStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="editByCmsActivityOrderDetail" parameterType="com.sun3d.why.model.CmsActivityOrderDetail" >
+    update cms_activity_order_detail
+    <set >
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="seatCode != null" >
+        SEAT_CODE = #{seatCode,jdbcType=VARCHAR},
+      </if>
+      <if test="seatVal != null" >
+        SEAT_VAL = #{seatVal,jdbcType=VARCHAR},
+      </if>
+      <if test="seatStatus != null" >
+        SEAT_STATUS = #{seatStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ACTIVITY_ORDER_ID = #{activityOrderId,jdbcType=VARCHAR}
+      and ORDER_LINE = #{orderLine,jdbcType=INTEGER}
+  </update>
+
+  <!-- 根据订单id 修改被取消订单的座位状态  -->
+  <update id="updateDetailSeatStatue" parameterType="com.sun3d.why.model.CmsActivityOrderDetail" >
+    update cms_activity_order_detail
+    <set >
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="seatStatus != null" >
+        SEAT_STATUS = #{seatStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ACTIVITY_ORDER_ID = #{activityOrderId,jdbcType=VARCHAR}
+    <if test="orderLine != null" >
+      and ORDER_LINE = #{orderLine,jdbcType=INTEGER}
+    </if>
+  </update>
+  <!--app根据订单号与座位号查询订单明细信息 -->
+  <select id="queryCmsActivityOrderDetailById" resultMap="BaseResultMap">
+    select
+    UPDATE_TIME,UPDATE_USER,SEAT_STATUS,ACTIVITY_ORDER_ID
+    from cms_activity_order_detail
+     where 1=1
+      and SEAT_VAL=#{1}
+      AND ACTIVITY_ORDER_ID= #{0}
+  </select>
+  <!--取票机更新订单明细表状态-->
+  <update id="editCmsActivityOrderDetailByStatus" parameterType="com.sun3d.why.model.CmsActivityOrderDetail" >
+    update cms_activity_order_detail
+    <set>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="seatStatus != null" >
+        SEAT_STATUS = #{seatStatus,jdbcType=INTEGER},
+      </if>
+      <if test="machineCode != null">
+        MACHINE_CODE = #{machineCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ACTIVITY_ORDER_ID = #{activityOrderId,jdbcType=VARCHAR} and SEAT_VAL=#{seatVal,jdbcType=VARCHAR}
+  </update>
+
+  <select id="queryCmsActivityOrderDetailsByOrderId" resultMap="BaseResultMap">
+    select *
+    from cms_activity_order_detail
+    where 1=1
+    AND ACTIVITY_ORDER_ID= #{0}
+  </select>
+
+
+
+  <!-- 自由入座取消整个订单 -->
+  <select id="updateOrderSeatStatusByOrderId"  parameterType="hashmap"  resultType="java.lang.Integer">
+    update cms_activity_order_detail
+    set SEAT_STATUS = 2
+    where 1=1
+    AND ACTIVITY_ORDER_ID= #{activityOrderId}
+  </select>
+
+
+  <!-- 在线选坐根据座位code 取消子订单信息 -->
+  <select id="updateOrderSeatStatusBySeats"  parameterType="hashmap" resultType="java.lang.Integer">
+    update cms_activity_order_detail set SEAT_STATUS = 2
+    where 1=1
+    AND ACTIVITY_ORDER_ID= #{activityOrderId}
+    and SEAT_CODE in
+    <foreach item="item" index="index" collection="seatCodes"
+             open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+
+  <!-- 在线选坐根据座位code 取消子订单信息 -->
+  <select id="updateDetailSeatStatusBySeats"  parameterType="hashmap" resultType="java.lang.Integer">
+    update cms_activity_order_detail set SEAT_STATUS = #{seatStatus}
+    where 1=1
+    AND ACTIVITY_ORDER_ID= #{activityOrderId}
+    and SEAT_CODE in
+    <foreach item="item" index="index" collection="seatCodes"
+             open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+
+
+  <!-- 验证系统查询订单明细表中是否还有未验票的座位 -->
+  <select id="queryCmsActivityOrderDetailByStatus" resultType="java.lang.Integer">
+    select COUNT(*)
+    from cms_activity_order_detail
+    where 1=1 AND SEAT_STATUS=#{1}
+    AND ACTIVITY_ORDER_ID= #{0}
+  </select>
+
+
+  <!-- 查询活动对应的所有有效订单座位 -->
+  <select id="queryCmsActivityOrderDetailByActivityIdAndEventId" resultMap="BaseResultMap">
+     select caod.*
+    from cms_activity_order_detail caod INNER  JOIN  cms_activity_order cao on caod.ACTIVITY_ORDER_ID = cao.ACTIVITY_ORDER_ID
+    where 1=1 AND SEAT_STATUS != 2
+    AND ACTIVITY_ID= #{activityId} and cao.EVENT_ID =#{eventId}
+  </select>
+</mapper>

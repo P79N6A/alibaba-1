@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ccp.CcpComedyMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ccp.CcpComedy" >
+    <id column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_MOBILE" property="userMobile" jdbcType="VARCHAR" />
+    <result column="COMEDY_URL" property="comedyUrl" jdbcType="VARCHAR" />
+    <result column="COMEDY_CODE" property="comedyCode" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    
+    <result column="TUSER_NAME" property="tuserName" jdbcType="VARCHAR" />
+    <result column="USER_HEAD_IMG_URL" property="userHeadImgUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    USER_ID, USER_NAME, USER_MOBILE, COMEDY_URL,COMEDY_CODE, CREATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT
+    	cc.USER_ID, 
+		cc.USER_NAME, 
+		cc.USER_MOBILE, 
+		cc.COMEDY_URL,
+		cc.COMEDY_CODE, 
+		cc.CREATE_TIME,
+		ctu.USER_NAME as TUSER_NAME,
+		ctu.USER_HEAD_IMG_URL
+	FROM ccp_comedy cc
+	LEFT JOIN cms_terminal_user ctu ON ctu.USER_ID = cc.USER_ID
+    where cc.USER_ID = #{userId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_comedy
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.ccp.CcpComedy" >
+    insert into ccp_comedy
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      USER_ID,
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="userMobile != null" >
+        USER_MOBILE,
+      </if>
+      <if test="comedyUrl != null" >
+        COMEDY_URL,
+      </if>
+      <if test="comedyCode != null" >
+        COMEDY_CODE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{userId,jdbcType=VARCHAR},
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="comedyUrl != null" >
+        #{comedyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="comedyCode != null" >
+        #{comedyCode,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.ccp.CcpComedy" >
+    update ccp_comedy
+    <set >
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        USER_MOBILE = #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="comedyUrl != null" >
+        COMEDY_URL = #{comedyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="comedyCode != null" >
+        COMEDY_CODE = #{comedyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryComedyList" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.ccp.CcpComedy" >
+    SELECT	
+		cc.USER_ID, 
+		cc.USER_NAME, 
+		cc.USER_MOBILE, 
+		cc.COMEDY_URL,
+		cc.COMEDY_CODE, 
+		cc.CREATE_TIME,
+        <!-- 自己发布的照片排第一 -->
+        IF(cc.USER_ID = #{userId},0,1) AS SORT,
+		ctu.USER_NAME as TUSER_NAME,
+		ctu.USER_HEAD_IMG_URL
+	FROM ccp_comedy cc
+	LEFT JOIN cms_terminal_user ctu ON ctu.USER_ID = cc.USER_ID
+	WHERE cc.COMEDY_URL IS NOT NULL
+	GROUP BY cc.USER_ID
+	ORDER BY SORT,cc.CREATE_TIME DESC
+	<if test="firstResult != null">
+        limit ${firstResult},${rows}
+    </if>
+  </select>
+</mapper>

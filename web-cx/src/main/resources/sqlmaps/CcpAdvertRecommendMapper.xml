@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CcpAdvertRecommendMapper">
+    <resultMap id="BaseResultMap" type="com.sun3d.why.model.ccp.CcpAdvertRecommend">
+        <id column="advert_id" property="advertId" jdbcType="VARCHAR"/>
+        <result column="advert_url" property="advertUrl" jdbcType="VARCHAR"/>
+        <result column="advert_title" property="advertTitle" jdbcType="VARCHAR"/>
+        <result column="advert_img_url" property="advertImgUrl" jdbcType="VARCHAR"/>
+        <result column="advert_link" property="advertLink" jdbcType="INTEGER"/>
+        <result column="advert_link_type" property="advertLinkType" jdbcType="INTEGER"/>
+        <result column="advert_postion" property="advertPostion" jdbcType="INTEGER"/>
+        <result column="advert_type" property="advertType" jdbcType="VARCHAR"/>
+        <result column="advert_sort" property="advertSort" jdbcType="INTEGER"/>
+        <result column="advert_state" property="advertState" jdbcType="INTEGER"/>
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="update_by" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    advert_id, advert_title, advert_url, advert_img_url, advert_link, advert_link_type, advert_postion,
+    advert_type, advert_sort, advert_state, create_by, update_by, create_time, update_time
+  </sql>
+    <insert id="insertAdvert" parameterType="com.sun3d.why.model.ccp.CcpAdvertRecommend">
+        insert into ccp_advert_recommend
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="advertId != null">
+                advert_id,
+            </if>
+            <if test="advertTitle != null">
+                advert_title,
+            </if>
+            <if test="advertUrl != null">
+                advert_url,
+            </if>
+            <if test="advertImgUrl != null">
+                advert_img_url,
+            </if>
+            <if test="advertLink != null">
+                advert_link,
+            </if>
+            <if test="advertLinkType != null">
+                advert_link_type,
+            </if>
+            <if test="advertPostion != null">
+                advert_postion,
+            </if>
+            <if test="advertType != null">
+                advert_type,
+            </if>
+            <if test="advertSort != null">
+                advert_sort,
+            </if>
+            <if test="advertState != null">
+                advert_state,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="advertId != null">
+                #{advertId,jdbcType=VARCHAR},
+            </if>
+            <if test="advertTitle != null">
+                #{advertTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="advertUrl != null">
+                #{advertUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advertImgUrl != null">
+                #{advertImgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advertLink != null">
+                #{advertLink,jdbcType=INTEGER},
+            </if>
+            <if test="advertLinkType != null">
+                #{advertLinkType,jdbcType=INTEGER},
+            </if>
+            <if test="advertPostion != null">
+                #{advertPostion,jdbcType=INTEGER},
+            </if>
+            <if test="advertType != null">
+                #{advertType,jdbcType=VARCHAR},
+            </if>
+            <if test="advertSort != null">
+                #{advertSort,jdbcType=INTEGER},
+            </if>
+            <if test="advertState != null">
+                #{advertState,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateAdvert" parameterType="com.sun3d.why.model.ccp.CcpAdvertRecommend">
+        update ccp_advert_recommend
+        <set>
+            <if test="advertTitle != null">
+                advert_title = #{advertTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="advertUrl != null">
+                advert_url = #{advertUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advertImgUrl != null">
+                advert_img_url = #{advertImgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advertLink != null">
+                advert_link = #{advertLink,jdbcType=INTEGER},
+            </if>
+            <if test="advertLinkType != null">
+                advert_link_type = #{advertLinkType,jdbcType=INTEGER},
+            </if>
+            <if test="advertPostion != null">
+                advert_postion = #{advertPostion,jdbcType=INTEGER},
+            </if>
+            <if test="advertType != null">
+                advert_type = #{advertType,jdbcType=VARCHAR},
+            </if>
+            <if test="advertSort != null">
+                advert_sort = #{advertSort,jdbcType=INTEGER},
+            </if>
+            <if test="advertState != null">
+                advert_state = #{advertState,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where advert_id = #{advertId,jdbcType=VARCHAR}
+    </update>
+    <select id="selectAdvertByModel" resultMap="BaseResultMap"
+            parameterType="com.sun3d.why.model.ccp.CcpAdvertRecommend">
+        select
+        a.advert_id, a.advert_title, a.advert_url, a.advert_img_url, a.advert_link, a.advert_link_type, a.advert_postion,
+        a.advert_type, a.advert_sort, a.advert_state, a.create_by, b.USER_ACCOUNT as update_by, a.create_time, a.update_time
+        from ccp_advert_recommend a
+        LEFT JOIN sys_user b ON a.update_by=b.USER_ID
+        <where>
+            <if test="advertType != null">
+                advert_type = #{advertType,jdbcType=VARCHAR}
+            </if>
+            <if test="advertSort != null">
+                AND advert_sort = #{advertSort,jdbcType=INTEGER}
+            </if>
+            <if test="advertState != null">
+                AND advert_state = #{advertState,jdbcType=INTEGER}
+            </if>
+            <if test="advertPostion != null">
+                AND advert_postion = #{advertPostion,jdbcType=INTEGER}
+            </if>
+            <if test="advertId != null">
+                AND advert_id = #{advertId,jdbcType=VARCHAR}
+            </if>
+            <if test="advertTitle != null">
+                AND advert_title = #{advertTitle,jdbcType=VARCHAR}
+            </if>
+        </where>
+        ORDER BY advert_type,advert_sort
+    </select>
+    <delete id="deleteAdvertByModel" parameterType="com.sun3d.why.model.ccp.CcpAdvertRecommend" >
+        delete from ccp_advert_recommend
+        <where>
+            <if test="advertType != null">
+                advert_type = #{advertType,jdbcType=VARCHAR}
+            </if>
+            <if test="advertSort != null">
+                AND advert_sort = #{advertSort,jdbcType=INTEGER}
+            </if>
+            <if test="advertState != null">
+                AND advert_state = #{advertState,jdbcType=INTEGER}
+            </if>
+            <if test="advertPostion != null">
+                AND advert_postion = #{advertPostion,jdbcType=INTEGER}
+            </if>
+            <if test="advertId != null">
+                AND advert_id = #{advertId,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </delete>
+</mapper>

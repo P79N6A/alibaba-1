@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- <title>帮助与反馈</title> -->
+    <link rel="stylesheet" type="text/css" href="/STATIC/wx/css/reset-mc.css" />
+    <link rel="stylesheet" type="text/css" href="/STATIC/wx/css/mc-mobile.css" />
+    <!--移动端版本兼容 -->
+    <script type="text/javascript">
+        var phoneWidth =  parseInt(window.screen.width);
+        var phoneScale = phoneWidth/750;
+        var ua = navigator.userAgent;            //浏览器类型
+        if (/Android (\d+\.\d+)/.test(ua)){      //判断是否是安卓系统
+            var version = parseFloat(RegExp.$1); //安卓系统的版本号
+            if(version>2.3){
+                document.write('<meta name="viewport" content="width=750, minimum-scale = '+phoneScale+', maximum-scale = '+(phoneScale)+', target-densitydpi=device-dpi">');
+            }else{
+                document.write('<meta name="viewport" content="width=750, target-densitydpi=device-dpi">');
+            }
+        } else {
+            document.write('<meta name="viewport" content="width=750, user-scalable=no, target-densitydpi=device-dpi">');
+        }
+    </script>
+    <!--移动端版本兼容 end -->
+</head>
+<body>
+<!--head start-->
+<!--head end-->
+<div id="guide_list">
+    <h4>文化云注册流程</h4>
+    <p>下载文化云app，打开文化云→点击【注册新用户】→填写注册信息→手机号码验证→注册成功</p>
+    <ul class="clearfix">
+      <li><img src="/STATIC/image/guide19.png" width="320" height="570"></li>
+      <li><img src="/STATIC/image/guide20.png" width="320" height="570"></li>
+    </ul>
+   <h4>文化云登录流程</h4>
+    <p>下载文化云app，打开文化云→点击【登录】按钮→填写账号和密码→登录成功</p>
+    <ul class="clearfix">
+      <li><img src="/STATIC/image/guide21.png" width="320" height="570"></li>
+      <li><img src="/STATIC/image/guide22.png" width="320" height="570"></li>
+    </ul>
+     <h4>怎么修改昵称/年龄/性别/修改登录密码</h4>
+     <p>点击首页左上角头像→进入个人中心，点击【个人设置】→修改信息</p>
+    <ul class="clearfix">
+      <li><img src="/STATIC/image/guide23.png" width="320" height="570"></li>
+      <li><img src="/STATIC/image/guide24.png" width="320" height="570" ></li>
+    </ul>
+    
+     <h4>如何找回忘记的登录密码</h4>
+     <p>打开文化云app，点击首页左上方头像→点击【找回密码】→验证手机→设置新密码→密码修改成功</p>
+    <ul class="clearfix">
+      <li><img src="/STATIC/image/guide25.png" width="320" height="571" ></li>
+      <li><img src="/STATIC/image/guide26.png" width="320" height="570" ></li>
+    </ul>
+    <a href="mobileHelp.html" class="return_btn clearfix"></a>
+</div>
+</body>
+</html>

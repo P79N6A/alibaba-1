@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="fill_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+    <include
+            android:id="@+id/main_input_code"
+            layout="@layout/activity_all_title"/>
+
+    <View
+            android:id="@+id/set_height"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/input_code_info_dimen"
+            android:visibility="gone"/>
+
+    <LinearLayout
+            android:id="@+id/header_toplayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tab_height"
+            android:layout_marginLeft="@dimen/input_code_left"
+            android:layout_marginRight="@dimen/input_code_left"
+            android:layout_marginTop="@dimen/input_code_info_dimen"
+            android:background="@drawable/shape_input_frame"
+            android:orientation="horizontal"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+        <EditText
+                android:id="@+id/input_frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:maxLength="16"
+                android:background="@null"
+                android:layout_marginLeft="@dimen/input_code_left"
+                android:gravity="center_vertical"
+                android:lines="1"
+                android:singleLine="true"
+                android:hint="@string/input_frame_text"/>
+
+        <Button
+                android:id="@+id/input_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/shape_input_confirm"
+                android:text="@string/input_confirm_text"
+                android:textColor="@color/white"
+                android:textSize="@dimen/main_scan_qr_size"/>
+    </LinearLayout>
+
+    <include
+            android:id="@+id/main_input_code_info"
+            android:visibility="visible"
+            layout="@layout/input_code_info"
+            />
+
+</LinearLayout>

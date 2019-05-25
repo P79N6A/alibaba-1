@@ -1,0 +1,298 @@
+
+.error-msg{
+	font-size: 18px;
+	color: #CC0000;
+}
+.clear{
+	clear: both;
+}
+.main {
+	padding-top: 30px;
+	width:890px;
+	margin: auto;
+
+	margin-left:80px;
+
+
+
+}
+.main h5{ font-size:16px;color:#142340;}
+.top-menu {
+	margin-top: 30px;
+}
+
+.top-menu > ul > li {
+	list-style: none;
+	float: left;
+	margin-right: 20px;
+	color:#142340;
+}
+
+.top-menu > ul > li > div {
+	border:solid 1px #ACB4C3;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	cursor:pointer;
+	padding: 5px 30px 5px 30px;
+}
+
+.content-p1 {
+	margin-top: 30px;
+}
+
+.content-p1-left1 {
+	float: left;
+}
+
+.content-p1-left1 button{
+	border: none;
+	background-color: #fff;
+	font-size: 14px;
+}
+
+.left-p1 button{
+	margin: 40px 0px 0px 55px;
+}
+
+.left-p2 button,.left-p3 button{
+	margin:10px 0px 0px 5px;
+}
+
+.left-p1,
+.left-p2,
+.left-p3 {
+	border: 1px solid #142340;
+}
+
+.left-p1 {
+	height: 100px;
+	width: 300px;
+}
+
+.left-p2 {
+	width:149px;
+	height: 50px;
+	float: left;
+}
+
+.left-p3 {
+	width: 149px;
+	height: 50px;
+	float: left;
+}
+
+.content-p1-right1 {
+	width: 540px;
+	float: right;
+}
+
+.content-p1-right1 li {
+	border-bottom: 1px dashed #142340;
+	margin-right: 60px;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
+}
+
+.line-title {
+	float: left;
+	margin-top: 10px;
+}
+
+.line {
+	float: left;
+	margin-left: 50px;
+}
+
+.line input[type=text] {
+	width: 280px;
+	height:30px;
+	line-height:30px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	outline: none;
+	border:1px solid #ACB4C3;
+
+}
+
+.line p {
+	line-height: 40px;
+}
+
+.line-1{
+	margin-left: 45px;
+}
+
+.line-1 span {
+	margin-left: 20px;
+}
+
+.line-1 input[type = checkbox]{
+	margin-left: 20px;
+	width:15px;
+	height:15px;
+	vertical-align:middle;
+	margin-right:3px;
+	height:30px;
+	line-height:30px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	outline: none;
+	border:1px solid #ACB4C3;
+}
+
+.line-1 select {
+	border:1px solid #ACB4C3;
+	height:30px;
+	line-height:30px;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	margin-left: 20px;
+}
+
+.line-2{
+	margin-left: 0px;
+}
+
+.line-2 input[type = text]{
+	margin-left: 10px;
+	border:1px solid #ACB4C3;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	height:30px;
+	line-height:30px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	outline: none;
+	border:1px solid #ACB4C3;
+}
+
+.line-3 {
+	margin-left: 78px;
+}
+
+.line-3 input[type=text] {
+	margin-left: 10px;
+	border:1px solid #ACB4C3;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	height:30px;
+	line-height:30px;
+	outline: none;
+	border:1px solid #ACB4C3;
+}
+
+.line-4 {
+	margin-left: 20px;
+}
+
+.line-4 input[type=text] {
+	margin-left: 10px;
+	height:30px;
+	line-height:30px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	outline: none;
+	border:1px solid #ACB4C3;
+}
+
+.line-5 {
+	text-align: right;
+}
+
+.p2-upload {
+	margin-right: 60px;
+	margin-top: 10px;
+	padding-bottom: 30px;
+	border-top: 1px solid #555;
+}
+
+.p2-upload li{
+	margin-bottom: 40px;
+}
+
+.p2-upload-title {
+	text-align: right;
+	margin: 20px 70px 0px 0px;
+}
+
+.p2-upload-left{
+	float: left;
+	width: 300px;
+	height:100px;
+	border: 1px solid #555;
+}
+
+.p2-upload-right{
+	float: left;
+}
+
+.p2-line1{
+	margin-left: 25px;
+	margin-top: 30px;
+}
+
+.p2-line1 span{
+	margin-left: 30px;
+}
+.p2-line1 input{
+	height:30px;
+	line-height:30px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	outline: none;
+	border:1px solid #ACB4C3;
+	margin-left:50px;
+
+}
+
+.p2-line1-1{
+
+	margin-left: 10px;
+	border:1px solid #ACB4C3;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+}
+
+.p2-line1-2{
+	width: 50px;
+	margin-left: 100px;
+	border:1px solid #ACB4C3;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+}
+
+.p2-upload-right button{
+	border: 1px solid #142340;
+	height:30px;
+	line-height:30px;
+	border-radius: 5px;
+	background-color: #fff;
+	box-shadow: none;
+	width: 100px;
+	margin: 25px 0px 0px 200px;
+}
+
+.add-upload{
+	border: none;
+	background-color: #fff;
+	font-size: 40px;
+	margin-bottom: 50px;
+	outline:none;
+}
+
+.checkedoff{
+	display: none;
+}
+.content-p2 .tit input{ float:left; display:inline; margin-top:-1px; margin-right:5px;vertical-align:middle;width:15px;height:15px;}
+.w200{width:220px;}

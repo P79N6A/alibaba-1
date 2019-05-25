@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ccp.CcpExhibitionMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ccp.CcpExhibition" >
+    <id column="EXHIBITION_ID" property="exhibitionId" jdbcType="VARCHAR" />
+    <result column="EXHIBITION_HEAD" property="exhibitionHead" jdbcType="VARCHAR" />
+    <result column="EXHIBITION_TITLE" property="exhibitionTitle" jdbcType="VARCHAR" />
+    <result column="EXHIBITION_SUBTITLE" property="exhibitionSubtitle" jdbcType="VARCHAR" />
+    <result column="EXHIBITION_HEAD_IMG" property="exhibitionHeadImg" jdbcType="VARCHAR" />
+    <result column="EXHIBITION_FOOT_IMG" property="exhibitionFootImg" jdbcType="VARCHAR" />
+    <result column="EXHIBITION_FOOT_CONTENT" property="exhibitionFootContent" jdbcType="VARCHAR" />
+    <result column="EXHIBITION_SHARE_TITLE" property="exhibitionShareTitle" jdbcType="VARCHAR" />
+    <result column="EXHIBITION_SHARE_DESC" property="exhibitionShareDesc" jdbcType="VARCHAR" />
+    <result column="EXHIBITION_SHARE_IMG" property="exhibitionShareImg" jdbcType="VARCHAR" />
+    <result column="EXHIBITION_IS_DEL" property="exhibitionIsDel" jdbcType="INTEGER" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="index_logo" jdbcType="VARCHAR" property="indexLogo" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    EXHIBITION_ID, EXHIBITION_HEAD, EXHIBITION_TITLE, EXHIBITION_SUBTITLE, EXHIBITION_HEAD_IMG, 
+    EXHIBITION_FOOT_IMG, EXHIBITION_FOOT_CONTENT, EXHIBITION_SHARE_TITLE, EXHIBITION_SHARE_DESC, 
+    EXHIBITION_SHARE_IMG, EXHIBITION_IS_DEL, CREATE_USER, CREATE_TIME, UPDATE_USER, UPDATE_TIME,
+    index_logo
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_exhibition
+    where EXHIBITION_ID = #{exhibitionId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_exhibition
+    where EXHIBITION_ID = #{exhibitionId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.ccp.CcpExhibition" >
+    insert into ccp_exhibition
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      EXHIBITION_ID,
+      <if test="exhibitionHead != null" >
+        EXHIBITION_HEAD,
+      </if>
+      <if test="exhibitionTitle != null" >
+        EXHIBITION_TITLE,
+      </if>
+      <if test="exhibitionSubtitle != null" >
+        EXHIBITION_SUBTITLE,
+      </if>
+      <if test="exhibitionHeadImg != null" >
+        EXHIBITION_HEAD_IMG,
+      </if>
+      <if test="exhibitionFootImg != null" >
+        EXHIBITION_FOOT_IMG,
+      </if>
+      <if test="exhibitionFootContent != null" >
+        EXHIBITION_FOOT_CONTENT,
+      </if>
+      <if test="exhibitionShareTitle != null" >
+        EXHIBITION_SHARE_TITLE,
+      </if>
+      <if test="exhibitionShareDesc != null" >
+        EXHIBITION_SHARE_DESC,
+      </if>
+      <if test="exhibitionShareImg != null" >
+        EXHIBITION_SHARE_IMG,
+      </if>
+      <if test="exhibitionIsDel != null" >
+        EXHIBITION_IS_DEL,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+       <if test="indexLogo != null">
+        index_logo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{exhibitionId,jdbcType=VARCHAR},
+      <if test="exhibitionHead != null" >
+        #{exhibitionHead,jdbcType=VARCHAR},
+      </if>
+      <if test="exhibitionTitle != null" >
+        #{exhibitionTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="exhibitionSubtitle != null" >
+        #{exhibitionSubtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="exhibitionHeadImg != null" >
+        #{exhibitionHeadImg,jdbcType=VARCHAR},
+      </if>
+      <if test="exhibitionFootImg != null" >
+        #{exhibitionFootImg,jdbcType=VARCHAR},
+      </if>
+      <if test="exhibitionFootContent != null" >
+        #{exhibitionFootContent,jdbcType=VARCHAR},
+      </if>
+      <if test="exhibitionShareTitle != null" >
+        #{exhibitionShareTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="exhibitionShareDesc != null" >
+        #{exhibitionShareDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="exhibitionShareImg != null" >
+        #{exhibitionShareImg,jdbcType=VARCHAR},
+      </if>
+      <if test="exhibitionIsDel != null" >
+        #{exhibitionIsDel,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+       <if test="indexLogo != null">
+        #{indexLogo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.ccp.CcpExhibition" >
+    update ccp_exhibition
+    <set >
+      <if test="exhibitionHead != null" >
+        EXHIBITION_HEAD = #{exhibitionHead,jdbcType=VARCHAR},
+      </if>
+      <if test="exhibitionTitle != null" >
+        EXHIBITION_TITLE = #{exhibitionTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="exhibitionSubtitle != null" >
+        EXHIBITION_SUBTITLE = #{exhibitionSubtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="exhibitionHeadImg != null" >
+        EXHIBITION_HEAD_IMG = #{exhibitionHeadImg,jdbcType=VARCHAR},
+      </if>
+      <if test="exhibitionFootImg != null" >
+        EXHIBITION_FOOT_IMG = #{exhibitionFootImg,jdbcType=VARCHAR},
+      </if>
+      <if test="exhibitionFootContent != null" >
+        EXHIBITION_FOOT_CONTENT = #{exhibitionFootContent,jdbcType=VARCHAR},
+      </if>
+      <if test="exhibitionShareTitle != null" >
+        EXHIBITION_SHARE_TITLE = #{exhibitionShareTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="exhibitionShareDesc != null" >
+        EXHIBITION_SHARE_DESC = #{exhibitionShareDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="exhibitionShareImg != null" >
+        EXHIBITION_SHARE_IMG = #{exhibitionShareImg,jdbcType=VARCHAR},
+      </if>
+      <if test="exhibitionIsDel != null" >
+        EXHIBITION_IS_DEL = #{exhibitionIsDel,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+        <if test="indexLogo != null">
+        index_logo = #{indexLogo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EXHIBITION_ID = #{exhibitionId,jdbcType=VARCHAR}
+  </update>
+  <select id="queryExhibitionListByCondition" resultType="java.lang.Integer"  parameterType="java.util.Map">
+    select 
+    count(*)
+    from ccp_exhibition
+    where 1=1
+   <if test="exhibitionHead!=null and exhibitionHead!=''">
+     AND EXHIBITION_HEAD like CONCAT('%','${exhibitionHead}','%' )
+    </if>
+    <if test="createUser!=null">
+     AND CREATE_USER=#{createUser,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <select id="queryCcpExhibitionListByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+     select 
+    EXHIBITION_ID, EXHIBITION_HEAD, EXHIBITION_TITLE, EXHIBITION_SUBTITLE, EXHIBITION_HEAD_IMG, 
+    EXHIBITION_FOOT_IMG, EXHIBITION_FOOT_CONTENT, EXHIBITION_SHARE_TITLE, EXHIBITION_SHARE_DESC, 
+    EXHIBITION_SHARE_IMG, EXHIBITION_IS_DEL, CREATE_USER, CREATE_TIME, UPDATE_USER, UPDATE_TIME
+    from ccp_exhibition
+    where 1=1 
+    <if test="exhibitionHead!=null and exhibitionHead!=''">
+     AND EXHIBITION_HEAD like CONCAT('%','${exhibitionHead}','%' )
+     </if>
+    <if test="createUser!=null">
+     AND CREATE_USER=#{createUser,jdbcType=VARCHAR}
+    </if>
+    ORDER BY UPDATE_TIME DESC
+    <if test="firstResult!=null">
+     limit ${firstResult},${rows}
+    </if>
+  </select>
+</mapper>

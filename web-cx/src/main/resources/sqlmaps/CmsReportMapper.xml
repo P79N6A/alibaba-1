@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsReportMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsReport" >
+    <id column="REPORT_ID" property="reportId" jdbcType="VARCHAR" />
+    <result column="REPORT_TYPE" property="reportType" jdbcType="VARCHAR" />
+    <result column="REPORT_ACTIVITY_ID" property="reportActivityId" jdbcType="VARCHAR" />
+    <result column="REPORT_CONTENT" property="reportContent" jdbcType="VARCHAR" />
+    <result column="REPORT_USER_ID" property="reportUserId" jdbcType="VARCHAR" />
+    <result column="REPORT_TIME" property="reportTime" jdbcType="TIMESTAMP" />
+    <result column="ACTIVITY_NAME" property="activityName" jdbcType="VARCHAR" />
+    <result column="USER_MOBILE_NO" property="userMobileNo" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <!--查询举报条数 -->
+  <select id="queryReportInformationByCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+    SELECT
+    count(*)
+    FROM
+    cms_report cr
+    INNER JOIN cms_terminal_user ct ON cr.REPORT_USER_ID = ct.USER_ID
+    INNER JOIN cms_activity ca
+    on cr.REPORT_ACTIVITY_ID=ca.ACTIVITY_ID
+    WHERE  1=1
+    <if test="reportContent != null" >
+      and ca.ACTIVITY_NAME LIKE #{content,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <!--查询举报内容-->
+  <select id="queryReportInformationByContent" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT
+    cr.REPORT_CONTENT,
+    cr.REPORT_TYPE,
+    ca.ACTIVITY_NAME,
+    ct.USER_NAME,
+    ct.USER_MOBILE_NO,
+    cr.REPORT_TIME
+    FROM
+    cms_report cr
+    INNER JOIN cms_terminal_user ct
+    on cr.REPORT_USER_ID=ct.USER_ID
+    INNER JOIN cms_activity ca
+    on cr.REPORT_ACTIVITY_ID=ca.ACTIVITY_ID
+    WHERE 1=1
+    <if test="content != null" >
+      and ca.ACTIVITY_NAME LIKE #{content,jdbcType=INTEGER}
+    </if>
+    ORDER BY cr.REPORT_TIME desc
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+
+  <!-- 添加举报数据 -->
+	<insert id="insertReport" parameterType="com.sun3d.why.model.CmsReport">
+		insert into cms_report
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="reportId != null">
+				REPORT_ID,
+			</if>
+			<if test="reportType != null">
+				REPORT_TYPE,
+			</if>
+			<if test="reportActivityId != null">
+				REPORT_ACTIVITY_ID,
+			</if>
+			<if test="reportContent != null">
+				REPORT_CONTENT,
+			</if>
+			<if test="reportUserId != null">
+				REPORT_USER_ID,
+			</if>
+			<if test="reportTime != null">
+				REPORT_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="reportId != null">
+				#{reportId,jdbcType=VARCHAR},
+			</if>
+			<if test="reportType != null">
+				#{reportType,jdbcType=VARCHAR},
+			</if>
+			<if test="reportActivityId != null">
+				#{reportActivityId,jdbcType=VARCHAR},
+			</if>
+			<if test="reportContent != null">
+				#{reportContent,jdbcType=VARCHAR},
+			</if>
+			<if test="reportUserId != null">
+				#{reportUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="reportTime != null">
+				#{reportTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+</mapper>

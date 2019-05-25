@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsActivityVenueRelevanceMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsActivityVenueRelevance" >
+    <result column="VENUE_ID" property="venueId" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_ID" property="activityId" jdbcType="VARCHAR" />
+  </resultMap>
+
+    <select id="queryActivityVenueRelevanceByActivityId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select *  from CMS_ACTIVITY_VENUE_RELEVANCE
+    where ACTIVITY_ID= #{0}
+    </select>
+
+ <!--根据活动id删除活动场馆的关联关系-->
+  <delete id="deleteActivityVenueRelevance" parameterType="java.lang.String" >
+    delete from CMS_ACTIVITY_VENUE_RELEVANCE
+    where ACTIVITY_ID= #{0}
+  </delete>
+  <!--添加活动场馆的关联关系-->
+  <insert id="addActivityVenueRelevance" parameterType="com.sun3d.why.model.CmsActivityVenueRelevance" >
+    insert into CMS_ACTIVITY_VENUE_RELEVANCE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="venueId != null" >
+        VENUE_ID,
+      </if>
+      <if test="activityId != null" >
+        ACTIVITY_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="venueId != null" >
+        #{venueId,jdbcType=VARCHAR},
+      </if>
+      <if test="activityId != null" >
+        #{activityId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+
+</mapper>

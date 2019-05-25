@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.SysDeptMapper">
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.SysDept">
+		<id column="DEPT_ID" property="deptId" jdbcType="VARCHAR" />
+		<result column="DEPT_CODE" property="deptCode" jdbcType="VARCHAR" />
+		<result column="DEPT_NAME" property="deptName" jdbcType="VARCHAR" />
+		<result column="DEPT_SHORT_NAME" property="deptShortName" jdbcType="VARCHAR" />
+		<result column="DEPT_PARENT_ID" property="deptParentId" jdbcType="VARCHAR" />
+		<result column="DEPT_PHONE" property="deptPhone" jdbcType="VARCHAR" />
+		<result column="DEPT_REMARK" property="deptRemark" jdbcType="VARCHAR" />
+		<result column="DEPT_SORT" property="deptSort" jdbcType="INTEGER" />
+		<result column="DEPT_STATE" property="deptState" jdbcType="INTEGER" />
+		<result column="DEPT_CREATE_USER" property="deptCreateUser" jdbcType="VARCHAR" />
+		<result column="DEPT_CREATE_TIME" property="deptCreateTime" jdbcType="TIMESTAMP" />
+		<result column="DEPT_UPDATE_USER" property="deptUpdateUser" jdbcType="VARCHAR" />
+		<result column="DEPT_UPDATE_TIME" property="deptUpdateTime" jdbcType="TIMESTAMP" />
+		<result column="DEPT_PATH" property="deptPath" jdbcType="VARCHAR" />
+		<result column="DEPT_IS_FROM_VENUE" property="deptIsFromVenue" jdbcType="INTEGER" />
+	</resultMap>
+
+	<!-- 需要显示表字段数据 -->
+	<sql id="Base_Column_List">
+		DEPT_ID, DEPT_CODE, DEPT_NAME, DEPT_SHORT_NAME, DEPT_PARENT_ID, DEPT_PHONE,DEPT_REMARK,
+		DEPT_SORT, DEPT_STATE, DEPT_CREATE_USER, DEPT_CREATE_TIME, DEPT_UPDATE_USER,DEPT_UPDATE_TIME,
+		DEPT_PATH,DEPT_IS_FROM_VENUE
+	</sql>
+
+	<!-- 查询条件信息 -->
+	<sql id="sysDept_Base_Where" >
+		<where>
+			1 = 1
+			<if test="deptId != null">
+				and dept_Id = #{deptId,jdbcType=VARCHAR}
+			</if>
+			<if test="deptCode != null">
+				and dept_Code = #{deptCode,jdbcType=VARCHAR}
+			</if>
+			<if test="deptName != null">
+				and dept_Name = #{deptName,jdbcType=VARCHAR}
+			</if>
+			<if test="deptShortName != null">
+				and dept_Short_Name = #{deptShortName,jdbcType=VARCHAR}
+			</if>
+			<if test="deptParentId != null">
+				and dept_Parent_Id = #{deptParentId,jdbcType=VARCHAR}
+			</if>
+			<if test="deptPhone != null">
+				and dept_Phone = #{deptPhone,jdbcType=VARCHAR}
+			</if>
+			<if test="deptRemark != null">
+				and dept_Remark = #{deptRemark,jdbcType=VARCHAR}
+			</if>
+			<if test="deptSort != null">
+				and dept_Sort = #{deptSort,jdbcType=INTEGER}
+			</if>
+			<if test="deptState != null">
+				and dept_State = #{deptState,jdbcType=INTEGER}
+			</if>
+			<if test="deptCreateUser != null">
+				and dept_Create_User = #{deptCreateUser,jdbcType=VARCHAR}
+			</if>
+			<if test="deptCreateTime != null">
+				and dept_CreateTime = #{deptCreateTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="deptUpdateUser != null">
+				and dept_Update_User = #{deptUpdateUser,jdbcType=VARCHAR}
+			</if>
+			<if test="deptUpdateTime != null">
+				and dept_Update_Time = #{deptUpdateTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="deptPath != null">
+				and dept_Path like #{deptPath,jdbcType=VARCHAR}
+			</if>
+			<if test="deptIsFromVenue != null">
+				and dept_Is_From_Venue = #{deptIsFromVenue,jdbcType=INTEGER}
+			</if>
+		</where>
+	</sql>
+
+	<!-- 分页信息 -->
+	<sql id="pagination_condition">
+		limit ${firstResult},${rows}
+	</sql>
+	<!-- 根据部门id查询部门信息 -->
+	<select id="querySysDeptByDeptId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_DEPT
+		where DEPT_ID = #{deptId,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 根据部门id删除部门信息 -->
+	<delete id="deleteByDeptId" parameterType="java.lang.String">
+		delete from SYS_DEPT
+		where DEPT_ID = #{deptId,jdbcType=VARCHAR}
+	</delete>
+
+	<!-- 插入部门信息-->
+	<insert id="addSysDept" parameterType="com.sun3d.why.model.SysDept">
+		insert into SYS_DEPT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="deptId != null">
+				DEPT_ID,
+			</if>
+			<if test="deptCode != null">
+				DEPT_CODE,
+			</if>
+			<if test="deptName != null">
+				DEPT_NAME,
+			</if>
+			<if test="deptShortName != null">
+				DEPT_SHORT_NAME,
+			</if>
+			<if test="deptParentId != null">
+				DEPT_PARENT_ID,
+			</if>
+			<if test="deptPhone != null">
+				DEPT_PHONE,
+			</if>
+			<if test="deptRemark != null">
+				DEPT_REMARK,
+			</if>
+			<if test="deptSort != null">
+				DEPT_SORT,
+			</if>
+			<if test="deptState != null">
+				DEPT_STATE,
+			</if>
+			<if test="deptCreateUser != null">
+				DEPT_CREATE_USER,
+			</if>
+			<if test="deptCreateTime != null">
+				DEPT_CREATE_TIME,
+			</if>
+			<if test="deptUpdateUser != null">
+				DEPT_UPDATE_USER,
+			</if>
+			<if test="deptUpdateTime != null">
+				DEPT_UPDATE_TIME,
+			</if>
+			<if test="deptPath != null">
+				DEPT_PATH,
+			</if>
+			<if test="deptIsFromVenue != null">
+				DEPT_IS_FROM_VENUE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="deptId != null">
+				#{deptId,jdbcType=VARCHAR},
+			</if>
+			<if test="deptCode != null">
+				#{deptCode,jdbcType=VARCHAR},
+			</if>
+			<if test="deptName != null">
+				#{deptName,jdbcType=VARCHAR},
+			</if>
+			<if test="deptShortName != null">
+				#{deptShortName,jdbcType=VARCHAR},
+			</if>
+			<if test="deptParentId != null">
+				#{deptParentId,jdbcType=VARCHAR},
+			</if>
+			<if test="deptPhone != null">
+				#{deptPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="deptRemark != null">
+				#{deptRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="deptSort != null">
+				#{deptSort,jdbcType=INTEGER},
+			</if>
+			<if test="deptState != null">
+				#{deptState,jdbcType=INTEGER},
+			</if>
+			<if test="deptCreateUser != null">
+				#{deptCreateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="deptCreateTime != null">
+				#{deptCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deptUpdateUser != null">
+				#{deptUpdateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="deptUpdateTime != null">
+				#{deptUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deptPath != null">
+				#{deptPath,jdbcType=VARCHAR},
+			</if>
+			<if test="deptIsFromVenue != null">
+				#{deptIsFromVenue,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 得到排序的最大数值 -->
+	<select id="countMaxSort"
+			resultType="java.lang.Integer">
+		select MAX(DEPT_SORT) from SYS_DEPT
+		<!--<if test="_parameter != null">-->
+			<!--<include refid="Example_Where_Clause" />-->
+		<!--</if>-->
+	</select>
+
+	<!-- 根据部门id修改部门信息 -->
+	<update id="editSysDept" parameterType="com.sun3d.why.model.SysDept">
+		update SYS_DEPT
+		<set>
+			<if test="deptCode != null">
+				DEPT_CODE = #{deptCode,jdbcType=VARCHAR},
+			</if>
+			<if test="deptName != null">
+				DEPT_NAME = #{deptName,jdbcType=VARCHAR},
+			</if>
+			<if test="deptShortName != null">
+				DEPT_SHORT_NAME = #{deptShortName,jdbcType=VARCHAR},
+			</if>
+			<if test="deptParentId != null">
+				DEPT_PARENT_ID = #{deptParentId,jdbcType=VARCHAR},
+			</if>
+			<if test="deptPhone != null">
+				DEPT_PHONE = #{deptPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="deptRemark != null">
+				DEPT_REMARK = #{deptRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="deptSort != null">
+				DEPT_SORT = #{deptSort,jdbcType=INTEGER},
+			</if>
+			<if test="deptState != null">
+				DEPT_STATE = #{deptState,jdbcType=INTEGER},
+			</if>
+			<if test="deptCreateUser != null">
+				DEPT_CREATE_USER = #{deptCreateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="deptCreateTime != null">
+				DEPT_CREATE_TIME = #{deptCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deptUpdateUser != null">
+				DEPT_UPDATE_USER = #{deptUpdateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="deptUpdateTime != null">
+				DEPT_UPDATE_TIME = #{deptUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where DEPT_ID = #{deptId,jdbcType=VARCHAR}
+
+	</update>
+
+	<!-- 根据条件查询部门信息 -->
+	<select id="querySysDeptByMap" resultMap="BaseResultMap" parameterType="hashmap">
+		select
+		DEPT_ID, DEPT_CODE, DEPT_NAME, DEPT_STATE, DEPT_PARENT_ID,DEPT_PATH,DEPT_IS_FROM_VENUE,DEPT_SORT
+		from SYS_DEPT
+		<if test="_parameter != null">
+			<include refid="sysDept_Base_Where" />
+		</if>
+		order by DEPT_SORT ASC
+	</select>
+
+
+	<!-- 根据条件查询部门信息 -->
+	<select id="queryCountByMap" resultType="java.lang.Integer"  parameterType="hashmap">
+		select
+		count(*)
+		from SYS_DEPT
+		<if test="_parameter != null">
+			<include refid="sysDept_Base_Where" />
+		</if>
+		order by DEPT_SORT ASC
+	</select>
+
+
+	<!-- 子系统对接，验证场馆名称是否重名 -->
+	<select id="queryAPICountByMap" resultType="java.lang.Integer"  parameterType="hashmap">
+		select
+		count(*)
+		from SYS_DEPT
+		<if test="_parameter != null">
+			<include refid="sysDept_Base_Where" />
+		</if>
+		order by DEPT_SORT ASC
+	</select>
+
+
+	<!-- 根据部门对象条件查询部门信息 -->
+	<select id="querySysDeptByCondition" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.SysDept">
+		select
+		DEPT_ID, DEPT_CODE, DEPT_NAME, DEPT_STATE, DEPT_PARENT_ID,DEPT_PATH,DEPT_IS_FROM_VENUE,DEPT_SORT
+		from SYS_DEPT
+		<if test="_parameter != null">
+			<include refid="sysDept_Base_Where" />
+		</if>
+		order by DEPT_SORT ASC
+	</select>
+
+	<!-- -->
+	<!-- 根据path查询部门信息 -->
+	<select id="querySysDeptByDeptPath" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		DEPT_ID, DEPT_CODE, DEPT_NAME, DEPT_STATE, DEPT_PARENT_ID,DEPT_PATH,DEPT_IS_FROM_VENUE,DEPT_SORT
+		from SYS_DEPT where 1=1
+				and dept_path = #{0}
+		order by DEPT_SORT ASC
+		limit 0,1
+	</select>
+
+	<!-- 根据deptName  查找对应的ID -->
+	<select id="querySysDeptIdByDeptName" resultType="string"  parameterType="Map">
+		select
+		DEPT_ID
+		from SYS_DEPT
+		where 1=1
+		<if test="deptName != null">
+			and DEPT_NAME = #{deptName,jdbcType=VARCHAR}
+		</if>
+	</select>
+
+
+	<!-- 查询直辖市部门路径 -->
+	<select id="queryTerritoryByDeptNames" resultMap="BaseResultMap"  parameterType="Map">
+		select
+		DEPT_ID,dept_path
+		from SYS_DEPT
+		where 1=1
+		and  DEPT_STATE = 1
+		<if test="deptNames != null">
+			and DEPT_NAME in
+			<foreach item="item" index="index" collection="deptNames"
+					 open="(" separator="," close=")">
+				#{item}
+			</foreach>
+
+		</if>
+	</select>
+
+	<select id="queryAreaListByMap" resultMap="BaseResultMap"
+			parameterType="java.lang.String">
+		select
+		DEPT_ID, DEPT_NAME,DEPT_CODE,DEPT_REMARK,DEPT_PARENT_ID
+		from SYS_DEPT
+		where 1=1 and DEPT_STATE = 1
+		<if test="deptParentId != null">
+			and DEPT_PARENT_ID = #{deptParentId,jdbcType=VARCHAR}
+		</if>
+		<if test="deptRemark != null">
+			and DEPT_REMARK = #{deptRemark,jdbcType=VARCHAR}
+		</if>
+		<if test="deptIsFromVenue != null">
+			and DEPT_IS_FROM_VENUE = #{deptIsFromVenue,jdbcType=INTEGER}
+		</if>
+		<if test="deptId != null">
+			and DEPT_ID = #{deptId,jdbcType=VARCHAR}
+		</if>
+	</select>
+
+</mapper>

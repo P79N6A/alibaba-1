@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsVenueSeatTemplateMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsVenueSeatTemplate" >
+    <id column="TEMPLATE_ID" property="templateId" jdbcType="VARCHAR" />
+    <result column="VENUE_ID" property="venueId" jdbcType="VARCHAR" />
+    <result column="TEMPLATE_NAME" property="templateName" jdbcType="VARCHAR" />
+    <result column="VALID_COUNT" property="validCount" jdbcType="INTEGER" />
+    <result column="SEAT_ROW" property="seatRow" jdbcType="INTEGER" />
+    <result column="SEAT_COLUMN" property="seatColumn" jdbcType="INTEGER" />
+    <result column="TEMPLATE_CREATE_TIME" property="templateCreateTime" jdbcType="TIMESTAMP" />
+    <result column="TEMPLATE_CREATE_USER" property="templateCreateUser" jdbcType="VARCHAR" />
+    <result column="TEMPLATE_UPDATE_TIME" property="templateUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="TEMPLATE_UPDATE_USER" property="templateUpdateUser" jdbcType="VARCHAR" />
+    <result column="TEMPLATE_DESC" property="templateDesc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <select id="queryVenueSeatTemplateById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    TEMPLATE_ID, VENUE_ID, TEMPLATE_NAME, VALID_COUNT, SEAT_ROW, SEAT_COLUMN, TEMPLATE_CREATE_TIME,
+    TEMPLATE_CREATE_USER, TEMPLATE_UPDATE_TIME, TEMPLATE_UPDATE_USER, TEMPLATE_DESC
+    from cms_venue_seat_template
+    where TEMPLATE_ID = #{templateId,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteVenueSeatTemplateById" parameterType="java.lang.String" >
+    delete from cms_venue_seat_template
+    where TEMPLATE_ID = #{templateId,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="addCmsVenueSeatTemplate" parameterType="com.sun3d.why.model.CmsVenueSeatTemplate" >
+    insert into cms_venue_seat_template
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="templateId != null" >
+        TEMPLATE_ID,
+      </if>
+      <if test="venueId != null" >
+        VENUE_ID,
+      </if>
+      <if test="templateName != null" >
+        TEMPLATE_NAME,
+      </if>
+      <if test="validCount != null" >
+        VALID_COUNT,
+      </if>
+      <if test="seatRow != null" >
+        SEAT_ROW,
+      </if>
+      <if test="seatColumn != null" >
+        SEAT_COLUMN,
+      </if>
+      <if test="templateCreateTime != null" >
+        TEMPLATE_CREATE_TIME,
+      </if>
+      <if test="templateCreateUser != null" >
+        TEMPLATE_CREATE_USER,
+      </if>
+      <if test="templateUpdateTime != null" >
+        TEMPLATE_UPDATE_TIME,
+      </if>
+      <if test="templateUpdateUser != null" >
+        TEMPLATE_UPDATE_USER,
+      </if>
+      <if test="templateDesc != null" >
+        TEMPLATE_DESC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="templateId != null" >
+        #{templateId,jdbcType=VARCHAR},
+      </if>
+      <if test="venueId != null" >
+        #{venueId,jdbcType=VARCHAR},
+      </if>
+      <if test="templateName != null" >
+        #{templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="validCount != null" >
+        #{validCount,jdbcType=INTEGER},
+      </if>
+      <if test="seatRow != null" >
+        #{seatRow,jdbcType=INTEGER},
+      </if>
+      <if test="seatColumn != null" >
+        #{seatColumn,jdbcType=INTEGER},
+      </if>
+      <if test="templateCreateTime != null" >
+        #{templateCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="templateCreateUser != null" >
+        #{templateCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="templateUpdateTime != null" >
+        #{templateUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="templateUpdateUser != null" >
+        #{templateUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="templateDesc != null" >
+        #{templateDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="editCmsVenueSeatTemplate" parameterType="com.sun3d.why.model.CmsVenueSeatTemplate" >
+    update cms_venue_seat_template
+    <set >
+      <if test="venueId != null" >
+        VENUE_ID = #{venueId,jdbcType=VARCHAR},
+      </if>
+      <if test="templateName != null" >
+        TEMPLATE_NAME = #{templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="validCount != null" >
+        VALID_COUNT = #{validCount,jdbcType=INTEGER},
+      </if>
+      <if test="seatRow != null" >
+        SEAT_ROW = #{seatRow,jdbcType=INTEGER},
+      </if>
+      <if test="seatColumn != null" >
+        SEAT_COLUMN = #{seatColumn,jdbcType=INTEGER},
+      </if>
+      <if test="templateCreateTime != null" >
+        TEMPLATE_CREATE_TIME = #{templateCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="templateCreateUser != null" >
+        TEMPLATE_CREATE_USER = #{templateCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="templateUpdateTime != null" >
+        TEMPLATE_UPDATE_TIME = #{templateUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="templateUpdateUser != null" >
+        TEMPLATE_UPDATE_USER = #{templateUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="templateDesc != null" >
+        TEMPLATE_DESC = #{templateDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where TEMPLATE_ID = #{templateId,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="queryVenueSeatTemplateByCondition" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.CmsVenueSeatTemplate" >
+    SELECT
+    st.TEMPLATE_ID, st.VENUE_ID, st.TEMPLATE_NAME, st.VALID_COUNT, st.SEAT_ROW, st.SEAT_COLUMN, st.TEMPLATE_CREATE_TIME,
+    st.TEMPLATE_CREATE_USER, st.TEMPLATE_UPDATE_TIME, su.USER_ACCOUNT as TEMPLATE_UPDATE_USER, st.TEMPLATE_DESC
+    FROM cms_venue_seat_template st
+    LEFT JOIN cms_venue v ON st.VENUE_ID = v.VENUE_ID
+    LEFT JOIN sys_user su ON st.TEMPLATE_UPDATE_USER = su.USER_ID
+    where 1=1
+    <if test="venueId != null and venueId != '' " >
+      AND st.VENUE_ID = #{venueId,jdbcType=VARCHAR}
+    </if>
+    <if test="templateName != null and templateName != '' " >
+      AND st.TEMPLATE_NAME  like '%${templateName}%'
+    </if>
+    <if test="validCount != null" >
+      AND st.VALID_COUNT = #{validCount,jdbcType=INTEGER}
+    </if>
+    <if test="seatRow != null" >
+      AND st.SEAT_ROW = #{seatRow,jdbcType=INTEGER}
+    </if>
+    <if test="seatColumn != null" >
+      AND st.SEAT_COLUMN = #{seatColumn,jdbcType=INTEGER}
+    </if>
+    <if test="templateCreateTime != null" >
+      AND st.TEMPLATE_CREATE_TIME = #{templateCreateTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="templateCreateUser != null" >
+      AND st.TEMPLATE_CREATE_USER = #{templateCreateUser,jdbcType=VARCHAR}
+    </if>
+    <if test="templateUpdateTime != null" >
+      AND st.TEMPLATE_UPDATE_TIME = #{templateUpdateTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="templateUpdateUser != null" >
+      AND st.TEMPLATE_UPDATE_USER = #{templateUpdateUser,jdbcType=VARCHAR}
+    </if>
+    <if test="templateDesc != null" >
+      AND st.TEMPLATE_DESC = #{templateDesc,jdbcType=LONGVARCHAR}
+    </if>
+    ORDER BY st.TEMPLATE_UPDATE_TIME
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+
+  </select>
+
+  <select id="queryVenueSeatTemplateCountByCondition" resultType="java.lang.Integer" parameterType="com.sun3d.why.model.CmsVenueSeatTemplate" >
+    SELECT
+    COUNT(st.TEMPLATE_ID)
+    FROM cms_venue_seat_template st
+    LEFT JOIN cms_venue v ON st.VENUE_ID = v.VENUE_ID
+    LEFT JOIN sys_user su ON st.TEMPLATE_UPDATE_USER = su.USER_ID
+    where 1=1
+    <if test="venueId != null and venueId != '' " >
+      AND st.VENUE_ID = #{venueId,jdbcType=VARCHAR}
+    </if>
+    <if test="templateName != null and templateName != '' " >
+      AND st.TEMPLATE_NAME  like '%${templateName}%'
+    </if>
+    <if test="validCount != null" >
+      AND st.VALID_COUNT = #{validCount,jdbcType=INTEGER}
+    </if>
+    <if test="seatRow != null" >
+      AND st.SEAT_ROW = #{seatRow,jdbcType=INTEGER}
+    </if>
+    <if test="seatColumn != null" >
+      AND st.SEAT_COLUMN = #{seatColumn,jdbcType=INTEGER}
+    </if>
+    <if test="templateCreateTime != null" >
+      AND st.TEMPLATE_CREATE_TIME = #{templateCreateTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="templateCreateUser != null" >
+      AND st.TEMPLATE_CREATE_USER = #{templateCreateUser,jdbcType=VARCHAR}
+    </if>
+    <if test="templateUpdateTime != null" >
+      AND st.TEMPLATE_UPDATE_TIME = #{templateUpdateTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="templateUpdateUser != null" >
+      AND st.TEMPLATE_UPDATE_USER = #{templateUpdateUser,jdbcType=VARCHAR}
+    </if>
+    <if test="templateDesc != null" >
+      AND st.TEMPLATE_DESC = #{templateDesc,jdbcType=LONGVARCHAR}
+    </if>
+  </select>
+</mapper>

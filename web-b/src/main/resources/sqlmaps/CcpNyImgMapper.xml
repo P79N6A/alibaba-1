@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ccp.CcpNyImgMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ccp.CcpNyImg" >
+    <id column="NY_IMG_ID" property="nyImgId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="NY_IMG_URL" property="nyImgUrl" jdbcType="VARCHAR" />
+    <result column="NY_IMG_CONTENT" property="nyImgContent" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="NY_STATUS" property="nyStatus" jdbcType="INTEGER" />
+    
+    <result column="IS_VOTE" property="isVote" jdbcType="INTEGER" />
+    <result column="VOTE_COUNT" property="voteCount" jdbcType="INTEGER" />
+    <result column="USER_HEAD_IMG_URL" property="userHeadImgUrl" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_REAL_NAME" property="userRealName" jdbcType="VARCHAR" />
+    <result column="USER_MOBILE" property="userMobile" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    NY_IMG_ID, USER_ID, NY_IMG_URL,NY_IMG_CONTENT, CREATE_TIME,NY_STATUS
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_ny_img
+    where NY_IMG_ID = #{nyImgId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_ny_img
+    where NY_IMG_ID = #{nyImgId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.ccp.CcpNyImg" >
+    insert into ccp_ny_img
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      NY_IMG_ID,
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="nyImgUrl != null" >
+        NY_IMG_URL,
+      </if>
+      <if test="nyImgContent != null" >
+        NY_IMG_CONTENT,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="nyStatus != null" >
+        NY_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{nyImgId,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="nyImgUrl != null" >
+        #{nyImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="nyImgContent != null" >
+        #{nyImgContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nyStatus != null" >
+        #{nyStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.ccp.CcpNyImg" >
+    update ccp_ny_img
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="nyImgUrl != null" >
+        NY_IMG_URL = #{nyImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="nyImgContent != null" >
+        NY_IMG_CONTENT = #{nyImgContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nyStatus != null" >
+        NY_STATUS = #{nyStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where NY_IMG_ID = #{nyImgId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectNyImgList" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.ccp.CcpNyImg" >
+  	select 
+    	cci.NY_IMG_ID, 
+    	cci.USER_ID, 
+    	cci.NY_IMG_URL, 
+    	cci.NY_IMG_CONTENT, 
+    	cci.NY_STATUS,
+    	<if test="userId!=null">
+	    	IF((SELECT count(*)
+	        FROM ccp_ny_vote ccv
+	        WHERE ccv.NY_IMG_ID = cci.NY_IMG_ID 
+	        and ccv.USER_ID = #{userId} 
+	        and DATE_FORMAT(ccv.CREATE_TIME, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')
+	        )>0,1,0) as IS_VOTE,
+	    </if>
+    	(SELECT count(*)
+        FROM ccp_ny_vote ccv
+        WHERE ccv.NY_IMG_ID = cci.NY_IMG_ID 
+        ) as VOTE_COUNT,
+	    ctu.USER_NAME,
+		ctu.USER_HEAD_IMG_URL,
+    	cci.CREATE_TIME
+    from ccp_ny_img cci
+    LEFT JOIN cms_terminal_user ctu ON ctu.USER_ID = cci.USER_ID
+    where 1=1
+    <if test="nyImgId != null">
+    	and cci.NY_IMG_ID = #{nyImgId}
+    </if>
+    <!-- 查询自己上传的图片 -->
+	<if test="isMe==1">
+		and cci.USER_ID = #{userId}
+	</if>
+	GROUP BY cci.NY_IMG_ID
+	ORDER BY <if test="isVoteSort==1">VOTE_COUNT desc,</if>cci.CREATE_TIME desc
+	<if test="firstResult != null">
+		limit ${firstResult},${rows}
+	</if>
+  </select>
+  
+  <select id="queryNyImgCountByCondition" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select count(*)
+    from ccp_ny_img cci
+    LEFT JOIN cms_terminal_user ctu ON ctu.USER_ID = cci.USER_ID
+    where 1=1
+    <if test="userId != null" >
+      and cci.USER_ID = #{userId}
+    </if>
+    <if test="userName != null" >
+      and ctu.USER_NAME like #{userName}
+    </if>
+    <if test="nyImgContent != null" >
+      and cci.NY_IMG_CONTENT like #{nyImgContent}
+    </if>
+    <if test="nyStatus != null" >
+      and cci.NY_STATUS = #{nyStatus}
+    </if>
+  </select>
+  
+  <select id="queryNyImgByCondition" resultMap="BaseResultMap" parameterType="java.util.Map" >
+  	select 
+  		cci.NY_IMG_ID, 
+    	cci.USER_ID, 
+    	cci.NY_IMG_URL, 
+    	cci.NY_IMG_CONTENT, 
+    	cci.NY_STATUS,
+	    ctu.USER_NAME,
+	    ccu.USER_NAME as USER_REAL_NAME,
+	    ccu.USER_MOBILE,
+    	cci.CREATE_TIME
+    from ccp_ny_img cci
+    LEFT JOIN cms_terminal_user ctu ON ctu.USER_ID = cci.USER_ID
+    LEFT JOIN ccp_ny_user ccu ON ccu.USER_ID = cci.USER_ID
+    where 1=1
+    <if test="userId != null" >
+      and cci.USER_ID = #{userId}
+    </if>
+    <if test="userName != null" >
+      and ctu.USER_NAME like #{userName}
+    </if>
+    <if test="nyImgContent != null" >
+      and cci.NY_IMG_CONTENT like #{nyImgContent}
+    </if>
+    <if test="nyStatus != null" >
+      and cci.NY_STATUS = #{nyStatus}
+    </if>
+    order by cci.CREATE_TIME desc
+    <if test="firstResult != null">
+		limit ${firstResult},${rows}
+	</if>
+  </select>
+</mapper>

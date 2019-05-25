@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsActivityEventMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsActivityEvent" >
+    <id column="EVENT_ID" property="eventId" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_ID" property="activityId" jdbcType="VARCHAR" />
+    <result column="EVENT_DATE" property="eventDate" jdbcType="VARCHAR" />
+    <result column="EVENT_END_DATE" property="eventEndDate" jdbcType="VARCHAR" />
+    <result column="EVENT_TIME" property="eventTime" jdbcType="VARCHAR" />
+    <result column="AVAILABLE_COUNT" property="availableCount" jdbcType="INTEGER" />
+    <result column="EVENT_DATE_TIME" property="eventDateTime" jdbcType="VARCHAR" />
+    <result column="counts" property="counts" jdbcType="INTEGER" />
+    
+    <result column="SINGLE_EVENT" property="singleEvent" jdbcType="INTEGER" />
+    <result column="SPIKE_TYPE" property="spikeType" jdbcType="INTEGER" />
+    <result column="SPIKE_TIME" property="spikeTime" jdbcType="TIMESTAMP" />
+    <result column="ORDER_PRICE" property="orderPrice" jdbcType="VARCHAR" />
+    <result column="ORDER_COUNT" property="orderCount" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    EVENT_ID, ACTIVITY_ID, EVENT_DATE, EVENT_TIME, AVAILABLE_COUNT,EVENT_DATE_TIME
+  </sql>
+
+  <!-- 根据场次主键 查询场次信息 -->
+  <select id="queryByEventId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    *
+    from cms_activity_event
+    where EVENT_ID = #{eventId,jdbcType=VARCHAR}
+  </select>
+
+  <!-- 根据场次主键 删除场次信息 -->
+  <delete id="deleteByEventId" parameterType="java.lang.String" >
+    delete from cms_activity_event
+    where EVENT_ID = #{eventId,jdbcType=VARCHAR}
+  </delete>
+
+  <!-- 增加场次信息 -->
+  <insert id="addActivityEvent" parameterType="com.sun3d.why.model.CmsActivityEvent" >
+    insert into cms_activity_event
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="eventId != null" >
+        EVENT_ID,
+      </if>
+      <if test="activityId != null" >
+        ACTIVITY_ID,
+      </if>
+      <if test="eventDate != null" >
+        EVENT_DATE,
+      </if>
+      <if test="eventTime != null" >
+        EVENT_TIME,
+      </if>
+      <if test="eventDateTime != null" >
+        EVENT_DATE_TIME,
+      </if>
+      <if test="availableCount != null" >
+        AVAILABLE_COUNT,
+      </if>
+      <if test="eventEndDate != null" >
+        EVENT_END_DATE,
+      </if>
+      <if test="singleEvent != null" >
+        SINGLE_EVENT,
+      </if>
+      <if test="spikeType != null" >
+        SPIKE_TYPE,
+      </if>
+      <if test="spikeTime != null" >
+        SPIKE_TIME,
+      </if>
+      <if test="orderPrice != null" >
+        ORDER_PRICE,
+      </if>
+      <if test="availableCount != null" >
+        ORDER_COUNT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="eventId != null" >
+        #{eventId,jdbcType=VARCHAR},
+      </if>
+      <if test="activityId != null" >
+        #{activityId,jdbcType=VARCHAR},
+      </if>
+      <if test="eventDate != null" >
+        #{eventDate,jdbcType=VARCHAR},
+      </if>
+      <if test="eventTime != null" >
+        #{eventTime,jdbcType=VARCHAR},
+      </if>
+      <if test="eventDateTime != null" >
+        #{eventDateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="availableCount != null" >
+        #{availableCount,jdbcType=INTEGER},
+      </if>
+      <if test="eventEndDate != null" >
+        #{eventEndDate,jdbcType=VARCHAR},
+      </if>
+      <if test="singleEvent != null" >
+        #{singleEvent,jdbcType=VARCHAR},
+      </if>
+      <if test="spikeType != null" >
+        #{spikeType,jdbcType=INTEGER},
+      </if>
+      <if test="spikeTime != null" >
+        #{spikeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderPrice != null" >
+        #{orderPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="availableCount != null" >
+        #{availableCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <!-- 编辑场次信息 -->
+  <update id="editByActivityEvent" parameterType="com.sun3d.why.model.CmsActivityEvent" >
+    update cms_activity_event
+    <set >
+      <if test="activityId != null" >
+        ACTIVITY_ID = #{activityId,jdbcType=VARCHAR},
+      </if>
+      <if test="eventDate != null" >
+        EVENT_DATE = #{eventDate,jdbcType=VARCHAR},
+      </if>
+      <if test="eventTime != null" >
+        EVENT_TIME = #{eventTime,jdbcType=VARCHAR},
+      </if>
+      <if test="eventDateTime != null" >
+        event_Date_Time = #{eventDateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="availableCount != null" >
+        AVAILABLE_COUNT = #{availableCount,jdbcType=INTEGER},
+      </if>
+      <if test="orderCount != null" >
+        ORDER_COUNT = #{orderCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where EVENT_ID = #{eventId,jdbcType=VARCHAR}
+  </update>
+
+  <!-- 根据活动id 查询活动的场次信息 -->
+  <select id="queryCmsActivityEventByActivityId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    *
+    from cms_activity_event
+    where activity_id = #{activityId}
+  </select>
+
+  <!-- 根据活动id 查询活动的场次时间段信息 -->
+  <select id="queryEventTimeByActivityId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    event_time
+    from cms_activity_event
+    where activity_id = #{activityId,jdbcType=VARCHAR}
+    GROUP BY
+	event_time
+    ORDER BY
+	event_time ASC
+  </select>
+
+  <!-- 根据活动id 查询活动的场次日期段信息 -->
+  <select id="queryEventDateByActivityId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    event_date
+    from cms_activity_event
+    where activity_id = #{activityId,jdbcType=VARCHAR} and event_date_time > current_timestamp
+    GROUP BY
+    event_date
+    ORDER BY
+    event_date_time ASC
+  </select>
+
+
+
+  <!-- 根据活动id 查询活动的场次日期段信息 最大的有效时间 和最小的有效时间 -->
+  <select id="queryMinMaxDateByActivityId" resultType="hashmap" parameterType="java.lang.String" >
+    select
+    min(event_date) as minEventDate,
+    max(event_date) as maxEventDate
+    from cms_activity_event
+    where activity_id = #{activityId,jdbcType=VARCHAR} and event_date_time > current_timestamp and AVAILABLE_COUNT > 0
+  </select>
+  <!-- 根据活动id 和场次日期查询出场次id -->
+  <select id="queryEventByActivityAndTime" resultMap="BaseResultMap"  >
+    select
+    event_id
+    from cms_activity_event
+    where activity_id = #{0} and event_date_time = #{1}
+  </select>
+
+  <!-- 根据活动id 删除场次信息 -->
+  <delete id="deleteEventInfoByActivityId" parameterType="java.lang.String" >
+      DELETE from cms_activity_event
+      where activity_id = #{activityId,jdbcType=VARCHAR}
+  </delete>
+
+
+  <!-- 根据活动id 日期 查询可以预定的时间段 -->
+  <select id="queryCanBookEventTime" resultMap="BaseResultMap" >
+    select
+      event_time
+    from cms_activity_event
+    where activity_id = #{0} and event_date =#{1}
+     and event_date_time > current_timestamp and AVAILABLE_COUNT > 0
+         ORDER BY
+        event_time ASC
+  </select>
+
+  <!-- 根据活动id 日期 查询可以预定的时间段 -->
+  <select id="queryCanNotBookEventTime" resultType="string" >
+select DISTINCT
+	GROUP_CONCAT(
+		DISTINCT temp1.event_date SEPARATOR ','
+	) AS eventIds from (SELECT
+	cae.EVENT_DATE,sum(cae.AVAILABLE_COUNT) as totalCount
+FROM
+	 cms_activity_event cae  where  cae.ACTIVITY_ID = #{0}
+
+GROUP BY cae.EVENT_DATE) as temp1 where  totalCount=0
+  </select>
+  
+	<!--app根据活动id查询活动场次信息 -->
+  	<select id="queryAppActivityEventById" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+		  IFNULL(ce.AVAILABLE_COUNT,0) AS counts,
+		  ce.EVENT_TIME,
+		  ce.EVENT_ID,
+		  ce.EVENT_DATE_TIME,
+		  ce.EVENT_DATE,
+		  ce.EVENT_END_DATE,
+		  IFNULL(ce.ORDER_PRICE,0) ORDER_PRICE,
+		  ce.SPIKE_TIME
+		FROM cms_activity_event ce
+		WHERE 1 = 1
+	    <if test="relatedId!=null">
+	      AND ce.ACTIVITY_ID=#{relatedId}
+	    </if>
+		ORDER BY ce.EVENT_DATE_TIME ASC,ce.SPIKE_TIME
+ 	</select>
+
+	<!-- 根据活动id  查询活动场次列表-->
+	<select id="queryActivityEventList" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select 
+			ce.EVENT_ID,ce.EVENT_DATE,ce.EVENT_END_DATE,ce.EVENT_TIME,
+			IFNULL(ce.AVAILABLE_COUNT,0) AVAILABLE_COUNT,ce.SINGLE_EVENT,
+			ce.SPIKE_TYPE,ce.SPIKE_TIME,ce.ORDER_PRICE
+		from cms_activity_event ce
+		where ce.ACTIVITY_ID = #{activityId,jdbcType=VARCHAR}
+		order by ce.SPIKE_TIME
+	</select>
+</mapper>

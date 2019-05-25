@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ccp.CcpExhibitionPageMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ccp.CcpExhibitionPage" >
+    <id column="PAGE_ID" property="pageId" jdbcType="VARCHAR" />
+    <result column="EXHIBITION_ID" property="exhibitionId" jdbcType="VARCHAR" />
+    <result column="PAGE_TITLE" property="pageTitle" jdbcType="VARCHAR" />
+    <result column="PAGE_IMG" property="pageImg" jdbcType="VARCHAR" />
+    <result column="PAGE_CONTENT" property="pageContent" jdbcType="VARCHAR" />
+    <result column="PAGE_IS_DEL" property="pageIsDel" jdbcType="INTEGER" />
+    <result column="PAGE_TYPE" property="pageType" jdbcType="INTEGER" />
+    <result column="PAGE_SORT" property="pageSort" jdbcType="INTEGER" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    PAGE_ID, EXHIBITION_ID, PAGE_TITLE, PAGE_IMG, PAGE_CONTENT, PAGE_IS_DEL, PAGE_TYPE,PAGE_SORT, 
+    CREATE_USER, CREATE_TIME
+  </sql>
+  
+  <select id="queryCcpExhibitionPageCountByCondition" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select count(*) from
+  	ccp_exhibition_page
+  	 where 1 = 1
+    <if test="pageIsDel!=null">
+    and PAGE_IS_DEL= #{pageIsDel}
+    </if>
+    <if test="exhibitionId!=null">
+    and EXHIBITION_ID=#{exhibitionId}
+    </if>
+  </select>
+  
+  <select id="queryCcpExhibitionPageListByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+ 	 select 
+    <include refid="Base_Column_List" />
+    from ccp_exhibition_page
+    where 1 = 1
+    <if test="pageIsDel!=null">
+    and PAGE_IS_DEL= #{pageIsDel}
+    </if>
+    <if test="exhibitionId!=null">
+    and EXHIBITION_ID=#{exhibitionId}
+    </if>
+    order by PAGE_SORT asc
+     <if test="firstResult != null">
+           limit ${firstResult},${rows}
+      </if>
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_exhibition_page
+    where PAGE_ID = #{pageId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_exhibition_page
+    where PAGE_ID = #{pageId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.ccp.CcpExhibitionPage" >
+    insert into ccp_exhibition_page
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      PAGE_ID,
+      <if test="exhibitionId != null" >
+        EXHIBITION_ID,
+      </if>
+      <if test="pageTitle != null" >
+        PAGE_TITLE,
+      </if>
+      <if test="pageImg != null" >
+        PAGE_IMG,
+      </if>
+      <if test="pageContent != null" >
+        PAGE_CONTENT,
+      </if>
+      <if test="pageIsDel != null" >
+        PAGE_IS_DEL,
+      </if>
+      <if test="pageType != null" >
+        PAGE_TYPE,
+      </if>
+      <if test="pageSort != null" >
+        PAGE_SORT,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{pageId,jdbcType=VARCHAR},
+      <if test="exhibitionId != null" >
+        #{exhibitionId,jdbcType=VARCHAR},
+      </if>
+      <if test="pageTitle != null" >
+        #{pageTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="pageImg != null" >
+        #{pageImg,jdbcType=VARCHAR},
+      </if>
+      <if test="pageContent != null" >
+        #{pageContent,jdbcType=VARCHAR},
+      </if>
+      <if test="pageIsDel != null" >
+        #{pageIsDel,jdbcType=INTEGER},
+      </if>
+      <if test="pageType != null" >
+        #{pageType,jdbcType=INTEGER},
+      </if>
+       <if test="pageSort != null" >
+        #{pageSort,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.ccp.CcpExhibitionPage" >
+    update ccp_exhibition_page
+    <set >
+      <if test="exhibitionId != null" >
+        EXHIBITION_ID = #{exhibitionId,jdbcType=VARCHAR},
+      </if>
+      <if test="pageTitle != null" >
+        PAGE_TITLE = #{pageTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="pageImg != null" >
+        PAGE_IMG = #{pageImg,jdbcType=VARCHAR},
+      </if>
+      <if test="pageContent != null" >
+        PAGE_CONTENT = #{pageContent,jdbcType=VARCHAR},
+      </if>
+      <if test="pageIsDel != null" >
+        PAGE_IS_DEL = #{pageIsDel,jdbcType=INTEGER},
+      </if>
+      <if test="pageType != null" >
+        PAGE_TYPE = #{pageType,jdbcType=INTEGER},
+      </if>
+      <if test="pageSort != null" >
+        PAGE_SORT = #{pageSort,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where PAGE_ID = #{pageId,jdbcType=VARCHAR}
+  </update>
+  
+	 <select id="queryInsidePages" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select 
+    count(*)
+    from ccp_exhibition_page
+    where 1=1
+  </select>
+  <select id="queryCcpContestTopicQuestion" resultMap="BaseResultMap" parameterType="java.util.Map">
+     select 
+     PAGE_ID, EXHIBITION_ID, PAGE_TITLE, PAGE_IMG, PAGE_CONTENT, PAGE_IS_DEL, PAGE_TYPE,PAGE_SORT, 
+     CREATE_USER, CREATE_TIME
+     from ccp_exhibition_page
+     ORDER BY CREATE_TIME DESC
+    <if test="firstResult!=null">
+     limit ${firstResult},${rows}
+    </if>
+  </select>
+  <select id="queryCcpExhibitionPageSort" parameterType="java.lang.String"  resultType="java.lang.Integer">
+   select MAX(PAGE_SORT) FROM ccp_exhibition_page WHERE EXHIBITION_ID=#{exhibitionId}
+  </select>
+</mapper>

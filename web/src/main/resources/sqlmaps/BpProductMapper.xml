@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.WechatBpProductMapper">
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.BpProduct">
+		<id column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+		<result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+		<result column="PRODUCT_ICON_URL" property="productIconUrl"
+			jdbcType="VARCHAR" />
+		<result column="PRODUCT_MODULE" property="productModule"
+			jdbcType="VARCHAR" />	
+		<result column="PRODUCT_CONTACTMAN" property="productContactman"
+			jdbcType="VARCHAR" />
+		<result column="PRODUCT_CONTACTWAY" property="productContactway"
+			jdbcType="VARCHAR" />
+		<result column="PRODUCT_SHOWTYPE" property="productShowtype"
+			jdbcType="INTEGER" />	
+		<result column="PRODUCT_VIDEO" property="productVideo"
+			jdbcType="VARCHAR" />
+		<result column="PRODUCT_STATUS" property="productStatus"
+			jdbcType="INTEGER" />
+		<result column="PRODUCT_SORT" property="productSort" jdbcType="INTEGER" />
+		<result column="PRODUCT_CREATE_TIME" property="productCreateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="PRODUCT_UPDATE_TIME" property="productUpdateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="PRODUCT_CREATE_USER" property="productCreateUser"
+			jdbcType="VARCHAR" />
+		<result column="PRODUCT_UPDATE_USER" property="productUpdateUser"
+			jdbcType="VARCHAR" />
+		<result column="PRODUCT_IMAGES" property="productImages"
+			jdbcType="LONGVARCHAR" />
+		<result column="PRODUCT_INFO" property="productInfo" jdbcType="LONGVARCHAR" />
+		<result column="PRODUCT_REMARK" property="productRemark"
+			jdbcType="LONGVARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		PRODUCT_ID, PRODUCT_NAME, PRODUCT_ICON_URL,PRODUCT_MODULE, PRODUCT_CONTACTMAN,
+		PRODUCT_CONTACTWAY,PRODUCT_SHOWTYPE,
+		PRODUCT_VIDEO, PRODUCT_STATUS, PRODUCT_SORT, PRODUCT_CREATE_TIME,
+		PRODUCT_UPDATE_TIME,
+		PRODUCT_CREATE_USER, PRODUCT_UPDATE_USER, PRODUCT_IMAGES, PRODUCT_INFO, PRODUCT_REMARK
+	</sql>
+	<select id="queryBpProductById" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		SELECT
+		A.PRODUCT_ID,A.PRODUCT_NAME,A.PRODUCT_REMARK,
+		A.PRODUCT_ICON_URL,A.PRODUCT_SHOWTYPE,A.PRODUCT_VIDEO,A.PRODUCT_IMAGES,
+		A.PRODUCT_CREATE_TIME,
+		D.DICT_NAME AS PRODUCT_MODULE,
+		 <if test="userId!=null">
+	            (SELECT count(*)
+	            FROM cms_user_wantgo cau
+	            WHERE cau.RELATE_ID = #{productId,jdbcType=VARCHAR}
+	            AND cau.USER_ID =#{userId}
+	            ) AS userIsWant,
+	            (select COUNT(*) from cms_collect co WHERE 1=1
+				and co.USER_ID=#{userId}
+	            AND co.RELATE_ID=#{productId,jdbcType=VARCHAR}
+	            ) AS isCollect,
+	        </if>
+	        (SELECT count(*)
+	        FROM cms_user_wantgo cau
+	        WHERE cau.RELATE_ID = #{productId,jdbcType=VARCHAR}
+	        ) AS wantCount
+		FROM BP_PRODUCT A 
+		LEFT JOIN sys_dict D ON A.PRODUCT_MODULE = D.DICT_ID
+		WHERE PRODUCT_ID = #{productId,jdbcType=VARCHAR}
+		limit 0,1            
+	</select>
+	<select id="queryBpProductListCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		SELECT count(*)
+		FROM
+		bp_product b
+		WHERE
+		1 = 1
+		<if test="productStatus != null">
+			AND b.PRODUCT_STATUS = #{productStatus}
+		</if>
+		<if test="productModule != null">
+			AND b.PRODUCT_MODULE = #{productModule}
+		</if>
+	</select>
+		
+	<select id="queryBpProductList" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM bp_product a 
+		
+		WHERE 1=1
+		<if test="productStatus != null">
+			AND a.PRODUCT_STATUS = #{productStatus}
+		</if>
+		<if test="productModule != null">
+			AND a.PRODUCT_MODULE = #{productModule}
+		</if>
+		ORDER BY a.PRODUCT_UPDATE_TIME desc
+		limit #{firstResult},#{rows}
+	</select>
+	
+		
+
+	
+</mapper>

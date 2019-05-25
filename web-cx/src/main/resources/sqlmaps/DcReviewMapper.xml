@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.DcReviewMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.DcReview" >
+    <id column="REVIEW_ID" property="reviewId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="VIDEO_ID" property="videoId" jdbcType="VARCHAR" />
+    <result column="REVIEW_RESULT" property="reviewResult" jdbcType="INTEGER" />
+    <result column="REVIEW_REASON" property="reviewReason" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    REVIEW_ID, USER_ID, VIDEO_ID, REVIEW_RESULT, REVIEW_REASON, CREATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from dc_review
+    where REVIEW_ID = #{reviewId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from dc_review
+    where REVIEW_ID = #{reviewId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.DcReview" >
+    insert into dc_review
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      REVIEW_ID,
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="videoId != null" >
+        VIDEO_ID,
+      </if>
+      <if test="reviewResult != null" >
+        REVIEW_RESULT,
+      </if>
+      <if test="reviewReason != null" >
+        REVIEW_REASON,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{reviewId,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoId != null" >
+        #{videoId,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewResult != null" >
+        #{reviewResult,jdbcType=INTEGER},
+      </if>
+      <if test="reviewReason != null" >
+        #{reviewReason,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.DcReview" >
+    update dc_review
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoId != null" >
+        VIDEO_ID = #{videoId,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewResult != null" >
+        REVIEW_RESULT = #{reviewResult,jdbcType=INTEGER},
+      </if>
+      <if test="reviewReason != null" >
+        REVIEW_REASON = #{reviewReason,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where REVIEW_ID = #{reviewId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryReviewCount" resultType="java.lang.Integer">
+  	select count(*)
+  	from dc_review
+  	where 1=1
+  	<if test="videoId!=null">
+  		and VIDEO_ID = #{videoId}
+  	</if>
+  	<if test="reviewResult!=null">
+  		and REVIEW_RESULT = #{reviewResult}
+  	</if>
+  </select>
+</mapper>

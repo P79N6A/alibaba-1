@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.culturecloud.dao.contest.CcpContestUserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.culturecloud.model.bean.contest.CcpContestUserInfo" >
+    <id column="contest_user_id" property="contestUserId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_telephone" property="userTelephone" jdbcType="VARCHAR" />
+    <result column="contest_score" property="contestScore" jdbcType="INTEGER" />
+    <result column="contest_result" property="contestResult" jdbcType="INTEGER" />
+    <result column="share_help_img" property="shareHelpImg" jdbcType="VARCHAR" />
+    <result column="share_success_img" property="shareSuccessImg" jdbcType="VARCHAR" />
+    <result column="chance_temporary_number" property="chanceTemporaryNumber" jdbcType="INTEGER" />
+    <result column="chance_permanent_number" property="chancePermanentNumber" jdbcType="INTEGER" />
+    <result column="help_number" property="helpNumber" jdbcType="INTEGER" />
+    <result column="contest_system_type" property="contestSystemType" jdbcType="INTEGER" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="success_time" property="successTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.culturecloud.model.bean.contest.CcpContestUserInfo" extends="BaseResultMap" >
+    <result column="help_user_id" property="helpUserId" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    contest_user_id, user_id, user_name, user_telephone, contest_score, contest_result,
+    share_help_img, share_success_img, chance_temporary_number, chance_permanent_number,
+    help_number, contest_system_type, last_login_time, success_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    help_user_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ccp_contest_user_info
+    where contest_user_id = #{contestUserId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_contest_user_info
+    where contest_user_id = #{contestUserId,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectTopList" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map" >
+    select
+    a.help_number,
+    b.USER_NAME,
+    b.USER_HEAD_IMG_URL as share_success_img
+    from ccp_contest_user_info a
+    LEFT JOIN cms_terminal_user b ON a.user_id = b.USER_ID
+    <where>
+      <if test="contestSystemType != null" >
+        a.contest_system_type = #{contestSystemType,jdbcType=INTEGER}
+      </if>
+    </where>
+    ORDER BY a.help_number desc ,a.create_time desc
+    LIMIT 10
+  </select>
+  <select id="selectTop" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select
+    count(*)
+    from ccp_contest_user_info a
+    <where>
+      <if test="helpNumber != null" >
+        (a.help_number > #{helpNumber,jdbcType=INTEGER} or  (a.help_number = #{helpNumber,jdbcType=INTEGER} and a.create_time  &lt;  #{lastLoginTime,jdbcType=TIMESTAMP}))
+      </if>
+      <if test="contestSystemType != null" >
+        and a.contest_system_type = #{contestSystemType,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+  <insert id="insertSelective" parameterType="com.culturecloud.model.bean.contest.CcpContestUserInfo" >
+    insert into ccp_contest_user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="contestUserId != null" >
+        contest_user_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userTelephone != null" >
+        user_telephone,
+      </if>
+      <if test="contestScore != null" >
+        contest_score,
+      </if>
+      <if test="contestResult != null" >
+        contest_result,
+      </if>
+      <if test="shareHelpImg != null" >
+        share_help_img,
+      </if>
+      <if test="shareSuccessImg != null" >
+        share_success_img,
+      </if>
+      <if test="chanceTemporaryNumber != null" >
+        chance_temporary_number,
+      </if>
+      <if test="chancePermanentNumber != null" >
+        chance_permanent_number,
+      </if>
+      <if test="helpNumber != null" >
+        help_number,
+      </if>
+      <if test="contestSystemType != null" >
+        contest_system_type,
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time,
+      </if>
+      <if test="successTime != null" >
+        success_time,
+      </if>
+      <if test="helpUserId != null" >
+        help_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="contestUserId != null" >
+        #{contestUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userTelephone != null" >
+        #{userTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="contestScore != null" >
+        #{contestScore,jdbcType=INTEGER},
+      </if>
+      <if test="contestResult != null" >
+        #{contestResult,jdbcType=INTEGER},
+      </if>
+      <if test="shareHelpImg != null" >
+        #{shareHelpImg,jdbcType=VARCHAR},
+      </if>
+      <if test="shareSuccessImg != null" >
+        #{shareSuccessImg,jdbcType=VARCHAR},
+      </if>
+      <if test="chanceTemporaryNumber != null" >
+        #{chanceTemporaryNumber,jdbcType=INTEGER},
+      </if>
+      <if test="chancePermanentNumber != null" >
+        #{chancePermanentNumber,jdbcType=INTEGER},
+      </if>
+      <if test="helpNumber != null" >
+        #{helpNumber,jdbcType=INTEGER},
+      </if>
+      <if test="contestSystemType != null" >
+        #{contestSystemType,jdbcType=INTEGER},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="successTime != null" >
+        #{successTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="helpUserId != null" >
+        #{helpUserId,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.culturecloud.model.bean.contest.CcpContestUserInfo" >
+    update ccp_contest_user_info
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userTelephone != null" >
+        user_telephone = #{userTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="contestScore != null" >
+        contest_score = #{contestScore,jdbcType=INTEGER},
+      </if>
+      <if test="contestResult != null" >
+        contest_result = #{contestResult,jdbcType=INTEGER},
+      </if>
+      <if test="shareHelpImg != null" >
+        share_help_img = #{shareHelpImg,jdbcType=VARCHAR},
+      </if>
+      <if test="shareSuccessImg != null" >
+        share_success_img = #{shareSuccessImg,jdbcType=VARCHAR},
+      </if>
+      <if test="chanceTemporaryNumber != null" >
+        chance_temporary_number = #{chanceTemporaryNumber,jdbcType=INTEGER},
+      </if>
+      <if test="chancePermanentNumber != null" >
+        chance_permanent_number = #{chancePermanentNumber,jdbcType=INTEGER},
+      </if>
+      <if test="helpNumber != null" >
+        help_number = #{helpNumber,jdbcType=INTEGER},
+      </if>
+      <if test="contestSystemType != null" >
+        contest_system_type = #{contestSystemType,jdbcType=INTEGER},
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="successTime != null" >
+        success_time = #{successTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="helpUserId != null" >
+        help_user_id = #{helpUserId,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where contest_user_id = #{contestUserId,jdbcType=VARCHAR}
+  </update>
+</mapper>

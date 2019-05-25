@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsUserVoteMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsUserVote" >
+    <id column="USER_VOTE_ID" property="userVoteId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="VOTE_ID" property="voteId" jdbcType="VARCHAR" />
+    <result column="VOTE_RELATE_ID" property="voteRelateId" jdbcType="VARCHAR" />
+    <result column="VOTE_TIME" property="voteTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    USER_VOTE_ID, USER_ID, VOTE_ID, VOTE_RELATE_ID, VOTE_TIME
+  </sql>
+
+
+
+  <select id="queryByMap" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select <include refid="Base_Column_List" /> from cms_user_vote
+    <where>
+        <if test="userId!=null">
+           USER_ID=#{userId,jdbcType=VARCHAR}
+        </if>
+        <if test="voteId!=null">
+           AND VOTE_ID=#{voteId,jdbcType=VARCHAR}
+        </if>
+    </where>
+  </select>
+
+  <insert id="insert" parameterType="com.sun3d.why.model.CmsUserVote" >
+    insert into cms_user_vote
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userVoteId != null" >
+        USER_VOTE_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="voteId != null" >
+        VOTE_ID,
+      </if>
+      <if test="voteRelateId != null" >
+        VOTE_RELATE_ID,
+      </if>
+      <if test="voteTime != null" >
+        VOTE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userVoteId != null" >
+        #{userVoteId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="voteId != null" >
+        #{voteId,jdbcType=VARCHAR},
+      </if>
+      <if test="voteRelateId != null" >
+        #{voteRelateId,jdbcType=VARCHAR},
+      </if>
+      <if test="voteTime != null" >
+        #{voteTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="queryCmsUserVoteByVoteIdList" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select count(*)
+    from cms_user_vote
+    where  VOTE_ID=#{voteId,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

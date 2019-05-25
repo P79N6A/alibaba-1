@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.StatisticsFlowWapMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.StatisticsFlowWap" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="pv" property="pv" jdbcType="INTEGER" />
+    <result column="uv" property="uv" jdbcType="INTEGER" />
+    <result column="ip" property="ip" jdbcType="INTEGER" />
+    <result column="uvStr" property="uvstr" jdbcType="LONGVARCHAR" />
+    <result column="ipStr" property="ipstr" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, date, pv, uv, ip, uvStr, ipStr
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from statistics_flow_wap
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from statistics_flow_wap
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.StatisticsFlowWap" >
+    insert into statistics_flow_wap
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="pv != null" >
+        pv,
+      </if>
+      <if test="uv != null" >
+        uv,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="uvstr != null" >
+        uvStr,
+      </if>
+      <if test="ipstr != null" >
+        ipStr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{id,jdbcType=VARCHAR},
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="pv != null" >
+        #{pv,jdbcType=INTEGER},
+      </if>
+      <if test="uv != null" >
+        #{uv,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=INTEGER},
+      </if>
+      <if test="uvstr != null" >
+        #{uvstr,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ipstr != null" >
+        #{ipstr,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.StatisticsFlowWap" >
+    update statistics_flow_wap
+    <set >
+      <if test="date != null" >
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="pv != null" >
+        pv = #{pv,jdbcType=INTEGER},
+      </if>
+      <if test="uv != null" >
+        uv = #{uv,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=INTEGER},
+      </if>
+      <if test="uvstr != null" >
+        uvStr = #{uvstr,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ipstr != null" >
+        ipStr = #{ipstr,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryStatisticsFlowWapByDate" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select *
+    from statistics_flow_wap
+    where date = #{date,jdbcType=VARCHAR}
+    limit 1;
+  </select>
+</mapper>

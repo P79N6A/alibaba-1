@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsRoomBookMapper">
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsRoomBook">
+		<id column="BOOK_ID" property="bookId" jdbcType="VARCHAR" />
+		<result column="CUR_DATE" property="curDate" jdbcType="DATE" />
+		<result column="OPEN_PERIOD" property="openPeriod" jdbcType="VARCHAR" />
+		<result column="TIME_SORT" property="timeSort" jdbcType="INTEGER" />
+		<result column="DAY_OF_WEEK" property="dayOfWeek" jdbcType="INTEGER" />
+		<result column="BOOK_STATUS" property="bookStatus" jdbcType="INTEGER" />
+		<result column="TUSER_ID" property="tuserId" jdbcType="VARCHAR" />
+		<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+		<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+		<result column="USER_TEL" property="userTel" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="ROOM_ID" property="roomId" jdbcType="VARCHAR" />
+		<result column="times" property="times" jdbcType="VARCHAR" />
+		<result column="SYS_NO" property="sysNo" jdbcType="VARCHAR" />
+		<result column="SYS_ID" property="sysId" jdbcType="VARCHAR" />
+		<result column="bookIds" property="bookIds" jdbcType="VARCHAR" />
+
+		<result column="tuserName" property="tuserName" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<select id="queryCmsRoomBookByCondition" resultMap="BaseResultMap"
+		parameterType="com.sun3d.why.model.CmsRoomBook">
+		select
+		rb.BOOK_ID, rb.CUR_DATE, rb.OPEN_PERIOD,rb.TIME_SORT,
+		rb.DAY_OF_WEEK,
+		rb.BOOK_STATUS, rb.TUSER_ID, rb.USER_ID,
+		rb.USER_NAME,rb.USER_TEL, rb.CREATE_TIME, rb.UPDATE_TIME, rb.ROOM_ID
+		from cms_room_book rb LEFT JOIN cms_room r on rb.ROOM_ID = r.ROOM_ID
+		left join cms_venue v on r.ROOM_VENUE_ID = v.VENUE_ID
+		left join
+		cms_team_user tu on rb.TUSER_ID = tu.TUSER_ID
+		left join
+		cms_terminal_user te on rb.USER_ID = te.USER_ID
+		WHERE 1=1
+		<if test="curDateOperator == null">
+			and rb.CUR_DATE = #{curDate,jdbcType=DATE}
+		</if>
+		<if test="curDateOperator == 2">
+			and rb.CUR_DATE &lt; #{curDate,jdbcType=DATE}
+			and
+			rb.CUR_DATE &gt;= #{curDateBegin,jdbcType=DATE}
+		</if>
+		<if test="curDateOperator == 3">
+			and rb.CUR_DATE &gt; #{curDate,jdbcType=DATE}
+		</if>
+		<if test="openPeriod != null">
+			and rb.OPEN_PERIOD = #{openPeriod,jdbcType=VARCHAR}
+		</if>
+		<if test="timeSort != null">
+			and rb.TIME-SORT = #{timeSort,jdbcType=INTEGER}
+		</if>
+		<if test="dayOfWeek != null">
+			and rb.DAY_OF_WEEK = #{dayOfWeek,jdbcType=INTEGER}
+		</if>
+		<if test="bookStatus != null">
+			and rb.BOOK_STATUS = #{bookStatus,jdbcType=INTEGER}
+		</if>
+		<if test="tuserId != null">
+			and rb.TUSER_ID = #{tuserId,jdbcType=VARCHAR}
+		</if>
+		<if test="userId != null">
+			and rb.USER_ID = #{userId,jdbcType=VARCHAR}
+		</if>
+		<if test="userName != null">
+			and rb.USER_NAME = #{userName,jdbcType=VARCHAR}
+		</if>
+		<if test="userTel != null">
+			and rb.USER_TEL = #{userTel,jdbcType=VARCHAR}
+		</if>
+		<if test="roomId != null">
+			and rb.ROOM_ID = #{roomId,jdbcType=VARCHAR}
+		</if>
+		ORDER BY
+		rb.ROOM_ID,rb.CUR_DATE,rb.DAY_OF_WEEK,rb.TIME_SORT,rb.UPDATE_TIME DESC
+		
+		<if test="firstResult!=null">
+			limit #{firstResult},#{rows}
+		</if>
+	</select>
+
+	<!--将查询出的活动室预定数据放入Redis中 -->
+	<select id="queryRoomBookDataToRedis" resultType="java.lang.String"
+		parameterType="com.sun3d.why.model.CmsRoomBook">
+		select
+		rb.BOOK_ID, rb.CUR_DATE, rb.OPEN_PERIOD,rb.TIME_SORT,
+		rb.DAY_OF_WEEK,
+		rb.BOOK_STATUS, rb.TUSER_ID, rb.USER_ID,
+		rb.USER_NAME,rb.USER_TEL, rb.CREATE_TIME, rb.UPDATE_TIME, rb.ROOM_ID
+		from cms_room_book rb
+		LEFT JOIN cms_room r on rb.ROOM_ID = r.ROOM_ID
+		left join cms_venue v on r.ROOM_VENUE_ID = v.VENUE_ID
+		left join cms_team_user tu on rb.TUSER_ID = tu.TUSER_ID
+		left join cms_terminal_user te on rb.USER_ID = te.USER_ID
+		WHERE 1=1
+		and v.VENUE_IS_DEL = 1
+		and r.ROOM_IS_DEL = 1
+		and rb.BOOK_STATUS = 1
+		<if test="curDateOperator == null">
+			and rb.CUR_DATE = #{curDate,jdbcType=DATE}
+		</if>
+		<if test="curDateOperator == 2">
+			and rb.CUR_DATE &lt; #{curDate,jdbcType=DATE}
+			and
+			rb.CUR_DATE &gt;= #{curDateBegin,jdbcType=DATE}
+		</if>
+		<if test="curDateOperator == 3">
+			and rb.CUR_DATE &gt; #{curDate,jdbcType=DATE}
+		</if>
+		<if test="openPeriod != null">
+			and rb.OPEN_PERIOD = #{openPeriod,jdbcType=VARCHAR}
+		</if>
+		<if test="timeSort != null">
+			and rb.TIME-SORT = #{timeSort,jdbcType=INTEGER}
+		</if>
+		<if test="dayOfWeek != null">
+			and rb.DAY_OF_WEEK = #{dayOfWeek,jdbcType=INTEGER}
+		</if>
+		<if test="tuserId != null">
+			and rb.TUSER_ID = #{tuserId,jdbcType=VARCHAR}
+		</if>
+		<if test="userId != null">
+			and rb.USER_ID = #{userId,jdbcType=VARCHAR}
+		</if>
+		<if test="userName != null">
+			and rb.USER_NAME = #{userName,jdbcType=VARCHAR}
+		</if>
+		<if test="userTel != null">
+			and rb.USER_TEL = #{userTel,jdbcType=VARCHAR}
+		</if>
+		<if test="roomId != null">
+			and rb.ROOM_ID = #{roomId,jdbcType=VARCHAR}
+		</if>
+		ORDER BY
+		rb.ROOM_ID,rb.CUR_DATE,rb.DAY_OF_WEEK,rb.TIME_SORT,rb.UPDATE_TIME DESC
+		limit #{firstResult},#{rows}
+	</select>
+
+
+	<select id="queryRoomBookTableByCondition" resultMap="BaseResultMap"
+		parameterType="com.sun3d.why.model.CmsRoomBook">
+		select
+		rb.BOOK_ID, rb.CUR_DATE, rb.OPEN_PERIOD,rb.TIME_SORT,
+		rb.DAY_OF_WEEK,
+		rb.BOOK_STATUS, rb.TUSER_ID, rb.USER_ID,
+		rb.USER_NAME,rb.USER_TEL, rb.CREATE_TIME, rb.UPDATE_TIME, rb.ROOM_ID,tu.TUSER_NAME as tuserName
+		from cms_room_book rb
+		LEFT JOIN cms_room r on rb.ROOM_ID = r.ROOM_ID
+		left join cms_venue v on r.ROOM_VENUE_ID = v.VENUE_ID
+		left join cms_team_user tu on rb.TUSER_ID = tu.TUSER_ID
+		left join cms_terminal_user te on rb.USER_ID = te.USER_ID
+		WHERE 1=1
+		<if test="curDateOperator == null">
+			and rb.CUR_DATE = #{curDate,jdbcType=DATE}
+		</if>
+		<if test="curDateOperator == 2">
+			and rb.CUR_DATE &lt; #{curDate,jdbcType=DATE}
+			and
+			rb.CUR_DATE &gt;= #{curDateBegin,jdbcType=DATE}
+		</if>
+		<if test="curDateOperator == 3">
+			and rb.CUR_DATE &gt; #{curDate,jdbcType=DATE}
+		</if>
+		<if test="openPeriod != null">
+			and rb.OPEN_PERIOD = #{openPeriod,jdbcType=VARCHAR}
+		</if>
+		<if test="timeSort != null">
+			and rb.TIME_SORT = #{timeSort,jdbcType=INTEGER}
+		</if>
+		<if test="dayOfWeek != null">
+			and rb.DAY_OF_WEEK = #{dayOfWeek,jdbcType=INTEGER}
+		</if>
+		<if test="bookStatus != null">
+			and rb.BOOK_STATUS = #{bookStatus,jdbcType=INTEGER}
+		</if>
+		<if test="tuserId != null">
+			and rb.TUSER_ID = #{tuserId,jdbcType=VARCHAR}
+		</if>
+		<if test="userId != null">
+			and rb.USER_ID = #{userId,jdbcType=VARCHAR}
+		</if>
+		<if test="userName != null">
+			and rb.USER_NAME = #{userName,jdbcType=VARCHAR}
+		</if>
+		<if test="userTel != null">
+			and rb.USER_TEL = #{userTel,jdbcType=VARCHAR}
+		</if>
+		<if test="roomId != null">
+			and rb.ROOM_ID = #{roomId,jdbcType=VARCHAR}
+		</if>
+		ORDER BY rb.ROOM_ID,rb.TIME_SORT,rb.CUR_DATE,rb.UPDATE_TIME DESC
+		limit
+		#{firstResult},#{rows}
+	</select>
+
+	<select id="queryCmsRoomBookCountByCondition" parameterType="com.sun3d.why.model.CmsRoomBook"
+		resultType="java.lang.Integer">
+		select count(rb.BOOK_ID) from cms_room_book rb LEFT JOIN cms_room r on
+		rb.ROOM_ID = r.ROOM_ID
+		left join cms_venue v on r.ROOM_VENUE_ID =
+		v.VENUE_ID
+		left join cms_team_user tu on rb.TUSER_ID = tu.TUSER_ID
+		left
+		join cms_terminal_user te on rb.USER_ID = te.USER_ID
+		WHERE 1=1
+		<if test="curDateOperator == null">
+			and rb.CUR_DATE = #{curDate,jdbcType=DATE}
+		</if>
+		<if test="curDateOperator == 2">
+			and rb.CUR_DATE &lt; #{curDate,jdbcType=DATE}
+			and
+			rb.CUR_DATE &gt;= #{curDateBegin,jdbcType=DATE}
+		</if>
+		<if test="curDateOperator == 3">
+			and rb.CUR_DATE &gt; #{curDate,jdbcType=DATE}
+		</if>
+		<if test="openPeriod != null">
+			and rb.OPEN_PERIOD = #{openPeriod,jdbcType=VARCHAR}
+		</if>
+		<if test="timeSort != null">
+			and rb.TIME_SORT = #{timeSort,jdbcType=INTEGER}
+		</if>
+		<if test="dayOfWeek != null">
+			and rb.DAY_OF_WEEK = #{dayOfWeek,jdbcType=INTEGER}
+		</if>
+		<if test="bookStatus != null">
+			and rb.BOOK_STATUS = #{bookStatus,jdbcType=INTEGER}
+		</if>
+		<if test="tuserId != null">
+			and rb.TUSER_ID = #{tuserId,jdbcType=VARCHAR}
+		</if>
+		<if test="userId != null">
+			and rb.USER_ID = #{userId,jdbcType=VARCHAR}
+		</if>
+		<if test="userName != null">
+			and rb.USER_NAME = #{userName,jdbcType=VARCHAR}
+		</if>
+		<if test="userTel != null">
+			and rb.USER_TEL = #{userTel,jdbcType=VARCHAR}
+		</if>
+		<if test="roomId != null">
+			and rb.ROOM_ID = #{roomId,jdbcType=VARCHAR}
+		</if>
+	</select>
+
+	<select id="queryCmsRoomBookById" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		BOOK_ID, CUR_DATE, OPEN_PERIOD,TIME_SORT,
+		DAY_OF_WEEK, BOOK_STATUS, TUSER_ID,
+		USER_ID, USER_NAME,
+		USER_TEL,
+		CREATE_TIME, UPDATE_TIME, ROOM_ID
+		from cms_room_book
+		where BOOK_ID = #{bookId,jdbcType=VARCHAR}
+	</select>
+
+	<delete id="deleteCmsRoomBookById" parameterType="java.lang.String">
+		delete from
+		cms_room_book
+		where BOOK_ID = #{bookId,jdbcType=VARCHAR}
+	</delete>
+
+	<insert id="addCmsRoomBook" parameterType="com.sun3d.why.model.CmsRoomBook">
+		insert into cms_room_book
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="bookId != null">
+				BOOK_ID,
+			</if>
+			<if test="curDate != null">
+				CUR_DATE,
+			</if>
+			<if test="openPeriod != null">
+				OPEN_PERIOD,
+			</if>
+			<if test="timeSort != null">
+				TIME_SORT,
+			</if>
+			<if test="dayOfWeek != null">
+				DAY_OF_WEEK,
+			</if>
+			<if test="bookStatus != null">
+				BOOK_STATUS,
+			</if>
+			<if test="tuserId != null">
+				TUSER_ID,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="userName != null">
+				USER_NAME,
+			</if>
+			<if test="userTel != null">
+				USER_TEL,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME,
+			</if>
+			<if test="roomId != null">
+				ROOM_ID,
+			</if>
+			<if test="sysId != null">
+				SYS_ID,
+			</if>
+			<if test="sysNo != null">
+				SYS_NO,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="bookId != null">
+				#{bookId,jdbcType=VARCHAR},
+			</if>
+			<if test="curDate != null">
+				#{curDate,jdbcType=DATE},
+			</if>
+			<if test="openPeriod != null">
+				#{openPeriod,jdbcType=VARCHAR},
+			</if>
+			<if test="timeSort != null">
+				#{timeSort,jdbcType=INTEGER},
+			</if>
+			<if test="dayOfWeek != null">
+				#{dayOfWeek,jdbcType=INTEGER},
+			</if>
+			<if test="bookStatus != null">
+				#{bookStatus,jdbcType=INTEGER},
+			</if>
+			<if test="tuserId != null">
+				#{tuserId,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="userTel != null">
+				#{userTel,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="roomId != null">
+				#{roomId,jdbcType=VARCHAR},
+			</if>
+			<if test="sysId != null">
+				#{sysId,jdbcType=VARCHAR},
+			</if>
+			<if test="sysNo != null">
+				#{sysNo,jdbcType=VARCHAR},
+			</if>
+
+		</trim>
+	</insert>
+
+	<update id="editCmsRoomBook" parameterType="com.sun3d.why.model.CmsRoomBook">
+		update cms_room_book
+		<set>
+			<if test="curDate != null">
+				CUR_DATE = #{curDate,jdbcType=DATE},
+			</if>
+			<if test="openPeriod != null">
+				OPEN_PERIOD = #{openPeriod,jdbcType=VARCHAR},
+			</if>
+			<if test="timeSort != null">
+				TIME_SORT = #{timeSort,jdbcType=INTEGER},
+			</if>
+			<if test="dayOfWeek != null">
+				DAY_OF_WEEK = #{dayOfWeek,jdbcType=INTEGER},
+			</if>
+			<if test="bookStatus != null">
+				BOOK_STATUS = #{bookStatus,jdbcType=INTEGER},
+			</if>
+			<if test="tuserId != null">
+				TUSER_ID = #{tuserId,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				USER_ID = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				USER_NAME = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="userTel != null">
+				USER_TEL = #{userTel,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="roomId != null">
+				ROOM_ID = #{roomId,jdbcType=VARCHAR},
+			</if>
+			<if test="sysId != null">
+				SYS_ID = #{sysId,jdbcType=VARCHAR},
+			</if>
+			<if test="sysNo != null">
+				SYS_NO = #{sysNo,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where BOOK_ID = #{bookId,jdbcType=VARCHAR}
+	</update>
+	<!--app获取活动室开放时间段 -->
+	<select id="queryAppRoomBookTableByCondition" resultMap="BaseResultMap"
+		parameterType="com.sun3d.why.model.CmsRoomBook">
+		SELECT
+		c.CUR_DATE,GROUP_CONCAT( c.OPEN_PERIOD SEPARATOR ',') as
+		times,GROUP_CONCAT(
+		 c.BOOK_ID SEPARATOR ','
+		) AS bookIds,GROUP_CONCAT(c.BOOK_STATUS SEPARATOR ',') as
+		bookStatuStr
+		FROM
+		cms_room_book c
+		WHERE 1=1
+		<if test="roomId != null">
+			and c.ROOM_ID = #{roomId,jdbcType=VARCHAR}
+		</if>
+		<if test="curDateOperator == 2">
+			<!-- and c.CUR_DATE &lt; #{curDate,jdbcType=DATE} -->
+			and c.CUR_DATE
+			&gt;= #{curDateBegin,jdbcType=DATE}
+		</if>
+		GROUP BY c.CUR_DATE
+	</select>
+
+
+	<!-- 根据条件查询符合条件的记录数 -->
+	<select id="queryCmsRoomBookCount" parameterType="com.sun3d.why.model.CmsRoomBook"
+		resultType="java.lang.Integer">
+		select count(rb.BOOK_ID) from cms_room_book rb
+		WHERE 1=1
+		<if test="curDateOperator == null">
+			and rb.CUR_DATE = #{curDate,jdbcType=DATE}
+		</if>
+		<if test="curDateOperator == 2">
+			and rb.CUR_DATE &lt; #{curDate,jdbcType=DATE}
+			and
+			rb.CUR_DATE &gt;= #{curDateBegin,jdbcType=DATE}
+		</if>
+		<if test="curDateOperator == 3">
+			and rb.CUR_DATE &gt; #{curDate,jdbcType=DATE}
+		</if>
+		<if test="openPeriod != null">
+			and rb.OPEN_PERIOD = #{openPeriod,jdbcType=VARCHAR}
+		</if>
+		<if test="timeSort != null">
+			and rb.TIME_SORT = #{timeSort,jdbcType=INTEGER}
+		</if>
+		<if test="dayOfWeek != null">
+			and rb.DAY_OF_WEEK = #{dayOfWeek,jdbcType=INTEGER}
+		</if>
+		<if test="bookStatus != null">
+			and rb.BOOK_STATUS = #{bookStatus,jdbcType=INTEGER}
+		</if>
+		<if test="tuserId != null">
+			and rb.TUSER_ID = #{tuserId,jdbcType=VARCHAR}
+		</if>
+		<if test="userId != null">
+			and rb.USER_ID = #{userId,jdbcType=VARCHAR}
+		</if>
+		<if test="userName != null">
+			and rb.USER_NAME = #{userName,jdbcType=VARCHAR}
+		</if>
+		<if test="userTel != null">
+			and rb.USER_TEL = #{userTel,jdbcType=VARCHAR}
+		</if>
+		<if test="roomId != null">
+			and rb.ROOM_ID = #{roomId,jdbcType=VARCHAR}
+		</if>
+	</select>
+
+	<!--app根据条件查询预定活动室信息 -->
+	<select id="queryAppRoomBookByCondition" resultType="java.lang.String"
+			parameterType="java.util.Map">
+		SELECT
+		crb.BOOK_ID
+		FROM
+		cms_room_book crb
+		WHERE
+		1 = 1
+		<if test="roomId != null">
+			and crb.ROOM_ID = #{roomId,jdbcType=VARCHAR}
+		</if>
+		<if test="bookStatus != null">
+			AND  crb.BOOK_STATUS = #{bookStatus,jdbcType=INTEGER}
+		</if>
+		<if test="orderRoomDate != null">
+		   AND   DATE_FORMAT(crb.CUR_DATE ,'%Y-%m-%d') = #{orderRoomDate,jdbcType=DATE}
+		</if>
+		<if test="openPeriod != null">
+			AND  crb.OPEN_PERIOD = #{openPeriod,jdbcType=VARCHAR}
+		</if>
+  </select>
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.culturecloud.dao.special.CcpSpecialActivityMapper" >
+
+  <resultMap id="BaseResultMap" type="com.culturecloud.model.response.special.SpecActivityByPageResVO" >
+    <result column="activityId" property="activityId" jdbcType="VARCHAR" />
+    <result column="activityIconUrl" property="activityIconUrl" jdbcType="VARCHAR" />
+    <result column="activityName" property="activityName" jdbcType="VARCHAR" />
+    <result column="activityAddress" property="activityAddress" jdbcType="VARCHAR" />
+    <result column="endTimePoint" property="endTimePoint" jdbcType="VARCHAR" />
+    <result column="activityMemo" property="activityMemo" jdbcType="VARCHAR" />   
+    <result column="availableCount" property="availableCount" jdbcType="VARCHAR" />   
+    <result column="isOver" property="isOver" jdbcType="INTEGER" />   
+  </resultMap>
+  
+  
+  
+  <select id="getActivityListByPage" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  	select b.activity_id as activityId,b.activity_icon_url as activityIconUrl,b.activity_name as activityName,
+  	b.activity_address as activityAddress,b.end_time_point as endTimePoint,b.ACTIVITY_MEMO as activityMemo,c.AVAILABLE_COUNT as availableCount,
+  	if(substring(c.EVENT_DATE_TIME,1,16) > DATE_FORMAT(DATE_ADD(NOW(),INTERVAL 15 minute), '%Y-%m-%d %H:%i'),0,1) as isOver
+	from ccp_special_page_activity as a 
+	left join cms_activity as b on a.activity_id=b.activity_id 
+	left join cms_activity_event as c on a.activity_id=c.ACTIVITY_ID
+	where b.ACTIVITY_STATE=8 and a.page_id=#{pageId};
+  </select>
+  
+  
+ 
+</mapper>

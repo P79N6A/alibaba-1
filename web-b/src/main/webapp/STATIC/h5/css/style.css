@@ -1,0 +1,610 @@
+* {
+	font-family: Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-self;
+}
+
+.swiper-slide {
+	position: relative;
+}
+
+.content-downpage {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	text-align: center;
+}
+
+.content-downpage img {
+	margin: auto;
+}
+
+.qingwenyi-1 {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+@media only screen and (min-width: 400px) {
+	/*轻文艺*/
+	.qingwenyi-1>img {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		z-index: -1;
+	}
+	.qingwenyi-1-title {
+		text-align: center;
+		position: absolute;
+		top: 7%;
+		left: 0px;
+		width: 100%;
+	}
+	.qingwenyi-1-center {
+		text-align: center;
+		position: absolute;
+		top: 20%;
+		left: 0px;
+	}
+	.qingwenyi-1-down {
+		text-align: center;
+		position: absolute;
+		bottom: 2%;
+		width: 100%;
+	}
+	.qingwenyi-2>img {
+		margin: auto;
+		display: block;
+		margin-top: 10px;
+	}
+	.qingwenyi-2-title {
+		width: 90%;
+		margin: auto;
+		border-bottom: 1px solid #999;
+	}
+	.qingwenyi-2-title>p {
+		font-size: 16px;
+		line-height: 35px;
+	}
+	.qingwenyi-2-content {
+		width: 90%;
+		margin: auto;
+		line-height: 20px;
+	}
+	.qingwenyi-2-content-p1 {
+		/*background: url(../image/2-icon.png) no-repeat 0px 0px;*/
+		margin-top: 5px;
+	}
+	.qingwenyi-2-content-p2 {
+		/*background: url(../image/2-icon.png) no-repeat 0px -47px;*/
+		margin-top: 5px;
+	}
+	.qingwenyi-2-content-p3 {
+		margin-top: 5px;
+	}
+	.qingwenyi-3>img {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		z-index: -1;
+	}
+	.qingwenyi-3-title {
+		text-align: center;
+		position: absolute;
+		top: 10%;
+		left: 0px;
+		width: 100%;
+	}
+	.qingwenyi-3-center {
+		text-align: center;
+		position: absolute;
+		top: 20%;
+		left: 0px;
+	}
+	.qingwenyi-3-center a {
+		margin: 10px auto 0px auto;
+		display: block;
+		width: 55%;
+	}
+	.qingwenyi-3-center img {
+		width: 100%;
+	}
+	.qingwenyi-3-down {
+		text-align: center;
+		position: absolute;
+		bottom: 2%;
+		width: 100%;
+	}
+	/*金山*/
+	.jinshan-1 p {
+		line-height: 30px;
+		font-size: 12px;
+	}
+	.content-1-1 {
+		/*background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-size: cover;
+	-moz-background-size: cover;
+	-webkit-background-size: cover;*/
+		width: 100%;
+		height: 100%;
+	}
+	/*爱童心*/
+	.content-1-1 img {
+		display: block;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: 100%;
+		z-index: -5;
+	}
+	.content-1-2 {
+		position: absolute;
+		top: 20%;
+		left: 0px;
+		width: 100%;
+	}
+	.content-1-2 img {
+		margin: auto;
+		width: 60%;
+		display: block;
+	}
+	.content-1-3 {
+		color: #fdd100;
+		text-align: center;
+		position: absolute;
+		top: 50%;
+		left: 10%;
+		width: 150px;
+	}
+	.content-1-3 h2 {
+		letter-spacing: 5px;
+		padding-bottom: 5px;
+		margin-bottom: 5px;
+		border-bottom: 1px solid #fdd100;
+	}
+	.content-1-4 {
+		position: absolute;
+		bottom: 15%;
+		left: 7.3%;
+		width: 260px;
+	}
+	.content-1-4 img {
+		width: 100%;
+	}
+	.content-1-4>p {
+		font-weight: bold;
+		color: #fdd100;
+		position: absolute;
+		display: block;
+		left: 2%;
+		top: 15%;
+	}
+	.content-1-5 {
+		position: absolute;
+		bottom: 7%;
+		left: 8%;
+		width: 150px;
+	}
+	.content-1-5 img {
+		float: left;
+		width: 40px;
+	}
+	.content-1-5 p {
+		line-height: 40px;
+		margin-left: 10px;
+		color: #fdd100;
+		float: left;
+	}
+	.content-2-1 {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		width: 65%;
+		height: 53%;
+	}
+	.img-2-1 {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+	}
+	.img-2-2 {
+		position: absolute;
+		top: 10%;
+		left: 1%;
+		width: 95%;
+		height: 95%;
+	}
+	.content-2-2 {
+		position: absolute;
+		right: 0px;
+		top: 5%;
+		width: 30%;
+	}
+	.content-2-2 p {
+		font-size: 14px;
+	}
+	.p-2-2-1 {
+		position: absolute;
+		top: 40px;
+	}
+	.p-2-2-2 {
+		position: absolute;
+		top: 75px;
+	}
+	.p-2-2-3 {
+		text-align: center;
+	}
+	.content-2-2 img {
+		width: 95px;
+	}
+	.content-2-3 {
+		position: absolute;
+		width: 85%;
+		bottom: 0px;
+		right: 0px;
+	}
+	.content-2-3 img {
+		width: 350px;
+		height: 250px;
+	}
+	.p-2-3 {
+		position: absolute;
+		top: 10px;
+		left: 10px;
+		height: 80%;
+	}
+	.content-2-3 button {
+		width: 150px;
+		height: 35px;
+		position: absolute;
+		border: none;
+		right: 10%;
+		bottom: 10%;
+		background: url(../image/button-bg.png) no-repeat 0px 0px;
+	}
+	.p-2-3 h2 {
+		border-bottom: 1px solid #555;
+		padding-bottom: 5px;
+		margin-bottom: 5px;
+	}
+	.p-2-3-3 {
+		margin-top: 5px;
+		width: 320px;
+		font-size: 13px;
+	}
+	.content-3-1 {
+		width: 100%;
+		height: 100%;
+	}
+	.content-3-1 img {
+		display: block;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: 100%;
+		z-index: -5;
+	}
+	.content-3-2 {
+		color: #fdd100;
+		width: 100%;
+		top: 22%;
+		left: 0px;
+		text-align: center;
+		position: absolute;
+	}
+	.content-3-2 a {
+		display: block;
+		margin-top: 2%;
+	}
+	.content-3-2 img {
+		width: 40%;
+		margin-top: 3%;
+	}
+	.content-er {
+		margin-bottom: 3%;
+	}
+}
+
+@media only screen and (max-width:400px) {
+	/*轻文艺*/
+	.qingwenyi-1>img {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		z-index: -1;
+	}
+	.qingwenyi-1-title {
+		text-align: center;
+		position: absolute;
+		top: 7%;
+		left: 0px;
+		width: 100%;
+	}
+	.qingwenyi-1-center {
+		text-align: center;
+		position: absolute;
+		top: 20%;
+		left: 0px;
+	}
+	.qingwenyi-1-down {
+		text-align: center;
+		position: absolute;
+		bottom: 2%;
+		width: 100%;
+	}
+	.qingwenyi-2>img {
+		margin: auto;
+		display: block;
+		margin-top: 10px;
+	}
+	.qingwenyi-2-title {
+		width: 90%;
+		margin: auto;
+		border-bottom: 1px solid #999;
+	}
+	.qingwenyi-2-title>p {
+		font-size: 16px;
+		line-height: 35px;
+	}
+	.qingwenyi-2-content {
+		width: 90%;
+		margin: auto;
+	}
+	.qingwenyi-2-content-p1 {
+		/*background: url(../image/2-icon.png) no-repeat 0px 0px;*/
+		margin-top: 5px;
+	}
+	.qingwenyi-2-content-p2 {
+		/*background: url(../image/2-icon.png) no-repeat 0px -47px;*/
+		margin-top: 5px;
+	}
+	.qingwenyi-2-content-p3 {
+		margin-top: 5px;
+	}
+	.qingwenyi-3>img {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		z-index: -1;
+	}
+	.qingwenyi-3-title {
+		text-align: center;
+		position: absolute;
+		top: 10%;
+		left: 0px;
+		width: 100%;
+	}
+	.qingwenyi-3-center {
+		text-align: center;
+		position: absolute;
+		top: 20%;
+		left: 0px;
+	}
+	.qingwenyi-3-center a {
+		margin: 10px auto 0px auto;
+		display: block;
+		width: 55%;
+	}
+	.qingwenyi-3-center img {
+		width: 100%;
+	}
+	.qingwenyi-3-down {
+		text-align: center;
+		position: absolute;
+		bottom: 2%;
+		width: 100%;
+	}
+	/*金山*/
+	.jinshan-1 p {
+		font-size: 12px;
+	}
+	/*爱童心*/
+	.content-1-1 {
+		/*background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-size: cover;
+	-moz-background-size: cover;
+	-webkit-background-size: cover;*/
+		width: 100%;
+		height: 100%;
+	}
+	.content-1-1 img {
+		display: block;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: 100%;
+		z-index: -5;
+	}
+	.content-1-2 {
+		position: absolute;
+		top: 25%;
+		left: 0px;
+		width: 100%;
+	}
+	.content-1-2 img {
+		margin: auto;
+		width: 85%;
+		display: block;
+	}
+	.content-1-3 {
+		color: #fdd100;
+		text-align: center;
+		position: absolute;
+		top: 58%;
+		left: 10%;
+		width: 120px;
+	}
+	.content-1-3 h2 {
+		font-size: 18px;
+		letter-spacing: 5px;
+		padding-bottom: 5px;
+		margin-bottom: 5px;
+		border-bottom: 1px solid #fdd100;
+	}
+	.content-1-3 p {
+		font-size: 12px;
+	}
+	.content-1-4 {
+		position: absolute;
+		bottom: 15%;
+		left: 7.3%;
+		width: 200px;
+	}
+	.content-1-4 img {
+		width: 100%;
+	}
+	.content-1-4>p {
+		font-weight: bold;
+		color: #fdd100;
+		position: absolute;
+		display: block;
+		left: 2%;
+		top: 15%;
+	}
+	.content-1-5 {
+		position: absolute;
+		bottom: 7%;
+		left: 10%;
+		width: 150px;
+	}
+	.content-1-5 img {
+		float: left;
+		width: 40px;
+	}
+	.content-1-5 p {
+		line-height: 40px;
+		margin-left: 10px;
+		color: #489baf;
+		float: left;
+	}
+	.content-2-1 {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		width: 70%;
+		height: 56%;
+	}
+	.img-2-1 {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: 100%;
+	}
+	.img-2-2 {
+		position: absolute;
+		top: 9%;
+		left: 1%;
+		width: 96%;
+	}
+	.content-2-2 {
+		position: absolute;
+		right: 0px;
+		top: 5%;
+		width: 27%;
+	}
+	.content-2-2 p {
+		font-size: 14px;
+	}
+	.p-2-2-1 {
+		position: absolute;
+		top: 40px;
+	}
+	.p-2-2-2 {
+		position: absolute;
+		top: 75px;
+	}
+	.p-2-2-3 {
+		text-align: center;
+	}
+	.content-2-2 img {
+		width: 95px;
+	}
+	.content-2-3 {
+		position: absolute;
+		width: 300px;
+		height: 170px;
+		bottom: 5%;
+		right: 0px;
+	}
+	.content-2-3 img {
+		width: 300px;
+		height: 180px;
+	}
+	.p-2-3 {
+		position: absolute;
+		top: 10px;
+		left: 10px;
+		height: 80%;
+	}
+	.content-2-3 button {
+		width: 150px;
+		height: 35px;
+		position: absolute;
+		border: none;
+		right: 10%;
+		bottom: 7%;
+		background: url(../image/button-bg.png) no-repeat 0px 0px;
+	}
+	.p-2-3 h2 {
+		font-size: 16px;
+		border-bottom: 1px solid #555;
+		padding-bottom: 5px;
+		margin-bottom: 5px;
+	}
+	.p-2-3-2 {
+		font-size: 14px;
+	}
+	.p-2-3-3 {
+		margin-top: 5px;
+		width: 90%;
+		font-size: 13px;
+	}
+	.content-3-1 {
+		width: 100%;
+		height: 100%;
+	}
+	.content-3-1 img {
+		display: block;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: 100%;
+		z-index: -5;
+	}
+	.content-3-2 {
+		color: #fdd100;
+		width: 100%;
+		top: 22%;
+		left: 0px;
+		text-align: center;
+		position: absolute;
+	}
+	.content-3-2 h2 {
+		font-size: 18px;
+	}
+	.content-3-2 a {
+		display: block;
+		margin-top: 2%;
+	}
+	.content-3-2 img {
+		width: 60%;
+	}
+	.content-er {
+		width: 40%!important;
+		margin-top: 2%;
+	}
+}

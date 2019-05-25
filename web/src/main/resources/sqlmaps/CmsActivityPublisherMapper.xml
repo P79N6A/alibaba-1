@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsActivityPublisherMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsActivityPublisher" >
+    <result column="PUBLISHER_ID" property="publisherId" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_ID" property="activityId" jdbcType="VARCHAR" />
+    <result column="TEMPLATE_CONTENT" property="templateContent" jdbcType="LONGVARCHAR"/>
+    <result column="TEMPLATE_CREATE_TIME" property="templateCreateTime" jdbcType="TIMESTAMP" />
+    <result column="TEMPLATE_CREATE_USER" property="templateCreateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.CmsActivityPublisher" >
+    insert into cms_activity_publisher
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      PUBLISHER_ID,
+      <if test="activityId != null" >
+        ACTIVITY_ID,
+      </if>
+      <if test="templateCreateTime != null" >
+        TEMPLATE_CREATE_TIME,
+      </if>
+      <if test="templateCreateUser != null" >
+        TEMPLATE_CREATE_USER,
+      </if>
+      <if test="templateContent != null" >
+        TEMPLATE_CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{publisherId,jdbcType=VARCHAR},
+      <if test="activityId != null" >
+        #{activityId,jdbcType=VARCHAR},
+      </if>
+      <if test="templateCreateTime != null" >
+        #{templateCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="templateCreateUser != null" >
+        #{templateCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="templateContent != null" >
+        #{templateContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.CmsActivityPublisher" >
+    update cms_activity_publisher
+    <set >
+      <if test="activityId != null" >
+        ACTIVITY_ID = #{activityId,jdbcType=VARCHAR},
+      </if>
+      <if test="templateCreateTime != null" >
+        TEMPLATE_CREATE_TIME = #{templateCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="templateCreateUser != null" >
+        TEMPLATE_CREATE_USER = #{templateCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="templateContent != null" >
+        TEMPLATE_CONTENT = #{templateContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where PUBLISHER_ID = #{publisherId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryActivityPublisherById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT a.ACTIVITY_ID ,a.PUBLISHER_ID,a.TEMPLATE_CREATE_TIME,a.TEMPLATE_CREATE_USER,a.TEMPLATE_CONTENT
+    from cms_activity_publisher a
+    where a.PUBLISHER_ID = #{publisherId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="queryActivityPublisherByActivityId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT a.ACTIVITY_ID ,a.PUBLISHER_ID,a.TEMPLATE_CREATE_TIME,a.TEMPLATE_CREATE_USER,a.TEMPLATE_CONTENT
+    from cms_activity_publisher a
+    where a.ACTIVITY_ID = #{activityId,jdbcType=VARCHAR}
+  </select>
+</mapper>

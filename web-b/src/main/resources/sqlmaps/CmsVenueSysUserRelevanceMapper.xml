@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsVenueSysUserRelevanceMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsVenueSysUserRelevance" >
+    <result column="VENUE_ID" property="venueId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="VENUE_DEPT" property="venueDept" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <!--通过场馆ID查询所有与场馆关联的管理员信息-->
+  <select id="queryVenueSysUserRelevanceByVenueId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+      select *  from  CMS_VENUE_USER_RELEVANCE
+      where VENUE_ID= #{0}
+  </select>
+ 
+  <!--添加活动场馆的关联关系-->
+  <insert id="addVenueSysUserRelevance" parameterType="com.sun3d.why.model.CmsVenueSysUserRelevance" >
+    insert into CMS_VENUE_USER_RELEVANCE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="venueId != null" >
+        VENUE_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="venueDept != null" >
+        VENUE_DEPT
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="venueId != null" >
+        #{venueId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="venueDept != null" >
+        #{venueDept,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+
+</mapper>

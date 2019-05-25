@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsVideoMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsVideo" >
+    <id column="VIDEO_ID" property="videoId" jdbcType="VARCHAR" />
+    <result column="VIDEO_TITLE" property="videoTitle" jdbcType="VARCHAR" />
+    <result column="VIDEO_TYPE" property="videoType" jdbcType="INTEGER" />
+    <result column="VIDEO_LINK" property="videoLink" jdbcType="VARCHAR" />
+    <result column="REFER_ID" property="referId" jdbcType="VARCHAR" />
+    <result column="VIDEO_IMG_URL" property="videoImgUrl" jdbcType="VARCHAR" />
+    <result column="VIDEO_SORT" property="videoSort" jdbcType="INTEGER" />
+    <result column="VIDEO_STATE" property="videoState" jdbcType="INTEGER" />
+    <result column="VIDEO_PUBLISH_USER" property="videoPublishUser" jdbcType="VARCHAR" />
+    <result column="VIDEO_CREATE_TIME" property="videoCreateTime" jdbcType="TIMESTAMP" />
+    <result column="VIDEO_CREATE_USER" property="videoCreateUser" jdbcType="VARCHAR" />
+    <result column="VIDEO_UPDATE_TIME" property="videoUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="VIDEO_UPDATE_USER" property="videoUpdateUser" jdbcType="VARCHAR" />
+
+    <result column="refer_name" property="referName" jdbcType="VARCHAR" />
+    <!--新添加字段 -->
+    <result column="ACTIVITY_NAME" property="activityName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    VIDEO_ID, VIDEO_TITLE, VIDEO_TYPE, VIDEO_LINK, REFER_ID, VIDEO_IMG_URL, VIDEO_SORT, 
+    VIDEO_STATE, VIDEO_PUBLISH_USER, VIDEO_CREATE_TIME, VIDEO_CREATE_USER, VIDEO_UPDATE_TIME, 
+    VIDEO_UPDATE_USER
+  </sql>
+
+   <!--app查询活动或展馆视频列表 -->
+  <select id="queryVideoById" resultMap="BaseResultMap" parameterType="java.util.Map" >
+SELECT
+	cv.VIDEO_IMG_URL,
+	cv.VIDEO_LINK,
+	cv.VIDEO_TITLE,
+    cv.VIDEO_CREATE_TIME
+FROM
+	cms_video cv
+WHERE 1=1
+    AND cv.VIDEO_STATE = 1
+    <if test="videoType != null" >
+      and  VIDEO_TYPE = #{videoType,jdbcType=INTEGER}
+    </if>
+    <if test="relatedId != null" >
+      and  cv.REFER_ID = #{relatedId,jdbcType=VARCHAR}
+    </if>
+   ORDER BY
+	cv.VIDEO_UPDATE_TIME desc
+  </select>
+  <select id="queryVideoByVideoId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select VIDEO_ID, VIDEO_TITLE, VIDEO_TYPE, VIDEO_LINK, REFER_ID, VIDEO_IMG_URL, VIDEO_SORT,
+    VIDEO_STATE, VIDEO_PUBLISH_USER, VIDEO_CREATE_TIME, VIDEO_CREATE_USER, VIDEO_UPDATE_TIME,
+    VIDEO_UPDATE_USER,activity_name as refer_name
+    from cms_video
+    left join cms_activity on REFER_ID = activity_id
+    where VIDEO_ID = #{videoId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectVideoIndex" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cms_video
+    WHERE VIDEO_STATE = 1
+    <if test="startTime !=null">
+      AND VIDEO_CREATE_TIME &gt;=#{startTime,jdbcType=VARCHAR}
+    </if>
+    <if test="endTime !=null">
+      AND VIDEO_CREATE_TIME &lt;=#{endTime,jdbcType=VARCHAR}
+    </if>
+    <if test="videoTitle != null" >
+      AND VIDEO_TITLE LIKE  CONCAT('%' ,#{videoTitle,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="referId != null" >
+      and  REFER_ID  =  #{referId,jdbcType=VARCHAR}
+    </if>
+    <if test="videoId != null" >
+      and  VIDEO_ID  =  #{videoId,jdbcType=VARCHAR}
+    </if>
+    <if test="videoType != null" >
+      and  VIDEO_TYPE = #{videoType,jdbcType=INTEGER}
+    </if>
+    order by VIDEO_UPDATE_TIME DESC
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+  <select id="selectVideoIndexCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select
+    count(*)
+    from cms_video
+    WHERE VIDEO_STATE = 1
+    <if test="startTime !=null">
+      AND VIDEO_CREATE_TIME &gt;=#{startTime,jdbcType=VARCHAR}
+    </if>
+    <if test="endTime !=null">
+      AND VIDEO_CREATE_TIME &lt;=#{endTime,jdbcType=VARCHAR}
+    </if>
+    <if test="videoTitle != null" >
+      AND VIDEO_TITLE LIKE  CONCAT('%' ,#{videoTitle,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="referId != null" >
+      and  REFER_ID  =  #{referId,jdbcType=VARCHAR}
+    </if>
+    <if test="videoId != null" >
+      and  VIDEO_ID  =  #{videoId,jdbcType=VARCHAR}
+    </if>
+    <if test="videoType != null" >
+      and  VIDEO_TYPE = #{videoType,jdbcType=INTEGER}
+    </if>
+  </select>
+  <insert id="addVideo" parameterType="com.sun3d.why.model.CmsVideo" >
+    insert into cms_video
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="videoId != null" >
+        VIDEO_ID,
+      </if>
+      <if test="videoTitle != null" >
+        VIDEO_TITLE,
+      </if>
+      <if test="videoType != null" >
+        VIDEO_TYPE,
+      </if>
+      <if test="videoLink != null" >
+        VIDEO_LINK,
+      </if>
+      <if test="referId != null" >
+        REFER_ID,
+      </if>
+      <if test="videoImgUrl != null" >
+        VIDEO_IMG_URL,
+      </if>
+      <if test="videoSort != null" >
+        VIDEO_SORT,
+      </if>
+      <if test="videoState != null" >
+        VIDEO_STATE,
+      </if>
+      <if test="videoPublishUser != null" >
+        VIDEO_PUBLISH_USER,
+      </if>
+      <if test="videoCreateTime != null" >
+        VIDEO_CREATE_TIME,
+      </if>
+      <if test="videoCreateUser != null" >
+        VIDEO_CREATE_USER,
+      </if>
+      <if test="videoUpdateTime != null" >
+        VIDEO_UPDATE_TIME,
+      </if>
+      <if test="videoUpdateUser != null" >
+        VIDEO_UPDATE_USER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="videoId != null" >
+        #{videoId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoTitle != null" >
+        #{videoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="videoType != null" >
+        #{videoType,jdbcType=INTEGER},
+      </if>
+      <if test="videoLink != null" >
+        #{videoLink,jdbcType=VARCHAR},
+      </if>
+      <if test="referId != null" >
+        #{referId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoImgUrl != null" >
+        #{videoImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="videoSort != null" >
+        #{videoSort,jdbcType=INTEGER},
+      </if>
+      <if test="videoState != null" >
+        #{videoState,jdbcType=INTEGER},
+      </if>
+      <if test="videoPublishUser != null" >
+        #{videoPublishUser,jdbcType=VARCHAR},
+      </if>
+      <if test="videoCreateTime != null" >
+        #{videoCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="videoCreateUser != null" >
+        #{videoCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUpdateTime != null" >
+        #{videoUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="videoUpdateUser != null" >
+        #{videoUpdateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="editVideo" parameterType="com.sun3d.why.model.CmsVideo" >
+    update cms_video
+    <set >
+      <if test="videoTitle != null" >
+        VIDEO_TITLE = #{videoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="videoType != null" >
+        VIDEO_TYPE = #{videoType,jdbcType=INTEGER},
+      </if>
+      <if test="videoLink != null" >
+        VIDEO_LINK = #{videoLink,jdbcType=VARCHAR},
+      </if>
+      <if test="referId != null" >
+        REFER_ID = #{referId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoImgUrl != null" >
+        VIDEO_IMG_URL = #{videoImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="videoSort != null" >
+        VIDEO_SORT = #{videoSort,jdbcType=INTEGER},
+      </if>
+      <if test="videoState != null" >
+        VIDEO_STATE = #{videoState,jdbcType=INTEGER},
+      </if>
+      <if test="videoPublishUser != null" >
+        VIDEO_PUBLISH_USER = #{videoPublishUser,jdbcType=VARCHAR},
+      </if>
+      <if test="videoCreateTime != null" >
+        VIDEO_CREATE_TIME = #{videoCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="videoCreateUser != null" >
+        VIDEO_CREATE_USER = #{videoCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUpdateTime != null" >
+        VIDEO_UPDATE_TIME = #{videoUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="videoUpdateUser != null" >
+        VIDEO_UPDATE_USER = #{videoUpdateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where VIDEO_ID = #{videoId,jdbcType=VARCHAR}
+  </update>
+  <!--主题下视频列表 -->
+  <select id="queryMcVideoListByCondition" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    SELECT
+    cv.VIDEO_ID,
+    ca.ACTIVITY_NAME,
+    cv.VIDEO_TITLE,
+    cv.VIDEO_IMG_URL,
+    cv.REFER_ID
+    FROM
+    cms_video cv
+    LEFT JOIN cms_activity ca on cv.REFER_ID=ca.ACTIVITY_ID
+    WHERE
+    1 = 1
+    <if test="videoType != null" >
+      AND cv.VIDEO_TYPE = #{videoType,jdbcType=INTEGER}
+    </if>
+    <if test="videoState != null" >
+      AND cv.VIDEO_STATE= #{videoState,jdbcType=INTEGER}
+    </if>
+    <if test="activityName != null" >
+      AND (ca.ACTIVITY_NAME like #{activityName,jdbcType=VARCHAR} or cv.VIDEO_TITLE like #{activityName,jdbcType=VARCHAR})
+    </if>
+    ORDER BY cv.VIDEO_UPDATE_TIME DESC
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+  <!--查询主题下视频数目 -->
+  <select id="queryMcVideoCountByCondition" resultType="java.lang.Integer" parameterType="java.util.Map" >
+  SELECT
+  COUNT(*)
+  FROM
+  cms_video cv
+  LEFT JOIN cms_activity ca on cv.REFER_ID=ca.ACTIVITY_ID
+  WHERE
+  1 = 1
+  <if test="videoType != null" >
+    AND cv.VIDEO_TYPE = #{videoType,jdbcType=INTEGER}
+  </if>
+  <if test="videoState != null" >
+    AND cv.VIDEO_STATE = #{videoState,jdbcType=INTEGER}
+  </if>
+    <if test="activityName != null" >
+      AND (ca.ACTIVITY_NAME like #{activityName,jdbcType=VARCHAR} or cv.VIDEO_TITLE like #{activityName,jdbcType=VARCHAR})
+    </if>
+  </select>
+
+  <!--根据名称查询数目-->
+  <select id="queryVideoCountByTitle" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select count(*) from cms_video where video_state = 1 and video_title = #{0}
+  </select>
+
+  <!--根据关联ID查询有效视频数量-->
+  <select id="getVideoCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+      select count(VIDEO_ID) from cms_video where video_state = 1 and REFER_ID = #{0}
+  </select>
+</mapper>

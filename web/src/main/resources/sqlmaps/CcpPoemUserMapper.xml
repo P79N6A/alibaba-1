@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ccp.CcpPoemUserMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ccp.CcpPoemUser" >
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="POEM_ID" property="poemId" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.ccp.CcpPoemUser" >
+    insert into ccp_poem_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="poemId != null" >
+        POEM_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="poemId != null" >
+        #{poemId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="selectPoemUserList" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.ccp.CcpPoemUser" >
+  	select *
+    from ccp_poem_user
+    where 1=1
+    <if test="userId != null" >
+      and USER_ID = #{userId}
+    </if>
+    <if test="poemId != null" >
+      and POEM_ID = #{poemId}
+    </if>
+  </select>
+</mapper>

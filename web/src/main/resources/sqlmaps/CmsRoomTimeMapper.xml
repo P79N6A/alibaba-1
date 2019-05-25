@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsRoomTimeMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsRoomTime" >
+    <id column="ROOM_TIME_ID" property="roomTimeId" jdbcType="VARCHAR" />
+    <result column="TIME_PERIOD" property="timePeriod" jdbcType="VARCHAR" />
+    <result column="IS_OPEN" property="isOpen" jdbcType="INTEGER" />
+    <result column="ROOM_ID" property="roomId" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    <result column="TIME_SORT" property="timeSort" jdbcType="INTEGER" />
+    <result column="ROOM_DAY" property="roomDay" jdbcType="INTEGER" />
+    <result column="ROOM_DAY_MONDAY" property="roomDayMonday" jdbcType="INTEGER" />
+    <result column="ROOM_DAY_TUESDAY" property="roomDayTuesday" jdbcType="INTEGER" />
+    <result column="ROOM_DAY_WEDNESDAY" property="roomDayWednesday" jdbcType="INTEGER" />
+    <result column="ROOM_DAY_THURSDAY" property="roomDayThursday" jdbcType="INTEGER" />
+    <result column="ROOM_DAY_FRIDAY" property="roomDayFriday" jdbcType="INTEGER" />
+    <result column="ROOM_DAY_SATURDAY" property="roomDaySaturday" jdbcType="INTEGER" />
+    <result column="ROOM_DAY_SUNDAY" property="roomDaySunday" jdbcType="INTEGER" />
+    <result column="times" property="times" jdbcType="VARCHAR" />
+    <result column="ROOM_IS_DEL" property="roomIsDel" jdbcType="INTEGER" />
+  </resultMap>
+
+  <select id="queryRoomTimeById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    ROOM_TIME_ID, TIME_PERIOD, IS_OPEN, ROOM_ID, UPDATE_TIME, UPDATE_USER,TIME_SORT,ROOM_DAY
+    from cms_room_time
+    where ROOM_TIME_ID = #{roomTimeId,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteRoomTimeById" parameterType="java.lang.String" >
+    delete from cms_room_time
+    where ROOM_TIME_ID = #{roomTimeId,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteByRoomId" parameterType="java.lang.String" >
+    delete from cms_room_time
+    where ROOM_ID = #{roomId,jdbcType=VARCHAR}
+  </delete>
+
+
+
+  <insert id="addRoomTime" parameterType="com.sun3d.why.model.CmsRoomTime" >
+    insert into cms_room_time
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roomTimeId != null" >
+        ROOM_TIME_ID,
+      </if>
+      <if test="timePeriod != null" >
+        TIME_PERIOD,
+      </if>
+      <if test="isOpen != null" >
+        IS_OPEN,
+      </if>
+      <if test="roomId != null" >
+        ROOM_ID,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER,
+      </if>
+      <if test="timeSort != null" >
+        TIME_SORT,
+      </if>
+      <if test="roomDay != null" >
+        ROOM_DAY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roomTimeId != null" >
+        #{roomTimeId,jdbcType=VARCHAR},
+      </if>
+      <if test="timePeriod != null" >
+        #{timePeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpen != null" >
+        #{isOpen,jdbcType=INTEGER},
+      </if>
+      <if test="roomId != null" >
+        #{roomId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="timeSort != null" >
+        #{timeSort,jdbcType=INTEGER},
+      </if>
+      <if test="roomDay != null" >
+        #{roomDay,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="editRoomTime" parameterType="com.sun3d.why.model.CmsRoomTime" >
+    update cms_room_time
+    <set >
+      <if test="timePeriod != null" >
+        TIME_PERIOD = #{timePeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpen != null" >
+        IS_OPEN = #{isOpen,jdbcType=INTEGER},
+      </if>
+      <if test="roomId != null" >
+        ROOM_ID = #{roomId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="timeSort != null" >
+        TIME_SORT = #{timeSort,jdbcType=INTEGER},
+      </if>
+      <if test="roomDay != null" >
+        ROOM_DAY = #{roomDay,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ROOM_TIME_ID = #{roomTimeId,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="queryRoomTimeByCondition" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.CmsRoomTime" >
+    select
+    rt.ROOM_TIME_ID, rt.TIME_PERIOD, rt.IS_OPEN, rt.ROOM_ID, rt.UPDATE_TIME, rt.UPDATE_USER, rt.TIME_SORT,rt.ROOM_DAY,r.ROOM_DAY_MONDAY,r.ROOM_DAY_TUESDAY,r.ROOM_DAY_WEDNESDAY,r.ROOM_DAY_THURSDAY,r.ROOM_DAY_FRIDAY,r.ROOM_DAY_SATURDAY,r.ROOM_DAY_SUNDAY
+    from cms_room_time rt left join cms_room r
+    on rt.ROOM_ID = r.ROOM_ID
+    WHERE 1=1
+    <if test="timePeriod != null" >
+      and rt.TIME_PERIOD = #{timePeriod,jdbcType=VARCHAR}
+    </if>
+    <if test="isOpen != null" >
+      and  rt.IS_OPEN = #{isOpen,jdbcType=INTEGER}
+    </if>
+    <if test="roomId != null" >
+      and rt.ROOM_ID = #{roomId,jdbcType=VARCHAR}
+    </if>
+    <if test="updateTime != null" >
+      and rt.UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updateUser != null" >
+      and rt.UPDATE_USER = #{updateUser,jdbcType=VARCHAR}
+    </if>
+    <if test="timeSort != null" >
+      and rt.TIME_SORT = #{timeSort,jdbcType=INTEGER}
+    </if>
+    <if test="roomDay != null" >
+      and rt.ROOM_DAY = #{roomDay,jdbcType=INTEGER}
+    </if>
+    order by rt.ROOM_DAY,rt.TIME_SORT
+  </select>
+
+  <select id="queryRoomTimeCountByCondition" parameterType="com.sun3d.why.model.CmsRoomTime" resultType="java.lang.Integer" >
+    select
+    count(*)
+    from cms_room_time rt left join cms_room r
+    on rt.ROOM_ID = r.ROOM_ID
+    WHERE 1=1
+    <if test="timePeriod != null" >
+      and rt.TIME_PERIOD = #{timePeriod,jdbcType=VARCHAR}
+    </if>
+    <if test="isOpen != null" >
+      and  rt.IS_OPEN = #{isOpen,jdbcType=INTEGER}
+    </if>
+    <if test="roomId != null" >
+      and rt.ROOM_ID = #{roomId,jdbcType=VARCHAR}
+    </if>
+    <if test="updateTime != null" >
+      and rt.UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updateUser != null" >
+      and rt.UPDATE_USER = #{updateUser,jdbcType=VARCHAR}
+    </if>
+    <if test="timeSort != null" >
+      and rt.TIME_SORT = #{timeSort,jdbcType=INTEGER}
+    </if>
+    <if test="roomDay != null" >
+      and rt.ROOM_DAY = #{roomDay,jdbcType=INTEGER}
+    </if>
+  </select>
+<!--app获取活动室一个星期哪些天开放-->
+  <select id="queryAppRoomTimeByCondition" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    r.ROOM_DAY_MONDAY,r.ROOM_DAY_TUESDAY,r.ROOM_DAY_WEDNESDAY,r.ROOM_DAY_THURSDAY,r.ROOM_DAY_FRIDAY,r.ROOM_DAY_SATURDAY,r.ROOM_DAY_SUNDAY
+    from cms_room r
+    WHERE 1=1
+    <if test="roomIsDel != null" >
+      and  r.ROOM_IS_DEL = #{roomIsDel,jdbcType=INTEGER}
+    </if>
+    <if test="roomId != null" >
+      and r.ROOM_ID = #{roomId,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <!--app获取活动室开放时间段 -->
+  <select id="queryAppRoomTimes" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT
+    GROUP_CONCAT(DISTINCT t.TIME_PERIOD SEPARATOR ',') as times,t.ROOM_DAY,GROUP_CONCAT(
+    DISTINCT t.ROOM_TIME_ID SEPARATOR ','
+    ) AS timeIds
+    FROM
+    cms_room_time t
+    WHERE 1=1
+    <if test="isOpen != null" >
+      and  t.IS_OPEN = #{isOpen,jdbcType=INTEGER}
+    </if>
+    <if test="roomId != null" >
+      and t.ROOM_ID = #{roomId,jdbcType=VARCHAR}
+    </if>
+    <if test="roomDay != null" >
+      and  t.ROOM_DAY = #{roomDay,jdbcType=VARCHAR}
+    </if>
+    GROUP BY ROOM_DAY
+  </select>
+</mapper>

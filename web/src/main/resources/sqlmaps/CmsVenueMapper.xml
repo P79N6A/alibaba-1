@@ -1,0 +1,2266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsVenueMapper">
+    <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsVenue">
+        <id column="VENUE_ID" property="venueId" jdbcType="VARCHAR"/>
+        <result column="VENUE_NAME" property="venueName" jdbcType="VARCHAR"/>
+        <result column="VENUE_ICON_URL" property="venueIconUrl" jdbcType="VARCHAR"/>
+        <result column="VENUE_LON" property="venueLon" jdbcType="DOUBLE"/>
+        <result column="VENUE_LAT" property="venueLat" jdbcType="DOUBLE"/>
+        <result column="VENUE_PROVINCE" property="venueProvince" jdbcType="VARCHAR"/>
+        <result column="VENUE_CITY" property="venueCity" jdbcType="VARCHAR"/>
+        <result column="VENUE_AREA" property="venueArea" jdbcType="VARCHAR"/>
+        <result column="VENUE_ADDRESS" property="venueAddress" jdbcType="VARCHAR"/>
+        <result column="VENUE_OPEN_TIME" property="venueOpenTime" jdbcType="VARCHAR"/>
+        <result column="VENUE_TYPE" property="venueType" jdbcType="VARCHAR"/>
+        <result column="VENUE_LINKMAN" property="venueLinkman" jdbcType="VARCHAR"/>
+        <result column="VENUE_SITES" property="venueSites" jdbcType="VARCHAR"/>
+        <result column="VENUE_MAIL" property="venueMail" jdbcType="VARCHAR"/>
+        <result column="VENUE_TEL" property="venueTel" jdbcType="VARCHAR"/>
+        <result column="VENUE_MOBILE" property="venueMobile" jdbcType="VARCHAR"/>
+        <result column="VENUE_IS_FREE" property="venueIsFree" jdbcType="INTEGER"/>
+        <result column="VENUE_PRICE" property="venuePrice" jdbcType="VARCHAR"/>
+        <result column="VENUE_BUSINESS" property="venueBusiness" jdbcType="VARCHAR"/>
+        <result column="VENUE_IS_VOICE" property="venueIsVoice" jdbcType="INTEGER"/>
+        <result column="VENUE_VOICE_URL" property="venueVoiceUrl" jdbcType="VARCHAR"/>
+        <result column="VENUE_IS_VIDEO" property="venueIsVideo" jdbcType="INTEGER"/>
+        <result column="VENUE_VIDEO_URL" property="venueVideoUrl" jdbcType="VARCHAR"/>
+        <result column="VENUE_IS_ROAM" property="venueIsRoam" jdbcType="INTEGER"/>
+        <result column="VENUE_ROAM_URL" property="venueRoamUrl" jdbcType="VARCHAR"/>
+        <result column="VENUE_IS_DEL" property="venueIsDel" jdbcType="INTEGER"/>
+        <result column="VENUE_STATE" property="venueState" jdbcType="INTEGER"/>
+        <result column="VENUE_CREATE_TIME" property="venueCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="VENUE_UPDATE_TIME" property="venueUpdateTime" jdbcType="TIMESTAMP"/>
+        <result column="VENUE_CREATE_USER" property="venueCreateUser" jdbcType="VARCHAR"/>
+        <result column="VENUE_UPDATE_USER" property="venueUpdateUser" jdbcType="VARCHAR"/>
+        <result column="VENUE_DEPT" property="venueDept" jdbcType="VARCHAR"/>
+        <result column="VENUE_IS_RESERVE" property="venueIsReserve" jdbcType="INTEGER"/>
+        <result column="VENUE_END_TIME" property="venueEndTime" jdbcType="VARCHAR"/>
+        <result column="VENUE_MON" property="venueMon" jdbcType="VARCHAR"/>
+        <result column="VENUE_TUE" property="venueTue" jdbcType="VARCHAR"/>
+        <result column="VENUE_WED" property="venueWed" jdbcType="VARCHAR"/>
+        <result column="VENUE_THU" property="venueThu" jdbcType="VARCHAR"/>
+        <result column="VENUE_FRI" property="venueFri" jdbcType="VARCHAR"/>
+        <result column="VENUE_SAT" property="venueSat" jdbcType="VARCHAR"/>
+        <result column="VENUE_SUN" property="venueSun" jdbcType="VARCHAR"/>
+        <result column="MANAGER_ID" property="managerId" jdbcType="VARCHAR"/>
+        <result column="VENUE_MEMO" property="venueMemo" jdbcType="LONGVARCHAR"/>
+        <result column="VENUE_REMARK" property="venueRemark" jdbcType="LONGVARCHAR"/>
+        <result column="VENUE_DEPT" property="venueDept" jdbcType="LONGVARCHAR"/>
+        <result column="OPEN_NOTICE" property="openNotice" jdbcType="VARCHAR"/>
+        <result column="VENUE_HAS_ROOM" property="venueHasRoom" jdbcType="INTEGER"/>
+        <result column="VENUE_HAS_ANTIQUE" property="venueHasAntique" jdbcType="INTEGER"/>
+        <result column="VENUE_CROWD" property="venueCrowd" jdbcType="LONGVARCHAR"/>
+        <result column="VENUE_MOOD" property="venueMood" jdbcType="LONGVARCHAR"/>
+        <result column="VENUE_HAS_METRO" property="venueHasMetro" jdbcType="INTEGER"/>
+        <result column="VENUE_HAS_BUS" property="venueHasBus" jdbcType="INTEGER"/>
+        <result column="VENUE_METRO_TEXT" property="venueMetroText" jdbcType="VARCHAR"/>
+         <result column="VENUE_BUS_TEXT" property="venueBusText" jdbcType="VARCHAR"/>
+        <result column="VENUE_STARS" property="venueStars" jdbcType="VARCHAR"/>
+        <result column="VENUE_IS_RECOMMEND" property="venueIsRecommend" jdbcType="INTEGER"/>
+        <result column="VENUE_RECOMMEND_TIME" property="venueRecommendTime" jdbcType="TIMESTAMP"/>
+        <result column="VENUE_DEPT_ID" property="venueDeptId" jdbcType="VARCHAR"/>
+        <result column="VENUE_PANORAMA" property="venuePanorama" jdbcType="VARCHAR"/>
+
+        <result column="week_browse_count" property="weekBrowseCount" jdbcType="INTEGER"/>
+        <result column="year_browse_count" property="yearBrowseCount" jdbcType="INTEGER"/>
+        <result column="dict_name" property="dictName" jdbcType="VARCHAR"/>
+        <result column="statistic_count" property="statisticCount" jdbcType="INTEGER"/>
+        <result column="comment_count" property="commentCount" jdbcType="INTEGER"/>
+        <result column="remarks" property="remarks" jdbcType="VARCHAR"/>
+        <result column="userNames" property="userNames" jdbcType="VARCHAR"/>
+        <result column="roomUrls" property="roomUrls" jdbcType="VARCHAR"/>
+        <result column="roomNames" property="roomNames" jdbcType="VARCHAR"/>
+        <result column="collectNum" property="collectNum" jdbcType="INTEGER"/>
+
+        <result column="venue_parent_dept_id" property="venueParentDeptId" jdbcType="VARCHAR"/>
+        <result column="venue_parent_dept_name" property="venueParentDeptName" jdbcType="VARCHAR"/>
+        <result column="tag_name" property="tagName" jdbcType="VARCHAR"/>
+
+        <result column="SYS_NO" property="sysNo" jdbcType="VARCHAR"/>
+        <result column="SYS_ID" property="sysId" jdbcType="VARCHAR"/>
+
+        <result column="VENUE_DEPT_LABEL" property="venueDeptLable" jdbcType="VARCHAR"/>
+        
+        <result column="VENUE_PRICE_NOTICE" property="venuePriceNotice" jdbcType="VARCHAR"/>
+        
+        <result column="VENUE_SORT" property="venueSort" jdbcType="INTEGER"/>
+        
+        <result column="VENUE_FACILITY" property="venueFacility" jdbcType="LONGVARCHAR" />
+    </resultMap>
+
+    <!--前台场馆详情显示相关场馆推荐 -->
+    <select id="queryCmsVenue" resultMap="BaseResultMap"
+            parameterType="java.util.Map">
+        select v.VENUE_NAME,v.VENUE_ICON_URL,v.VENUE_ID,v.VENUE_FACILITY from CMS_VENUE v
+        <if test="venueId !=null">
+            WHERE v.VENUE_ID!= #{venueId,jdbcType=VARCHAR}
+        </if>
+        <if test="venueArea != null">
+            AND v.venue_area like #{venueArea,jdbcType=VARCHAR}
+        </if>
+        <if test="venueType != null">
+            AND v.venue_type = #{venueType,jdbcType=VARCHAR}
+        </if>
+        <if test="venueState!=null">
+            AND v.VENUE_STATE=#{venueState,jdbcType=INTEGER}
+        </if>
+        <if test="venueIsDel !=null">
+            AND v.VENUE_IS_DEL=#{venueIsDel,jdbcType=INTEGER}
+        </if>
+        order by v.VENUE_UPDATE_TIME desc
+    </select>
+
+
+    <!--&lt;!&ndash;本周最受欢迎场馆(周浏览次数) &ndash;&gt; &lt;!&ndash;<select id="queryBestWelcomeVenue"
+        resultMap="BaseResultMap" parameterType="com.sun3d.why.model.CmsVenue"> SELECT
+        VENUE_ID,VENUE_NAME,VENUE_ADDRESS,VENUE_ICON_URL,VENUE_OPEN_TIME,WEEK_BROWSE_COUNT
+        from cms_venue LEFT JOIN cms_statistics on VENUE_ID=S_ID <if test="_parameter
+        != null"> <include refid="Example_Where_Clause" /> </if> ORDER BY WEEK_BROWSE_COUNT
+        desc <if test="firstResult != null"> <include refid="pagination_condition"
+        /> </if> </select> <select id="countBestWelcomeVenue" parameterType="com.sun3d.why.model.CmsVenue"
+        resultType="java.lang.Integer"> SELECT count(*) from cms_venue LEFT JOIN
+        cms_statistics on VENUE_ID=S_ID <if test="_parameter != null"> <include refid="Example_Where_Clause"
+        /> </if> ORDER BY WEEK_BROWSE_COUNT desc </select>&ndash;&gt; -->
+
+    <!--前端2.0场馆收藏列表 -->
+    <select id="queryCollectVenue" resultMap="BaseResultMap"
+            parameterType="java.util.Map">
+        SELECT
+        VENUE_ID,
+        VENUE_NAME,
+        venue_city,
+        venue_area,
+        VENUE_ADDRESS,
+        VENUE_ICON_URL,
+        VENUE_MOBILE,
+        VENUE_HAS_METRO,
+        VENUE_HAS_BUS,
+        VENUE_STARS
+        from cms_collect a
+        inner join cms_venue on relate_id = VENUE_ID
+        left join cms_statistics on venue_id = s_id
+        where 1=1
+        and venue_is_del = 1 and VENUE_STATE = 6
+        <if test="userId != null and userId != ''">
+            and user_id = #{userId}
+        </if>
+        <if test="type != null and type != ''">
+            and a.type = #{type}
+        </if>
+        <if test="venueName != null and venueName != ''">
+            and venue_name like #{venueName} ESCAPE '/'
+        </if>
+        ORDER BY YEAR_COLLECT_COUNT desc,YEAR_BROWSE_COUNT desc
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+    <select id="queryCollectVenueCount" resultType="java.lang.Integer"
+            parameterType="java.util.Map">
+        SELECT count(*)
+        from cms_collect a inner join cms_venue on relate_id =
+        VENUE_ID
+        left join cms_statistics on venue_id = s_id
+        where 1=1
+        and venue_is_del = 1 and venue_state = 6
+        <if test="userId != null and userId != ''">
+            and user_id = #{userId}
+        </if>
+        <if test="type != null and type != ''">
+            and a.type = #{type}
+        </if>
+        <if test="venueName != null and venueName != ''">
+            and venue_name like #{venueName}
+        </if>
+    </select>
+
+    <select id="queryVenueById" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+		select
+		VENUE_ID, VENUE_NAME, VENUE_ICON_URL, VENUE_LON,
+		VENUE_LAT, VENUE_PROVINCE,VENUE_PANORAMA,
+		VENUE_CITY, VENUE_AREA, VENUE_ADDRESS,
+		VENUE_OPEN_TIME, VENUE_TYPE,
+		VENUE_LINKMAN, VENUE_SITES, VENUE_MAIL,
+		VENUE_TEL, VENUE_MOBILE, VENUE_IS_FREE,
+		VENUE_PRICE, VENUE_BUSINESS,
+		VENUE_IS_VOICE, VENUE_VOICE_URL, VENUE_IS_VIDEO, VENUE_VIDEO_URL,
+		VENUE_IS_ROAM, VENUE_ROAM_URL,
+		VENUE_IS_DEL, VENUE_STATE,
+		VENUE_CREATE_TIME, VENUE_UPDATE_TIME, VENUE_CREATE_USER,
+		VENUE_UPDATE_USER, VENUE_IS_RESERVE, VENUE_END_TIME, VENUE_MON,
+		VENUE_TUE, VENUE_WED,
+		VENUE_THU, VENUE_FRI, VENUE_SAT, VENUE_SUN,
+		MANAGER_ID, OPEN_NOTICE, VENUE_HAS_ROOM,
+		VENUE_HAS_ANTIQUE,VENUE_MEMO,
+		VENUE_CROWD, VENUE_MOOD, VENUE_DEPT, VENUE_REMARK,VENUE_HAS_METRO,VENUE_HAS_BUS,VENUE_STARS,
+		VENUE_METRO_TEXT,VENUE_BUS_TEXT,
+		VENUE_IS_RECOMMEND,VENUE_RECOMMEND_TIME, VENUE_DEPT_ID,e.DEPT_ID as  venueParentDeptId,e.DEPT_NAME as venueParentDeptName,VENUE_DEPT_LABEL,
+		VENUE_PRICE_NOTICE,VENUE_FACILITY
+		from cms_venue 
+		LEFT JOIN sys_dept d ON d.DEPT_ID  = VENUE_DEPT_ID
+		LEFT JOIN sys_dept e ON e.dept_id = d.DEPT_PARENT_ID
+		where venue_id = #{venueId}
+	</select>
+
+    <delete id="deleteVenueById" parameterType="java.lang.String">
+		delete from
+		CMS_VENUE
+		where VENUE_ID = #{venueId,jdbcType=VARCHAR}
+	</delete>
+
+    <insert id="addVenue" parameterType="com.sun3d.why.model.CmsVenue">
+        insert into cms_venue
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="venueId != null">
+                VENUE_ID,
+            </if>
+            <if test="venueName != null">
+                VENUE_NAME,
+            </if>
+            <if test="venueIconUrl != null">
+                VENUE_ICON_URL,
+            </if>
+            <if test="venueLon != null">
+                VENUE_LON,
+            </if>
+            <if test="venueLat != null">
+                VENUE_LAT,
+            </if>
+            <if test="venueProvince != null">
+                VENUE_PROVINCE,
+            </if>
+            <if test="venueCity != null">
+                VENUE_CITY,
+            </if>
+            <if test="venueArea != null">
+                VENUE_AREA,
+            </if>
+            <if test="venueAddress != null">
+                VENUE_ADDRESS,
+            </if>
+            <if test="venueOpenTime != null">
+                VENUE_OPEN_TIME,
+            </if>
+            <if test="venueType != null">
+                VENUE_TYPE,
+            </if>
+            <if test="venueLinkman != null">
+                VENUE_LINKMAN,
+            </if>
+            <if test="venueSites != null">
+                VENUE_SITES,
+            </if>
+            <if test="venueMail != null">
+                VENUE_MAIL,
+            </if>
+            <if test="venueTel != null">
+                VENUE_TEL,
+            </if>
+            <if test="venueMobile != null">
+                VENUE_MOBILE,
+            </if>
+            <if test="venueIsFree != null">
+                VENUE_IS_FREE,
+            </if>
+            <if test="venuePrice != null">
+                VENUE_PRICE,
+            </if>
+            <if test="venueBusiness != null">
+                VENUE_BUSINESS,
+            </if>
+            <if test="venueIsVoice != null">
+                VENUE_IS_VOICE,
+            </if>
+            <if test="venueVoiceUrl != null">
+                VENUE_VOICE_URL,
+            </if>
+            <if test="venueIsVideo != null">
+                VENUE_IS_VIDEO,
+            </if>
+            <if test="venueVideoUrl != null">
+                VENUE_VIDEO_URL,
+            </if>
+            <if test="venueIsRoam != null">
+                VENUE_IS_ROAM,
+            </if>
+            <if test="venueRoamUrl != null">
+                VENUE_ROAM_URL,
+            </if>
+            <if test="venueIsDel != null">
+                VENUE_IS_DEL,
+            </if>
+            <if test="venueState != null">
+                VENUE_STATE,
+            </if>
+            <if test="venueCreateTime != null">
+                VENUE_CREATE_TIME,
+            </if>
+            <if test="venueUpdateTime != null">
+                VENUE_UPDATE_TIME,
+            </if>
+            <if test="venueCreateUser != null">
+                VENUE_CREATE_USER,
+            </if>
+            <if test="venueUpdateUser != null">
+                VENUE_UPDATE_USER,
+            </if>
+            <if test="venueIsReserve != null">
+                VENUE_IS_RESERVE,
+            </if>
+            <if test="venueEndTime != null">
+                VENUE_END_TIME,
+            </if>
+            <if test="venueMon != null">
+                VENUE_MON,
+            </if>
+            <if test="venueTue != null">
+                VENUE_TUE,
+            </if>
+            <if test="venueWed != null">
+                VENUE_WED,
+            </if>
+            <if test="venueThu != null">
+                VENUE_THU,
+            </if>
+            <if test="venueFri != null">
+                VENUE_FRI,
+            </if>
+            <if test="venueSat != null">
+                VENUE_SAT,
+            </if>
+            <if test="venueSun != null">
+                VENUE_SUN,
+            </if>
+            <if test="managerId != null">
+                MANAGER_ID,
+            </if>
+            <if test="openNotice != null">
+                OPEN_NOTICE,
+            </if>
+            <if test="venueHasRoom != null">
+                VENUE_HAS_ROOM,
+            </if>
+            <if test="venueHasAntique != null">
+                VENUE_HAS_ANTIQUE,
+            </if>
+            <if test="venueMemo != null">
+                VENUE_MEMO,
+            </if>
+            <if test="venueDept != null">
+                VENUE_DEPT,
+            </if>
+            <if test="venueRemark != null">
+                VENUE_REMARK,
+            </if>
+            <if test="venueCrowd != null">
+                VENUE_CROWD,
+            </if>
+            <if test="venueMood != null">
+                VENUE_MOOD,
+            </if>
+            <if test="sysId != null">
+                SYS_ID,
+            </if>
+            <if test="sysNo != null">
+                SYS_NO,
+            </if>
+            <if test="venueHasMetro != null">
+                VENUE_HAS_METRO,
+            </if>
+            <if test="venueHasBus != null">
+                VENUE_HAS_BUS,
+            </if>
+            <if test="venueMetroText != null">
+            	VENUE_METRO_TEXT,
+            </if>
+            <if test="venueBusText != null">
+          	 	VENUE_BUS_TEXT,
+            </if>
+            <if test="venueStars != null">
+                VENUE_STARS,
+            </if>
+            <if test="venueIsRecommend != null">
+                VENUE_IS_RECOMMEND,
+            </if>
+            <if test="venueRecommendTime != null">
+                VENUE_RECOMMEND_TIME,
+            </if>
+            <if test="venueDeptId != null">
+                VENUE_DEPT_ID,
+            </if>
+            <if test="venuePanorama != null">
+                VENUE_PANORAMA,
+            </if>
+            <!--权限标签，场馆只存一个 -->
+            <if test="venueDeptLable != null">
+                VENUE_DEPT_LABEL,
+            </if>
+            <if test="venuePriceNotice != null">
+            	VENUE_PRICE_NOTICE,
+            </if>
+            <if test="venueFacility">
+            	VENUE_FACILITY,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="venueId != null">
+                #{venueId,jdbcType=VARCHAR},
+            </if>
+            <if test="venueName != null">
+                #{venueName,jdbcType=VARCHAR},
+            </if>
+            <if test="venueIconUrl != null">
+                #{venueIconUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="venueLon != null">
+                #{venueLon,jdbcType=DOUBLE},
+            </if>
+            <if test="venueLat != null">
+                #{venueLat,jdbcType=DOUBLE},
+            </if>
+            <if test="venueProvince != null">
+                #{venueProvince,jdbcType=VARCHAR},
+            </if>
+            <if test="venueCity != null">
+                #{venueCity,jdbcType=VARCHAR},
+            </if>
+            <if test="venueArea != null">
+                #{venueArea,jdbcType=VARCHAR},
+            </if>
+            <if test="venueAddress != null">
+                #{venueAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="venueOpenTime != null">
+                #{venueOpenTime,jdbcType=VARCHAR},
+            </if>
+            <if test="venueType != null">
+                #{venueType,jdbcType=VARCHAR},
+            </if>
+            <if test="venueLinkman != null">
+                #{venueLinkman,jdbcType=VARCHAR},
+            </if>
+            <if test="venueSites != null">
+                #{venueSites,jdbcType=VARCHAR},
+            </if>
+            <if test="venueMail != null">
+                #{venueMail,jdbcType=VARCHAR},
+            </if>
+            <if test="venueTel != null">
+                #{venueTel,jdbcType=VARCHAR},
+            </if>
+            <if test="venueMobile != null">
+                #{venueMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="venueIsFree != null">
+                #{venueIsFree,jdbcType=INTEGER},
+            </if>
+            <if test="venuePrice != null">
+                #{venuePrice,jdbcType=VARCHAR},
+            </if>
+            <if test="venueBusiness != null">
+                #{venueBusiness,jdbcType=VARCHAR},
+            </if>
+            <if test="venueIsVoice != null">
+                #{venueIsVoice,jdbcType=INTEGER},
+            </if>
+            <if test="venueVoiceUrl != null">
+                #{venueVoiceUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="venueIsVideo != null">
+                #{venueIsVideo,jdbcType=INTEGER},
+            </if>
+            <if test="venueVideoUrl != null">
+                #{venueVideoUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="venueIsRoam != null">
+                #{venueIsRoam,jdbcType=INTEGER},
+            </if>
+            <if test="venueRoamUrl != null">
+                #{venueRoamUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="venueIsDel != null">
+                #{venueIsDel,jdbcType=INTEGER},
+            </if>
+            <if test="venueState != null">
+                #{venueState,jdbcType=INTEGER},
+            </if>
+            <if test="venueCreateTime != null">
+                #{venueCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="venueUpdateTime != null">
+                #{venueUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="venueCreateUser != null">
+                #{venueCreateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="venueUpdateUser != null">
+                #{venueUpdateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="venueIsReserve != null">
+                #{venueIsReserve,jdbcType=INTEGER},
+            </if>
+            <if test="venueEndTime != null">
+                #{venueEndTime,jdbcType=VARCHAR},
+            </if>
+            <if test="venueMon != null">
+                #{venueMon,jdbcType=VARCHAR},
+            </if>
+            <if test="venueTue != null">
+                #{venueTue,jdbcType=VARCHAR},
+            </if>
+            <if test="venueWed != null">
+                #{venueWed,jdbcType=VARCHAR},
+            </if>
+            <if test="venueThu != null">
+                #{venueThu,jdbcType=VARCHAR},
+            </if>
+            <if test="venueFri != null">
+                #{venueFri,jdbcType=VARCHAR},
+            </if>
+            <if test="venueSat != null">
+                #{venueSat,jdbcType=VARCHAR},
+            </if>
+            <if test="venueSun != null">
+                #{venueSun,jdbcType=VARCHAR},
+            </if>
+            <if test="managerId != null">
+                #{managerId,jdbcType=VARCHAR},
+            </if>
+            <if test="openNotice != null">
+                #{openNotice,jdbcType=VARCHAR},
+            </if>
+            <if test="venueHasRoom != null">
+                #{venueHasRoom,jdbcType=INTEGER},
+            </if>
+            <if test="venueHasAntique != null">
+                #{venueHasAntique,jdbcType=INTEGER},
+            </if>
+            <if test="venueMemo != null">
+                #{venueMemo,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="venueDept != null">
+                #{venueDept,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="venueRemark != null">
+                #{venueRemark,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="venueCrowd != null">
+                #{venueCrowd,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="venueMood != null">
+                #{venueMood,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="sysId != null">
+                #{sysId,jdbcType=VARCHAR},
+            </if>
+            <if test="sysNo != null">
+                #{sysNo,jdbcType=VARCHAR},
+            </if>
+            <if test="venueHasMetro != null">
+                #{venueHasMetro,jdbcType=INTEGER},
+            </if>
+            <if test="venueHasBus != null">
+                #{venueHasBus,jdbcType=INTEGER},
+            </if>
+             <if test="venueMetroText != null">
+            	  #{venueMetroText,jdbcType=INTEGER},
+            </if>
+            <if test="venueBusText != null">
+          	   #{venueBusText,jdbcType=INTEGER},
+            </if>
+            <if test="venueStars != null">
+                #{venueStars,jdbcType=VARCHAR},
+            </if>
+            <if test="venueIsRecommend != null">
+                #{venueIsRecommend,jdbcType=INTEGER},
+            </if>
+            <if test="venueRecommendTime != null">
+                #{venueRecommendTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="venueDeptId != null">
+                #{venueDeptId,jdbcType=VARCHAR},
+            </if>
+            <if test="venuePanorama != null">
+                #{venuePanorama,jdbcType=VARCHAR},
+            </if>
+            <!--权限标签，场馆只存一个 -->
+            <if test="venueDeptLable != null">
+                #{venueDeptLable,jdbcType=VARCHAR},
+            </if>
+            <if test="venuePriceNotice != null">
+            	#{venuePriceNotice,jdbcType=VARCHAR},
+            </if>
+              <if test="venueFacility != null">
+            	#{venueFacility,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="editVenueById" parameterType="com.sun3d.why.model.CmsVenue">
+        update cms_venue
+        <set>
+            <if test="venueName != null">
+                VENUE_NAME =
+                #{venueName,jdbcType=VARCHAR},
+            </if>
+            <if test="venueIconUrl != null">
+                VENUE_ICON_URL =
+                #{venueIconUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="venueLon != null">
+                VENUE_LON =
+                #{venueLon,jdbcType=DOUBLE},
+            </if>
+            <if test="venueLat != null">
+                VENUE_LAT =
+                #{venueLat,jdbcType=DOUBLE},
+            </if>
+            <if test="venueProvince != null">
+                VENUE_PROVINCE =
+                #{venueProvince,jdbcType=VARCHAR},
+            </if>
+            <if test="venueCity != null">
+                VENUE_CITY =
+                #{venueCity,jdbcType=VARCHAR},
+            </if>
+            <if test="venueArea != null">
+                VENUE_AREA =
+                #{venueArea,jdbcType=VARCHAR},
+            </if>
+            <if test="venueAddress != null">
+                VENUE_ADDRESS =
+                #{venueAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="venueOpenTime != null">
+                VENUE_OPEN_TIME =
+                #{venueOpenTime,jdbcType=VARCHAR},
+            </if>
+            <if test="venueType != null">
+                VENUE_TYPE =
+                #{venueType,jdbcType=VARCHAR},
+            </if>
+            <if test="venueLinkman != null">
+                VENUE_LINKMAN =
+                #{venueLinkman,jdbcType=VARCHAR},
+            </if>
+            <if test="venueSites != null">
+                VENUE_SITES =
+                #{venueSites,jdbcType=VARCHAR},
+            </if>
+            <if test="venueMail != null">
+                VENUE_MAIL =
+                #{venueMail,jdbcType=VARCHAR},
+            </if>
+            <if test="venueTel != null">
+                VENUE_TEL =
+                #{venueTel,jdbcType=VARCHAR},
+            </if>
+            <if test="venueMobile != null">
+                VENUE_MOBILE =
+                #{venueMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="venueIsFree != null">
+                VENUE_IS_FREE =
+                #{venueIsFree,jdbcType=INTEGER},
+            </if>
+            <if test="venuePrice != null">
+                VENUE_PRICE =
+                #{venuePrice,jdbcType=VARCHAR},
+            </if>
+            <if test="venueBusiness != null">
+                VENUE_BUSINESS =
+                #{venueBusiness,jdbcType=VARCHAR},
+            </if>
+            <if test="venueIsVoice != null">
+                VENUE_IS_VOICE =
+                #{venueIsVoice,jdbcType=INTEGER},
+            </if>
+            <if test="venueVoiceUrl != null">
+                VENUE_VOICE_URL =
+                #{venueVoiceUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="venueIsVideo != null">
+                VENUE_IS_VIDEO =
+                #{venueIsVideo,jdbcType=INTEGER},
+            </if>
+            <if test="venueVideoUrl != null">
+                VENUE_VIDEO_URL =
+                #{venueVideoUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="venueIsRoam != null">
+                VENUE_IS_ROAM =
+                #{venueIsRoam,jdbcType=INTEGER},
+            </if>
+            <if test="venueRoamUrl != null">
+                VENUE_ROAM_URL =
+                #{venueRoamUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="venueIsDel != null">
+                VENUE_IS_DEL =
+                #{venueIsDel,jdbcType=INTEGER},
+            </if>
+            <if test="venueState != null">
+                VENUE_STATE =
+                #{venueState,jdbcType=INTEGER},
+            </if>
+            <if test="venueCreateTime != null">
+                VENUE_CREATE_TIME =
+                #{venueCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="venueUpdateTime != null">
+                VENUE_UPDATE_TIME =
+                #{venueUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="venueCreateUser != null">
+                VENUE_CREATE_USER =
+                #{venueCreateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="venueUpdateUser != null">
+                VENUE_UPDATE_USER =
+                #{venueUpdateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="venueIsReserve != null">
+                VENUE_IS_RESERVE =
+                #{venueIsReserve,jdbcType=INTEGER},
+            </if>
+            <if test="venueEndTime != null">
+                VENUE_END_TIME =
+                #{venueEndTime,jdbcType=VARCHAR},
+            </if>
+            <if test="venueMon != null">
+                VENUE_MON =
+                #{venueMon,jdbcType=VARCHAR},
+            </if>
+            <if test="venueTue != null">
+                VENUE_TUE =
+                #{venueTue,jdbcType=VARCHAR},
+            </if>
+            <if test="venueWed != null">
+                VENUE_WED =
+                #{venueWed,jdbcType=VARCHAR},
+            </if>
+            <if test="venueThu != null">
+                VENUE_THU =
+                #{venueThu,jdbcType=VARCHAR},
+            </if>
+            <if test="venueFri != null">
+                VENUE_FRI =
+                #{venueFri,jdbcType=VARCHAR},
+            </if>
+            <if test="venueSat != null">
+                VENUE_SAT =
+                #{venueSat,jdbcType=VARCHAR},
+            </if>
+            <if test="venueSun != null">
+                VENUE_SUN =
+                #{venueSun,jdbcType=VARCHAR},
+            </if>
+            <if test="managerId != null">
+                MANAGER_ID =
+                #{managerId,jdbcType=VARCHAR},
+            </if>
+            <if test="openNotice != null">
+                OPEN_NOTICE =
+                #{openNotice,jdbcType=VARCHAR},
+            </if>
+            <if test="venueHasRoom != null">
+                VENUE_HAS_ROOM =
+                #{venueHasRoom,jdbcType=INTEGER},
+            </if>
+            <if test="venueHasAntique != null">
+                VENUE_HAS_ANTIQUE =
+                #{venueHasAntique,jdbcType=INTEGER},
+            </if>
+            <if test="venueMemo != null">
+                VENUE_MEMO =
+                #{venueMemo,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="venueDept != null">
+                VENUE_DEPT =
+                #{venueDept,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="venueRemark != null">
+                VENUE_REMARK =
+                #{venueRemark,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="venueCrowd != null">
+                VENUE_CROWD =
+                #{venueCrowd,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="venueMood != null">
+                VENUE_MOOD =
+                #{venueMood,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="venueHasMetro != null">
+                VENUE_HAS_METRO =
+                #{venueHasMetro,jdbcType=INTEGER},
+            </if>
+            <if test="venueHasBus != null">
+                VENUE_HAS_BUS =
+                #{venueHasBus,jdbcType=INTEGER},
+            </if>
+            <if test="venueMetroText != null">
+            	 VENUE_METRO_TEXT = #{venueMetroText,jdbcType=INTEGER},
+            </if>
+            <if test="venueBusText != null">
+          	 	 VENUE_BUS_TEXT = #{venueBusText,jdbcType=INTEGER},
+            </if>
+            <if test="venueStars != null">
+                VENUE_STARS =
+                #{venueStars,jdbcType=VARCHAR},
+            </if>
+            <if test="venueIsRecommend != null">
+                VENUE_IS_RECOMMEND =
+                #{venueIsRecommend,jdbcType=INTEGER},
+            </if>
+            <if test="venueRecommendTime != null">
+                VENUE_RECOMMEND_TIME =
+                #{venueRecommendTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="venueRecommendTime == null">
+                VENUE_RECOMMEND_TIME = null,
+            </if>
+            <if test="venueDeptId != null">
+                VENUE_DEPT_ID =
+                #{venueDeptId,jdbcType=VARCHAR},
+            </if>
+            <if test="venuePanorama != null">
+                VENUE_PANORAMA =
+                #{venuePanorama,jdbcType=VARCHAR},
+            </if>
+            <!--权限标签，场馆只存一个 -->
+            <if test="venueDeptLable != null">
+                VENUE_DEPT_LABEL =
+                #{venueDeptLable,jdbcType=VARCHAR},
+            </if>
+            <if test="venuePriceNotice != null">
+            	VENUE_PRICE_NOTICE =
+            	#{venuePriceNotice,jdbcType=VARCHAR},
+            </if>
+            <if test="venueFacility != null">
+            	VENUE_FACILITY = 
+            	#{venueFacility,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where VENUE_ID = #{venueId,jdbcType=VARCHAR}
+    </update>
+
+
+    <update id="canleRecommendVenue" parameterType="java.lang.String">
+		update cms_venue cv
+		set cv.VENUE_RECOMMEND_TIME = null,
+		cv.VENUE_IS_RECOMMEND = 1
+		where VENUE_ID = #{venueId,jdbcType=VARCHAR}
+	</update>
+
+
+    <!-- 根据场馆id数组删除标签信息 -->
+    <update id="updateStateByVenueIds" parameterType="com.sun3d.why.model.CmsVenue">
+		update
+		CMS_VENUE
+		set VENUE_IS_DEL = #{venueIsDel},
+		    VENUE_STATE = #{venueState}
+		where VENUE_ID = #{venueId}
+	</update>
+
+
+    <!-- 根据场馆id还原场馆 -->
+    <update id="returnVenue" parameterType="com.sun3d.why.model.CmsVenue">
+		update
+			CMS_VENUE
+		set
+			VENUE_IS_DEL = #{venueIsDel,jdbcType=INTEGER},
+		 	VENUE_STATE = #{venueState,jdbcType=INTEGER}
+		where
+			VENUE_ID = #{venueId}
+	</update>
+    <!-- 根据场馆id数组删除标签信息 end -->
+
+    <!-- 查询场馆列表start -->
+    <select id="queryVenueByCondition" resultMap="BaseResultMap"
+            parameterType="java.util.Map">
+        select
+        cv.venue_id,cv.venue_name,cv.venue_state,su.user_account,cv.venue_update_time,cv.manager_id,cv.venue_area,
+        t.tag_name as venue_type,
+        su.USER_NICK_NAME as venue_create_user,
+        suu.USER_NICK_NAME as venue_update_user,
+        cv.venue_create_time,
+        cv.venue_update_time,
+        cv.venue_tel,cv.venue_address,cv.venue_icon_url,
+        cv.venue_mobile,cv.venue_has_room,cv.venue_has_antique,cv.VENUE_LON,cv.VENUE_LAT,VENUE_HAS_METRO,VENUE_HAS_BUS,VENUE_STARS,VENUE_IS_RECOMMEND,cv.SYS_ID,cv.SYS_NO,cv.VENUE_DEPT_LABEL
+        from cms_venue cv
+        left join cms_tag t on cv.venue_type = t.TAG_ID
+        left join SYS_USER su on cv.VENUE_CREATE_USER = su.USER_ID
+        left join SYS_USER suu on cv.VENUE_UPDATE_USER = suu.USER_ID
+        left join cms_statistics s on cv.venue_id = s.s_id and s.s_type = 1
+        where
+        (
+             ('${userLabel1}' = cv.VENUE_DEPT_LABEL) or
+             ('${userLabel2}' = cv.VENUE_DEPT_LABEL) or
+             ('${userLabel3}' = cv.VENUE_DEPT_LABEL)
+        )
+        <if test="searchKey != null and searchKey != ''">
+            and (cv.VENUE_NAME like '%${searchKey}%' or su.USER_NICK_NAME like '%${searchKey}%' or suu.USER_NICK_NAME
+            like '%${searchKey}%'
+            or (select GROUP_CONCAT(ROOM_NAME SEPARATOR' ') FROM CMS_ROOM where ROOM_VENUE_ID = cv.venue_id and
+            ROOM_IS_DEL=1 and ROOM_STATE=6) like '%${searchKey}%'
+            or (select GROUP_CONCAT(ANTIQUE_NAME SEPARATOR' ') FROM CMS_ANTIQUE where VENUE_ID = cv.venue_id and
+            ANTIQUE_IS_DEL=1 and ANTIQUE_STATE=6) like '%${searchKey}%')
+        </if>
+        <if test="venueName != null and venueName != ''">
+            and cv.VENUE_NAME like '%${venueName}%'
+        </if>
+        <if test="venueDept != null and venueDept != ''">
+            and cv.VENUE_DEPT like '${venueDept}%'
+        </if>
+        <if test="venueProvince != null and venueProvince != ''">
+            and cv.VENUE_PROVINCE like '%${venueProvince}%'
+        </if>
+        <if test="venueCity != null and venueCity != ''">
+            and cv.VENUE_CITY like '%${venueCity}%'
+        </if>
+        <if test="venueArea != null and venueArea != ''">
+            and cv.VENUE_AREA like '%${venueArea}%'
+        </if>
+        <if test="venueType != null and venueType != ''">
+            and cv.VENUE_TYPE = #{venueType}
+        </if>
+        <if test="venueCrowd != null and venueCrowd != ''">
+            and cv.VENUE_CROWD like #{venueCrowd}
+        </if>
+        <if test="tagId != null and tagId != ''">
+            and (VENUE_TYPE like #{tagId} or VENUE_CROWD like
+            #{tagId})
+        </if>
+        <if test="venueState == 5">
+            and cv.VENUE_STATE = 5
+        </if>
+        <if test="venueState != 5">
+            <if test="venueState != null and venueState != ''">
+                <!-- modify by YangHui 2015-10-19 新增场馆推荐功能时做的修改 start  -->
+                and cv.VENUE_STATE = ${venueState}
+                <!-- and (cv.VENUE_STATE = ${venueState} or cv.VENUE_STATE = ${recommendState} ) -->
+                <!-- modify by YangHui 2015-10-19 新增场馆推荐功能时做的修改 end  -->
+            </if>
+        </if>
+        <if test="venueIsDel != null and venueIsDel != ''">
+            and cv.VENUE_IS_DEL = ${venueIsDel}
+        </if>
+
+        <!-- 排序 默认或5按发布时间降序，1没有排序条件，2热度升序，3热度降序，4发布时间升序 -->
+        <if test="sortType == null or sortType==5">
+            order by cv.VENUE_UPDATE_TIME desc
+        </if>
+        <if test="sortType == 1">
+
+        </if>
+        <if test="sortType == 2">
+            order by s.year_browse_count asc
+        </if>
+        <if test="sortType == 3">
+            order by s.year_browse_count desc
+        </if>
+        <if test="sortType == 4">
+            order by cv.venue_update_time asc
+        </if>
+
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+    <!-- 查询场馆列表end -->
+
+    <!-- 查询场馆列表总条数start -->
+    <select id="queryVenueCountByCondition" resultType="java.lang.Integer"
+            parameterType="java.util.Map">
+        select
+        count(cv.venue_id)
+        from cms_venue cv
+        left join cms_tag t on cv.venue_type = t.TAG_ID
+        left join SYS_USER su on cv.VENUE_CREATE_USER = su.USER_ID
+        left join SYS_USER suu on cv.VENUE_UPDATE_USER = suu.USER_ID
+        left join cms_statistics s on cv.venue_id = s.s_id and s.s_type = 1
+        where
+        (
+        ('${userLabel1}' = cv.VENUE_DEPT_LABEL) or
+        ('${userLabel2}' = cv.VENUE_DEPT_LABEL) or
+        ('${userLabel3}' = cv.VENUE_DEPT_LABEL)
+        )
+        and (su.USER_LABEL1 = cv.VENUE_DEPT_LABEL or su.USER_LABEL2 = cv.VENUE_DEPT_LABEL or su.USER_LABEL3 = cv.VENUE_DEPT_LABEL)
+        <if test="searchKey != null and searchKey != ''">
+            and (cv.VENUE_NAME like '%${searchKey}%' or su.USER_NICK_NAME like '%${searchKey}%' or suu.USER_NICK_NAME
+            like '%${searchKey}%'
+            or (select GROUP_CONCAT(ROOM_NAME SEPARATOR' ') FROM CMS_ROOM where ROOM_VENUE_ID = cv.venue_id and
+            ROOM_IS_DEL=1 and ROOM_STATE=6) like '%${searchKey}%'
+            or (select GROUP_CONCAT(ANTIQUE_NAME SEPARATOR' ') FROM CMS_ANTIQUE where VENUE_ID = cv.venue_id and
+            ANTIQUE_IS_DEL=1 and ANTIQUE_STATE=6) like '%${searchKey}%')
+        </if>
+        <if test="venueName != null and venueName != ''">
+            and cv.VENUE_NAME like '%${venueName}%'
+        </if>
+        <if test="venueDept != null and venueDept != ''">
+            and cv.VENUE_DEPT like '${venueDept}%'
+        </if>
+        <if test="venueProvince != null and venueProvince != ''">
+            and cv.VENUE_PROVINCE like '%${venueProvince}%'
+        </if>
+        <if test="venueCity != null and venueCity != ''">
+            and cv.VENUE_CITY like '%${venueCity}%'
+        </if>
+        <if test="venueArea != null and venueArea != ''">
+            and cv.VENUE_AREA like '%${venueArea}%'
+        </if>
+        <if test="venueType != null and venueType != ''">
+            and cv.VENUE_TYPE = #{venueType}
+        </if>
+        <if test="venueCrowd != null and venueCrowd != ''">
+            and cv.VENUE_CROWD like #{venueCrowd}
+        </if>
+        <if test="tagId != null and tagId != ''">
+            and (VENUE_TYPE like #{tagId} or VENUE_CROWD like
+            #{tagId})
+        </if>
+        <if test="venueState == 5">
+            and cv.VENUE_STATE = 5
+        </if>
+        <if test="venueState != 5">
+            <if test="venueState != null and venueState != ''">
+                and cv.VENUE_STATE = #{venueState}
+            </if>
+        </if>
+        <if test="venueIsDel != null and venueIsDel != ''">
+            and cv.VENUE_IS_DEL = #{venueIsDel}
+        </if>
+    </select>
+    <!-- 查询场馆列表总条数end -->
+
+    <!--场馆首页及列表start-->
+    <select id="queryFrontCmsVenueByCondition" resultMap="BaseResultMap"
+            parameterType="java.util.Map">
+        select IF(ISNULL(cv.venue_sort), 0, 1) as venueHasSortValue,
+        cv.venue_id,cv.venue_name,cv.venue_city,cv.venue_area,cv.venue_address,cv.venue_icon_url,
+        cv.venue_mobile,cv.venue_has_metro,cv.venue_has_bus,cv.venue_stars,cv.venue_is_reserve, cv.venue_sort
+        from cms_venue cv
+        left join cms_statistics s on cv.venue_id = s.s_id and s.s_type = 1
+        where 1 =1
+        <if test="venueName != null and venueName != ''">
+            and cv.VENUE_NAME like '%${venueName}%'
+        </if>
+        <if test="venueArea != null and venueArea != ''">
+            and cv.VENUE_AREA like '${venueArea}%'
+            <if test="venueMood != null and venueMood != ''">
+                and cv.VENUE_MOOD = #{venueMood}
+            </if>
+        </if>
+        <if test="areaName != null and areaName != ''">
+            and cv.VENUE_AREA like '%${areaName}%'
+        </if>
+        <if test="venueIsReserve != null and venueIsReserve != ''">
+            and cv.VENUE_IS_RESERVE = #{venueIsReserve}
+        </if>
+        <if test="venueState != null">
+            and cv.VENUE_STATE = #{venueState}
+        </if>
+        <if test="venueIsDel != null">
+            and cv.VENUE_IS_DEL = #{venueIsDel}
+        </if>
+        <if test="venueType != null">
+            and cv.VENUE_TYPE = #{venueType}
+        </if>
+        order by venueHasSortValue DESC, cv.VENUE_SORT, cv.VENUE_UPDATE_TIME desc
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+
+    <select id="queryFrontCmsVenueCountByCondition" resultType="java.lang.Integer"
+            parameterType="java.util.Map">
+        select
+        count(*)
+        from cms_venue cv
+        left join cms_statistics s on cv.venue_id = s.s_id and s.s_type = 1
+        where 1 =1
+        <if test="venueName != null and venueName != ''">
+            and cv.VENUE_NAME like '%${venueName}%'
+        </if>
+        <if test="venueArea != null and venueArea != ''">
+            and cv.VENUE_AREA like '${venueArea}%'
+            <if test="venueMood != null and venueMood != ''">
+                and cv.VENUE_MOOD = #{venueMood}
+            </if>
+        </if>
+        <if test="venueIsReserve != null and venueIsReserve != ''">
+            and cv.VENUE_IS_RESERVE = #{venueIsReserve}
+        </if>
+        <if test="venueState != null">
+            and cv.VENUE_STATE = #{venueState}
+        </if>
+        <if test="venueIsDel != null and venueIsDel != ''">
+            and cv.VENUE_IS_DEL = #{venueIsDel}
+        </if>
+        <if test="venueType != null">
+            and cv.VENUE_TYPE = #{venueType}
+        </if>
+    </select>
+    <!--场馆首页及列表end-->
+
+
+    <!-- 根据区域进行分组 -->
+
+    <select id="queryVenueAllArea" resultMap="BaseResultMap"
+            parameterType="hashmap">
+        select
+        VENUE_AREA
+        from
+        CMS_VENUE cv where 1=1
+        and cv.VENUE_IS_DEL =1
+        and cv.VENUE_STATE = 6
+        <if test="venueDept != '' and venueDept != null">
+            and cv.VENUE_DEPT like #{venueDept,jdbcType=VARCHAR}
+        </if>
+        group by cv.VENUE_AREA
+    </select>
+
+
+    <!-- 根据区域查询区域下的所有场馆 -->
+
+    <select id="queryAllVenueByArea" resultType="hashmap"
+            parameterType="java.util.Map">
+        select
+        cv.VENUE_TYPE as tagId,tg.tag_name as tagName
+        from
+        CMS_VENUE
+        cv,cms_tag tg where cv.venue_type = tg.tag_id and
+        cv.VENUE_AREA like
+        #{venueArea}
+        <if test="venueDept != '' and venueDept != null">
+            and cv.VENUE_DEPT like #{venueDept,jdbcType=VARCHAR}
+        </if>
+        group by cv.VENUE_TYPE
+    </select>
+
+    <!--前台页面list start 年浏览次数 -->
+    <select id="queryFrontVenueByCondition" resultMap="BaseResultMap"
+            parameterType="java.util.Map">
+        SELECT
+        cv.VENUE_ID,
+        cv.VENUE_NAME,
+        cv.VENUE_ICON_URL,
+        cv.VENUE_OPEN_TIME,
+        cv.VENUE_END_TIME,
+        cv.VENUE_ADDRESS,
+        cs.YEAR_BROWSE_COUNT AS
+        YEAR_BROWSE_COUNT,
+        cv.VENUE_LON,
+        cv.VENUE_LAT
+        FROM
+        cms_venue cv
+        LEFT JOIN
+        cms_statistics cs ON cv.VENUE_ID = cs.S_ID
+        WHERE
+        1 = 1
+        <if test="venueArea != '' and venueArea != null">
+            and cv.VENUE_AREA like #{venueArea,jdbcType=VARCHAR}
+        </if>
+        <if test="venueType != '' and venueType != null">
+            and cv.VENUE_TYPE = #{venueType,jdbcType=VARCHAR}
+        </if>
+        order by cv.VENUE_UPDATE_TIME desc
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+    <!--前台页面list end -->
+
+    <select id="queryFrontVenueCountByCondition" resultType="java.lang.Integer"
+            parameterType="java.util.Map">
+        SELECT count(*)
+        from cms_venue cv LEFT JOIN
+        cms_statistics cs on
+        cv.VENUE_ID = cs.S_ID
+        where 1 = 1
+        <if test="venueArea != '' and venueArea != null">
+            and cv.VENUE_AREA = #{venueArea}
+        </if>
+        <if test="venueType != '' and venueType != null">
+            and cv.VENUE_TYPE = #{venueType}
+        </if>
+    </select>
+
+    <!--前端 余进兵 -->
+    <select id="queryFrontActivityByCondition" resultMap="BaseResultMap"
+            parameterType="java.util.Map">
+        select VENUE_ID, VENUE_NAME, VENUE_ICON_URL
+        from cms_venue
+        where 1=1
+        <if test="venueType !=null">
+            and venue_type = #{venueType,jdbcType=VARCHAR}
+        </if>
+        <if test="venueArea !=null">
+            and venue_area = #{venueArea,jdbcType=VARCHAR}
+        </if>
+        <if test="venueId !=null">
+            and venue_id &lt;> #{venueId,jdbcType=VARCHAR}
+        </if>
+        <if test="venueIsDel !=null">
+            and venue_is_del = #{venueIsDel,jdbcType=INTEGER}
+        </if>
+        <if test="venueState !=null">
+            and venue_state = #{venueState,jdbcType=INTEGER}
+        </if>
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+
+    <select id="queryVenueCountByMap" resultType="java.lang.Integer"
+            parameterType="java.util.Map">
+        select count(*) from cms_venue
+        where 1=1
+        <if test="venueName !=null">
+            and venue_name = #{venueName}
+        </if>
+    </select>
+
+
+    <!-- 内容统计-场馆统计-begin -->
+    <select id="queryVenueStatistic" resultMap="BaseResultMap"
+            parameterType="com.sun3d.why.model.CmsVenue">
+		select
+		VENUE_AREA,count(*) as statistic_count
+		from
+		cms_venue v
+		where
+		VENUE_IS_DEL = 1 and VENUE_STATE = 6
+		GROUP BY
+		VENUE_AREA;
+	</select>
+    <!-- 内容统计-场馆统计-end -->
+
+
+    <select id="queryAppCountByCondition" resultType="java.lang.Integer"
+            parameterType="java.util.Map">
+        SELECT COUNT(DISTINCT v.VENUE_ID)
+        from cms_venue v
+        LEFT JOIN cms_comment c
+        ON v.VENUE_ID=c.COMMENT_RK_ID
+        LEFT JOIN cms_terminal_user ct on c.COMMENT_USER_ID=ct.USER_ID
+        where 1=1
+        <if test="venueName != null and venueName != ''">
+            and (VENUE_NAME like #{venueName,jdbcType=VARCHAR} escape '/'
+            or (select GROUP_CONCAT(ROOM_NAME SEPARATOR' ') FROM CMS_ROOM where ROOM_VENUE_ID = v.venue_id and
+            ROOM_IS_DEL=1 and ROOM_STATE=6) like #{venueName,jdbcType=VARCHAR} escape '/'
+            or (select GROUP_CONCAT(ANTIQUE_NAME SEPARATOR' ') FROM CMS_ANTIQUE where VENUE_ID = v.venue_id and
+            ANTIQUE_IS_DEL=1 and ANTIQUE_STATE=6) like #{venueName,jdbcType=VARCHAR} escape '/')
+        </if>
+        <if test="venueType !=null">
+            and venue_type = #{venueType,jdbcType=VARCHAR}
+        </if>
+        <if test="venueArea !=null">
+            and venue_area LIKE #{venueArea,jdbcType=VARCHAR}
+        </if>
+        <if test="venueCrowd != null and venueCrowd != ''">
+            and VENUE_CROWD like #{venueCrowd}
+        </if>
+        <if test="venueIsDel !=null">
+            and venue_is_del = #{venueIsDel,jdbcType=INTEGER}
+        </if>
+        <if test="venueState !=null">
+            and venue_state = #{venueState,jdbcType=INTEGER}
+        </if>
+        <if test="venueIsReserve!=null">
+            and VENUE_IS_RESERVE = #{venueIsReserve,jdbcType=INTEGER}
+        </if>
+    </select>
+    <!--app获取最热门条数 -->
+    <select id="queryAppHotCountByCondition" resultType="java.lang.Integer"
+            parameterType="java.util.Map">
+        SELECT COUNT(DISTINCT cv.VENUE_ID) FROM
+        cms_venue cv
+        LEFT JOIN cms_statistics cs ON cv.VENUE_ID = cs.S_ID
+        LEFT JOIN cms_comment c ON cv.VENUE_ID=c.COMMENT_RK_ID
+        LEFT JOIN cms_terminal_user ct on c.COMMENT_USER_ID=ct.USER_ID
+        WHERE
+        1 = 1
+        <if test="venueIsReserve != null and venueIsReserve != ''">
+            and cv.VENUE_IS_RESERVE = #{venueIsReserve,jdbcType=INTEGER}
+        </if>
+        <if test="venueName != null and venueName != ''">
+            and cv.VENUE_NAME like #{venueName,jdbcType=VARCHAR} escape '/'
+        </if>
+        <if test="venueType !=null">
+            and cv.venue_type = #{venueType,jdbcType=VARCHAR}
+        </if>
+        <if test="venueArea !=null">
+            and cv.venue_area LIKE #{venueArea,jdbcType=VARCHAR}
+        </if>
+        <if test="venueCrowd != null and venueCrowd != ''">
+            and cv.VENUE_CROWD like #{venueCrowd}
+        </if>
+        <if test="venueIsDel !=null">
+            and cv.venue_is_del = #{venueIsDel,jdbcType=INTEGER}
+        </if>
+        <if test="venueState !=null">
+            and cv.venue_state = #{venueState,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <!--后端3.0场馆评论管理列表-->
+    <select id="queryVenueCommentByCondition" resultMap="BaseResultMap"
+            parameterType="java.util.Map">
+        select
+        cv.venue_id,cv.venue_name,cv.venue_update_time,cv.manager_id,cv.venue_area,
+        t.tag_name as venue_type,su.user_account as venue_update_user,
+        (select count(*) from cms_comment c where c.comment_rk_id=cv.venue_id) as comment_count
+        from cms_venue cv
+        left join cms_tag t on cv.venue_type = t.tag_id
+        left join sys_user su on cv.venue_create_user = su.user_id
+        where 1=1
+        <if test="venueIsDel != null">
+            and cv.venue_is_del = #{venueIsDel}
+        </if>
+        <if test="venueState != null">
+            and cv.venue_state = #{venueState}
+        </if>
+        <if test="venueName != null">
+            and cv.venue_name like #{venueName}
+        </if>
+        <if test="venueArea != null">
+            and cv.venue_area like #{venueArea}
+        </if>
+        <if test="venueDept != null">
+            and cv.venue_dept like #{venueDept}
+        </if>
+        and cv.venue_id in (select cc.comment_rk_id from cms_comment cc where cc.comment_type=#{commentType})
+        order by cv.VENUE_UPDATE_TIME desc
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+
+    <!--后端3.0场馆评论管理条数-->
+    <select id="queryVenueCommentCountByCondition" resultType="java.lang.Integer"
+            parameterType="java.util.Map">
+        select count(*)
+        from cms_venue cv
+        left join cms_tag t on cv.venue_type = t.tag_id
+        left join sys_user su on cv.venue_create_user = su.user_id
+        where 1=1
+        <if test="venueIsDel != null">
+            and cv.venue_is_del = #{venueIsDel}
+        </if>
+        <if test="venueState != null">
+            and cv.venue_state = #{venueState}
+        </if>
+        <if test="venueName != null">
+            and cv.venue_name like #{venueName}
+        </if>
+        <if test="venueArea != null">
+            and cv.venue_area like #{venueArea}
+        </if>
+        <if test="venueDept != null">
+            and cv.venue_dept like #{venueDept}
+        </if>
+        and cv.venue_id in (select cc.comment_rk_id from cms_comment cc where cc.comment_type=#{commentType})
+    </select>
+    <!--app获取前3条展馆推荐 -->
+    <select id="queryAppVenueAppByNum" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        v.VENUE_ID,
+        v.VENUE_ICON_URL,
+        v.VENUE_STARS,
+        v.VENUE_HAS_METRO,
+        v.VENUE_HAS_BUS,
+        v.VENUE_METRO_TEXT,
+        v.VENUE_BUS_TEXT,
+        v.VENUE_NAME,
+        v.VENUE_MEMO,
+        v.VENUE_ADDRESS,
+        v.VENUE_LAT,
+        v.VENUE_LON,
+        v.VENUE_ADDRESS,
+        GROUP_CONCAT(c.COMMENT_REMARK ORDER BY c.COMMENT_TIME DESC) AS remarks,
+        GROUP_CONCAT( ct.USER_NAME ORDER BY c.COMMENT_TIME DESC) AS userNames
+        FROM
+        cms_venue v
+        LEFT JOIN cms_comment c
+        ON v.VENUE_ID=c.COMMENT_RK_ID
+        LEFT JOIN cms_terminal_user ct on c.COMMENT_USER_ID=ct.USER_ID
+        WHERE
+        1 = 1
+        <if test="venueIsRecommend!=null and venueIsRecommend==2">
+            AND v.VENUE_IS_RECOMMEND = #{venueIsRecommend}
+        </if>
+        <if test="venueState != null">
+            AND v.venue_state = #{venueState}
+        </if>
+        <if test="venueIsDel !=null">
+            AND v.VENUE_IS_DEL = #{venueIsDel}
+        </if>
+        GROUP BY v.VENUE_ID
+        ORDER BY
+        <if test="venueIsRecommend!=null and venueIsRecommend==2">
+            v.VENUE_RECOMMEND_TIME DESC ,
+        </if>
+        v.VENUE_UPDATE_TIME DESC
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+    <!--app查询活动列表数与前3条数据 -->
+    <select id="queryVenueAppByPageCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+        SELECT
+        COUNT(*)
+        FROM
+        cms_venue v
+        LEFT JOIN cms_comment c
+        ON v.VENUE_ID=c.COMMENT_RK_ID
+        LEFT JOIN cms_terminal_user ct on c.COMMENT_USER_ID=ct.USER_ID
+        WHERE
+        1 = 1
+        <if test="venueIsRecommend!=null and venueIsRecommend==2">
+            AND v.VENUE_IS_RECOMMEND = #{venueIsRecommend}
+        </if>
+        <if test="venueState != null">
+            AND v.venue_state = #{venueState}
+        </if>
+        <if test="venueIsDel !=null">
+            AND v.VENUE_IS_DEL = #{venueIsDel}
+        </if>
+    </select>
+    <!-- 后端3.0 场馆下有效活动总数 -->
+    <select id="queryVenueOfActivityCountByVenueId" resultType="java.lang.Integer"
+            parameterType="java.util.Map">
+        SELECT COUNT(*)
+        FROM cms_venue a
+        LEFT JOIN cms_activity_venue_relevance b ON a.VENUE_ID = b.VENUE_ID
+        right JOIN cms_activity c ON b.ACTIVITY_ID = c.ACTIVITY_ID
+        WHERE 1=1
+        <if test="activityIsDel != null">
+            and c.ACTIVITY_IS_DEL = #{activityIsDel}
+        </if>
+        <if test="activityState != null">
+            and c.ACTIVITY_STATE = #{activityState}
+        </if>
+        and a.VENUE_ID = #{venueId}
+    </select>
+
+
+    <select id="queryVenueByVenueDeptId" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+		select
+		VENUE_ID, VENUE_NAME, VENUE_ICON_URL, VENUE_LON,
+		VENUE_LAT, VENUE_PROVINCE,
+		VENUE_CITY, VENUE_AREA, VENUE_ADDRESS,
+		VENUE_OPEN_TIME, VENUE_TYPE,
+		VENUE_LINKMAN, VENUE_SITES, VENUE_MAIL,
+		VENUE_TEL, VENUE_MOBILE, VENUE_IS_FREE,
+		VENUE_PRICE, VENUE_BUSINESS,
+		VENUE_IS_VOICE, VENUE_VOICE_URL, VENUE_IS_VIDEO, VENUE_VIDEO_URL,
+		VENUE_IS_ROAM, VENUE_ROAM_URL,
+		VENUE_IS_DEL, VENUE_STATE,
+		VENUE_CREATE_TIME, VENUE_UPDATE_TIME, VENUE_CREATE_USER,
+		VENUE_UPDATE_USER, VENUE_IS_RESERVE, VENUE_END_TIME, VENUE_MON,
+		VENUE_TUE, VENUE_WED,
+		VENUE_THU, VENUE_FRI, VENUE_SAT, VENUE_SUN,
+		MANAGER_ID, OPEN_NOTICE, VENUE_HAS_ROOM,
+		VENUE_HAS_ANTIQUE,VENUE_MEMO,
+		VENUE_CROWD, VENUE_MOOD, VENUE_DEPT, VENUE_REMARK,VENUE_HAS_METRO,VENUE_HAS_BUS,VENUE_STARS,
+		VENUE_METRO_TEXT,VENUE_BUS_TEXT,
+		VENUE_IS_RECOMMEND,VENUE_RECOMMEND_TIME, VENUE_DEPT_ID
+		from cms_venue 
+		where VENUE_DEPT_ID = #{deptId}
+		limit 0,1
+	</select>
+    <!--app根据活动室预定id获取展馆id -->
+    <select id="queryVenueByBookId" resultType="java.lang.String"
+            parameterType="java.lang.String">
+SELECT
+	cv.VENUE_ID
+FROM
+	cms_room_book crb
+ LEFT JOIN cms_room  cr on crb.ROOM_ID=cr.ROOM_ID
+ LEFT JOIN cms_venue cv on cv.VENUE_ID=cr.ROOM_VENUE_ID
+WHERE
+	1 = 1
+AND crb.BOOK_ID = #{bookId}
+	</select>
+
+    <select id="queryVenueByVenueName" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT VENUE_ID,SYS_ID,SYS_NO from cms_venue where VENUE_NAME = #{0}  limit 1
+	</select>
+
+
+    <select id="queryRecommendVenueCountByCondition" resultType="java.lang.Integer"
+            parameterType="java.util.Map">
+        select
+        count(*)
+        from cms_venue cv
+        where 1 =1
+
+        <if test="venueIsRocemmend != null">
+            and cv.VENUE_IS_RECOMMEND = #{venueIsRocemmend}
+        </if>
+
+        <if test="venueName != null and venueName != ''">
+            and cv.VENUE_NAME like '%${venueName}%'
+        </if>
+
+        <if test="venueProvince != null and venueProvince != ''">
+            and cv.VENUE_PROVINCE like '%${venueProvince}%'
+        </if>
+        <if test="venueCity != null and venueCity != ''">
+            and cv.VENUE_CITY like '%${venueCity}%'
+        </if>
+        <if test="venueArea != null and venueArea != ''">
+            and cv.VENUE_AREA like '%${venueArea}%'
+        </if>
+        <if test="venueType != null and venueType != ''">
+            and cv.VENUE_TYPE = #{venueType}
+        </if>
+        <if test="venueState != null">
+            and cv.VENUE_STATE = ${venueState}
+        </if>
+        <if test="venueIsDel != null and venueIsDel != ''">
+            and cv.VENUE_IS_DEL = ${venueIsDel}
+        </if>
+    </select>
+
+
+    <!--hucheng-->
+    <select id="queryRecommendVenueByConditionList" resultMap="BaseResultMap"
+            parameterType="java.util.Map">
+        select
+        cv.venue_id,cv.venue_name,cv.venue_state,cv.venue_update_time,cv.manager_id,cv.venue_area,
+        cv.venue_create_time,
+        cv.venue_update_time,su.user_account as venue_update_user,
+        cv.venue_tel,cv.venue_address,cv.venue_icon_url,
+        cv.venue_mobile,cv.venue_has_room,cv.venue_has_antique,cv.VENUE_LON,cv.VENUE_LAT,cv.VENUE_HAS_METRO,cv.VENUE_HAS_BUS,cv.VENUE_STARS,cv.VENUE_IS_RECOMMEND,cv.SYS_ID,cv.SYS_NO
+        from cms_venue cv
+        left join sys_user su on cv.venue_create_user = su.user_id
+        where 1 =1
+
+        <if test="venueIsRocemmend != null">
+            and cv.VENUE_IS_RECOMMEND = #{venueIsRocemmend}
+        </if>
+
+        <if test="venueName != null and venueName != ''">
+            and cv.VENUE_NAME like '%${venueName}%'
+        </if>
+
+        <if test="venueProvince != null and venueProvince != ''">
+            and cv.VENUE_PROVINCE like '%${venueProvince}%'
+        </if>
+        <if test="venueCity != null and venueCity != ''">
+            and cv.VENUE_CITY like '%${venueCity}%'
+        </if>
+        <if test="venueArea != null and venueArea != ''">
+            and cv.VENUE_AREA like '%${venueArea}%'
+        </if>
+        <if test="venueType != null and venueType != ''">
+            and cv.VENUE_TYPE = #{venueType}
+        </if>
+        <if test="venueState != null">
+            and cv.VENUE_STATE = ${venueState}
+        </if>
+        <if test="venueIsDel != null and venueIsDel != ''">
+            and cv.VENUE_IS_DEL = ${venueIsDel}
+        </if>
+
+        ORDER BY cv.VENUE_IS_RECOMMEND desc,cv.VENUE_RECOMMEND_TIME desc, cv.VENUE_UPDATE_TIME desc
+
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+    <!-- 查询场馆列表end -->
+
+    <!--文化云3.1前端首页推荐场馆-->
+    <select id="queryRecommendVenue" resultMap="BaseResultMap"
+            parameterType="java.util.Map">
+        SELECT
+        a.venue_id,
+        a.venue_name,
+        a.venue_icon_url,
+        a.VENUE_ADDRESS
+        FROM
+        cms_venue a
+        WHERE
+        a.venue_is_del = 1
+        AND a.venue_state = 6
+        <if test="venueArea != null">
+            and a.venue_area like #{venueArea}
+        </if>
+        order by a.VENUE_IS_RECOMMEND desc, a.venue_recommend_time desc,a.venue_update_time desc
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+
+    <!--app根据条件筛选最新或最近展馆 -->
+    <select id="queryAppVenueListByCondition" resultMap="BaseResultMap"
+            parameterType="java.util.Map">
+        SELECT
+        SUBSTRING(v.VENUE_CITY, locate(',', v.VENUE_CITY)+1) as city,
+        SUBSTRING(v.VENUE_AREA, locate(',', v.VENUE_AREA)+1) as area,
+        v.VENUE_LON,
+        v.VENUE_LAT,
+        v.VENUE_ID,
+        v.VENUE_ICON_URL,
+        v.VENUE_STARS,
+        v.VENUE_HAS_METRO,
+        v.VENUE_HAS_BUS,
+        v.VENUE_NAME,
+        v.VENUE_ADDRESS,
+        GROUP_CONCAT(
+        c.COMMENT_REMARK
+        ORDER BY
+        c.COMMENT_TIME DESC
+        ) AS remarks,
+        GROUP_CONCAT(
+        ct.USER_NAME
+        ORDER BY
+        c.COMMENT_TIME DESC
+        ) AS userNames,
+        GROUP_CONCAT(
+        ct.USER_SEX
+        ORDER BY
+        c.COMMENT_TIME DESC
+        ) AS userSexs,
+        GROUP_CONCAT(
+        ct.USER_HEAD_IMG_URL
+        ORDER BY
+        c.COMMENT_TIME DESC
+        ) AS userHeadImgUrl,
+        v.VENUE_IS_RESERVE,
+        round(
+        6378.138 * 2 * asin(
+        sqrt(
+        pow(
+        sin(
+        (
+        VENUE_LAT * pi() / 180 -
+        <if test="lat!=null">
+            #{lat}
+        </if>
+        * pi() / 180
+        ) / 2
+        ),
+        2
+        ) + cos(VENUE_LAT * pi() / 180) * cos(
+        <if test="lat!=null">
+            #{lat}
+        </if>
+        * pi() / 180) * pow(
+        sin(
+        (
+        VENUE_LON * pi() / 180 -
+        <if test="lon!=null">
+            #{lon}
+        </if>
+        * pi() / 180
+        ) / 2
+        ),
+        2
+        )
+        )
+        ) * 1000
+        ) AS distance
+        FROM
+        cms_venue v
+        LEFT JOIN cms_comment c ON v.VENUE_ID = c.COMMENT_RK_ID
+        LEFT JOIN cms_terminal_user ct ON c.COMMENT_USER_ID = ct.USER_ID
+        WHERE
+        1 = 1
+        <if test="venueName != null and venueName != ''">
+            and (VENUE_NAME like #{venueName,jdbcType=VARCHAR} escape '/'
+            or (select GROUP_CONCAT(ROOM_NAME SEPARATOR' ') FROM CMS_ROOM where ROOM_VENUE_ID = v.venue_id and
+            ROOM_IS_DEL=1 and ROOM_STATE=6) like #{venueName,jdbcType=VARCHAR} escape '/'
+            or (select GROUP_CONCAT(ANTIQUE_NAME SEPARATOR' ') FROM CMS_ANTIQUE where VENUE_ID = v.venue_id and
+            ANTIQUE_IS_DEL=1 and ANTIQUE_STATE=6) like #{venueName,jdbcType=VARCHAR} escape '/')
+        </if>
+        <if test="venueType !=null">
+            and venue_type = #{venueType,jdbcType=VARCHAR}
+        </if>
+        <if test="venueArea !=null">
+            and venue_area LIKE #{venueArea,jdbcType=VARCHAR}
+        </if>
+        <if test="venueCrowd != null and venueCrowd != ''">
+            and VENUE_CROWD like #{venueCrowd}
+        </if>
+        <if test="venueIsDel !=null">
+            and venue_is_del = #{venueIsDel,jdbcType=INTEGER}
+        </if>
+        <if test="venueState !=null">
+            and venue_state = #{venueState,jdbcType=INTEGER}
+        </if>
+        <if test="venueIsReserve!=null">
+            and VENUE_IS_RESERVE = #{venueIsReserve,jdbcType=INTEGER}
+        </if>
+        GROUP BY
+        v.VENUE_ID
+        ORDER BY
+        distance ASC,
+        v.VENUE_UPDATE_TIME DESC
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+
+    <!--app根据条件筛选最热门展馆 -->
+    <select id="queryAppHotVenueListByCondition" resultMap="BaseResultMap"
+            parameterType="java.util.Map">
+        SELECT
+        SUBSTRING(cv.VENUE_CITY, locate(',', cv.VENUE_CITY)+1) as city,
+        SUBSTRING(cv.VENUE_AREA, locate(',', cv.VENUE_AREA)+1) as area,
+        cv.VENUE_ID,
+        cv.VENUE_ICON_URL,
+        cv.VENUE_STARS,
+        cv.VENUE_HAS_METRO,
+        cv.VENUE_HAS_BUS,
+        cv.VENUE_NAME,
+        cv.VENUE_ADDRESS,
+        cv.VENUE_LAT,
+        cv.VENUE_LON,
+        cv.VENUE_ADDRESS,
+        GROUP_CONCAT(c.COMMENT_REMARK ORDER BY c.COMMENT_TIME DESC) AS remarks,
+        GROUP_CONCAT(ct.USER_NAME ORDER BY c.COMMENT_TIME DESC) AS userNames,
+        GROUP_CONCAT(ct.USER_HEAD_IMG_URL ORDER BY c.COMMENT_TIME DESC) AS userHeadImgUrl,
+        GROUP_CONCAT(ct.USER_SEX ORDER BY c.COMMENT_TIME DESC) AS userSexs,
+        cv.VENUE_IS_RESERVE,
+        round(
+        6378.138 * 2 * asin(
+        sqrt(
+        pow(
+        sin(
+        (
+        VENUE_LAT * pi() / 180 -
+        <if test="lat!=null">
+            #{lat}
+        </if>
+        * pi() / 180
+        ) / 2
+        ),
+        2
+        ) + cos(VENUE_LAT * pi() / 180) * cos(
+        <if test="lat!=null">
+            #{lat}
+        </if>
+        * pi() / 180) * pow(
+        sin(
+        (
+        VENUE_LON * pi() / 180 -
+        <if test="lon!=null">
+            #{lon}
+        </if>
+        * pi() / 180
+        ) / 2
+        ),
+        2
+        )
+        )
+        ) * 1000
+        ) AS distance
+        FROM
+        cms_venue cv
+        LEFT JOIN cms_statistics cs ON cv.VENUE_ID = cs.S_ID
+        LEFT JOIN cms_comment c ON cv.VENUE_ID=c.COMMENT_RK_ID
+        LEFT JOIN cms_terminal_user ct on c.COMMENT_USER_ID=ct.USER_ID
+        WHERE
+        1 = 1
+        <if test="venueIsReserve != null and venueIsReserve != ''">
+            and cv.VENUE_IS_RESERVE = #{venueIsReserve,jdbcType=INTEGER}
+        </if>
+        <if test="venueName != null and venueName != ''">
+            and cv.VENUE_NAME like #{venueName,jdbcType=VARCHAR} escape '/'
+        </if>
+        <if test="venueType !=null">
+            and cv.venue_type = #{venueType,jdbcType=VARCHAR}
+        </if>
+        <if test="venueArea !=null">
+            and cv.venue_area LIKE #{venueArea,jdbcType=VARCHAR}
+        </if>
+        <if test="venueCrowd != null and venueCrowd != ''">
+            and cv.VENUE_CROWD like #{venueCrowd}
+        </if>
+        <if test="venueIsDel !=null">
+            and cv.venue_is_del = #{venueIsDel,jdbcType=INTEGER}
+        </if>
+        <if test="venueState !=null">
+            and cv.venue_state = #{venueState,jdbcType=INTEGER}
+        </if>
+        GROUP BY cv.VENUE_ID
+        ORDER BY
+        cs.YEAR_BROWSE_COUNT DESC
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+
+    <!--app根据展馆id查询展馆信息 -->
+    <select id="queryAppVenueDetailById" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        SUBSTRING(v.VENUE_CITY, locate(',', v.VENUE_CITY)+1) as city,
+        SUBSTRING(v.VENUE_AREA, locate(',', v.VENUE_AREA)+1) as area,
+        v.VENUE_HAS_ANTIQUE,
+        v.VENUE_ID,
+        v.VENUE_LAT,
+        v.VENUE_LON,
+        v.VENUE_ICON_URL,
+        v.VENUE_STARS,
+        v.VENUE_HAS_METRO,
+        v.VENUE_HAS_BUS,
+        v.VENUE_METRO_TEXT,
+        v.VENUE_BUS_TEXT,
+        v.VENUE_NAME,
+        v.VENUE_MEMO,
+        v.VENUE_OPEN_TIME,
+        v.VENUE_END_TIME,
+        v.VENUE_ADDRESS,
+        v.VENUE_LAT,
+        v.VENUE_MOBILE,
+        v.VENUE_LON,
+        v.VENUE_ADDRESS,
+        v.VENUE_PRICE,
+        v.VENUE_HAS_ROOM,
+        v.VENUE_VOICE_URL,
+        v.VENUE_FACILITY,
+        v.OPEN_NOTICE,
+        GROUP_CONCAT(
+        c.COMMENT_REMARK
+        ORDER BY
+        c.COMMENT_TIME DESC
+        ) AS remarks,
+        GROUP_CONCAT(
+        ct.USER_NAME
+        ORDER BY
+        c.COMMENT_TIME DESC
+        ) AS userNames,
+        <if test="userId!=null">
+            (select COUNT(*) from cms_collect co WHERE 1=1
+            <if test="type!=null">
+                AND co.TYPE=#{type}
+            </if>
+            <if test="userId!=null">
+                and co.USER_ID=#{userId}
+            </if>
+            <if test="relatedId!=null">
+                AND co.RELATE_ID=#{relatedId}
+            </if>
+            ) AS collectNum,
+        </if>
+        GROUP_CONCAT(cr.ROOM_PIC_URL SEPARATOR ',') AS roomUrls,
+        GROUP_CONCAT(cr.ROOM_NAME SEPARATOR ',') as roomNames,
+        v.VENUE_IS_RESERVE,
+        v.VENUE_REMARK,
+        v.VENUE_PRICE_NOTICE
+        FROM
+        cms_venue v
+        LEFT JOIN cms_comment c ON v.VENUE_ID = c.COMMENT_RK_ID
+        LEFT JOIN cms_terminal_user ct ON c.COMMENT_USER_ID = ct.USER_ID
+        LEFT JOIN cms_room cr on v.venue_Id=cr.ROOM_VENUE_ID
+        WHERE
+        1 = 1
+        AND v.venue_state = 6
+        AND v.VENUE_IS_DEL = 1
+        <if test="relatedId!=null">
+            AND v.VENUE_ID=#{relatedId}
+        </if>
+    </select>
+
+
+    <!-- 查询场馆列表start -->
+    <select id="queryRelatedVenue" resultMap="BaseResultMap"
+            parameterType="java.util.Map">
+        select
+        cv.venue_id,cv.venue_name,cv.venue_state,cv.venue_update_time,cv.venue_area,
+        cv.venue_create_time,cv.venue_update_time,cv.venue_tel,cv.venue_address,cv.venue_icon_url,
+        cv.venue_mobile,cv.venue_has_room,cv.venue_has_antique,cv.VENUE_LON,cv.VENUE_LAT,cv.VENUE_HAS_METRO,cv.VENUE_HAS_BUS,cv.VENUE_STARS,cv.VENUE_IS_RECOMMEND,cv.SYS_ID,cv.SYS_NO
+        from cms_venue cv
+        where 1 =1
+        <if test="venueArea != null">
+            and cv.VENUE_AREA like '%${venueArea}%'
+        </if>
+        <if test="venueState != null">
+            and cv.VENUE_STATE = #{venueState}
+        </if>
+        <if test="venueIsDel != null">
+            and cv.VENUE_IS_DEL = #{venueIsDel}
+        </if>
+        <if test="venueIdExclude != null">
+            AND cv.VENUE_ID != #{venueIdExclude}
+        </if>
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+    <!-- 查询场馆列表end -->
+
+    <!-- 查询场馆列表总条数start -->
+    <select id="queryRelatedVenueCount" resultType="java.lang.Integer"
+            parameterType="java.util.Map">
+        select
+        count(cv.venue_id)
+        from cms_venue cv
+        where 1 =1
+        <if test="venueArea != null">
+            and cv.VENUE_AREA like '%${venueArea}%'
+        </if>
+        <if test="venueState != null">
+            and cv.VENUE_STATE = #{venueState}
+        </if>
+        <if test="venueIsDel != null">
+            and cv.VENUE_IS_DEL = #{venueIsDel}
+        </if>
+        <if test="venueIdExclude != null">
+            AND cv.VENUE_ID != #{venueIdExclude}
+        </if>
+    </select>
+    <!-- 查询场馆列表总条数end -->
+
+    <select id="queryVenueScore" resultType="java.lang.String" parameterType="java.lang.String">
+			SELECT   ROUND( sum(c.COMMENT_STAR)/count(*),1)
+			FROM cms_comment c where c.COMMENT_RK_ID=#{venueId}
+	</select>
+
+    <!--why3.5 app根据条件筛选场馆 -->
+    <select id="queryAppVenueList" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        IF(ISNULL(a.venue_sort), 0, 1) as venueHasSortValue,
+        a.VENUE_ID,
+        a.VENUE_ICON_URL,
+        a.VENUE_NAME,
+        a.VENUE_ADDRESS,
+        a.VENUE_IS_RESERVE,
+        a.VENUE_SORT,
+        tag.TAG_NAME,
+        a.distance
+        from (
+            SELECT
+            cv.VENUE_ID,
+            cv.VENUE_ICON_URL,
+            cv.VENUE_NAME,
+            cv.VENUE_ADDRESS,
+            cv.VENUE_IS_RESERVE,
+            cv.venue_type,
+            cv.VENUE_SORT,
+            cs.year_browse_count,
+            cv.venue_update_time,
+            round(
+            6378.138 * 2 * asin(
+            sqrt(
+            pow(
+            sin(
+            (
+            VENUE_LAT * pi() / 180 - #{lat} * pi() / 180
+            ) / 2
+            ),
+            2
+            ) + cos(VENUE_LAT * pi() / 180) * cos(#{lat} * pi() / 180) * pow(
+            sin(
+            (
+            VENUE_LON * pi() / 180 - #{lon} * pi() / 180
+            ) / 2
+            ),
+            2
+            )
+            )
+            ) * 1000
+            ) AS distance
+            FROM
+            cms_venue cv
+            LEFT JOIN cms_statistics cs ON cv.VENUE_ID = cs.S_ID
+            WHERE
+            cv.venue_is_del = 1
+            AND cv.venue_state = 6
+            <if test="venueArea != null">
+                and cv.venue_area like #{venueArea}
+                <if test="venueMood != null">
+                    and cv.VENUE_MOOD = #{venueMood}
+                </if>
+            </if>
+            <if test="venueIsReserve != null">
+                and cv.VENUE_IS_RESERVE = #{venueIsReserve}
+            </if>
+            GROUP BY cv.VENUE_ID
+        ) a 
+        left join cms_tag tag on FIND_IN_SET(tag.tag_id,a.venue_type)
+        <if test="tagSubId != null">
+         	INNER JOIN cms_tag_sub_relate tsr on tsr.RELATE_ID=a.VENUE_ID and tsr.TAG_SUB_ID=#{tagSubId}
+        </if>
+        where 1=1
+        <if test="venueType != null">
+            and tag.tag_id in
+            <foreach collection="venueType" separator="," item="item" open="(" close=")">
+                '${item}'
+            </foreach>
+        </if>
+        group by a.venue_id
+        <if test="sortType == null">
+            order by venueHasSortValue DESC, a.VENUE_SORT,a.venue_update_time DESC
+        </if>
+        <if test="sortType == 1">
+            order by venueHasSortValue DESC, a.VENUE_SORT,a.venue_update_time DESC
+        </if>
+        <if test="sortType == 2">
+            order by venueHasSortValue DESC, a.VENUE_SORT, a.distance asc
+        </if>
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+
+    <!--why3.5 app根据展馆id查询展馆信息 -->
+    <select id="queryAppCmsVenueDetailById" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        SUBSTRING(v.VENUE_CITY, locate(',', v.VENUE_CITY)+1) as city,
+        SUBSTRING(v.VENUE_AREA, locate(',', v.VENUE_AREA)+1) as area,
+        v.VENUE_HAS_ANTIQUE,
+        v.VENUE_ID,
+        v.VENUE_LAT,
+        v.VENUE_LON,
+        v.VENUE_ICON_URL,
+        v.VENUE_STARS,
+        v.VENUE_HAS_METRO,
+        v.VENUE_HAS_BUS,
+        v.VENUE_METRO_TEXT,
+        v.VENUE_BUS_TEXT,
+        v.VENUE_NAME,
+        tag.TAG_NAME,
+        sd.dict_name,
+        v.venue_is_free,
+        v.VENUE_MEMO,
+        v.VENUE_OPEN_TIME,
+        v.VENUE_END_TIME,
+        v.VENUE_ADDRESS,
+        v.VENUE_LAT,
+        v.VENUE_MOBILE,
+        v.VENUE_LON,
+        v.VENUE_ADDRESS,
+        v.VENUE_PRICE,
+        v.VENUE_HAS_ROOM,
+        v.VENUE_VOICE_URL,
+        v.OPEN_NOTICE,
+        v.VENUE_FACILITY,
+        c.COMMENT_REMARK AS remarks,
+   	 	c.USER_NAME AS userNames,
+        <if test="userId!=null">
+            (select COUNT(*) from cms_collect co WHERE 1=1
+            <if test="type!=null">
+                AND co.TYPE=#{type}
+            </if>
+            <if test="userId!=null">
+                and co.USER_ID=#{userId}
+            </if>
+            <if test="relatedId!=null">
+                AND co.RELATE_ID=#{relatedId}
+            </if>
+            ) AS collectNum,
+        </if>
+        <if test="userId!=null">
+            (
+            SELECT
+            count(*)
+            FROM
+            cms_user_wantgo cau
+            WHERE
+            1 = 1 and cau.RELATE_ID =#{relatedId}
+            AND cau.USER_ID =#{userId}
+            ) AS venueIsWant,
+        </if>
+        GROUP_CONCAT(cr.ROOM_PIC_URL SEPARATOR ',') AS roomUrls,
+        GROUP_CONCAT(cr.ROOM_NAME SEPARATOR ',') as roomNames,
+        v.VENUE_IS_RESERVE,
+        v.VENUE_REMARK,
+        v.VENUE_PRICE_NOTICE
+        FROM
+        cms_venue v
+       	LEFT JOIN (SELECT c.`COMMENT_REMARK`,c.`COMMENT_USER_ID`,MAX(c.COMMENT_TIME),c.COMMENT_RK_ID,ct.USER_NAME  FROM cms_comment c  
+       	
+       	LEFT JOIN cms_terminal_user ct ON c.COMMENT_USER_ID = ct.USER_ID
+       	
+       	WHERE c.COMMENT_RK_ID =#{relatedId})  c
+     	ON v.VENUE_ID = c.COMMENT_RK_ID
+        LEFT JOIN cms_room cr on v.venue_Id=cr.ROOM_VENUE_ID
+        LEFT JOIN cms_tag tag ON v.venue_type = tag.TAG_ID
+        left join sys_dict sd on v.VENUE_MOOD = sd.dict_id
+        WHERE
+        1 = 1
+        AND v.venue_state = 6
+        AND v.VENUE_IS_DEL = 1
+        AND cr.ROOM_STATE = 6
+        AND cr.ROOM_IS_DEL = 1
+        <if test="relatedId!=null">
+            AND v.VENUE_ID=#{relatedId}
+        </if>
+    </select>
+
+    <!--why3.5 app根据条件筛选场馆(搜索功能) -->
+    <select id="queryAppCmsVenueList" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        cv.VENUE_ID,
+        cv.VENUE_ICON_URL,
+        cv.VENUE_NAME,
+        cv.VENUE_ADDRESS,
+        cv.VENUE_IS_RESERVE,
+        cv.venue_type,
+        cs.year_browse_count,
+        cv.venue_update_time,
+        round(
+        6378.138 * 2 * asin(
+        sqrt(
+        pow(
+        sin(
+        (
+        VENUE_LAT * pi() / 180 - #{lat} * pi() / 180
+        ) / 2
+        ),
+        2
+        ) + cos(VENUE_LAT * pi() / 180) * cos(#{lat} * pi() / 180) * pow(
+        sin(
+        (
+        VENUE_LON * pi() / 180 - #{lon} * pi() / 180
+        ) / 2
+        ),
+        2
+        )
+        )
+        ) * 1000
+        ) AS distance
+        FROM
+        cms_venue cv
+        LEFT JOIN cms_statistics cs ON cv.VENUE_ID = cs.S_ID
+         <if test="tagSubId != null">
+         INNER JOIN cms_tag_sub_relate tsr on tsr.RELATE_ID=cv.VENUE_ID and tsr.`TAG_SUB_ID`=#{tagSubId}
+        </if>
+        WHERE
+        cv.venue_is_del = 1
+        AND cv.venue_state = 6
+        <if test="venueArea != null">
+            and cv.venue_area like #{venueArea}
+        </if>
+        <if test="venueName != null">
+            and cv.VENUE_NAME like #{venueName}
+        </if>
+        <if test="venueType != null">
+            and cv.VENUE_TYPE = #{venueType}
+        </if>
+        order by cs.year_browse_count desc
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+
+    <!--why3.5 app根据条件筛选场馆个数(搜索功能) -->
+    <select id="queryAppCmsVenueListCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+        SELECT count(*)
+        FROM cms_venue cv
+        LEFT JOIN cms_statistics cs ON cv.VENUE_ID = cs.S_ID
+        <if test="tagSubId != null">
+         INNER JOIN cms_tag_sub_relate tsr on tsr.RELATE_ID=cv.VENUE_ID and tsr.`TAG_SUB_ID`=#{tagSubId}
+        </if>
+        WHERE
+        cv.venue_is_del = 1
+        AND cv.venue_state = 6
+        <if test="venueArea != null">
+            and cv.venue_area like #{venueArea}
+        </if>
+        <if test="venueName != null">
+            and cv.VENUE_NAME like #{venueName}
+        </if>
+        <if test="venueType != null">
+            and cv.VENUE_TYPE = #{venueType}
+        </if>
+    </select>
+
+    <!--why3.5 根据场馆id获取最新活动名称(为场馆列表服务)-->
+    <select id="queryAppActivityNameByVenueId" parameterType="java.lang.String" resultType="java.lang.String">
+        select a.activity_name
+        from cms_activity a
+        LEFT JOIN cms_activity_event ce ON a.ACTIVITY_ID = ce.ACTIVITY_ID
+        left join cms_activity_venue_relevance b on a.activity_id=b.activity_id
+        left join cms_venue c on b.venue_id = c.venue_id
+        where a.activity_is_del=1 and a.activity_state=6 and c.venue_id = #{venueId}
+        GROUP BY a.activity_id
+        HAVING CONVERT (substring(GROUP_CONCAT(DISTINCT ce.event_date_time ORDER BY ce.event_date_time DESC), 1, 16), CHAR) >= DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i')
+        order by a.activity_update_time desc limit 1
+    </select>
+    
+    <!--why3.5 app根据展馆id查询展馆信息 -->
+    <select id="queryIsWantGo" resultType="java.lang.Integer" parameterType="java.util.Map">
+         SELECT count(*)
+         FROM cms_user_wantgo cau
+         WHERE 1 = 1 and cau.RELATE_ID =#{relatedId} AND cau.USER_ID =#{userId}
+    </select>
+    
+    <select id="queryVenueByType" resultMap="BaseResultMap" parameterType="java.util.Map">
+      select * from cms_venue where venue_is_del = 1 and venue_state = 6
+        <if test="venueType != null and venueType !=''">
+          and VENUE_TYPE=#{venueType}
+        </if>
+        <if test="venueName != null">
+          and VENUE_NAME like '%${venueName}%'
+        </if>
+        order by VENUE_CREATE_TIME ASC
+    </select>
+    
+    <select id="queryPcnewVenue" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+		select
+		VENUE_ID, VENUE_NAME, VENUE_ICON_URL, VENUE_LON,
+		VENUE_LAT, VENUE_PROVINCE,VENUE_PANORAMA,
+		VENUE_CITY, VENUE_AREA, VENUE_ADDRESS,
+		VENUE_OPEN_TIME, VENUE_TYPE,
+		VENUE_LINKMAN, VENUE_SITES, VENUE_MAIL,
+		VENUE_TEL, VENUE_MOBILE, VENUE_IS_FREE,
+		VENUE_PRICE, VENUE_BUSINESS,
+		VENUE_IS_VOICE, VENUE_VOICE_URL, VENUE_IS_VIDEO, VENUE_VIDEO_URL,
+		VENUE_IS_ROAM, VENUE_ROAM_URL,
+		VENUE_IS_DEL, VENUE_STATE,
+		VENUE_CREATE_TIME, VENUE_UPDATE_TIME, VENUE_CREATE_USER,
+		VENUE_UPDATE_USER, VENUE_IS_RESERVE, VENUE_END_TIME, VENUE_MON,
+		VENUE_TUE, VENUE_WED,
+		VENUE_THU, VENUE_FRI, VENUE_SAT, VENUE_SUN,
+		MANAGER_ID, OPEN_NOTICE, VENUE_HAS_ROOM,
+		VENUE_HAS_ANTIQUE,VENUE_MEMO,
+		VENUE_CROWD, VENUE_MOOD, VENUE_DEPT, VENUE_REMARK,VENUE_HAS_METRO,VENUE_HAS_BUS,VENUE_STARS,
+		VENUE_METRO_TEXT,VENUE_BUS_TEXT,
+		VENUE_IS_RECOMMEND,VENUE_RECOMMEND_TIME, VENUE_DEPT_ID,e.DEPT_ID as  venueParentDeptId,e.DEPT_NAME as venueParentDeptName,VENUE_DEPT_LABEL,
+		VENUE_PRICE_NOTICE,VENUE_FACILITY
+		from cms_venue 
+		LEFT JOIN sys_dept d ON d.DEPT_ID  = VENUE_DEPT_ID
+		LEFT JOIN sys_dept e ON e.dept_id = d.DEPT_PARENT_ID
+		where 1=1
+        <if test="venueState != null">
+            and VENUE_STATE = #{venueState,jdbcType=INTEGER}
+        </if>
+        <if test="venueIsDel != null">
+            and VENUE_IS_DEL = #{venueIsDel,jdbcType=INTEGER}
+        </if>
+        order by
+        <if test="orderBy != null ">
+            VENUE_CREATE_TIME desc
+        </if>
+        <if test="orderBy == null ">
+            VENUE_UPDATE_TIME desc
+        </if>
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+	</select>
+
+
+
+    <select id="queryVenueByMember" resultMap="BaseResultMap" parameterType="java.util.Map" flushCache="true" useCache="false">
+       SELECT v.* from cms_member m
+        join cms_member_relation r on m.id=r.member_id and r.relation_type=1
+        join cms_venue v on r.relation_id = v.VENUE_ID and v.VENUE_IS_DEL =1 and v.VENUE_STATE = 6
+        WHERE m.id=#{id} order by v.VENUE_CREATE_TIME desc
+        <if test="isShowPage == true">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+
+</mapper>

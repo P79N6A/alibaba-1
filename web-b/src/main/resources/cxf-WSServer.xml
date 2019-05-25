@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans.xsd
+ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+    <import resource="classpath:META-INF/cxf/cxf.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+    <!--start 用户对外接口 -->
+    <!--<bean id="cmsUserServiceImpl" class="com.sun3d.why.service.impl.CmsUserServiceImpl" ></bean>
+
+    <bean id="iuserWebServicesImpl" class="com.sun3d.why.webservice.service.impl.IuserWebServicesImpl">
+        <property name="sysUserMapper" ref="cmsUserServiceImpl"/>
+    </bean>
+    <jaxws:endpoint id="userService" implementor="#iuserWebServicesImpl" address="/sun3d/why/userService"  > </jaxws:endpoint>-->
+    <!--end 用户对外接口 -->
+
+
+    <!--start 活动对外接口 -->
+   <bean id="cmsActivityServiceImpl" class="com.sun3d.why.service.impl.CmsActivityServiceImpl" ></bean>
+    <bean id="cmsActivitySeatServiceImpl" class="com.sun3d.why.service.impl.CmsActivitySeatServiceImpl" ></bean>
+    <bean id="cmsRecommendServiceImpl" class="com.sun3d.why.service.impl.CmsRecommendServiceImpl" ></bean>
+
+
+ <!--  <bean id="icmsActivityWebServiceImpl" class="com.sun3d.why.webservice.service.impl.IcmsActivityWebServiceImpl">
+        <property name="activityMapper" ref="cmsActivityServiceImpl"/>
+        <property name="sysUserMapper" ref="iuserWebServicesImpl"/>
+        <property name="cmsActivitySeatService" ref="cmsActivitySeatServiceImpl"/>
+        <property name="cmsRecommendService" ref="cmsRecommendServiceImpl"/>
+    </bean>
+
+    <jaxws:endpoint id="activityService" implementor="#icmsActivityWebServiceImpl" address="/sun3d/why/activityService" />-->
+    <!--end 活动对外接口 -->
+
+
+    <!--start 藏品对外接口 -->
+   <!-- <bean id="cmsAntiqueServiceImpl" class="com.sun3d.why.service.impl.CmsAntiqueServiceImpl" ></bean>
+
+    <bean id="icmsAntiqueWebServiceImpl" class="com.sun3d.why.webservice.service.impl.IcmsAntiqueWebServiceImpl">
+        <property name="cmsAntiqueMapper" ref="cmsAntiqueServiceImpl"/>
+        <property name="sysUserMapper" ref="iuserWebServicesImpl"/>
+    </bean>
+
+    <jaxws:endpoint id="cmsAntiqueService"
+                    implementorClass="com.sun3d.why.webservice.service.impl.IcmsAntiqueWebServiceImpl"
+                    address="/sun3d/why/cmsAntiqueService" />-->
+    <!--end 藏品对外接口 -->
+
+
+    <!--start 场馆对外接口 -->
+   <!-- <bean id="cmsVenueServiceImpl" class="com.sun3d.why.service.impl.CmsVenueServiceImpl" ></bean>
+    <bean id="cmsTagRelateServiceImpl" class="com.sun3d.why.service.impl.CmsTagRelateServiceImpl" ></bean>
+    <bean id="sysDictServiceImpl" class="com.sun3d.why.service.impl.SysDictServiceImpl" ></bean>
+    <bean id="cmsTagServiceImpl" class="com.sun3d.why.service.impl.CmsTagServiceImpl" ></bean>
+    <bean id="icmsVenueWebServiceImpl" class="com.sun3d.why.webservice.service.impl.IcmsVenueWebServiceImpl">
+        <property name="cmsVenueMapper" ref="cmsVenueServiceImpl"/>
+        <property name="sysUserMapper" ref="iuserWebServicesImpl"/>
+        <property name="cmsTagService" ref="cmsTagServiceImpl"/>
+    </bean>
+    <jaxws:endpoint id="cmsVenueService" implementor="#icmsVenueWebServiceImpl" address="/sun3d/why/cmsVenueService" />-->
+    <!--end 场馆对外接口 -->
+
+</beans>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ActivityCircleStatisticsMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ActivityCircleStatistics" >
+    <result column="AREA" property="area" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_CIRCLE" property="activityCircle" jdbcType="VARCHAR" />
+    <result column="CIRCLE_NAME" property="circleName" jdbcType="VARCHAR" />
+    <result column="PERCENTAGE" property="percentage" jdbcType="DOUBLE" />
+    <result column="STATISTICS_TIME" property="statisticsTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    AREA, ACTIVITY_CIRCLE, CIRCLE_NAME, PERCENTAGE, STATISTICS_TIME
+  </sql>
+
+
+  <delete id="deleteInfo">
+    DELETE from activity_circle_statistics where 1=1;
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.sun3d.why.model.ActivityCircleStatistics" >
+    insert into activity_circle_statistics
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="area != null" >
+        AREA,
+      </if>
+      <if test="activityCircle != null" >
+        ACTIVITY_CIRCLE,
+      </if>
+      <if test="circleName != null" >
+        CIRCLE_NAME,
+      </if>
+      <if test="percentage != null" >
+        PERCENTAGE,
+      </if>
+      <if test="statisticsTime != null" >
+        STATISTICS_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="activityCircle != null" >
+        #{activityCircle,jdbcType=VARCHAR},
+      </if>
+      <if test="circleName != null" >
+        #{circleName,jdbcType=VARCHAR},
+      </if>
+      <if test="percentage != null" >
+        #{percentage,jdbcType=DOUBLE},
+      </if>
+      <if test="statisticsTime != null" >
+        #{statisticsTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByExampleSelective" parameterType="map" >
+    update activity_circle_statistics
+    <set >
+      <if test="record.area != null" >
+        AREA = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activityCircle != null" >
+        ACTIVITY_CIRCLE = #{record.activityCircle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.circleName != null" >
+        CIRCLE_NAME = #{record.circleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.percentage != null" >
+        PERCENTAGE = #{record.percentage,jdbcType=DOUBLE},
+      </if>
+      <if test="record.statisticsTime != null" >
+        STATISTICS_TIME = #{record.statisticsTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+  </update>
+
+
+  <select id="queryByMap" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select * from activity_circle_statistics where 1=1
+    <if test="area != null" >
+     and  AREA = #{area,jdbcType=VARCHAR}
+    </if>
+    and ACTIVITY_CIRCLE is not null and ACTIVITY_CIRCLE != ''
+    limit 6
+  </select>
+
+  <select id="queryByAll" resultType="hashmap" >
+    select ACTIVITY_CIRCLE  ,
+    CIRCLE_NAME as circleName,
+    sum(PERCENTAGE) as percentage
+     from activity_circle_statistics where 1=1
+      and ACTIVITY_CIRCLE is not null and ACTIVITY_CIRCLE != ''
+    GROUP BY  ACTIVITY_CIRCLE
+  </select>
+
+</mapper>

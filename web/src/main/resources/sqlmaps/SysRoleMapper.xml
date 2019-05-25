@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.SysRoleMapper">
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.SysRole">
+		<id column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+		<result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+		<result column="ROLE_REMARK" property="roleRemark" jdbcType="VARCHAR" />
+		<result column="ROLE_SORT" property="roleSort" jdbcType="INTEGER" />
+		<result column="ROLE_STATE" property="roleState" jdbcType="INTEGER" />
+		<result column="ROLE_CREATE_USER" property="roleCreateUser"
+			jdbcType="VARCHAR" />
+		<result column="ROLE_CREATE_TIME" property="roleCreateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="ROLE_UPDATE_USER" property="roleUpdateUser"
+			jdbcType="VARCHAR" />
+		<result column="ROLE_UPDATE_TIME" property="roleUpdateTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<!-- 分页信息 -->
+	<sql id="pagination_condition">
+		limit ${firstResult},${rows}
+	</sql>
+
+	<insert id="addRole" parameterType="com.sun3d.why.model.SysRole">
+		insert into SYS_ROLE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="roleId != null">
+				ROLE_ID,
+			</if>
+			<if test="roleName != null">
+				ROLE_NAME,
+			</if>
+			<if test="roleRemark != null">
+				ROLE_REMARK,
+			</if>
+			<if test="roleSort != null">
+				ROLE_SORT,
+			</if>
+			<if test="roleState != null">
+				ROLE_STATE,
+			</if>
+			<if test="roleCreateUser != null">
+				ROLE_CREATE_USER,
+			</if>
+			<if test="roleCreateTime != null">
+				ROLE_CREATE_TIME,
+			</if>
+			<if test="roleUpdateUser != null">
+				ROLE_UPDATE_USER,
+			</if>
+			<if test="roleUpdateTime != null">
+				ROLE_UPDATE_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="roleId != null">
+				#{roleId,jdbcType=VARCHAR},
+			</if>
+			<if test="roleName != null">
+				#{roleName,jdbcType=VARCHAR},
+			</if>
+			<if test="roleRemark != null">
+				#{roleRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="roleSort != null">
+				#{roleSort,jdbcType=INTEGER},
+			</if>
+			<if test="roleState != null">
+				#{roleState,jdbcType=INTEGER},
+			</if>
+			<if test="roleCreateUser != null">
+				#{roleCreateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="roleCreateTime != null">
+				#{roleCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="roleUpdateUser != null">
+				#{roleUpdateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="roleUpdateTime != null">
+				#{roleUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<!--关联角色-->
+	<select id="queryRoleByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select m.* from SYS_USER_ROLE r, SYS_ROLE m  where r.ROLE_ID = m.ROLE_ID and r.USER_ID = #{userId}
+	</select>
+
+	<update id="editRole" parameterType="com.sun3d.why.model.SysRole">
+		update SYS_ROLE
+		<set>
+			<if test="roleName != null">
+				ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+			</if>
+			<if test="roleRemark != null">
+				ROLE_REMARK = #{roleRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="roleSort != null">
+				ROLE_SORT = #{roleSort,jdbcType=INTEGER},
+			</if>
+			<if test="roleState != null">
+				ROLE_STATE = #{roleState,jdbcType=INTEGER},
+			</if>
+			<if test="roleCreateUser != null">
+				ROLE_CREATE_USER = #{roleCreateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="roleCreateTime != null">
+				ROLE_CREATE_TIME = #{roleCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="roleUpdateUser != null">
+				ROLE_UPDATE_USER = #{roleUpdateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="roleUpdateTime != null">
+				ROLE_UPDATE_TIME = #{roleUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+	</update>
+
+	<!--后台角色列表个数-->
+	<select id="queryRoleCountByCondition" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*) from sys_role r left join sys_user u on r.role_update_user = u.user_id
+	    where 1=1
+		<if test="roleState != null" >
+			and r.role_state = #{roleState,jdbcType=INTEGER}
+		</if>
+		<if test="roleName != null">
+			and r.role_name like #{roleName,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<!--后台角色列表-->
+	<select id="queryRoleByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select r.role_id,r.role_name,r.role_remark,r.role_state,r.role_update_time,u.user_account as role_update_user
+		from sys_role r left join sys_user u on r.role_update_user = u.user_id
+		where 1=1
+		<if test="roleState != null" >
+			and r.role_state = #{roleState,jdbcType=INTEGER}
+		</if>
+		<if test="roleName != null">
+			and r.role_name like #{roleName,jdbcType=VARCHAR}
+		</if>
+		order by r.role_update_time desc
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</select>
+
+	<!--后台角色分配页面-->
+	<select id="queryRoleByConditionOrderRoleSort" resultMap="BaseResultMap">
+		select role_id,role_name,role_remark,role_state,role_update_time
+		from sys_role r
+		where role_state = 1
+		order by role_sort asc
+	</select>
+
+	<!-- 查询后台角色名称是否存在 -->
+	<select id="queryRoleNameIsExists"  parameterType="java.lang.String" resultType="java.lang.Integer" >
+		SELECT count(*)
+		FROM sys_role a
+		WHERE a.role_state = 1 and a.role_name = #{roleName,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 根据id查询后台角色对象 -->
+	<select id="queryRoleById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+		SELECT r.role_id,r.role_name,r.role_remark,r.role_sort,r.role_state
+		FROM sys_role r
+		WHERE r.role_id = #{roleName,jdbcType=VARCHAR}
+		limit 1;
+	</select>
+</mapper>

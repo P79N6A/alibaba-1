@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/user_bule" >
+
+    <include
+        android:id="@+id/account_title"
+        android:background="@color/user_bule"
+        layout="@layout/activity_all_title" />
+    
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:layout_below="@+id/account_title"
+    android:layout_centerHorizontal="true"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:background="@color/activity_bg_color"
+    >
+
+    <ImageView
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginLeft="65dp"
+        android:src="@drawable/icon_head"
+        android:id="@+id/imageView" />
+
+
+    <View
+        android:layout_width="2dp"
+        android:layout_height="70dp"
+        android:background="#2cdeb4"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginRight="10dp"
+        ></View>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout6">
+
+        <TextView
+            android:id="@+id/account_content_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/account_info_size"
+            android:textColor="@color/event_title_color"
+            android:text="@string/account_content_id_text" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/account_info_size"
+                android:text="@string/account_content_belonging_text"
+                android:textColor="@color/event_title_color" />
+            <TextView
+                android:id="@+id/account_content_belonging"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/event_title_color"
+                android:textSize="@dimen/account_info_size"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/account_info_size"
+                android:textColor="@color/event_title_color"
+                android:text="@string/account_content_user_text" />
+
+            <TextView
+                android:id="@+id/account_content_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/event_title_color"
+                android:textSize="@dimen/account_info_size"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:background="@color/user_linear"
+        android:layout_below="@+id/account_title"
+        android:visibility="gone"
+        style="@style/all_title_below_linear" />
+
+
+</LinearLayout>
+
+    <TextView
+        android:id="@+id/account_return"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/account_info_return_height"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="40dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/btn_login_bg"
+        android:gravity="center"
+        android:text="@string/account_return_text"
+        android:textColor="@color/white" />
+
+
+</RelativeLayout>

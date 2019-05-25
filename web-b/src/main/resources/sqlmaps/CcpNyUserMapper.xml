@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ccp.CcpNyUserMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ccp.CcpNyUser" >
+    <id column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_MOBILE" property="userMobile" jdbcType="VARCHAR" />
+    <result column="USER_MAX_VOTE" property="userMaxVote" jdbcType="INTEGER" />
+    <result column="USER_MAX_IMG" property="userMaxImg" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    
+    <result column="USER_HEAD_IMG_URL" property="userHeadImgUrl" jdbcType="VARCHAR" />
+    <result column="USER_NICK_NAME" property="userNickName" jdbcType="VARCHAR" />
+    <result column="NY_IMG_CONTENT" property="nyImgContent" jdbcType="VARCHAR" />
+    <result column="NY_IMG_URL" property="nyImgUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    USER_ID, USER_NAME, USER_MOBILE,USER_MAX_VOTE,USER_MAX_IMG, CREATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_ny_user
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_ny_user
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.ccp.CcpNyUser" >
+    insert into ccp_ny_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      USER_ID,
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="userMobile != null" >
+        USER_MOBILE,
+      </if>
+      <if test="userMaxVote != null" >
+        USER_MAX_VOTE,
+      </if>
+      <if test="userMaxImg != null" >
+        USER_MAX_IMG,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{userId,jdbcType=VARCHAR},
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userMaxVote != null" >
+        #{userMaxVote,jdbcType=INTEGER},
+      </if>
+      <if test="userMaxImg != null" >
+        #{userMaxImg,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.ccp.CcpNyUser" >
+    update ccp_ny_user
+    <set >
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        USER_MOBILE = #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userMaxVote != null" >
+        USER_MAX_VOTE = #{userMaxVote,jdbcType=INTEGER},
+      </if>
+      <if test="userMaxImg != null" >
+        USER_MAX_IMG = #{userMaxImg,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryNyUserRanking" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	select 
+  		ccu.USER_ID, 
+  		ccu.USER_NAME, 
+  		ccu.USER_MOBILE,
+  		ccu.USER_MAX_VOTE,
+  		ccu.USER_MAX_IMG,
+  		ccu.CREATE_TIME,
+  		ctu.USER_NAME as USER_NICK_NAME,
+		ctu.USER_HEAD_IMG_URL,
+		cci.NY_IMG_URL, 
+    	cci.NY_IMG_CONTENT
+  	from ccp_ny_user ccu
+  	LEFT JOIN cms_terminal_user ctu ON ctu.USER_ID = ccu.USER_ID
+  	INNER JOIN ccp_ny_img cci ON cci.NY_IMG_ID = ccu.USER_MAX_IMG
+  	ORDER BY ccu.USER_MAX_VOTE desc,cci.CREATE_TIME desc
+  	limit 0,10
+  </select>
+  
+  <select id="selectRankingByVoteCount" resultType="java.lang.Integer" >
+    SELECT COUNT(*)+1 
+    FROM ccp_ny_user ccu
+    LEFT JOIN ccp_ny_img cci ON cci.NY_IMG_ID = ccu.USER_MAX_IMG
+	WHERE ccu.USER_MAX_VOTE > #{voteCount} or (ccu.USER_MAX_VOTE = #{voteCount} and cci.CREATE_TIME &lt; #{createTime})
+  </select>
+</mapper>

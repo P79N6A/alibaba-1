@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.YketCourseMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.bean.yket.YketCourse" >
+    <id column="course_id" property="courseId" jdbcType="VARCHAR" />
+    <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+    <result column="course_img_url" property="courseImgUrl" jdbcType="VARCHAR" />
+    <result column="label_id" property="labelId" jdbcType="VARCHAR" />
+    <result column="course_press" property="coursePress" jdbcType="VARCHAR" />
+    <result column="teacher_name" property="teacherName" jdbcType="VARCHAR" />
+    <result column="teacher_position" property="teacherPosition" jdbcType="VARCHAR" />
+    <result column="teacher_img_url" property="teacherImgUrl" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="teacher_intro" property="teacherIntro" jdbcType="VARCHAR" />
+    <result column="msg" property="msg" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap type="com.sun3d.why.model.vo.yket.YketCourseListVo" id="courseListMap" extends="BaseResultMap">
+    <collection property="labels"  column="course_id"  ofType="com.sun3d.why.model.bean.yket.YketLabel" select="com.sun3d.why.dao.YketLabelRelationMapper.selectObject" >
+    <id column="label_id" property="labelId" jdbcType="VARCHAR" />
+    <result column="label_name" property="labelName" jdbcType="VARCHAR" />
+    </collection>
+    <collection property="courseTypelabels"  column="course_id"  ofType="com.sun3d.why.model.bean.yket.YketLabel" select="com.sun3d.why.dao.YketLabelRelationMapper.selectCourseType" >
+    <id column="label_id" property="labelId" jdbcType="VARCHAR" />
+    <result column="label_name" property="labelName" jdbcType="VARCHAR" />
+    </collection>
+    <collection property="teachers"  column="course_id"   ofType="com.sun3d.why.model.bean.yket.YketTeacherInfo"  select="com.sun3d.why.dao.YketCourseTeacherMapper.selectTeacher" >
+     <id column="teacher_id" property="teacherId" jdbcType="VARCHAR" />
+     <result column="teacher_name" property="teacherName" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+  <resultMap type="com.sun3d.why.model.vo.yket.YketCourseList4FrontVo" id="courseList4FrontMap" extends="BaseResultMap">
+    <collection property="teacher"  column="course_id"   ofType="com.sun3d.why.model.bean.yket.YketTeacherInfo"  select="com.sun3d.why.dao.YketCourseTeacherMapper.selectTeacher4Front" >
+     <id column="teacher_id" property="teacherId" jdbcType="VARCHAR" />
+     <result column="teacher_name" property="teacherName" jdbcType="VARCHAR" />
+      <result column="teacher_header_img" property="teacherHeaderImg" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+    <resultMap type="com.sun3d.why.model.vo.yket.YketCourseVo" id="teacherInfoMap" extends="BaseResultMap">
+    <collection property="labels"  column="course_id"  ofType="com.sun3d.why.model.bean.yket.YketLabel" select="com.sun3d.why.dao.YketLabelRelationMapper.selectObject" >
+    <id column="label_id" property="labelId" jdbcType="VARCHAR" />
+    <result column="label_name" property="labelName" jdbcType="VARCHAR" />
+    </collection>
+    <collection property="courseTypelabels"  column="course_id"  ofType="com.sun3d.why.model.bean.yket.YketLabel" select="com.sun3d.why.dao.YketLabelRelationMapper.selectCourseType" >
+    <id column="label_id" property="labelId" jdbcType="VARCHAR" />
+    <result column="label_name" property="labelName" jdbcType="VARCHAR" />
+    </collection>
+    <collection property="courseFormlabels"  column="course_id"  ofType="com.sun3d.why.model.bean.yket.YketLabel" select="com.sun3d.why.dao.YketLabelRelationMapper.selectCourseForm" >
+    <id column="label_id" property="labelId" jdbcType="VARCHAR" />
+    <result column="label_name" property="labelName" jdbcType="VARCHAR" />
+    </collection>
+    <collection property="teachers"  column="course_id"   ofType="com.sun3d.why.model.bean.yket.YketTeacherInfo"  select="com.sun3d.why.dao.YketCourseTeacherMapper.selectTeacher" >
+       <id column="teacher_id" property="teacherId" jdbcType="VARCHAR" />
+       <result column="teacher_name" property="teacherName" jdbcType="VARCHAR" />
+     </collection>
+  </resultMap>
+  <resultMap type="com.sun3d.why.model.vo.yket.YketCourse4FrontVo" id="courseDetailInfo4Front" extends="BaseResultMap">
+    <result column="likeCount" property="likeCount" jdbcType="INTEGER" />
+    <result column="commentCount" property="commentCount" jdbcType="INTEGER" />
+    <result column="isLiked" property="isLiked" jdbcType="VARCHAR" />
+    <result column="isFavorite" property="isFavorite" jdbcType="VARCHAR" />
+    
+    
+    <collection property="courseFormlabels"  column="course_id"  ofType="com.sun3d.why.model.bean.yket.YketLabel" select="com.sun3d.why.dao.YketLabelRelationMapper.selectCourseForm" >
+    <id column="label_id" property="labelId" jdbcType="VARCHAR" />
+    <result column="label_name" property="labelName" jdbcType="VARCHAR" />
+    </collection>
+    <collection property="teachers"  column="course_id"   ofType="com.sun3d.why.model.bean.yket.YketTeacherInfo"  select="com.sun3d.why.dao.YketCourseTeacherMapper.selectTeacher" >
+	    <id column="teacher_id" property="teacherId" jdbcType="VARCHAR" />
+    	<result column="course_id" property="courseId" jdbcType="VARCHAR" />
+    	<result column="teacher_name" property="teacherName" jdbcType="VARCHAR" />
+     	<result column="teacher_intro" property="teacherIntro" jdbcType="VARCHAR" />
+    	<result column="teacher_header_img" property="teacherHeaderImg" jdbcType="VARCHAR" />
+    	<result column="teacher_title" property="teacherTitle" jdbcType="VARCHAR" />
+    </collection>
+    <collection property="courseHours"     ofType="com.sun3d.why.model.bean.yket.YketCourseHour" >
+    	<id column="hour_id" property="hourId" jdbcType="VARCHAR" />
+    	<result column="hour_name" property="hourName" jdbcType="VARCHAR" />
+    	<result column="course_duration" property="courseDuration" jdbcType="VARCHAR" />
+    	<result column="sort" property="sort" jdbcType="INTEGER" />
+	    <result column="video_url" property="videoUrl" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    course_id, course_name, course_img_url, label_id, course_press, teacher_name, teacher_position, 
+    teacher_img_url, deleted, teacher_intro, msg, create_user, update_user, create_date, 
+    update_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from yket_course
+    where course_id = #{courseId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from yket_course
+    where course_id = #{courseId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sun3d.why.model.bean.yket.YketCourse" >
+    insert into yket_course (course_id, course_name, course_img_url, 
+      label_id, course_press, teacher_name, 
+      teacher_position, teacher_img_url, deleted, 
+      teacher_intro, msg, create_user, 
+      update_user, create_date, update_date
+      )
+    values (#{courseId,jdbcType=VARCHAR}, #{courseName,jdbcType=VARCHAR}, #{courseImgUrl,jdbcType=VARCHAR}, 
+      #{labelId,jdbcType=VARCHAR}, #{coursePress,jdbcType=VARCHAR}, #{teacherName,jdbcType=VARCHAR}, 
+      #{teacherPosition,jdbcType=VARCHAR}, #{teacherImgUrl,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
+      #{teacherIntro,jdbcType=VARCHAR}, #{msg,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+      #{updateUser,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sun3d.why.model.bean.yket.YketCourse" >
+    insert into yket_course
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="courseName != null" >
+        course_name,
+      </if>
+      <if test="courseImgUrl != null" >
+        course_img_url,
+      </if>
+      <if test="labelId != null" >
+        label_id,
+      </if>
+      <if test="coursePress != null" >
+        course_press,
+      </if>
+      <if test="teacherName != null" >
+        teacher_name,
+      </if>
+      <if test="teacherPosition != null" >
+        teacher_position,
+      </if>
+      <if test="teacherImgUrl != null" >
+        teacher_img_url,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="teacherIntro != null" >
+        teacher_intro,
+      </if>
+      <if test="msg != null" >
+        msg,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="courseId != null" >
+        #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName != null" >
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseImgUrl != null" >
+        #{courseImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="labelId != null" >
+        #{labelId,jdbcType=VARCHAR},
+      </if>
+      <if test="coursePress != null" >
+        #{coursePress,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherName != null" >
+        #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherPosition != null" >
+        #{teacherPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherImgUrl != null" >
+        #{teacherImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="teacherIntro != null" >
+        #{teacherIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null" >
+        #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sun3d.why.model.bean.yket.YketCourse" >
+    update yket_course
+    <set >
+      <if test="courseName != null" >
+        course_name = #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseImgUrl != null" >
+        course_img_url = #{courseImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="labelId != null" >
+        label_id = #{labelId,jdbcType=VARCHAR},
+      </if>
+      <if test="coursePress != null" >
+        course_press = #{coursePress,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherName != null" >
+        teacher_name = #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherPosition != null" >
+        teacher_position = #{teacherPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherImgUrl != null" >
+        teacher_img_url = #{teacherImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="teacherIntro != null" >
+        teacher_intro = #{teacherIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null" >
+        msg = #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where course_id = #{courseId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sun3d.why.model.bean.yket.YketCourse" >
+    update yket_course
+    set course_name = #{courseName,jdbcType=VARCHAR},
+      course_img_url = #{courseImgUrl,jdbcType=VARCHAR},
+      label_id = #{labelId,jdbcType=VARCHAR},
+      course_press = #{coursePress,jdbcType=VARCHAR},
+      teacher_name = #{teacherName,jdbcType=VARCHAR},
+      teacher_position = #{teacherPosition,jdbcType=VARCHAR},
+      teacher_img_url = #{teacherImgUrl,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=BIT},
+      teacher_intro = #{teacherIntro,jdbcType=VARCHAR},
+      msg = #{msg,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where course_id = #{courseId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="courList" resultMap="courseListMap">
+  SELECT 
+    c.course_id, 
+    c.course_name,   
+    c.course_press ,
+    temp.courseTimeCount
+    from yket_course  c
+    LEFT JOIN (SELECT course_id,COUNT(course_id) as courseTimeCount  from yket_course_hour  where deleted=0  GROUP BY course_id ) temp on c.course_id=temp.course_id
+    <trim prefix="WHERE" prefixOverrides="AND|OR ">
+       AND c.deleted=0
+     <if test="courseName!=null">
+       AND  c.course_name  like  '%${courseName}%'
+     </if>
+     order by c.update_date desc 
+     <if test="firstResult != null">
+        limit ${firstResult},${rows}
+     </if>
+    </trim>
+  </select>
+  <select id="countCourse" resultType="Integer">
+    SELECT 
+   count(*)
+    from yket_course  c
+    <trim prefix="WHERE" prefixOverrides="AND|OR ">
+       AND c.deleted=0
+     <if test="courseName!=null">
+        AND  c.course_name  like  '%${courseName}%' 
+     </if>
+    </trim>
+  </select>
+  
+  <select id="getCourseInfo" resultMap="teacherInfoMap">
+  SELECT 
+    c.course_id, 
+    c.course_name,   
+    c.course_press,
+    c.course_img_url,
+    c.msg 
+    from yket_course  c
+    where c.course_id=#{courseId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="queryFrontYketCourseList" resultMap="teacherInfoMap" parameterType="java.util.Map">
+    SELECT
+	yc.course_id,
+	yc.course_name,
+	yc.course_img_url,
+	teacher.teacher_name,
+	label.label_name,
+	temp.courseTimeCount
+    FROM
+	yket_course yc
+    LEFT JOIN (
+	SELECT
+		course_id,
+		COUNT(course_id) AS courseTimeCount
+	FROM
+		yket_course_hour
+	WHERE
+		deleted = 0
+	GROUP BY
+		course_id
+    ) temp ON yc.course_id = temp.course_id
+    LEFT JOIN (
+	SELECT
+		yct.course_id,
+		yti.teacher_name
+	FROM
+		yket_course_teacher yct
+	LEFT JOIN yket_teacher_info yti ON yct.teacher_id = yti.teacher_id
+	WHERE
+		yti.deleted = 0
+	GROUP BY
+		yct.course_id
+    ORDER BY
+        yti.create_time ASC
+    LIMIT 1
+    ) AS teacher ON yc.course_id = teacher.course_id
+    LEFT JOIN (
+	SELECT
+		ylr.object_id,
+		yl.label_name,
+		yl.label_id,
+		yl.label_type
+	FROM
+		yket_label_relation ylr
+	LEFT JOIN yket_label yl ON ylr.label_id = yl.label_id
+	WHERE
+		yl.deleted = 0
+	GROUP BY
+		ylr.object_id
+    ) AS label ON yc.course_id = label.object_id
+    WHERE
+	yc.deleted = 0 
+	<if test="labelId!=null">
+        AND  label.label_id = #{labelId}
+    </if>
+    <if test="labelType!=null">
+        AND  label.label_type = #{labelId}
+    </if>
+  </select>
+  <select id="courseList4Front" resultMap="courseList4FrontMap">
+  SELECT 
+    c.course_id, 
+    c.course_name,   
+    c.course_press ,
+    c.course_img_url,
+    temp.courseTimeCount,
+    likeTemp.likeCount
+    from yket_course  c
+    LEFT JOIN (SELECT course_id,COUNT(course_id) as courseTimeCount  from yket_course_hour  where deleted=0  GROUP BY course_id ) temp on c.course_id=temp.course_id
+    LEFT JOIN (
+		SELECT COUNT(ylike.user_id) as likeCount,ylike.object_id  from yket_like  ylike where ylike.like_type=1 and ylike.user_id=#{userId,jdbcType=VARCHAR}  GROUP BY  ylike.object_id
+	) likeTemp on likeTemp.object_id=c.course_id
+    <trim prefix="WHERE" prefixOverrides="AND|OR ">
+       AND c.deleted=0
+     <!--  课程类别 -->
+     <if test="courseType!=null">
+        AND  EXISTS (SELECT * from yket_label_relation where c.course_id=object_id and label_type=2 and label_id=#{courseType,jdbcType=VARCHAR})
+     </if>
+     <!--  课程级别 -->
+     <if test="course!=null">
+        AND   EXISTS (SELECT * from yket_label_relation where c.course_id=object_id and label_type=1 and label_id=#{course,jdbcType=VARCHAR})
+     </if>
+     order by c.update_date desc 
+     <if test="firstResult != null">
+        limit ${firstResult},${rows}
+     </if>
+    </trim>
+  </select>
+  <!--  前端课程详情 -->
+   <select id="getCourseInfo4Front" resultMap="courseDetailInfo4Front">
+  SELECT
+	c.course_id,
+	c.course_name,
+	c.course_press,
+	c.course_img_url,
+	c.msg,
+	commentTemp.commentCount as commentCount,
+    likeTemp.likeCount,
+    ych.hour_id,
+    ych.hour_name,
+    ych.course_duration,
+    ych.video_url,
+  CASE 
+     WHEN ylike.object_id is null  then 'N'
+     ELSE 'Y'
+     end as isLiked ,
+  CASE 
+     WHEN yf.object_id is null  then 'N'
+
+     ELSE 'Y'
+     end as isFavorite 
+FROM
+	yket_course c
+LEFT JOIN yket_course_hour ych on ych.course_id=c.course_id
+LEFT JOIN (
+	SELECT
+		count(*) AS commentCount ,object_id
+
+	FROM
+		yket_comment
+	WHERE
+		object_id =#{courseId,jdbcType=VARCHAR} and comment_type=1 ) commentTemp  on commentTemp.object_id=#{courseId,jdbcType=VARCHAR}
+
+LEFT JOIN (
+	SELECT
+		count(*) AS likeCount ,object_id
+
+	FROM
+		yket_like
+	WHERE
+		object_id =#{courseId,jdbcType=VARCHAR} and like_type=1 ) likeTemp  on likeTemp.object_id=#{courseId,jdbcType=VARCHAR}
+LEFT JOIN yket_like ylike on  ylike.like_type=1 and ylike.object_id=c.course_id   and ylike.user_id=#{userId,jdbcType=VARCHAR}
+LEFT JOIN yket_favorite yf on  yf.favorite_type=1 and yf.object_id=c.course_id 	 and yf.user_id=#{userId,jdbcType=VARCHAR}
+	WHERE
+		c.course_id =#{courseId,jdbcType=VARCHAR}
+	 order by ych.sort   
+  
+  </select>
+  <select id="recommandCourse" resultType="com.sun3d.why.model.vo.yket.RecommandCourseVo">
+    SELECT 
+    c.course_id as courseId, 
+    c.course_name as courseName,   
+    c.course_img_url as courseImgUrl,
+    temp.hoursCount 
+    from yket_course  c
+    LEFT JOIN (SELECT course_id,COUNT(course_id) as hoursCount  from yket_course_hour  where deleted=0  GROUP BY course_id ) temp on c.course_id=temp.course_id
+    limit ${firstResult},1
+  </select>
+</mapper>

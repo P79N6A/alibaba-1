@@ -1,0 +1,1560 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sun3d.why.dao.CmsActivityOrderMapper">
+    <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsActivityOrder">
+        <id column="ACTIVITY_ORDER_ID" jdbcType="VARCHAR" property="activityOrderId" />
+        <result column="ACTIVITY_ID" jdbcType="VARCHAR" property="activityId" />
+        <result column="ACTIVITY_IS_FREE" jdbcType="VARCHAR" property="activityIsFree" />
+        <!--新添加活动地址 -->
+        <result column="ACTIVITY_ADDRESS" jdbcType="VARCHAR" property="activityAddress" />
+        <result column="ACTIVITY_TIME" jdbcType="VARCHAR" property="activityTime" />
+        <result column="ACTIVITY_ICON_URL" jdbcType="VARCHAR" property="activityIconUrl" />
+        <result column="ACTIVITY_AREA" jdbcType="VARCHAR" property="activityArea" />
+        <result column="ACTIVITY_NAME" jdbcType="VARCHAR" property="activityName" />
+        <result column="ACTIVITY_STATE" jdbcType="VARCHAR" property="activityState" />
+        <result column="activity_sales_online" jdbcType="VARCHAR" property="activitySalesOnline" />
+        <result column="activity_time" jdbcType="VARCHAR" property="activityTime" />
+        <result column="activity_start_time" jdbcType="VARCHAR" property="activityStartTime" />
+        <result column="activity_end_time" jdbcType="VARCHAR" property="activityEndTime" />
+        <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+        <result column="ORDER_NUMBER" jdbcType="VARCHAR" property="orderNumber" />
+        <result column="ORDER_PRICE" jdbcType="DECIMAL" property="orderPrice" />
+        <result column="ORDER_NAME" jdbcType="VARCHAR" property="orderName" />
+        <result column="ORDER_IDENTITY_CARD" jdbcType="VARCHAR" property="orderIdentityCard" />
+        <result column="ORDER_PHONE_NO" jdbcType="VARCHAR" property="orderPhoneNo" />
+        <result column="ORDER_SUMMARY" jdbcType="VARCHAR" property="orderSummary" />
+        <result column="ORDER_IS_VALID" jdbcType="SMALLINT" property="orderIsValid" />
+        <result column="ORDER_CREATE_TIME" jdbcType="TIMESTAMP" property="orderCreateTime" />
+        <result column="ORDER_PAY_STATUS" jdbcType="SMALLINT" property="orderPayStatus" />
+        <result column="ORDER_PAY_TYPE" jdbcType="SMALLINT" property="orderPayType" />
+        <result column="ORDER_PAY_TIME" jdbcType="TIMESTAMP" property="orderPayTime" />
+        <result column="ORDER_VOTES" jdbcType="INTEGER" property="orderVotes" />
+        <result column="ORDER_VALIDATE_CODE" jdbcType="VARCHAR" property="orderValidateCode" />
+        <result column="VENUE_ID" jdbcType="VARCHAR" property="venueId" />
+        <result column="VENUE_NAME" jdbcType="VARCHAR" property="venueName" />
+        <result column="VENUE_ADDRESS" jdbcType="VARCHAR" property="venueAddress" />
+        <result column="SYS_NO" jdbcType="VARCHAR" property="sysNo" />
+        <result column="commentNums" jdbcType="INTEGER" property="commentNums" />
+        <result column="SYS_ID" jdbcType="VARCHAR" property="sysId" />
+        <result column="EVENT_ID" jdbcType="VARCHAR" property="eventId" />
+        <result column="ORDER_UPDATE_TIME" jdbcType="TIMESTAMP" property="orderUpdateTime" />
+        <result column="PRINT_TICKET_TIMES" jdbcType="VARCHAR" property="printTicketTimes" />
+        <result column="activity_city" jdbcType="VARCHAR" property="activityCity" />
+        <result column="activity_area" jdbcType="VARCHAR" property="activityArea" />
+        <result column="ORDER_CHECK_TIME" jdbcType="TIMESTAMP" property="orderCheckTime" />
+        <result column="SURPLUS_COUNT" jdbcType="INTEGER" property="surplusCount" />
+        <!--app新添加活动地址 -->
+        <result column="DICT_NAME" jdbcType="VARCHAR" property="dictName" />
+        <result column="seats" jdbcType="VARCHAR" property="seats" />
+        <result column="seatStatus" jdbcType="VARCHAR" property="seatStatus" />
+        <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+        <result column="EVENT_DATE_TIME" jdbcType="VARCHAR" property="eventDateTime" />
+        <result column="EVENT_DATE" jdbcType="VARCHAR" property="eventDate" />
+        <result column="EVENT_END_DATE" jdbcType="VARCHAR" property="eventEndDate" />
+        <result column="EVENT_TIME" jdbcType="VARCHAR" property="eventTime" />
+        <result column="ORDER_LINE" jdbcType="VARCHAR" property="orderLine" />
+        <result column="ACTIVITY_IS_RESERVATION" jdbcType="INTEGER" property="activityIsReservation" />
+        <result column="COST_TOTAL_CREDIT" jdbcType="VARCHAR" property="costTotalCredit" />
+        <result column="DEDUCTION_CREDIT" jdbcType="INTEGER" property="deductionCredit" />
+       	<result column="ORDER_PAYMENT_STATUS" jdbcType="SMALLINT" property="orderPaymentStatus" />
+       	<result column="ORDER_PAY_PREPAR_ID" jdbcType="VARCHAR" property="orderPayPreparId" />
+    	<result column="ORDER_APPLY_REFUND_TIME" jdbcType="TIMESTAMP" property="orderApplyRefundTime" />
+   		<result column="ORDER_REFUND_TIME" jdbcType="TIMESTAMP" property="orderRefundTime" />
+   		<result column="ORDER_SMS" jdbcType="LONGVARCHAR" property="orderSms" />
+   		<result column="ORDER_CUSTOM_INFO" jdbcType="LONGVARCHAR" property="orderCustomInfo" />
+    </resultMap>
+  
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      This element was generated on Wed Feb 22 17:45:35 CST 2017.
+    -->
+    ACTIVITY_ORDER_ID, ACTIVITY_ID, USER_ID, ORDER_NUMBER, ORDER_PRICE, ORDER_NAME, ORDER_IDENTITY_CARD, 
+    ORDER_PHONE_NO, ORDER_SUMMARY, ORDER_IS_VALID, ORDER_CREATE_TIME, ORDER_PAY_STATUS, 
+    ORDER_PAY_TYPE, ORDER_PAY_TIME, ORDER_PAYMENT_STATUS, ORDER_PAY_PREPAR_ID, ORDER_APPLY_REFUND_TIME, 
+    ORDER_REFUND_TIME, ORDER_VOTES, ORDER_VALIDATE_CODE, ORDER_TYPE, ORDER_SMS_COUNT, 
+    ORDER_SMS_TIME, ORDER_SMS_STATE, SYS_USER_ID, SYS_NO, SYS_ID, VENUE_ID, PRINT_TICKET_TIMES, 
+    EVENT_ID, ORDER_UPDATE_TIME, ORDER_CHECK_TIME, COST_TOTAL_CREDIT, SURPLUS_COUNT
+  </sql>
+
+    <insert id="addActivityOrder" parameterType="com.sun3d.why.model.CmsActivityOrder">
+        insert into cms_activity_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="activityOrderId != null">
+        ACTIVITY_ORDER_ID,
+      </if>
+      <if test="activityId != null">
+        ACTIVITY_ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="orderNumber != null">
+        ORDER_NUMBER,
+      </if>
+      <if test="orderPrice != null">
+        ORDER_PRICE,
+      </if>
+      <if test="orderName != null">
+        ORDER_NAME,
+      </if>
+      <if test="orderIdentityCard != null">
+        ORDER_IDENTITY_CARD,
+      </if>
+      <if test="orderPhoneNo != null">
+        ORDER_PHONE_NO,
+      </if>
+      <if test="orderSummary != null">
+        ORDER_SUMMARY,
+      </if>
+      <if test="orderIsValid != null">
+        ORDER_IS_VALID,
+      </if>
+      <if test="orderCreateTime != null">
+        ORDER_CREATE_TIME,
+      </if>
+      <if test="orderPayStatus != null">
+        ORDER_PAY_STATUS,
+      </if>
+      <if test="orderPayType != null">
+        ORDER_PAY_TYPE,
+      </if>
+      <if test="orderPayTime != null">
+        ORDER_PAY_TIME,
+      </if>
+      <if test="orderPaymentStatus != null">
+        ORDER_PAYMENT_STATUS,
+      </if>
+      <if test="orderPayPreparId != null">
+        ORDER_PAY_PREPAR_ID,
+      </if>
+      <if test="orderApplyRefundTime != null">
+        ORDER_APPLY_REFUND_TIME,
+      </if>
+      <if test="orderRefundTime != null">
+        ORDER_REFUND_TIME,
+      </if>
+      <if test="orderVotes != null">
+        ORDER_VOTES,
+      </if>
+      <if test="orderValidateCode != null">
+        ORDER_VALIDATE_CODE,
+      </if>
+      <if test="orderType != null">
+        ORDER_TYPE,
+      </if>
+      <if test="sysUserId != null">
+        SYS_USER_ID,
+      </if>
+      <if test="sysNo != null">
+        SYS_NO,
+      </if>
+      <if test="sysId != null">
+        SYS_ID,
+      </if>
+      <if test="venueId != null">
+        VENUE_ID,
+      </if>
+      <if test="printTicketTimes != null">
+        PRINT_TICKET_TIMES,
+      </if>
+      <if test="eventId != null">
+        EVENT_ID,
+      </if>
+      <if test="orderUpdateTime != null">
+        ORDER_UPDATE_TIME,
+      </if>
+      <if test="orderCheckTime != null">
+        ORDER_CHECK_TIME,
+      </if>
+      <if test="costTotalCredit != null">
+        COST_TOTAL_CREDIT,
+      </if>
+      <if test="surplusCount != null">
+        SURPLUS_COUNT,
+      </if>
+      <if test="orderSms != null">
+        ORDER_SMS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="activityOrderId != null">
+        #{activityOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="activityId != null">
+        #{activityId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null">
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPrice != null">
+        #{orderPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="orderName != null">
+        #{orderName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderIdentityCard != null">
+        #{orderIdentityCard,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPhoneNo != null">
+        #{orderPhoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSummary != null">
+        #{orderSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="orderIsValid != null">
+        #{orderIsValid,jdbcType=SMALLINT},
+      </if>
+      <if test="orderCreateTime != null">
+        #{orderCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderPayStatus != null">
+        #{orderPayStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="orderPayType != null">
+        #{orderPayType,jdbcType=SMALLINT},
+      </if>
+      <if test="orderPayTime != null">
+        #{orderPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderPaymentStatus != null">
+        #{orderPaymentStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="orderPayPreparId != null">
+        #{orderPayPreparId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderApplyRefundTime != null">
+        #{orderApplyRefundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderRefundTime != null">
+        #{orderRefundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderVotes != null">
+        #{orderVotes,jdbcType=INTEGER},
+      </if>
+      <if test="orderValidateCode != null">
+        #{orderValidateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null">
+        #{orderType,jdbcType=INTEGER},
+      </if>
+      <if test="sysUserId != null">
+        #{sysUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="sysNo != null">
+        #{sysNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sysId != null">
+        #{sysId,jdbcType=VARCHAR},
+      </if>
+      <if test="venueId != null">
+        #{venueId,jdbcType=VARCHAR},
+      </if>
+      <if test="printTicketTimes != null">
+        #{printTicketTimes,jdbcType=INTEGER},
+      </if>
+      <if test="eventId != null">
+        #{eventId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUpdateTime != null">
+        #{orderUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderCheckTime != null">
+        #{orderCheckTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="costTotalCredit != null">
+        #{costTotalCredit,jdbcType=VARCHAR},
+      </if>
+      <if test="surplusCount != null">
+        #{surplusCount,jdbcType=INTEGER},
+      </if>
+      <if test="orderSms != null">
+        #{orderSms,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+    </insert>
+
+     <update id="editActivityOrder" parameterType="com.sun3d.why.model.CmsActivityOrder">
+        update cms_activity_order
+    <set>
+      <if test="activityId != null">
+        ACTIVITY_ID = #{activityId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null">
+        ORDER_NUMBER = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPrice != null">
+        ORDER_PRICE = #{orderPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="orderName != null">
+        ORDER_NAME = #{orderName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderIdentityCard != null">
+        ORDER_IDENTITY_CARD = #{orderIdentityCard,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPhoneNo != null">
+        ORDER_PHONE_NO = #{orderPhoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSummary != null">
+        ORDER_SUMMARY = #{orderSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="orderIsValid != null">
+        ORDER_IS_VALID = #{orderIsValid,jdbcType=SMALLINT},
+      </if>
+      <if test="orderCreateTime != null">
+        ORDER_CREATE_TIME = #{orderCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderPayStatus != null">
+        ORDER_PAY_STATUS = #{orderPayStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="orderPayType != null">
+        ORDER_PAY_TYPE = #{orderPayType,jdbcType=SMALLINT},
+      </if>
+      <if test="orderPayTime != null">
+        ORDER_PAY_TIME = #{orderPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderPaymentStatus != null">
+        ORDER_PAYMENT_STATUS = #{orderPaymentStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="orderPayPreparId != null">
+        ORDER_PAY_PREPAR_ID = #{orderPayPreparId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderApplyRefundTime != null">
+        ORDER_APPLY_REFUND_TIME = #{orderApplyRefundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderRefundTime != null">
+        ORDER_REFUND_TIME = #{orderRefundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderVotes != null">
+        ORDER_VOTES = #{orderVotes,jdbcType=INTEGER},
+      </if>
+      <if test="orderValidateCode != null">
+        ORDER_VALIDATE_CODE = #{orderValidateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null">
+        ORDER_TYPE = #{orderType,jdbcType=INTEGER},
+      </if>
+      <if test="sysUserId != null">
+        SYS_USER_ID = #{sysUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="sysNo != null">
+        SYS_NO = #{sysNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sysId != null">
+        SYS_ID = #{sysId,jdbcType=VARCHAR},
+      </if>
+      <if test="venueId != null">
+        VENUE_ID = #{venueId,jdbcType=VARCHAR},
+      </if>
+      <if test="printTicketTimes != null">
+        PRINT_TICKET_TIMES = #{printTicketTimes,jdbcType=INTEGER},
+      </if>
+      <if test="eventId != null">
+        EVENT_ID = #{eventId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUpdateTime != null">
+        ORDER_UPDATE_TIME = #{orderUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderCheckTime != null">
+        ORDER_CHECK_TIME = #{orderCheckTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="costTotalCredit != null">
+        COST_TOTAL_CREDIT = #{costTotalCredit,jdbcType=VARCHAR},
+      </if>
+      <if test="surplusCount != null">
+        SURPLUS_COUNT = #{surplusCount,jdbcType=INTEGER},
+      </if>
+      <if test="orderSms != null">
+        ORDER_SMS = #{orderSms,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ACTIVITY_ORDER_ID = #{activityOrderId,jdbcType=VARCHAR}
+    </update>
+
+
+    <select id="queryUserOrderByMap" parameterType="java.util.Map" resultType="java.util.HashMap">
+        select
+        act.ACTIVITY_NAME,act.ACTIVITY_ADDRESS,
+        act.ACTIVITY_IS_FREE,acto.ORDER_PRICE,
+        acto.ACTIVITY_ORDER_ID,acto.ORDER_PAY_TYPE,
+        acto.ORDER_PAY_STATUS,acto.ORDER_PAY_TIME,
+        act.ACTIVITY_CITY,
+        act.ACTIVITY_AREA,
+        acto.ORDER_VOTES
+        from
+        cms_activity_order acto,cms_activity act
+        where acto.ACTIVITY_ID =
+        act.ACTIVITY_ID
+        <if test="userId != null">
+            and user_Id = #{userId,jdbcType=VARCHAR},
+        </if>
+        <if test="activityEndTime != null">
+            and ACTIVITY_END_TIME gt;=
+            #{activityEndTime,jdbcType=VARCHAR},
+        </if>
+        <if test="orderPayStatus != null">
+            and ORDER_PAY_STATUS = #{orderPayStatus,jdbcType=INTEGER},
+        </if>
+        and ORDER_PAY_STATUS in (1,3,4)
+        <if test="orderIsVaLid != null and orderIsVaLid != ''">
+            AND order_Is_VaLid = #{orderIsVaLid}
+        </if>
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+
+    <select id="queryUserOrderCountByMap" parameterType="java.util.HashMap" resultType="integer">
+        select
+        act.ACTIVITY_NAME,act.ACTIVITY_ADDRESS,act.ACTIVITY_IS_FREE,acto.ORDER_PRICE,acto.ACTIVITY_ORDER_ID,acto.ORDER_PAY_TYPE,
+        acto.ORDER_PAY_STATUS,acto.ORDER_PAY_TIME
+        from cms_activity_order
+        acto,cms_activity act where acto.ACTIVITY_ID =
+        act.ACTIVITY_ID
+        <if test="userId != null">
+            and user_Id = #{userId,jdbcType=VARCHAR},
+        </if>
+        <if test="activityEndTime != null">
+            and ACTIVITY_END_TIME gt;=
+            #{activityEndTime,jdbcType=VARCHAR},
+        </if>
+        <if test="orderPayStatus != null">
+            and ORDER_PAY_STATUS = #{orderPayStatus,jdbcType=INTEGER},
+        </if>
+        and ORDER_PAY_STATUS in (1,3,4)
+        <if test="orderIsVaLid != null and orderIsVaLid != ''">
+            AND order_Is_VaLid = #{orderIsVaLid}
+        </if>
+    </select>
+    <!--这是前段展示 -->
+    <select id="queryUserOrderListById" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT ao.ORDER_CREATE_TIME as
+		ORDER_CREATE_TIME,ao.ORDER_NUMBER,ao.ORDER_SUMMARY,ao.ORDER_VOTES,ao.ORDER_VALIDATE_CODE,ao.ORDER_PHONE_NO
+		FROM cms_activity_order ao
+		LEFT JOIN cms_activity a ON ao.ACTIVITY_ID =
+		a.ACTIVITY_ID
+		WHERE 1=1
+		and ao.USER_ID = #{userId,jdbcType=VARCHAR}
+		order by ao.ORDER_CREATE_TIME desc
+	</select>
+
+    <!--************************我的活动 当前活动查询sql语句 start********************************************* -->
+    <!--app根据用户id获取我的历史活动订单 -->
+
+    <select id="queryAppPastOrdersByUserId" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        right(a.ACTIVITY_CITY,3) as city,
+        right(a.ACTIVITY_AREA,3) as area,
+        a.ACTIVITY_ID,
+        a.ACTIVITY_NAME,
+        a.ACTIVITY_ADDRESS,
+        ca.ORDER_NUMBER,
+        ca.ACTIVITY_ORDER_ID
+        FROM
+        cms_activity_order ca
+        LEFT JOIN cms_activity a on ca.ACTIVITY_ID=a.ACTIVITY_ID
+        LEFT JOIN cms_activity_event cae ON ca.event_id = cae.event_id
+        WHERE
+        1 = 1
+        <if test="userId != null and userId != ''">
+            and ca.user_id = #{userId}
+        </if>
+        <if test="activityEndTime != null and activityEndTime != ''">
+            AND (substring(cae.event_date_time,1,16) &lt; #{activityEndTime} or ca.ORDER_PAY_STATUS in(2,3,4))
+        </if>
+        <if test="orderIsVaLid != null and orderIsVaLid != ''">
+            AND ca.order_Is_VaLid = #{orderIsVaLid}
+        </if>
+        order by ca.ORDER_CREATE_TIME desc
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+
+
+     <!--前端2.0我的活动 当前活动列表 -->
+    <select id="queryUserActivityList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT a.ACTIVITY_IS_FREE,a.ACTIVITY_START_TIME ,
+        a.ACTIVITY_TIME as ACTIVITY_TIME,
+        a.ACTIVITY_NAME as ACTIVITY_NAME,
+        a.ACTIVITY_ADDRESS as ACTIVITY_ADDRESS,
+        a.ACTIVITY_ICON_URL as ACTIVITY_ICON_URL,
+        a.ACTIVITY_ID as ACTIVITY_ID,
+        ao.ORDER_CREATE_TIME,
+        ao.ORDER_NUMBER,ao.ORDER_SUMMARY,
+        ao.ORDER_VOTES,ao.ORDER_VALIDATE_CODE,
+        ao.ORDER_PHONE_NO,ao.ORDER_PRICE,
+        a.ACTIVITY_CITY,a.ACTIVITY_AREA,
+        ao.activity_order_id,
+        ao.ORDER_PAY_STATUS,
+        ao.ORDER_PAYMENT_STATUS,
+        cae.event_date_time as eventDateTime,
+        ao.ORDER_CUSTOM_INFO,
+        a.cancel_end_time as cancelEndTime
+        FROM cms_activity_order ao
+        LEFT JOIN cms_activity a ON ao.ACTIVITY_ID = a.ACTIVITY_ID
+        LEFT JOIN cms_activity_event cae on ao.event_id= cae.event_id
+        where 1=1 and ao.ORDER_PAY_STATUS in(1,3,4) and ao.ORDER_IS_VALID != 3
+        <if test="userId != null and userId != ''">
+            and ao.user_id = #{userId}
+        </if>
+        <if test="activityStartTime != null and activityStartTime != ''">
+            AND cae.event_date_time &gt;= #{activityStartTime}
+        </if>
+        <if test="activityState != null and activityState != ''">
+            AND a.activity_state= #{activityState}
+        </if>
+        order by ao.ORDER_CREATE_TIME desc
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+     <!--前端2.0我的活动 当前活动总条数 -->
+    <select id="queryUserActivityListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM cms_activity_order ao
+        LEFT JOIN cms_activity a ON
+        ao.ACTIVITY_ID = a.ACTIVITY_ID
+        LEFT JOIN cms_activity_event cae on ao.event_id= cae.event_id
+        where 1=1 and ao.ORDER_PAY_STATUS in(1,3,4) and ao.ORDER_IS_VALID != 3
+        <if test="userId != null and userId != ''">
+            and ao.user_id = #{userId}
+        </if>
+        <if test="activityStartTime != null and activityStartTime != ''">
+            AND cae.event_date_time &gt;= #{activityStartTime}
+        </if>
+        <if test="activityState != null and activityState != ''">
+            AND a.activity_state= #{activityState}
+        </if>
+    </select>
+
+   	<!--查询订单是否存在 -->
+    <select id="queryCountByOrderNo" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT count(*)
+		FROM cms_activity_order
+		where ORDER_NUMBER
+		= #{orderNumber}
+
+	</select>
+
+     <!--************************我的活动 当前活动查询sql语句 end********************************************* -->
+
+
+    <!--************************我的活动 未完成订单 sql语句 start********************************************* -->
+    <!--前端2.0我的活动 未完成订单列表 -->
+    <select id="queryUserActivityUnList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT a.ACTIVITY_TIME
+        ,ao.ORDER_CREATE_TIME,ao.ORDER_NUMBER,ao.ORDER_SUMMARY,ao.ORDER_VOTES,ao.ORDER_VALIDATE_CODE,ao.ORDER_PHONE_NO
+        FROM cms_activity_order ao
+        LEFT JOIN cms_activity a ON ao.ACTIVITY_ID =
+        a.ACTIVITY_ID
+        where 1=1
+        <if test="userId != null and userId != ''">
+            and ao.user_id = #{userId}
+        </if>
+        <if test="activityTime != null and activityTime != ''">
+            and activity_time like #{activityTime}
+        </if>
+        and ao.ORDER_PAY_STATUS = '1'
+        order by ao.ORDER_CREATE_TIME desc
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+    <!--前端2.0我的活动 未完成订单总条数 -->
+    <select id="queryUserActivityListUnCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM cms_activity_order ao
+        LEFT JOIN cms_activity a ON
+        ao.ACTIVITY_ID = a.ACTIVITY_ID
+        where 1=1
+        <if test="userId != null and userId != ''">
+            and ao.user_id = #{userId}
+        </if>
+        <if test="activityTime != null and activityTime != ''">
+            and activity_time like #{activityTime}
+        </if>
+    </select>
+   <!--************************我的活动 未完成活动查询sql语句 end********************************************* -->
+
+
+    <!--************************我的活动 历史活动查询sql语句 start********************************************* -->
+    <!--前端2.0我的活动 历史活动列表 -->
+    <select id="queryUserActivityHistoryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        a.ACTIVITY_IS_FREE,
+        a.ACTIVITY_START_TIME ,
+        a.ACTIVITY_TIME as
+        ACTIVITY_TIME,
+        a.ACTIVITY_CITY,
+        a.ACTIVITY_AREA,
+        a.ACTIVITY_NAME as ACTIVITY_NAME,
+        a.ACTIVITY_ADDRESS as ACTIVITY_ADDRESS,
+        a.ACTIVITY_ICON_URL as ACTIVITY_ICON_URL,
+        a.ACTIVITY_ID as ACTIVITY_ID,
+        ao.ORDER_CREATE_TIME,
+        ao.ORDER_NUMBER,
+        ao.ORDER_SUMMARY,
+        ao.ORDER_VOTES,
+        ao.ORDER_VALIDATE_CODE,
+        ao.ORDER_PHONE_NO,
+        ao.ORDER_PRICE,
+        ao.ACTIVITY_ORDER_ID,
+        ao.ORDER_PAY_STATUS,
+        cae.event_date_time as eventDateTime,
+        a.ACTIVITY_SALES_ONLINE,
+        ao.ORDER_CUSTOM_INFO
+        FROM cms_activity_order ao
+        LEFT JOIN cms_activity a ON ao.ACTIVITY_ID =a.ACTIVITY_ID
+        LEFT JOIN cms_activity_event cae on cae.event_id = ao.event_id
+        where 1=1 and ao.ORDER_IS_VALID != 3
+        <if test="userId != null and userId != ''">
+            and ao.user_id = #{userId}
+        </if>
+        <if test="activityEndTime != null and activityEndTime != ''">
+            AND (substring(cae.event_date_time,1,16) &lt; #{activityEndTime} or
+            ao.ORDER_PAY_STATUS = 2 or (EXISTS (select caod.activity_order_id from cms_activity_order_detail caod where
+            ao.ACTIVITY_ORDER_ID =caod.ACTIVITY_ORDER_ID and caod.SEAT_STATUS = 2)))
+        </if>
+        AND a.ACTIVITY_IS_DEL = 1
+        <if test="orderIsVaLid != null and orderIsVaLid != ''">
+            AND ao.order_Is_VaLid = #{orderIsVaLid}
+        </if>
+        <if test="activityState != null and activityState != ''">
+            AND a.activity_state= #{activityState}
+        </if>
+        order by ao.ORDER_CREATE_TIME desc
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+   	<!--前端2.0我的活动 历史活动总条数 -->
+    <select id="queryActivityOrderHistoryCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM cms_activity_order ao
+        LEFT JOIN cms_activity a ON
+        ao.ACTIVITY_ID = a.ACTIVITY_ID
+        LEFT JOIN cms_activity_event cae on cae.event_id = ao.event_id
+        where 1=1 and ao.ORDER_IS_VALID != 3
+        <if test="userId != null and userId != ''">
+            and ao.user_id = #{userId}
+        </if>
+        <if test="activityEndTime != null and activityEndTime != ''">
+            and (substring(cae.event_date_time,1,16)&lt; #{activityEndTime} or
+            ao.ORDER_PAY_STATUS
+            = 2 or (EXISTS (select caod.activity_order_id from cms_activity_order_detail caod where ao.ACTIVITY_ORDER_ID
+            =caod.ACTIVITY_ORDER_ID and caod.SEAT_STATUS = 2)))
+        </if>
+        AND a.ACTIVITY_IS_DEL = 1
+        <if test="orderIsVaLid != null and orderIsVaLid != ''">
+            AND ao.order_Is_VaLid = #{orderIsVaLid}
+        </if>
+        <if test="activityState != null and activityState != ''">
+            AND a.activity_state= #{activityState}
+        </if>
+    </select>
+    <!--************************我的活动 历史活动查询sql语句 end********************************************* -->
+
+
+    <!--************************后台订单管理查询数据 start********************************************* -->
+    <!-- <select id="queryAllOrderList" resultMap="BaseResultMap"> SELECT *
+        FROM cms_activity , cms_activity_order </select> <select id="queryAllOrderCount"
+        resultMap="BaseResultMap"> SELECT COUNT(*) FROM cms_activity , cms_activity_order
+        </select> -->
+    <!--************************后台订单管理查询数据 end********************************************* -->
+
+
+    <select id="queryActivityOrderInfoById" parameterType="java.lang.String" resultType="hashmap">
+		SELECT
+		cao.ORDER_NUMBER,cao.ORDER_PRICE,cao.ORDER_PHONE_NO,
+		cao.ORDER_SUMMARY,ca.ACTIVITY_NAME,ca.ACTIVITY_ADDRESS,ca.ACTIVITY_START_TIME,ca.ACTIVITY_ICON_URL,cao.ACTIVITY_ORDER_ID
+		FROM cms_activity ca join cms_activity_order cao on ca.activity_id =
+		cao.activity_id
+
+		and cao.activity_order_id = #{activityOrderId}
+	</select>
+
+    <select id="queryCmsActivityOrderById" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT cao.ORDER_NUMBER,
+		cao.ORDER_PRICE,
+		cao.ORDER_NAME,
+		cao.ORDER_PHONE_NO,
+		cao.ORDER_CREATE_TIME,
+		cao.ORDER_SUMMARY,
+		cao.ORDER_VOTES,
+		cao.ORDER_PAY_STATUS,
+       	cao.ORDER_PAYMENT_STATUS,
+		cao.USER_ID,
+		cao.SYS_ID,
+		cao.SYS_NO,
+		ca.ACTIVITY_NAME,ca.ACTIVITY_ADDRESS,
+		ca.ACTIVITY_START_TIME,ca.ACTIVITY_END_TIME,
+		ca.ACTIVITY_ICON_URL,cao.ACTIVITY_ORDER_ID,
+		ca.PRICE_TYPE as priceType,
+		ca.activity_id,
+		cao.event_id,
+		ca.ACTIVITY_SALES_ONLINE,
+		cao.ORDER_VALIDATE_CODE,
+		cae.event_date_time AS eventDateTime,
+		COST_TOTAL_CREDIT,
+		ca.CANCEL_END_TIME cancelEndTime
+		FROM
+		cms_activity ca join cms_activity_order cao on ca.activity_id =
+		cao.activity_id
+		JOIN cms_activity_event cae ON cao.event_id = cae.event_id
+		and cao.activity_order_id = #{activityOrderId}
+	</select>
+	
+	<select id="queryCmsActivityOrderByOrderValidateCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT cao.ORDER_NUMBER,
+		cao.ORDER_PRICE,
+		cao.ORDER_NAME,
+		cao.ORDER_PHONE_NO,
+		cao.ORDER_CREATE_TIME,
+		cao.ORDER_SUMMARY,
+		cao.ORDER_VOTES,
+		cao.ORDER_PAY_STATUS,
+		cao.ORDER_PAYMENT_STATUS,
+		cao.USER_ID,
+		cao.SYS_ID,
+		cao.SYS_NO,
+		ca.ACTIVITY_NAME,ca.ACTIVITY_ADDRESS,
+		ca.ACTIVITY_START_TIME,ca.ACTIVITY_END_TIME,
+		ca.ACTIVITY_ICON_URL,cao.ACTIVITY_ORDER_ID,
+		ca.activity_id,
+		cao.event_id,
+		ca.ACTIVITY_SALES_ONLINE,
+		cao.ORDER_VALIDATE_CODE,
+		COST_TOTAL_CREDIT
+		FROM
+		cms_activity ca join cms_activity_order cao on ca.activity_id =
+		cao.activity_id
+		and cao.ORDER_VALIDATE_CODE = #{orderValidateCode}
+	</select>
+
+
+    <!--删除我预定的活动 -->
+    <update id="deleteUserActivityHistory" parameterType="java.util.Map">
+		update
+		cms_activity_order set ORDER_IS_VALID =2
+		where 1=1
+		AND ACTIVITY_ORDER_ID
+		= #{activityOrderId} AND
+		USER_ID =#{userId}
+	</update>
+
+   	<!--查询数据库中已经预定到没有参加活动的个数 -->
+    <select id="queryAllReserveAndNotReserved" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM cms_activity_order ao
+        LEFT JOIN cms_activity a ON
+        ao.ACTIVITY_ID = a.ACTIVITY_ID
+        WHERE 1=1
+        <if test="userId != null and userId != '' ">
+            AND ao.USER_ID = #{userId}
+        </if>
+        AND a.ACTIVITY_IS_RESERVATION =2
+    </select>
+
+    <!---->
+    <select id="queryActivityCommentByActivityId" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM cms_comment cco
+        WHERE 1=1
+
+        <if test="userId != null and userId != '' ">
+            AND cco.COMMENT_USER_ID = #{userId}
+        </if>
+        <if test="commentType != null and commentType != '' ">
+            AND cco.COMMENT_TYPE = #{commentType}
+        </if>
+    </select>
+
+    <!--取消订单 -->
+    <update id="updateOrderByActivityOrderId" parameterType="java.util.Map">
+        UPDATE cms_activity_order SET ORDER_PAY_STATUS = 2
+        WHERE 1=1
+        <if test="activityOrderId != null and activityOrderId != '' ">
+            AND ACTIVITY_ORDER_ID = #{activityOrderId}
+        </if>
+    </update>
+
+    <select id="queryFrontOrderById" parameterType="java.lang.String" resultType="hashmap">
+		select ca.activity_name as activityName,
+		ca.activity_id
+		as activiyId,
+		cao.ACTIVITY_ORDER_ID as activityOrderId,
+		cao.ORDER_VOTES
+		as orderVotes,
+		ca.ACTIVITY_START_TIME as activityStartTime,
+		cao.user_id
+		as userId,
+		cao.ORDER_PHONE_NO as orderPhoneNo,
+		cao.ORDER_PAY_STATUS as
+		orderPayStatus,
+		cao.ORDER_VALIDATE_CODE as orderValidateCode,
+		ca.ACTIVITY_START_TIME as activityStartTime
+		from cms_activity_order cao
+		JOIN cms_activity ca on cao.activity_id = ca.activity_id
+		AND
+		cao.ACTIVITY_ORDER_ID = #{activityOrderId}
+	</select>
+
+    <!-- 查询用户预定一场活动的总票数 -->
+    <select id="queryOrderTicketCountByUser" parameterType="hashmap" resultType="integer">
+        SELECT sum(ORDER_VOTES) from cms_activity_order where 1=1
+        <if test="activityId != null">
+            AND ACTIVITY_ID = #{activityId}
+        </if>
+        <if test="userId != null">
+            AND USER_ID = #{userId}
+        </if>
+        <if test="eventId != null">
+            AND EVENT_ID = #{eventId}
+        </if>
+        and ORDER_PAY_STATUS in (1,3,4)
+    </select>
+
+
+    <select id="queryOrderCountByUser" parameterType="hashmap" resultType="integer">
+        SELECT count(*) from cms_activity_order where 1=1
+        <if test="activityId != null">
+            AND ACTIVITY_ID = #{activityId}
+        </if>
+        <if test="userId != null">
+            AND USER_ID = #{userId}
+        </if>
+        <if test="eventId != null">
+            AND EVENT_ID = #{eventId}
+        </if>
+        and ORDER_PAY_STATUS in (1,3,4)
+    </select>
+
+    <!--app根据订单号获取信息 -->
+    <select id="queryValidateCode" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT a.ACTIVITY_TIME as ACTIVITY_TIME,a.ACTIVITY_NAME as
+        ACTIVITY_NAME,a.ACTIVITY_ADDRESS as ACTIVITY_ADDRESS,
+        ao.ORDER_NUMBER,ao.ORDER_VOTES,ao.ORDER_VALIDATE_CODE,ao.ORDER_PHONE_NO,ao.ORDER_PAY_STATUS,ao.ORDER_PAYMENT_STATUS,ao.ORDER_PHONE_NO,ao.ACTIVITY_ORDER_ID
+        FROM cms_activity_order ao
+        LEFT JOIN cms_activity a ON ao.ACTIVITY_ID =
+        a.ACTIVITY_ID
+        where 1=1
+        <if test="orderPayStatus != null">
+            AND ao.ORDER_PAY_STATUS =
+            #{orderPayStatus,jdbcType=SMALLINT}
+        </if>
+        <if test="orderValidateCode != null and orderValidateCode != ''">
+            and ao.ORDER_VALIDATE_CODE = #{orderValidateCode}
+        </if>
+        <if test="activityEndTime != null and activityEndTime != ''">
+            AND a.activity_end_time &gt;= #{activityEndTime}
+        </if>
+        order by ao.ORDER_CREATE_TIME desc
+    </select>
+
+    <!-- 根据区域查询活动订票数量 -->
+
+    <select id="queryTicketCountByArea" parameterType="java.util.Map" resultType="hashmap">
+		SELECT a.ACTIVITY_AREA as area ,sum(ao.ORDER_VOTES) as
+		statisticsCount
+		FROM cms_activity_order ao
+		LEFT JOIN cms_activity a ON
+		ao.ACTIVITY_ID = a.ACTIVITY_ID
+		where 1=1 and ao.ORDER_PAY_STATUS in
+		(1,3,4)
+		group by a.ACTIVITY_AREA
+	</select>
+    <!-- 判断场馆下所有有效活动室被预订的总数 -->
+    <select id="queryCountRoomOrderOfVenue" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT count(c.BOOK_ID)
+		from  cms_room_order c 
+		where c.VENUE_ID = #{venueId} and c.BOOK_STATUS != #{bookStatus}
+	</select>
+
+   <!--根据活动Id查询订单List-->
+    <select id="queryCmsActivityOrderListByActivityId" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT  ACTIVITY_ORDER_ID ,ACTIVITY_ID ,ORDER_PAY_STATUS
+		FROM cms_activity_order
+		WHERE ACTIVITY_ID = #{activityId} and ORDER_IS_VALID != 3
+	</select>
+    <!-- 旧订单数据添加管连场次信息 -->
+    <update id="updateOrderEventByActivityId">
+		UPDATE cms_activity_order SET EVENT_ID = #{0}
+		WHERE 1=1
+			AND ACTIVITY_ID = #{1}
+	</update>
+
+
+   	<!--根据活动Id查询有效的需要撤销的订单List-->
+    <select id="queryRevocationActivityOrdersByActivityId" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT  ACTIVITY_ORDER_ID,ORDER_PHONE_NO
+		FROM cms_activity_order
+		WHERE ACTIVITY_ID = #{activityId} and ORDER_IS_VALID = 1 and ORDER_PAY_STATUS in (1,3)
+	</select>
+
+
+    <!--************************后台订单管理查询数据  start*********************************************-->
+    <!-- 查询单个活动的订单信息 -->
+    <select id="queryActivityOrderByActivityId" parameterType="hashmap" resultMap="BaseResultMap">
+        SELECT
+        a.ACTIVITY_ID,
+        a.ACTIVITY_NAME,
+        a.ACTIVITY_LINKMAN,
+        a.ACTIVITY_TEL,
+        a.ACTIVITY_IS_FREE,
+        a.ACTIVITY_PRICE,
+        a.ACTIVITY_START_TIME,
+        a.ACTIVITY_END_TIME,
+        a.ACTIVITY_IS_DEL,
+        a.ACTIVITY_STATE,
+        a.ACTIVITY_CREATE_TIME,
+        a.ACTIVITY_UPDATE_TIME,
+        a.ACTIVITY_CREATE_USER,
+        a.ACTIVITY_UPDATE_USER,
+        a.ACTIVITY_DEPT,
+        a.ACTIVITY_ICON_URL,
+        a.ACTIVITY_ADDRESS,
+        a.activity_Recommend,
+        v.venue_Name AS venueName,
+        a.ACTIVITY_SALES_ONLINE,
+        a.ACTIVITY_AREA,
+        u.USER_NAME AS order_Name,
+        o.order_number AS order_number,
+        o.order_votes AS order_votes,
+        o.order_pay_status AS orderPayStatus,
+        o.ORDER_NAME AS order_name,
+        o.activity_order_id as activityOrderId,
+		o.ORDER_PAYMENT_STATUS,
+        o.ORDER_CREATE_TIME,
+        o.ORDER_PHONE_NO,
+        o.ORDER_VALIDATE_CODE
+        FROM
+        cms_activity_order o
+        LEFT JOIN cms_activity a ON o.ACTIVITY_ID = a.activity_id
+        LEFT JOIN cms_activity_venue_relevance r ON a.activity_id = r.activity_id
+        LEFT JOIN cms_venue v ON v.venue_id = r.venue_id
+        LEFT JOIN cms_terminal_user u ON o.user_id = u.user_id where 1=1
+        <if test="activityId != null">
+            AND a.ACTIVITY_ID = #{activityId,jdbcType=INTEGER}
+        </if>
+        <if test="orderNumber != null">
+            AND o.ORDER_NUMBER like #{orderNumber,jdbcType=VARCHAR}
+        </if>
+
+        <if test="activityIsDel != null">
+            AND a.ACTIVITY_IS_DEL = #{activityIsDel,jdbcType=INTEGER}
+        </if>
+        <if test="activityState != null">
+            AND a.ACTIVITY_STATE = #{activityState,jdbcType=INTEGER}
+        </if>
+        <if test="activityName != null">
+            AND a.ACTIVITY_NAME like #{activityName,jdbcType=VARCHAR}
+        </if>
+        <if test="activityArea != null">
+            AND a.ACTIVITY_AREA like #{activityArea,jdbcType=VARCHAR}
+        </if>
+
+        <if test="activityStartTime !=null">
+            AND a.ACTIVITY_START_TIME &gt;=#{activityStartTime,jdbcType=VARCHAR}
+        </if>
+        <if test="activityEndTime !=null">
+            AND a.ACTIVITY_END_TIME &lt;= #{activityEndTime,jdbcType=VARCHAR}
+        </if>
+        <if test="orderPayStatus != null">
+            AND o.ORDER_PAY_STATUS = #{orderPayStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="activityType != null ">
+            AND a.ACTIVITY_TYPE like #{activityType,jdbcType=VARCHAR}
+        </if>
+        <if test="venueDept != null ">
+            AND v.VENUE_DEPT like #{venueDept,jdbcType=VARCHAR}
+        </if>
+        <if test="activityRecommendArea != null ">
+            AND a.ACTIVITY_RECOMMEND_Area like #{activityRecommendArea,jdbcType=VARCHAR}
+        </if>
+        <if test="activityIsFree != null ">
+            AND a.activity_Is_Free = #{activityIsFree,jdbcType=INTEGER}
+        </if>
+        <if test="activitySalesOnline != null ">
+            AND a.activity_Sales_Online = #{activitySalesOnline,jdbcType=VARCHAR}
+        </if>
+        <if test="orderValidateCode != null ">
+            AND o.ORDER_VALIDATE_CODE like #{orderValidateCode,jdbcType=VARCHAR}
+        </if>
+        <if test="userName != null ">
+            AND (u.USER_NAME like #{userName,jdbcType=VARCHAR} or o.ORDER_PHONE_NO like #{userName,jdbcType=VARCHAR})
+        </if>
+        order by
+        o.ORDER_CREATE_TIME desc
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+
+    <select id="queryActivityOrderCountByActivityId" parameterType="hashmap" resultType="integer">
+        SELECT count(*) FROM
+        cms_activity_order o
+        LEFT JOIN cms_activity a ON o.ACTIVITY_ID = a.activity_id
+        LEFT JOIN cms_activity_venue_relevance r ON a.activity_id = r.activity_id
+        LEFT JOIN cms_venue v ON v.venue_id = r.venue_id
+        LEFT JOIN cms_terminal_user u ON o.user_id = u.user_id where 1=1
+        <if test="activityId != null">
+            AND a.ACTIVITY_ID = #{activityId,jdbcType=INTEGER}
+        </if>
+
+        <if test="orderNumber != null">
+            AND o.ORDER_NUMBER like #{orderNumber,jdbcType=VARCHAR}
+        </if>
+
+        <if test="activityIsDel != null">
+            AND a.ACTIVITY_IS_DEL = #{activityIsDel,jdbcType=INTEGER}
+        </if>
+        <if test="activityState != null">
+            AND a.ACTIVITY_STATE = #{activityState,jdbcType=INTEGER}
+        </if>
+        <if test="activityName != null">
+            AND a.ACTIVITY_NAME like #{activityName,jdbcType=VARCHAR}
+        </if>
+        <if test="activityArea != null">
+            AND a.ACTIVITY_AREA like #{activityArea,jdbcType=VARCHAR}
+        </if>
+
+        <if test="activityStartTime !=null">
+            AND a.ACTIVITY_START_TIME &gt;=#{activityStartTime,jdbcType=VARCHAR}
+        </if>
+        <if test="activityEndTime !=null">
+            AND a.ACTIVITY_END_TIME &lt;= #{activityEndTime,jdbcType=VARCHAR}
+        </if>
+        <if test="orderPayStatus != null">
+            AND o.ORDER_PAY_STATUS = #{orderPayStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="activityType != null ">
+            AND a.ACTIVITY_TYPE like #{activityType,jdbcType=VARCHAR}
+        </if>
+        <if test="venueDept != null ">
+            AND v.VENUE_DEPT like #{venueDept,jdbcType=VARCHAR}
+        </if>
+        <if test="activityRecommendArea != null ">
+            AND a.ACTIVITY_RECOMMEND_Area like #{activityRecommendArea,jdbcType=VARCHAR}
+        </if>
+        <if test="activityIsFree != null ">
+            AND a.activity_Is_Free = #{activityIsFree,jdbcType=INTEGER}
+        </if>
+        <if test="activitySalesOnline != null ">
+            AND a.activity_Sales_Online = #{activitySalesOnline,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <!--************************后台订单管理查询数据  end*********************************************-->
+
+
+    <!-- 根据活动id 撤销该活动下的所有订单 -->
+    <update id="revocationActivityOrderByActivityId">
+		UPDATE cms_activity_order SET ORDER_IS_VALID = 3,SYS_USER_ID = #{1}
+		WHERE 1=1
+		AND ACTIVITY_ID = #{0}
+	</update>
+
+    <!--验证系统验证活动订单信息  或 取票机获取活动订单信息-->
+    <select id="queryActvityOrderByValidateCode" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        s.DICT_NAME,
+        ct.USER_NAME,
+        a.ACTIVITY_ID,
+        a.ACTIVITY_NAME AS ACTIVITY_NAME,
+        a.ACTIVITY_ADDRESS AS ACTIVITY_ADDRESS,
+        a.ACTIVITY_START_TIME,
+        ao.ORDER_PHONE_NO,
+        ao.ORDER_NUMBER,
+        ao.ORDER_CREATE_TIME,
+        ao.ACTIVITY_ORDER_ID,
+        ao.ORDER_VALIDATE_CODE,
+        ao.ORDER_PAY_STATUS,
+        ao.ORDER_PAYMENT_STATUS,
+        ao.USER_ID,
+        ao.EVENT_ID,
+        ao.COST_TOTAL_CREDIT,
+        ao.ORDER_VOTES,
+        ao.ORDER_PAYMENT_STATUS,
+        avr.VENUE_ID,
+        a.ACTIVITY_LOCATION,
+        GROUP_CONCAT(
+        DISTINCT cao.SEAT_VAL SEPARATOR ','
+        ) AS seats,
+        GROUP_CONCAT(
+        cao.SEAT_STATUS SEPARATOR ','
+        ) AS seatStatus,
+        GROUP_CONCAT(
+        DISTINCT cao.ORDER_LINE SEPARATOR ','
+        ) AS ORDER_LINE,
+        ao.ACTIVITY_ORDER_ID,
+        cae.EVENT_DATE_TIME,
+        a.ACTIVITY_SALES_ONLINE,
+        a.ACTIVITY_IS_RESERVATION,
+        ct.user_id,
+        ct.user_name
+        FROM
+        cms_activity_order ao
+        LEFT JOIN cms_activity_venue_relevance avr on avr.ACTIVITY_ID = ao.ACTIVITY_ID
+        LEFT JOIN cms_activity a ON ao.ACTIVITY_ID = a.ACTIVITY_ID
+        LEFT JOIN cms_activity_event cae on ao.EVENT_ID=cae.EVENT_ID
+        LEFT JOIN cms_activity_order_detail cao ON ao.ACTIVITY_ORDER_ID = cao.ACTIVITY_ORDER_ID
+        LEFT JOIN cms_terminal_user ct ON ct.USER_ID = ao.USER_ID
+        LEFT JOIN sys_dict s ON s.DICT_ID = a.ACTIVITY_LOCATION
+        WHERE
+        1 = 1
+        <if test="orderValidateCode != null ">
+            AND ao.ORDER_VALIDATE_CODE = #{orderValidateCode,jdbcType=VARCHAR}
+        </if>
+        AND ao.ORDER_IS_VALID=1
+        GROUP BY
+        ao.ACTIVITY_ORDER_ID
+        ORDER BY
+        ao.ORDER_CREATE_TIME DESC
+    </select>
+    <!--app生成电子票订单信息 -->
+    <select id="queryAppELectronicTicketById" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT
+		right(a.ACTIVITY_CITY,3) as city,
+        right(a.ACTIVITY_AREA,3) as area,
+		a.ACTIVITY_ID,
+		a.ACTIVITY_NAME,
+		a.ACTIVITY_ADDRESS,
+		cae.event_date_time AS eventDateTime,
+		GROUP_CONCAT(
+		DISTINCT cao.SEAT_VAL SEPARATOR ','
+		) AS seats,
+		ao.ORDER_VOTES,
+		ao.ORDER_PAYMENT_STATUS,
+		ao.ORDER_VALIDATE_CODE
+		FROM
+		cms_activity_order ao
+		LEFT JOIN cms_activity_order_detail cao ON ao.ACTIVITY_ORDER_ID = cao.ACTIVITY_ORDER_ID
+		LEFT JOIN cms_activity a on ao.ACTIVITY_ID=a.ACTIVITY_ID
+		LEFT JOIN cms_activity_event cae ON ao.event_id = cae.event_id
+		WHERE
+		1 = 1
+		AND ao.ACTIVITY_ORDER_ID = #{activityOrderId}
+		AND ao.ORDER_IS_VALID = 1
+		AND ao.ORDER_PAY_STATUS=1
+	</select>
+    <!--app根据用户id获取我的当前活动订单 -->
+    <select id="queryAppCurrentOrdersByUserId" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        right(a.ACTIVITY_CITY,3) as city,
+        right(a.ACTIVITY_AREA,3) as area,
+        a.ACTIVITY_ID,
+        a.ACTIVITY_IS_FREE,
+        a.ACTIVITY_NAME,
+        a.ACTIVITY_ADDRESS,
+        a.ACTIVITY_ICON_URL,
+        ao.ORDER_CREATE_TIME,
+        ao.ORDER_NUMBER,
+        ao.ORDER_VALIDATE_CODE,
+        ao.ORDER_PAYMENT_STATUS,
+        ao.ORDER_PHONE_NO,
+        ao.ORDER_PRICE,
+        ao.ORDER_PAYMENT_STATUS,
+        ao.activity_order_id,
+        cae.event_date_time AS eventDateTime,
+        GROUP_CONCAT(
+        DISTINCT cao.SEAT_VAL SEPARATOR ','
+        ) AS seats,
+        GROUP_CONCAT(
+        DISTINCT cao.ORDER_LINE SEPARATOR ','
+        ) AS ORDER_LINE,
+        GROUP_CONCAT(
+        cao.SEAT_STATUS SEPARATOR ','
+        ) AS seatStatus,
+        ao.ORDER_PAY_STATUS,
+        a.ACTIVITY_SALES_ONLINE,
+        a.ACTIVITY_IS_RESERVATION
+        FROM
+        cms_activity_order ao
+        LEFT JOIN cms_activity_order_detail cao on ao.ACTIVITY_ORDER_ID = cao.ACTIVITY_ORDER_ID
+        LEFT JOIN cms_activity a ON ao.ACTIVITY_ID = a.ACTIVITY_ID
+        LEFT JOIN cms_activity_event cae ON ao.event_id = cae.event_id
+        WHERE
+        1 = 1
+        AND ao.ORDER_IS_VALID = 1
+        AND ao.ORDER_PAY_STATUS =1
+        <if test="userId != null and userId != ''">
+            and ao.USER_ID = #{userId}
+        </if>
+        <if test="activityStartTime != null and activityStartTime != ''">
+            AND substring(cae.event_date_time,1,16) &gt;= #{activityStartTime}
+        </if>
+        GROUP BY ao.ACTIVITY_ORDER_ID
+        order by ao.ORDER_CREATE_TIME desc
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+
+
+    <select id="queryActivityBookCount" resultType="integer">
+		SELECT  count(*) from cms_activity_order_detail caod INNER JOIN cms_activity_order cao on
+		caod.ACTIVITY_ORDER_ID = cao.ACTIVITY_ORDER_ID and  cao.activity_id = #{0} and caod.SEAT_STATUS in (1,3,4)
+	</select>
+
+
+    <!-- 根据活动id和场次 查询 活动下的有效订单剩余票数 -->
+    <select id="queryEffectiveTicketCountByActivityId" resultType="integer">
+SELECT
+	(
+		(
+			SELECT
+				ca.EVENT_COUNT
+			FROM
+				cms_activity ca
+			WHERE
+				ca.ACTIVITY_ID = #{0})
+				- (
+					SELECT
+						count(*)
+					FROM
+						cms_activity_order_detail caod
+					JOIN cms_activity_order cao ON caod.ACTIVITY_ORDER_ID = cao.ACTIVITY_ORDER_ID
+					WHERE
+						cao.ACTIVITY_ID = #{0} and caod.SEAT_STATUS  != 2 and cao.EVENT_ID= #{1}))
+	</select>
+
+    <!-- 根据活动id和场次 查询 活动的订单票数 -->
+    <select id="queryBookTicketCountByActivityId" resultType="integer">
+		SELECT
+			count(*)
+		FROM
+			cms_activity_order_detail caod
+		JOIN cms_activity_order cao ON caod.ACTIVITY_ORDER_ID = cao.ACTIVITY_ORDER_ID
+		WHERE
+			cao.ACTIVITY_ID = #{0}  and caod.SEAT_STATUS  != 2 and cao.EVENT_ID = #{1}
+	</select>
+
+    <!--app显示或搜索用户活动订单（当前与历史） -->
+    <select id="queryAppActivityOrdersById" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        a.ACTIVITY_ID,
+        a.ACTIVITY_IS_FREE,
+        a.ACTIVITY_NAME,
+        a.ACTIVITY_ADDRESS,
+        ao.ORDER_CREATE_TIME,
+        ao.ORDER_NUMBER,
+        ao.ORDER_VALIDATE_CODE,
+        ao.ORDER_PAYMENT_STATUS,
+        ao.ORDER_PHONE_NO,
+        ao.ORDER_PRICE,
+        ao.ORDER_PAYMENT_STATUS,
+        ao.activity_order_id,
+        cae.event_date_time AS eventDateTime,
+        GROUP_CONCAT(
+        cao.SEAT_VAL SEPARATOR ','
+        ) AS seats,
+        GROUP_CONCAT(
+        cao.ORDER_LINE SEPARATOR ','
+        ) AS ORDER_LINE,
+        GROUP_CONCAT(
+        cao.SEAT_STATUS SEPARATOR ','
+        ) AS seatStatus,
+        ao.ORDER_PAY_STATUS,
+        a.ACTIVITY_SALES_ONLINE,
+        a.ACTIVITY_IS_RESERVATION
+        FROM
+        cms_activity_order ao
+        LEFT JOIN cms_activity_order_detail cao on ao.ACTIVITY_ORDER_ID = cao.ACTIVITY_ORDER_ID
+        LEFT JOIN cms_activity a ON ao.ACTIVITY_ID = a.ACTIVITY_ID
+        LEFT JOIN cms_activity_event cae ON ao.event_id = cae.event_id
+        WHERE
+        1 = 1
+        AND ao.ORDER_IS_VALID = 1
+        AND ao.ORDER_PAY_STATUS!=3
+        <if test="userId != null and userId != ''">
+            and ao.USER_ID = #{userId}
+        </if>
+        <if test="orderValidateCode!=null">
+            AND (ao.ORDER_VALIDATE_CODE LIKE #{orderValidateCode}
+        </if>
+        <if test="orderNumber!=null">
+            OR ao.ORDER_NUMBER LIKE #{orderNumber}
+        </if>
+        <if test="activityName!=null">
+            OR a.ACTIVITY_NAME LIKE #{activityName} escape '/')
+        </if>
+        GROUP BY ao.ACTIVITY_ORDER_ID
+        order by ao.ORDER_CREATE_TIME desc
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+
+    <!-- 根据子系统中的订单id 查询文化云中的对应订单 -->
+    <select id="queryActivityIdBySysId" resultType="string">
+		SELECT ao.ACTIVITY_ORDER_ID
+			FROM
+		cms_activity_order ao where ao.sys_ID = #{0} limit 1;
+	</select>
+
+    <!--why3.5 app显示或搜索用户活动订单信息（当前未过期订单） -->
+    <select id="queryAppActivityOrderByUserId" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        a.ACTIVITY_ID,
+        a.ACTIVITY_IS_FREE,
+        a.ACTIVITY_NAME,
+        a.ACTIVITY_ADDRESS,
+        a.ACTIVITY_ICON_URL,
+        ao.ORDER_CREATE_TIME,
+        ao.ORDER_NUMBER,
+        ao.ORDER_VALIDATE_CODE,
+        ao.ORDER_PHONE_NO,
+        ao.ORDER_PRICE,
+        ao.ORDER_PAYMENT_STATUS,
+        ao.activity_order_id,
+        cae.event_date_time AS eventDateTime,
+        GROUP_CONCAT( cao.SEAT_VAL SEPARATOR ',' ) AS seats,
+        GROUP_CONCAT( cao.ORDER_LINE SEPARATOR ',' ) AS ORDER_LINE,
+        GROUP_CONCAT( cao.SEAT_STATUS SEPARATOR ',' ) AS seatStatus,
+        ao.ORDER_PAY_STATUS,
+        ao.ORDER_PAYMENT_STATUS,
+        a.ACTIVITY_SALES_ONLINE,
+        a.ACTIVITY_IS_RESERVATION,
+        cae.EVENT_DATE,
+        cae.EVENT_END_DATE,
+        cae.EVENT_TIME
+        FROM cms_activity_order ao
+        LEFT JOIN cms_activity_order_detail cao on ao.ACTIVITY_ORDER_ID = cao.ACTIVITY_ORDER_ID
+        LEFT JOIN cms_activity a ON ao.ACTIVITY_ID = a.ACTIVITY_ID
+        LEFT JOIN cms_activity_event cae ON ao.event_id = cae.event_id
+        WHERE 1 = 1 AND ao.ORDER_IS_VALID = 1 AND (ao.ORDER_PAY_STATUS in (1,3) and ao.ORDER_PAYMENT_STATUS in (0,2,3))
+        and CONCAT(SUBSTRING(cae.event_date_time,1,16)) &gt;= DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i')
+        <if test="userId != null and userId != ''">
+            and ao.USER_ID = #{userId}
+        </if>
+        <if test="orderPhoneNo != null">
+        	and ao.ORDER_PHONE_NO = #{orderPhoneNo}
+        </if>
+        GROUP BY ao.ACTIVITY_ORDER_ID
+        order by ao.ORDER_CREATE_TIME desc
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+    
+    <!--why3.6 待支付订单 -->
+    <select id="queryAppActivityPayOrderByUserId" parameterType="java.util.Map" resultMap="BaseResultMap">
+    	   SELECT
+        a.ACTIVITY_ID,
+        a.ACTIVITY_IS_FREE,
+        a.ACTIVITY_NAME,
+        a.ACTIVITY_ADDRESS,
+        a.ACTIVITY_ICON_URL,
+        ao.ORDER_CREATE_TIME,
+        ao.ORDER_NUMBER,	
+        ao.ORDER_VALIDATE_CODE,
+        ao.ORDER_PHONE_NO,
+        ao.ORDER_PRICE,
+        ao.ORDER_PAYMENT_STATUS,
+        ao.activity_order_id,
+        cae.event_date_time AS eventDateTime,
+        GROUP_CONCAT( cao.SEAT_VAL SEPARATOR ',' ) AS seats,
+        GROUP_CONCAT( cao.ORDER_LINE SEPARATOR ',' ) AS ORDER_LINE,
+        GROUP_CONCAT( cao.SEAT_STATUS SEPARATOR ',' ) AS seatStatus,
+        ao.ORDER_PAY_STATUS,
+        ao.ORDER_PAYMENT_STATUS,
+        a.ACTIVITY_SALES_ONLINE,
+        a.ACTIVITY_IS_RESERVATION,
+        cae.EVENT_DATE,
+        cae.EVENT_END_DATE,
+        cae.EVENT_TIME
+        FROM cms_activity_order ao
+        LEFT JOIN cms_activity_order_detail cao on ao.ACTIVITY_ORDER_ID = cao.ACTIVITY_ORDER_ID
+        LEFT JOIN cms_activity a ON ao.ACTIVITY_ID = a.ACTIVITY_ID
+        LEFT JOIN cms_activity_event cae ON ao.event_id = cae.event_id
+        WHERE 1 = 1 AND ao.ORDER_IS_VALID = 1 AND ao.ORDER_PAYMENT_STATUS = 1 and ao.ORDER_PAY_STATUS in (1,3)
+        and CONCAT(SUBSTRING(cae.event_date_time,1,16)) &gt;= DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i')
+        <if test="userId != null and userId != ''">
+            and ao.USER_ID = #{userId}
+        </if>
+        <if test="orderPhoneNo != null">
+        	and ao.ORDER_PHONE_NO = #{orderPhoneNo}
+        </if>
+        GROUP BY ao.ACTIVITY_ORDER_ID
+        order by ao.ORDER_CREATE_TIME desc
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+
+    <!--why3.5 app用户活动订单详情 -->
+    <select id="queryAppUserActivityOrderDetail" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        a.ACTIVITY_ID,
+        a.ACTIVITY_IS_FREE,
+        a.ACTIVITY_NAME,
+        a.ACTIVITY_ADDRESS,
+        a.ACTIVITY_IS_DEL,
+        cv.VENUE_NAME,
+        cv.VENUE_ADDRESS,
+        ao.ORDER_CREATE_TIME,
+        ao.ORDER_PAY_TIME,
+        ao.ORDER_NAME,
+        ao.ORDER_PHONE_NO,
+        ao.ORDER_NUMBER,
+        ao.ORDER_VALIDATE_CODE,
+        ao.ORDER_PRICE,
+        ao.ORDER_PAY_TYPE,
+        ao.ORDER_PAYMENT_STATUS,
+        ao.ORDER_PAY_PREPAR_ID,
+        ao.ORDER_APPLY_REFUND_TIME,
+        ao.ORDER_REFUND_TIME,
+        ao.activity_order_id,
+        ao.ORDER_VOTES,
+        cae.event_date_time AS eventDateTime,
+        cae.EVENT_DATE,
+        cae.EVENT_END_DATE,
+        cae.EVENT_TIME,
+        GROUP_CONCAT( cao.SEAT_VAL SEPARATOR ',' ) AS seats,
+        GROUP_CONCAT( cao.ORDER_LINE SEPARATOR ',' ) AS ORDER_LINE,
+        GROUP_CONCAT( cao.SEAT_STATUS SEPARATOR ',' ) AS seatStatus,
+        ao.ORDER_PAY_STATUS,
+        a.ACTIVITY_SALES_ONLINE,
+        a.ACTIVITY_IS_RESERVATION,
+        ao.ORDER_CUSTOM_INFO
+        FROM cms_activity_order ao
+        LEFT JOIN cms_activity_order_detail cao on ao.ACTIVITY_ORDER_ID = cao.ACTIVITY_ORDER_ID
+        LEFT JOIN cms_activity a ON ao.ACTIVITY_ID = a.ACTIVITY_ID
+        LEFT JOIN cms_activity_venue_relevance cavr ON a.activity_id = cavr.activity_id
+        LEFT JOIN cms_venue cv ON cavr.venue_id = cv.venue_id
+        LEFT JOIN cms_activity_event cae ON ao.event_id = cae.event_id
+        WHERE 1 = 1
+        <if test="activityOrderId != null and activityOrderId != ''">
+            AND ao.ACTIVITY_ORDER_ID = #{activityOrderId}
+        </if>
+        <if test="userId != null and userId != ''">
+            AND ao.USER_ID = #{userId}
+        </if>
+        GROUP BY ao.ACTIVITY_ORDER_ID
+    </select>
+
+    <!--why3.5 app显示或搜索用户活动历史订单信息（过期订单，即历史订单） -->
+    <select id="queryAppHistoryActivityOrderByUserId" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        a.ACTIVITY_ID,
+        a.ACTIVITY_IS_FREE,
+        a.ACTIVITY_NAME,
+        a.ACTIVITY_ADDRESS,
+        a.ACTIVITY_ICON_URL,
+        ao.ORDER_CREATE_TIME,
+        ao.ORDER_NUMBER,
+        ao.ORDER_VALIDATE_CODE,
+        ao.ORDER_PAYMENT_STATUS,
+        ao.ORDER_PHONE_NO,
+        ao.ORDER_PRICE,
+        ao.ORDER_PAYMENT_STATUS,
+        ao.activity_order_id,
+        cae.event_date_time AS eventDateTime,
+        GROUP_CONCAT(
+        cao.SEAT_VAL SEPARATOR ','
+        ) AS seats,
+        GROUP_CONCAT(
+        cao.ORDER_LINE SEPARATOR ','
+        ) AS ORDER_LINE,
+        GROUP_CONCAT(
+        cao.SEAT_STATUS SEPARATOR ','
+        ) AS seatStatus,
+        ao.ORDER_PAY_STATUS,
+        a.ACTIVITY_SALES_ONLINE,
+        a.ACTIVITY_IS_RESERVATION,
+        cae.EVENT_DATE,
+        cae.EVENT_END_DATE,
+        cae.EVENT_TIME
+        FROM
+        cms_activity_order ao
+        LEFT JOIN cms_activity_order_detail cao on ao.ACTIVITY_ORDER_ID = cao.ACTIVITY_ORDER_ID
+        INNER JOIN cms_activity a ON ao.ACTIVITY_ID = a.ACTIVITY_ID
+        LEFT JOIN cms_activity_event cae ON ao.event_id = cae.event_id
+        WHERE
+        1 = 1
+        AND ao.ORDER_IS_VALID = 1
+        AND(ao.ORDER_PAY_STATUS in (2,4,5)
+        or CONCAT(SUBSTRING(cae.event_date_time,1,16)) &lt; DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i'))
+        <if test="userId != null and userId != ''">
+            and ao.USER_ID = #{userId}
+        </if>
+        GROUP BY ao.ACTIVITY_ORDER_ID
+        order by ao.ORDER_CREATE_TIME desc
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+    
+    <select id="queryTimeOutNotVerificationOrder" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT o.`ACTIVITY_ORDER_ID`,o.`ORDER_PHONE_NO`,o.`ORDER_VOTES`,o.`ORDER_NUMBER`,
+    o.`USER_ID`,o.`ORDER_NAME`,a.`ACTIVITY_NAME`,a.`activity_start_time`,
+    o.ORDER_PAYMENT_STATUS,
+    a.`DEDUCTION_CREDIT` FROM `cms_activity_order` o
+
+	INNER JOIN `cms_activity` a ON o.`ACTIVITY_ID`=a.`ACTIVITY_ID`
+
+	WHERE o.`EVENT_ID` IN (SELECT e.`EVENT_ID` FROM `cms_activity_event` e WHERE SUBSTRING(e.`EVENT_DATE_TIME`,1,10) = #{date})
+
+	AND o.ORDER_PAY_STATUS IN (1,3,5)  AND a.`DEDUCTION_CREDIT` IS NOT NULL AND a.`DEDUCTION_CREDIT` &gt;0 
+    </select>
+    
+    <select id="queryCheckOrderList" parameterType="java.util.Map" resultMap="BaseResultMap">
+            
+    SELECT o.* 
+    from cms_activity_order o 
+    where 1=1
+    <if test="date!=null">
+    	 and ORDER_CREATE_TIME &gt;= #{date,jdbcType=TIMESTAMP}
+    </if>
+    and ORDER_PAY_STATUS != 2
+    order by o.ORDER_CREATE_TIME asc 
+    
+    limit 0,${rows}
+    </select>
+    
+    <select id="queryOrderRepeatSeat" parameterType="java.util.Map" resultType="java.lang.String">
+    	SELECT  DISTINCT o1.`ACTIVITY_ORDER_ID` FROM cms_activity_order_detail od 
+		
+		INNER JOIN `cms_activity_order` o1 ON o1.`ACTIVITY_ORDER_ID`=od.`ACTIVITY_ORDER_ID` AND o1.`ACTIVITY_ID`=#{activityId}
+		
+		INNER JOIN `cms_activity_order` o ON o.ACTIVITY_ORDER_ID=#{orderId}
+		
+		AND o1.EVENT_ID = o.`EVENT_ID`
+		
+		AND FIND_IN_SET(od.`SEAT_VAL`,#{orderSeat}) AND o1.ORDER_PAY_STATUS != 2
+		
+		WHERE o1.ACTIVITY_ORDER_ID!=#{orderId}
+
+    	
+    </select>
+    
+    <!-- 查询未取消的订单 -->
+    <select id="queryNoCancelActivityOrder" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT ao.ACTIVITY_ORDER_ID,ao.ORDER_CREATE_TIME,cae.EVENT_DATE,cae.EVENT_END_DATE,
+        ao.ORDER_PAYMENT_STATUS,cae.EVENT_TIME,cae.EVENT_DATE_TIME,v.VENUE_ID
+        FROM cms_activity_order ao
+        LEFT JOIN cms_activity_event cae on ao.EVENT_ID=cae.EVENT_ID
+        LEFT JOIN cms_activity_venue_relevance r ON ao.activity_id=r.activity_id
+		LEFT JOIN cms_venue v ON v.venue_id = r.venue_id
+        WHERE ao.ORDER_PAY_STATUS!=2
+        <if test="activityId != null">
+            AND ao.ACTIVITY_ID = #{activityId}
+        </if>
+        <if test="userId != null">
+            AND ao.USER_ID = #{userId}
+        </if>
+        <if test="dateType == 1">
+        	AND DATE_SUB(NOW(), INTERVAL 7 DAY) &lt;= CONCAT(substring(cae.EVENT_DATE_TIME,1,11),substring(cae.EVENT_DATE_TIME,18,5),':00')
+        </if>
+        <if test="sortType == 1">order by cae.EVENT_DATE</if>
+        <if test="sortType == 2">order by cae.EVENT_END_DATE DESC</if>
+        <if test="sortType == 3">order by CONCAT(substring(cae.EVENT_DATE_TIME,1,11),substring(cae.EVENT_DATE_TIME,18,5))</if>
+    </select>
+</mapper>

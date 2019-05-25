@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.VenueStatisticsMapper" >
+    <resultMap id="BaseResultMap" type="com.sun3d.why.model.VenueStatistics" >
+        <result column="VENUE_AREA" property="venueArea" jdbcType="VARCHAR" />
+        <result column="TODAY_LOOK" property="todayLook" jdbcType="INTEGER" />
+        <result column="WEEK_LOOK" property="weekLook" jdbcType="INTEGER" />
+        <result column="MONTH_LOOK" property="monthLook" jdbcType="INTEGER" />
+        <result column="QUARTER_LOOK" property="quarterLook" jdbcType="INTEGER" />
+        <result column="YEAR_LOOK" property="yearLook" jdbcType="INTEGER" />
+        <result column="WEEK_BOOK" property="weekBook" jdbcType="INTEGER" />
+        <result column="MONTH_BOOK" property="monthBook" jdbcType="INTEGER" />
+        <result column="QUARTER_BOOK" property="quarterBook" jdbcType="INTEGER" />
+        <result column="YEAR_BOOK" property="yearBook" jdbcType="INTEGER" />
+
+        <result column="NUM_ROOM" property="numRoom" jdbcType="INTEGER" />
+        <result column="USED_ROOM" property="usedRoom" jdbcType="INTEGER" />
+        <result column="BOOK_ROOM" property="bookRoom" jdbcType="INTEGER" />
+        <result column="PRE_ROOM" property="preRoom" jdbcType="VARCHAR" />
+
+        <result column="TAG_NAME" property="tagName" jdbcType="INTEGER" />
+        <result column="NUM_VENUE" property="numVenue" jdbcType="INTEGER" />
+        <result column="NUM_LOOK" property="numLook" jdbcType="INTEGER" />
+        <result column="VENUE_MESSAGE" property="venueMessage" jdbcType="INTEGER" />
+
+        <result column="VENUE_NAME" property="venueName" jdbcType="VARCHAR" />
+        <result column="VENUE_ID" property="venueId" jdbcType="VARCHAR" />
+        <result column="NUM_MESSAGE" property="numMessage" jdbcType="VARCHAR" />
+
+        <result column="COMMENT_RK_ID" property="commentRkId" jdbcType="VARCHAR" />
+        <result column="COMMENT_REMARK" property="commentRemark" jdbcType="LONGVARCHAR" />
+        <result column="COMMENT_TIME" property="commentTime" jdbcType="TIMESTAMP" />
+        <result column="comment_user_nickName" property="commentUserNickName" jdbcType="VARCHAR" />
+        <result column="COMMENT_IMG_URL" property="commentImgUrl" jdbcType="LONGVARCHAR" />
+
+    </resultMap>
+        <select id="queryByArea" resultMap="BaseResultMap" >
+            SELECT
+            a.VENUE_AREA  ,
+            ifnull(SUM(d.activitycount ),0) as TODAY_LOOK,
+            ifnull(SUM(s.activitycount ),0)as  WEEK_LOOK,
+            ifnull(SUM(f.activitycount ),0)as  MONTH_LOOK,
+            ifnull(SUM(g.activitycount ),0)as  QUARTER_LOOK,
+            ifnull(SUM(g.activitycount ),0)as  YEAR_LOOK,
+            ifnull(SUM(i.zhou),0) as WEEK_BOOK,
+            ifnull(SUM(i.yue),0) as MONTH_BOOK,
+            ifnull(SUM(i.jidu),0) as QUARTER_BOOK,
+            ifnull(SUM(i.nian),0) as YEAR_BOOK
+            FROM
+            cms_venue a
+            LEFT JOIN
+            (
+            SELECT
+            a.VENUE_ID,
+            count(a.VENUE_ID)as activitycount
+            from
+            cms_venue_user_statistics a
+            where a.OPERATE_TYPE='1' AND  DATE_SUB(CURDATE(),INTERVAL 0 DAY) &lt;=  a.CREATE_TIME
+            GROUP BY a.VENUE_ID
+            ) as d
+            ON d.VENUE_ID=a.VENUE_ID
+            LEFT JOIN
+            (
+            SELECT
+            a.VENUE_ID,
+            count(a.VENUE_ID)as activitycount
+            from
+            cms_venue_user_statistics a
+            where a.OPERATE_TYPE='1' AND  DATE_SUB(CURDATE(),INTERVAL 1 WEEK) &lt;= a.CREATE_TIME
+            GROUP BY a.VENUE_ID
+            ) as s
+            ON s.VENUE_ID=a.VENUE_ID
+            LEFT JOIN
+            (
+            SELECT
+            a.VENUE_ID,
+            count(a.VENUE_ID)as activitycount
+            from
+            cms_venue_user_statistics a
+            where a.OPERATE_TYPE='1' AND  DATE_SUB(CURDATE(),INTERVAL 1 MONTH) &lt;= a.CREATE_TIME
+            GROUP BY a.VENUE_ID
+            ) as f
+            ON f.VENUE_ID=a.VENUE_ID
+            LEFT JOIN
+            (
+            SELECT
+            a.VENUE_ID,
+            count(a.VENUE_ID)as activitycount
+            from
+            cms_venue_user_statistics a
+            where a.OPERATE_TYPE='1' AND  DATE_SUB(CURDATE(),INTERVAL 1 QUARTER) &lt;= a.CREATE_TIME
+            GROUP BY a.VENUE_ID
+            ) as g
+            ON g.VENUE_ID=a.VENUE_ID
+            LEFT JOIN
+            (
+            SELECT
+            a.VENUE_ID,
+            count(a.VENUE_ID)as activitycount
+            from
+            cms_venue_user_statistics a
+            where a.OPERATE_TYPE='1' AND  DATE_SUB(CURDATE(),INTERVAL 1 YEAR) &lt;= a.CREATE_TIME
+            GROUP BY a.VENUE_ID
+            ) as h
+            ON h.VENUE_ID=a.VENUE_ID
+            LEFT JOIN
+            (SELECT
+            a.VENUE_ID as id ,
+            d.activitycount as zhou,
+            f.activitycount as yue,
+            g.activitycount as jidu,
+            h.activitycount as nian
+            FROM
+            cms_venue a
+            LEFT JOIN
+            (
+            SELECT
+            a.VENUE_ID,
+            count(a.VENUE_ID)as activitycount
+            FROM
+            cms_room_order a
+            where DATE_SUB(CURDATE(),INTERVAL 1 WEEK) &lt;= a.ORDER_CREATE_TIME and ( a.BOOK_STATUS='1' or a.BOOK_STATUS='3'or a.BOOK_STATUS='5')
+            GROUP BY a.VENUE_ID
+            ) as d
+            ON d.VENUE_ID=a.VENUE_ID
+            LEFT JOIN
+            (
+            SELECT
+            a.VENUE_ID,
+            count(a.VENUE_ID)as activitycount
+            FROM
+            cms_room_order a
+            where DATE_SUB(CURDATE(),INTERVAL 1 MONTH) &lt;= a.ORDER_CREATE_TIME and ( a.BOOK_STATUS='1' or a.BOOK_STATUS='3'or a.BOOK_STATUS='5')
+            GROUP BY a.VENUE_ID
+            ) as f
+            ON f.VENUE_ID=a.VENUE_ID
+            LEFT JOIN
+            (
+            SELECT
+            a.VENUE_ID,
+            count(a.VENUE_ID)as activitycount
+            FROM
+            cms_room_order a
+            where DATE_SUB(CURDATE(),INTERVAL 1 QUARTER) &lt;=  a.ORDER_CREATE_TIME and ( a.BOOK_STATUS='1' or a.BOOK_STATUS='3'or a.BOOK_STATUS='5')
+            GROUP BY a.VENUE_ID
+            ) as g
+            ON g.VENUE_ID=a.VENUE_ID
+            LEFT JOIN
+            (
+            SELECT
+            a.VENUE_ID,
+            count(a.VENUE_ID)as activitycount
+            FROM
+            cms_room_order a
+            where DATE_SUB(CURDATE(),INTERVAL 1 YEAR) &lt;= a.ORDER_CREATE_TIME and ( a.BOOK_STATUS='1' or a.BOOK_STATUS='3'or a.BOOK_STATUS='5')
+            GROUP BY a.VENUE_ID
+            ) as h
+            ON h.VENUE_ID=a.VENUE_ID
+            )as i
+            ON i.id=a.VENUE_ID
+            GROUP BY a.VENUE_AREA;
+        </select>
+<!--由于没有活动室的开放情况详细信息，所以开放情况目前为估算。很不准确-->
+    <select id="queryByAreaRoom" resultMap="BaseResultMap" >
+    SELECT
+    s.VENUE_AREA,
+    ifnull(SUM(q.num),0) as NUM_ROOM,
+    ifnull(SUM(w.used),0) as USED_ROOM,
+    ifnull(SUM(w.pay),0) as BOOK_ROOM,
+    ifnull(CONCAT(SUM(w.pay)/SUM(w.used), '&#37;'),0) as PRE_ROOM
+    FROM
+    cms_venue s
+    LEFT JOIN
+    (
+    SELECT
+    a.ROOM_VENUE_ID,
+    COUNT(a.ROOM_VENUE_ID) as num
+    FROM
+    cms_room a
+    GROUP BY  a.ROOM_VENUE_ID
+    ) as q
+    on s.VENUE_ID=q.ROOM_VENUE_ID
+    LEFT JOIN
+    (
+    SELECT
+    q.VENUE_ID,
+    COUNT(q.VENUE_ID) as used,
+    SUM(q.sum) as pay
+    FROM
+    (
+    SELECT
+    ROOM_ID,
+    VENUE_ID,
+    COUNT(ROOM_ID) as sum
+    FROM
+    cms_room_order
+        WHERE 1=1
+        <if test="activityStartTime != null" >
+            and ORDER_CREATE_TIME &gt;= #{activityStartTime,jdbcType=VARCHAR}
+        </if>
+        <if test="activityEndTime != null" >
+            and ORDER_CREATE_TIME &lt;= #{activityEndTime,jdbcType=VARCHAR}
+        </if>
+    GROUP BY ROOM_ID
+    ) as q
+    GROUP BY q.VENUE_ID
+    ) as w
+    on s.VENUE_ID=w.VENUE_ID
+    GROUP BY s.VENUE_AREA
+    </select>
+    <select id="queryByTag" resultMap="BaseResultMap" >
+        SELECT
+         ifnull(s.TAG_NAME,0) as TAG_NAME,
+        ifnull(COUNT(s.TAG_NAME),0) as NUM_VENUE,
+        ifnull(SUM(d.e),0) AS NUM_LOOK,
+        ifnull(SUM(f.num),0) as BOOK_ROOM,
+        ifnull(SUM(g.num),0)  AS VENUE_MESSAGE
+        FROM
+         cms_venue a
+        LEFT JOIN
+         cms_tag s
+        on  s.TAG_ID=a.VENUE_TYPE
+        LEFT JOIN
+        (
+        SELECT
+         VENUE_ID,
+         COUNT(VENUE_ID) as e
+        FROM
+         cms_venue_user_statistics
+        WHERE 1=1
+        <if test="activityStartTime != null" >
+            and CREATE_TIME &gt;= #{activityStartTime,jdbcType=VARCHAR}
+        </if>
+        <if test="activityEndTime != null" >
+            and CREATE_TIME &lt;= #{activityEndTime,jdbcType=VARCHAR}
+        </if>
+        GROUP BY VENUE_ID
+        ) as d
+        ON d.VENUE_ID=a.VENUE_ID
+        LEFT JOIN
+        (
+        SELECT
+          a.ROOM_VENUE_ID,
+         COUNT(a.ROOM_VENUE_ID) as num
+        FROM
+         cms_room a
+        GROUP BY  a.ROOM_VENUE_ID
+        ) as f
+        on f.ROOM_VENUE_ID=a.VENUE_ID
+        LEFT JOIN
+        (
+        SELECT
+            a.COMMENT_RK_ID,
+            COUNT(a.COMMENT_RK_ID) as num
+        FROM
+            cms_comment a
+        WHERE
+            a.comment_type = '1'
+        <if test="activityStartTime != null" >
+            and COMMENT_TIME &gt;= #{activityStartTime,jdbcType=VARCHAR}
+        </if>
+        <if test="activityEndTime != null" >
+            and COMMENT_TIME &lt;= #{activityEndTime,jdbcType=VARCHAR}
+        </if>
+        GROUP BY
+            a.COMMENT_RK_ID
+        ORDER BY
+            COUNT(a.COMMENT_RK_ID) DESC
+        ) as g
+        on g.COMMENT_RK_ID=a.VENUE_ID
+        GROUP BY s.TAG_NAME
+    </select>
+    <select id="queryByTagRoom" resultMap="BaseResultMap" >
+        SELECT
+         s.TAG_NAME,
+        COUNT(s.TAG_NAME) as NUM_ROOM,
+        COUNT(d.ROOM_ID) as BOOK_ROOM
+        FROM
+         cms_room a
+        LEFT JOIN
+         cms_tag s
+        on  a.ROOM_TAG LIKE CONCAT('%',s.TAG_ID,'%')
+        LEFT JOIN
+        (
+        SELECT
+         ROOM_ID,
+        COUNT(ROOM_ID) as sum
+        FROM
+         cms_room_order
+         WHERE  1=1
+        <if test="activityStartTime != null" >
+            and ORDER_CREATE_TIME &gt;= #{activityStartTime,jdbcType=VARCHAR}
+        </if>
+        <if test="activityEndTime != null" >
+            and ORDER_CREATE_TIME &lt;= #{activityEndTime,jdbcType=VARCHAR}
+        </if>
+        GROUP BY ROOM_ID
+        ) as d
+        ON d.ROOM_ID=a.ROOM_ID
+        GROUP BY s.TAG_NAME
+        ORDER BY NUM_ROOM  DESC
+    </select>
+    <select id="queryByMessage" resultMap="BaseResultMap" >
+        SELECT
+	    a.VENUE_NAME,
+	    a.VENUE_ID,
+	    COUNT(a.VENUE_NAME) as NUM_MESSAGE
+        FROM
+	    cms_comment s
+        LEFT JOIN cms_venue a ON s.COMMENT_RK_ID = a.VENUE_ID
+        WHERE
+	    s.comment_type = '1'
+        <if test="activityStartTime != null" >
+            and COMMENT_TIME &gt;= #{activityStartTime,jdbcType=VARCHAR}
+        </if>
+        <if test="activityEndTime != null" >
+            and COMMENT_TIME &lt;= #{activityEndTime,jdbcType=VARCHAR}
+        </if>
+        GROUP BY
+	    a.VENUE_NAME
+        ORDER BY COUNT(a.VENUE_NAME) DESC
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+    <select id="queryByMessageCount" resultType="java.lang.Integer"  >
+        SELECT
+        COUNT(*)
+        FROM(
+        SELECT
+        a.VENUE_NAME,
+        a.VENUE_ID,
+        COUNT(a.VENUE_NAME) as NUM_MESSAGE
+        FROM
+        cms_comment s
+        LEFT JOIN cms_venue a ON s.COMMENT_RK_ID = a.VENUE_ID
+        WHERE
+        s.comment_type = '1'
+        <if test="activityStartTime != null" >
+            and COMMENT_TIME &gt;= #{activityStartTime,jdbcType=VARCHAR}
+        </if>
+        <if test="activityEndTime != null" >
+            and COMMENT_TIME &lt;= #{activityEndTime,jdbcType=VARCHAR}
+        </if>
+        GROUP BY
+        a.VENUE_NAME
+        ORDER BY COUNT(a.VENUE_NAME) DESC) as a
+    </select>
+    <!--符合条件的评论列表-->
+    <select id="queryCommentByVenue" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        comment_rk_id,
+        comment_remark,
+        comment_time,
+        USER_NICK_NAME as comment_user_nickName,
+        comment_img_url
+        from cms_comment left join cms_terminal_user on comment_user_id = user_id
+        where 1=1
+        <if test="venueId != null" >
+            and COMMENT_RK_ID = #{venueId,jdbcType=VARCHAR}
+        </if>
+        order by comment_time desc
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+    <!--符合条件的评论个数-->
+    <select id="queryCommentCountByVenue" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(*) from cms_comment left join cms_terminal_user on comment_user_id = user_id
+        where 1=1
+        <if test="venueId != null" >
+            and COMMENT_RK_ID = #{venueId,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <select id="queryCommentCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(*) as CommentCount
+        from cms_comment
+        where comment_type = '1'
+        <if test="activityStartTime != null" >
+            and COMMENT_TIME &gt;= #{activityStartTime,jdbcType=VARCHAR}
+        </if>
+        <if test="activityEndTime != null" >
+            and COMMENT_TIME &lt;= #{activityEndTime,jdbcType=VARCHAR}
+        </if>
+    </select>
+</mapper>

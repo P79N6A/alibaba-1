@@ -1,0 +1,756 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.train.CmsTrainMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.train.CmsTrainBean" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TRAIN_TITLE" property="trainTitle" jdbcType="VARCHAR" />
+    <result column="TRAIN_IMG_URL" property="trainImgUrl" jdbcType="VARCHAR" />
+    <result column="TRAIN_INTRODUCE" property="trainIntroduce" jdbcType="VARCHAR" />
+    <result column="TRAIN_STATUS" property="trainStatus" jdbcType="INTEGER" />
+    <result column="IS_DELETE" property="isDelete" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="TRAIN_PROVINCE" property="trainProvince" jdbcType="VARCHAR" />
+    <result column="TRAIN_CITY" property="trainCity" jdbcType="VARCHAR" />
+    <result column="TRAIN_AREA" property="trainArea" jdbcType="VARCHAR" />
+    <result column="TRAIN_LOCATION" property="trainLocation" jdbcType="VARCHAR" />
+    <result column="TRAIN_ADDRESS" property="trainAddress" jdbcType="VARCHAR" />
+    <result column="VENUE_TYPE" property="venueType" jdbcType="VARCHAR" />
+    <result column="VENUE_ID" property="venueId" jdbcType="VARCHAR" />
+    <result column="TRAIN_TYPE" property="trainType" jdbcType="VARCHAR" />
+    <result column="TRAIN_TAG" property="trainTag" jdbcType="VARCHAR" />
+    <result column="admission_Type" property="admissionType" jdbcType="VARCHAR" />
+    <result column="max_people" property="maxPeople" jdbcType="INTEGER" />
+    <result column="TRAIN_field" property="trainField" jdbcType="VARCHAR" />
+    <result column="LON" property="lon" jdbcType="DOUBLE" />
+    <result column="LAT" property="lat" jdbcType="DOUBLE" />
+    <result column="Interview_time" property="interviewTime" jdbcType="VARCHAR" />
+    <result column="Interview_address" property="interviewAddress" jdbcType="VARCHAR" />
+    <result column="reminder" property="reminder" jdbcType="VARCHAR" />
+    <result column="consulting_phone" property="consultingPhone" jdbcType="VARCHAR" />
+    <result column="contact_information" property="contactInformation" jdbcType="VARCHAR" />
+    <result column="registration_requirements" property="registrationRequirements" jdbcType="VARCHAR" />
+    <result column="course_introduction" property="courseIntroduction" jdbcType="VARCHAR" />
+    <result column="teachers_introduction" property="teachersIntroduction" jdbcType="VARCHAR" />
+    <result column="registration_start_time" property="registrationStartTime" jdbcType="VARCHAR" />
+    <result column="registration_end_time" property="registrationEndTime" jdbcType="VARCHAR" />
+    <result column="TRAIN_START_TIME" property="trainStartTime" jdbcType="VARCHAR" />
+    <result column="TRAIN_END_TIME" property="trainEndTime" jdbcType="VARCHAR" />
+    <result column="registration_count" property="registrationCount" jdbcType="INTEGER" />
+    <result column="course_type" property="courseType" jdbcType="VARCHAR" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="MALE_MIN_AGE" property="maleMinAge" jdbcType="INTEGER" />
+    <result column="MALE_MAX_AGE" property="maleMaxAge" jdbcType="INTEGER" />
+    <result column="FEMALE_MIN_AGE" property="femaleMinAge" jdbcType="INTEGER" />
+    <result column="FEMALE_MAX_AGE" property="femaleMaxAge" jdbcType="INTEGER" />
+    <result column="TRAIN_TIME_DETAILS" property="trainTimeDetails" jdbcType="INTEGER" />
+    <result column="AREA" property="area" jdbcType="VARCHAR" />
+
+  </resultMap>
+  <sql id="Base_Column_List" >
+    t.ID, t.TRAIN_TITLE, t.TRAIN_IMG_URL, t.TRAIN_INTRODUCE, t.TRAIN_STATUS, t.IS_DELETE, t.CREATE_TIME,
+    t.TRAIN_PROVINCE, t.TRAIN_CITY, t.TRAIN_AREA, t.TRAIN_LOCATION, t.TRAIN_ADDRESS,
+    t.TRAIN_TYPE, t.TRAIN_TAG, t.admission_Type, t.max_people, t.TRAIN_field,
+    t.LON, t.LAT, t.Interview_time, t.Interview_address, t.reminder, t.consulting_phone, t.contact_information,
+    t.registration_requirements, t.course_introduction, t.teachers_introduction, t.registration_start_time,
+    t.registration_end_time, t.TRAIN_START_TIME, registration_count,course_type,t.TRAIN_END_TIME, t.UPDATE_TIME,
+    t.male_min_age,t.male_max_age,t.female_min_age,t.female_max_age,t.train_time_details
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />,venue_type,venue_id,
+    (SELECT count(*) from cms_train_order cto1 WHERE cto1.train_id = t.id and  cto1.state = true) admissionsPeoples
+    from cms_train t
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cms_train
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sun3d.why.model.train.CmsTrain" >
+    insert into cms_train (ID, TRAIN_TITLE, TRAIN_IMG_URL,
+      TRAIN_INTRODUCE, TRAIN_STATUS, IS_DELETE,
+      CREATE_TIME, CREATE_USER, TRAIN_PROVINCE,
+      TRAIN_CITY, TRAIN_AREA, TRAIN_LOCATION,
+      TRAIN_ADDRESS, VENUE_TYPE, VENUE_ID,
+      TRAIN_TYPE, TRAIN_TAG, admission_Type,
+      max_people, TRAIN_field, LON,
+      LAT, Interview_time, Interview_address,
+      reminder, consulting_phone, contact_information,
+      registration_requirements, course_introduction,
+      teachers_introduction, registration_start_time,
+      registration_end_time, TRAIN_START_TIME, TRAIN_END_TIME,
+      UPDATE_USER, UPDATE_TIME,MALE_MIN_AGE,MALE_MAX_AGE,FEMALE_MIN_AGE,FEMALE_MAX_AGE)
+    values (#{id,jdbcType=VARCHAR}, #{trainTitle,jdbcType=VARCHAR}, #{trainImgUrl,jdbcType=VARCHAR},
+      #{trainIntroduce,jdbcType=VARCHAR}, #{trainStatus,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER},
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{trainProvince,jdbcType=VARCHAR},
+      #{trainCity,jdbcType=VARCHAR}, #{trainArea,jdbcType=VARCHAR}, #{trainLocation,jdbcType=VARCHAR},
+      #{trainAddress,jdbcType=VARCHAR}, #{venueType,jdbcType=VARCHAR}, #{venueId,jdbcType=VARCHAR},
+      #{trainType,jdbcType=VARCHAR}, #{trainTag,jdbcType=VARCHAR}, #{admissionType,jdbcType=VARCHAR},
+      #{maxPeople,jdbcType=INTEGER}, #{trainField,jdbcType=VARCHAR}, #{lon,jdbcType=DOUBLE},
+      #{lat,jdbcType=DOUBLE}, #{interviewTime,jdbcType=VARCHAR}, #{interviewAddress,jdbcType=VARCHAR},
+      #{reminder,jdbcType=VARCHAR}, #{consultingPhone,jdbcType=VARCHAR}, #{contactInformation,jdbcType=VARCHAR},
+      #{registrationRequirements,jdbcType=VARCHAR}, #{courseIntroduction,jdbcType=VARCHAR},
+      #{teachersIntroduction,jdbcType=VARCHAR}, #{registrationStartTime,jdbcType=VARCHAR},
+      #{registrationEndTime,jdbcType=VARCHAR}, #{trainStartTime,jdbcType=VARCHAR}, #{trainEndTime,jdbcType=VARCHAR},
+      #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},#{maleMinAge,jdbcType=INTEGER},#{maleMaxAge,jdbcType=INTEGER},
+      #{femaleMinAge,jdbcType=INTEGER},#{femaleMaxAge,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sun3d.why.model.train.CmsTrain" >
+    insert into cms_train
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="trainTitle != null" >
+        TRAIN_TITLE,
+      </if>
+      <if test="trainImgUrl != null" >
+        TRAIN_IMG_URL,
+      </if>
+      <if test="trainIntroduce != null" >
+        TRAIN_INTRODUCE,
+      </if>
+      <if test="trainStatus != null" >
+        TRAIN_STATUS,
+      </if>
+      <if test="isDelete != null" >
+        IS_DELETE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="trainProvince != null" >
+        TRAIN_PROVINCE,
+      </if>
+      <if test="trainCity != null" >
+        TRAIN_CITY,
+      </if>
+      <if test="trainArea != null" >
+        TRAIN_AREA,
+      </if>
+      <if test="trainLocation != null" >
+        TRAIN_LOCATION,
+      </if>
+      <if test="trainAddress != null" >
+        TRAIN_ADDRESS,
+      </if>
+      <if test="venueType != null" >
+        VENUE_TYPE,
+      </if>
+      <if test="venueId != null" >
+        VENUE_ID,
+      </if>
+      <if test="trainType != null" >
+        TRAIN_TYPE,
+      </if>
+      <if test="trainTag != null" >
+        TRAIN_TAG,
+      </if>
+      <if test="admissionType != null" >
+        admission_Type,
+      </if>
+      <if test="maxPeople != null and maxPeople != 0" >
+        max_people,
+      </if>
+      <if test="maxPeople == null or maxPeople == 0" >
+        max_people,
+      </if>
+      <if test="trainField != null" >
+        TRAIN_field,
+      </if>
+      <if test="lon != null" >
+        LON,
+      </if>
+      <if test="lat != null" >
+        LAT,
+      </if>
+      <if test="interviewTime != null" >
+        Interview_time,
+      </if>
+      <if test="interviewAddress != null" >
+        Interview_address,
+      </if>
+      <if test="reminder != null" >
+        reminder,
+      </if>
+      <if test="consultingPhone != null" >
+        consulting_phone,
+      </if>
+      <if test="contactInformation != null" >
+        contact_information,
+      </if>
+      <if test="registrationRequirements != null" >
+        registration_requirements,
+      </if>
+      <if test="courseIntroduction != null" >
+        course_introduction,
+      </if>
+      <if test="teachersIntroduction != null" >
+        teachers_introduction,
+      </if>
+      <if test="registrationStartTime != null" >
+        registration_start_time,
+      </if>
+      <if test="registrationEndTime != null" >
+        registration_end_time,
+      </if>
+      <if test="trainStartTime != null" >
+        TRAIN_START_TIME,
+      </if>
+      <if test="trainEndTime != null" >
+        TRAIN_END_TIME,
+      </if>
+
+      <if test="registrationCount != null" >
+        registration_count,
+      </if>
+      <if test="courseType != null" >
+        course_type,
+      </if>
+
+      <if test="updateUser != null" >
+        UPDATE_USER,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="maleMinAge != null" >
+        MALE_MIN_AGE,
+      </if>
+      <if test="maleMaxAge != null" >
+        MALE_MAX_AGE,
+      </if>
+      <if test="femaleMinAge != null" >
+        FEMALE_MIN_AGE,
+      </if>
+      <if test="femaleMaxAge != null" >
+        FEMALE_MAX_AGE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="trainTitle != null" >
+        #{trainTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="trainImgUrl != null" >
+        #{trainImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="trainIntroduce != null" >
+        #{trainIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="trainStatus != null" >
+        #{trainStatus,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="trainProvince != null" >
+        #{trainProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="trainCity != null" >
+        #{trainCity,jdbcType=VARCHAR},
+      </if>
+      <if test="trainArea != null" >
+        #{trainArea,jdbcType=VARCHAR},
+      </if>
+      <if test="trainLocation != null" >
+        #{trainLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="trainAddress != null" >
+        #{trainAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="venueType != null" >
+        #{venueType,jdbcType=VARCHAR},
+      </if>
+      <if test="venueId != null" >
+        #{venueId,jdbcType=VARCHAR},
+      </if>
+      <if test="trainType != null" >
+        #{trainType,jdbcType=VARCHAR},
+      </if>
+      <if test="trainTag != null" >
+        #{trainTag,jdbcType=VARCHAR},
+      </if>
+      <if test="admissionType != null" >
+        #{admissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="maxPeople != null and maxPeople != 0" >
+        #{maxPeople,jdbcType=INTEGER},
+      </if>
+      <if test="maxPeople == null or maxPeople == 0" >
+        null,
+      </if>
+      <if test="trainField != null" >
+        #{trainField,jdbcType=VARCHAR},
+      </if>
+      <if test="lon != null" >
+        #{lon,jdbcType=DOUBLE},
+      </if>
+      <if test="lat != null" >
+        #{lat,jdbcType=DOUBLE},
+      </if>
+      <if test="interviewTime != null" >
+        #{interviewTime,jdbcType=VARCHAR},
+      </if>
+      <if test="interviewAddress != null" >
+        #{interviewAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="reminder != null" >
+        #{reminder,jdbcType=VARCHAR},
+      </if>
+      <if test="consultingPhone != null" >
+        #{consultingPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="contactInformation != null" >
+        #{contactInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="registrationRequirements != null" >
+        #{registrationRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="courseIntroduction != null" >
+        #{courseIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="teachersIntroduction != null" >
+        #{teachersIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="registrationStartTime != null" >
+        #{registrationStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="registrationEndTime != null" >
+        #{registrationEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="trainStartTime != null" >
+        #{trainStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="trainEndTime != null" >
+        #{trainEndTime,jdbcType=VARCHAR},
+      </if>
+
+      <if test="registrationCount != null" >
+        #{registrationCount,jdbcType=INTEGER},
+      </if>
+      <if test="courseType != null" >
+        #{courseType,jdbcType=VARCHAR},
+      </if>
+
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maleMinAge != null" >
+        #{maleMinAge,jdbcType=INTEGER},
+      </if>
+      <if test="maleMaxAge != null" >
+        #{maleMaxAge,jdbcType=INTEGER},
+      </if>
+      <if test="femaleMinAge != null" >
+        #{femaleMinAge,jdbcType=INTEGER},
+      </if>
+      <if test="femaleMaxAge != null" >
+        #{femaleMaxAge,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sun3d.why.model.train.CmsTrain" >
+    update cms_train
+    <set >
+      <if test="trainTitle != null" >
+        TRAIN_TITLE = #{trainTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="trainImgUrl != null" >
+        TRAIN_IMG_URL = #{trainImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="trainIntroduce != null" >
+        TRAIN_INTRODUCE = #{trainIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="trainStatus != null" >
+        TRAIN_STATUS = #{trainStatus,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        IS_DELETE = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="trainProvince != null" >
+        TRAIN_PROVINCE = #{trainProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="trainCity != null" >
+        TRAIN_CITY = #{trainCity,jdbcType=VARCHAR},
+      </if>
+      <if test="trainArea != null" >
+        TRAIN_AREA = #{trainArea,jdbcType=VARCHAR},
+      </if>
+      <if test="trainLocation != null" >
+        TRAIN_LOCATION = #{trainLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="trainAddress != null" >
+        TRAIN_ADDRESS = #{trainAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="venueType != null" >
+        VENUE_TYPE = #{venueType,jdbcType=VARCHAR},
+      </if>
+      <if test="venueId != null" >
+        VENUE_ID = #{venueId,jdbcType=VARCHAR},
+      </if>
+      <if test="trainType != null" >
+        TRAIN_TYPE = #{trainType,jdbcType=VARCHAR},
+      </if>
+      <if test="trainTag != null" >
+        TRAIN_TAG = #{trainTag,jdbcType=VARCHAR},
+      </if>
+      <if test="admissionType != null" >
+        admission_Type = #{admissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="maxPeople != null and maxPeople != 0" >
+        max_people = #{maxPeople,jdbcType=INTEGER},
+      </if>
+      <if test="maxPeople == 0" >
+        max_people = null,
+      </if>
+      <if test="trainField != null" >
+        TRAIN_field = #{trainField,jdbcType=VARCHAR},
+      </if>
+      <if test="lon != null" >
+        LON = #{lon,jdbcType=DOUBLE},
+      </if>
+      <if test="lat != null" >
+        LAT = #{lat,jdbcType=DOUBLE},
+      </if>
+      <if test="interviewTime != null" >
+        Interview_time = #{interviewTime,jdbcType=VARCHAR},
+      </if>
+      <if test="interviewAddress != null" >
+        Interview_address = #{interviewAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="reminder != null" >
+        reminder = #{reminder,jdbcType=VARCHAR},
+      </if>
+      <if test="consultingPhone != null" >
+        consulting_phone = #{consultingPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="contactInformation != null" >
+        contact_information = #{contactInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="registrationRequirements != null" >
+        registration_requirements = #{registrationRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="courseIntroduction != null" >
+        course_introduction = #{courseIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="teachersIntroduction != null" >
+        teachers_introduction = #{teachersIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="registrationStartTime != null" >
+        registration_start_time = #{registrationStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="registrationEndTime != null" >
+        registration_end_time = #{registrationEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="trainStartTime != null" >
+        TRAIN_START_TIME = #{trainStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="trainEndTime != null" >
+        TRAIN_END_TIME = #{trainEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="registrationCount != null" >
+        registration_count = #{registrationCount,jdbcType=INTEGER},
+      </if>
+      <if test="courseType != null" >
+        course_type = #{courseType,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maleMinAge != null" >
+        MALE_MIN_AGE = #{maleMinAge,jdbcType=INTEGER},
+      </if>
+      <if test="maleMaxAge != null" >
+        MALE_MAX_AGE = #{maleMaxAge,jdbcType=INTEGER},
+      </if>
+      <if test="femaleMinAge != null" >
+        FEMALE_MIN_AGE = #{femaleMinAge,jdbcType=INTEGER},
+      </if>
+      <if test="femaleMaxAge != null" >
+        FEMALE_MAX_AGE = #{femaleMaxAge,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sun3d.why.model.train.CmsTrain" >
+    update cms_train
+    set TRAIN_TITLE = #{trainTitle,jdbcType=VARCHAR},
+      TRAIN_IMG_URL = #{trainImgUrl,jdbcType=VARCHAR},
+      TRAIN_INTRODUCE = #{trainIntroduce,jdbcType=VARCHAR},
+      TRAIN_STATUS = #{trainStatus,jdbcType=INTEGER},
+      IS_DELETE = #{isDelete,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      TRAIN_PROVINCE = #{trainProvince,jdbcType=VARCHAR},
+      TRAIN_CITY = #{trainCity,jdbcType=VARCHAR},
+      TRAIN_AREA = #{trainArea,jdbcType=VARCHAR},
+      TRAIN_LOCATION = #{trainLocation,jdbcType=VARCHAR},
+      TRAIN_ADDRESS = #{trainAddress,jdbcType=VARCHAR},
+      VENUE_TYPE = #{venueType,jdbcType=VARCHAR},
+      VENUE_ID = #{venueId,jdbcType=VARCHAR},
+      TRAIN_TYPE = #{trainType,jdbcType=VARCHAR},
+      TRAIN_TAG = #{trainTag,jdbcType=VARCHAR},
+      admission_Type = #{admissionType,jdbcType=VARCHAR},
+      max_people = #{maxPeople,jdbcType=INTEGER},
+      TRAIN_field = #{trainField,jdbcType=VARCHAR},
+      LON = #{lon,jdbcType=DOUBLE},
+      LAT = #{lat,jdbcType=DOUBLE},
+      Interview_time = #{interviewTime,jdbcType=VARCHAR},
+      Interview_address = #{interviewAddress,jdbcType=VARCHAR},
+      reminder = #{reminder,jdbcType=VARCHAR},
+      consulting_phone = #{consultingPhone,jdbcType=VARCHAR},
+      contact_information = #{contactInformation,jdbcType=VARCHAR},
+      registration_requirements = #{registrationRequirements,jdbcType=VARCHAR},
+      course_introduction = #{courseIntroduction,jdbcType=VARCHAR},
+      teachers_introduction = #{teachersIntroduction,jdbcType=VARCHAR},
+      registration_start_time = #{registrationStartTime,jdbcType=VARCHAR},
+      registration_end_time = #{registrationEndTime,jdbcType=VARCHAR},
+      TRAIN_START_TIME = #{trainStartTime,jdbcType=VARCHAR},
+      TRAIN_END_TIME = #{trainEndTime,jdbcType=VARCHAR},
+      UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      MALE_MIN_AGE = #{maleMinAge,jdbcType=INTEGER},
+      MALE_MAX_AGE = #{maleMaxAge,jdbcType=INTEGER},
+      FEMALE_MIN_AGE = #{femaleMinAge,jdbcType=INTEGER},
+      FEMALE_MAX_AGE = #{femaleMaxAge,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+  <sql id="Query_List_Where" >
+    <if test="trainTitle != null and  trainTitle!='' ">
+      and t.train_title like '%${trainTitle}%'
+    </if>
+    <if test="venueId != null ">
+      and t.venue_id = #{venueId,jdbcType=VARCHAR}
+    </if>
+    <if test="venueName != null">
+      and v.venue_name like '%${venueName}%'
+    </if>
+    <if test="venueType != null">
+      and t.venue_type = #{venueType,jdbcType=VARCHAR}
+    </if>
+    <if test="trainType != null ">
+      and t.train_type = #{trainType,jdbcType=VARCHAR}
+    </if>
+    <if test="trainTag != null ">
+      and t.train_tag = #{trainTag,jdbcType=VARCHAR}
+    </if>
+    <if test="admissionType != null ">
+      and t.admission_Type = #{admissionType,jdbcType=INTEGER}
+    </if>
+    <if test="trainField != null ">
+      and t.TRAIN_field = #{trainField,jdbcType=INTEGER}
+    </if>
+    <if test="trainStatus != null ">
+      and (t.TRAIN_status = #{trainStatus,jdbcType=INTEGER} or t.train_status is null)
+    </if>
+    <if test="trainStartTime != null ">
+      <if test="trainTimeDetails == 3">
+        AND GREATEST(t.TRAIN_START_TIME, (
+        CASE t.TRAIN_END_TIME
+        WHEN t.TRAIN_END_TIME IS NULL THEN
+        t.TRAIN_START_TIME
+        WHEN t.TRAIN_END_TIME = '' THEN
+        t.TRAIN_START_TIME
+        ELSE
+        t.TRAIN_END_TIME
+        END
+        ))
+        &gt;= str_to_date(
+        #{trainStartTime,jdbcType=VARCHAR},
+        '%YYYY-%mm-%dd'
+        )
+      </if>
+      <if test="trainTimeDetails == 4">
+        AND #{trainStartTime,jdbcType=VARCHAR} &lt;= t.REGISTRATION_START_TIME,
+      </if>
+      <if test="trainTimeDetails == 2">
+        AND #{trainStartTime,jdbcType=VARCHAR} &lt;= t.CREATE_TIME
+      </if>
+      <if test="trainTimeDetails == null">
+        AND #{trainStartTime,jdbcType=VARCHAR} &lt;= t.UPDATE_TIME
+      </if>
+    </if>
+    <if test="trainEndTime != null ">
+      <if test="trainTimeDetails == 3">
+        AND least(t.TRAIN_START_TIME,(
+        CASE t.TRAIN_END_TIME
+        WHEN t.TRAIN_END_TIME IS NULL THEN
+        t.TRAIN_START_TIME
+        WHEN t.TRAIN_END_TIME = '' THEN
+        t.TRAIN_START_TIME
+        ELSE
+        t.TRAIN_END_TIME
+        END
+        )) &lt;=
+        str_to_date(
+        #{trainEndTime,jdbcType=VARCHAR},
+        '%YYYY-%mm-%dd'
+        )
+      </if>
+      <if test="trainTimeDetails == 2">
+        AND #{trainEndTime,jdbcType=VARCHAR} &gt;= t.CREATE_TIME
+      </if>
+      <if test="trainTimeDetails == 4">
+        AND #{trainStartTime,jdbcType=VARCHAR} >= t.REGISTRATION_START_TIME,
+      </if>
+      <if test="trainTimeDetails == null">
+        AND #{trainEndTime,jdbcType=VARCHAR} &gt;= t.UPDATE_TIME
+      </if>
+    </if>
+    <if test="isDelete != null ">
+      and t.IS_DELETE = #{isDelete,jdbcType=INTEGER}
+    </if>
+    <if test="trainTag != null ">
+      and t.TRAIN_TAG like CONCAT ('%',#{trainTag,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="state != null">
+      <if test="state == 1">
+        and TRAIN_END_TIME &gt; now()
+        and TRAIN_START_TIME &lt;= now()
+      </if>
+      <if test="state == 2">
+        and t.TRAIN_END_TIME &lt;= now()
+      </if>
+    </if>
+    <if test="area != null ">
+      and t.TRAIN_AREA like CONCAT ('%',#{area,jdbcType=VARCHAR},'%')
+    </if>
+  </sql>
+
+
+  <select id="queryTrainList" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select  <include refid="Base_Column_List" />,v.venue_name venueName,tag.tag_name typeName,su.user_nick_name userName,
+    (select count(*) from cms_comment cc where  t.id = cc.comment_rk_id) trainCommentCount,
+    (SELECT count(*) from cms_train_order cto WHERE cto.train_id = t.id) peopleCount,
+    (SELECT count(*) from cms_train_order cto1 WHERE cto1.train_id = t.id and  cto1.state = true) admissionsPeoples
+    from cms_train t
+    left join cms_venue v on v.venue_id = t.venue_id
+    left join cms_tag tag on tag.tag_id = t.train_type
+    left join sys_user su on su.user_id = t.update_user
+    where 1 = 1
+    <include refid="Query_List_Where" />
+    <if test="isBalance != null ">
+      <if test="isBalance == 1">
+        and (SELECT count(*) from cms_train_order cto1 WHERE cto1.train_id = t.id and  cto1.state = true) &lt; t.max_people
+        or t.max_people is null
+        and t.TRAIN_END_TIME >= now()
+      </if>
+      <if test="isBalance == 0">
+        and ((SELECT count(*) from cms_train_order cto1 WHERE cto1.train_id = t.id and  cto1.state = true) &gt;= t.max_people
+        and t.max_people is not null)
+        or t.TRAIN_END_TIME &lt;= now()
+      </if>
+    </if>
+    <if test="userIsManger != null and userIsManger == 4">
+        <if test="deptId != null">
+            and t.TRAIN_LOCATION LIKE CONCAT ('%',#{deptId,jdbcType=VARCHAR},'%')
+        </if>
+    </if>
+    <if test="userIsManger != null and userIsManger &lt; 4">
+        <if test="deptId != null">
+          and t.TRAIN_AREA LIKE CONCAT ('%',#{deptId,jdbcType=VARCHAR},'%')
+          and t.TRAIN_LOCATION LIKE CONCAT ('%',#{deptId,jdbcType=VARCHAR},'%')
+        </if>
+    </if>
+    ORDER by t.create_time desc
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+
+  <select id="queryTrainListCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select count(t.id)
+    from cms_train t
+    left join cms_venue v on v.venue_id = t.venue_id
+    left join sys_user su on su.user_id = t.update_user
+    where 1 = 1
+    <include refid="Query_List_Where" />
+    <if test="isBalance != null ">
+      <if test="isBalance == 1">
+        and (SELECT count(*) from cms_train_order cto1 WHERE cto1.train_id = t.id and  cto1.state = true) &lt; t.max_people
+        or t.max_people is null
+        and t.TRAIN_END_TIME >= now()
+      </if>
+      <if test="isBalance == 0">
+        and ((SELECT count(*) from cms_train_order cto1 WHERE cto1.train_id = t.id and  cto1.state = true) &gt;= t.max_people
+        and t.max_people is not null)
+        or t.TRAIN_END_TIME &lt;= now()
+      </if>
+    </if>
+    <if test="deptId != null">
+      and t.TRAIN_AREA like CONCAT ('%',#{deptId,jdbcType=VARCHAR},'%')
+      and t.TRAIN_LOCATION LIKE CONCAT ('%',#{deptId,jdbcType=VARCHAR},'%')
+    </if>
+  </select>
+
+  <select id="queryTrainListPc" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select  <include refid="Base_Column_List" />,v.venue_name venueName,tag.tag_name typeName,su.user_nick_name userName,
+    (select count(*) from cms_comment cc where  t.id = cc.comment_rk_id) trainCommentCount,
+    (SELECT count(*) from cms_train_order cto WHERE cto.train_id = t.id) peopleCount,
+    (SELECT count(*) from cms_train_order cto1 WHERE cto1.train_id = t.id and  cto1.state = true) admissionsPeoples
+    from cms_train t
+    left join cms_venue v on v.venue_id = t.venue_id
+    left join cms_tag tag on tag.tag_id = t.train_type
+    left join sys_user su on su.user_id = t.update_user
+    where 1 = 1
+    <include refid="Query_List_Where" />
+    <if test="isBalance != null ">
+      <if test="isBalance == 1">
+        and (SELECT count(*) from cms_train_order cto1 WHERE cto1.train_id = t.id and  cto1.state = true) &lt; t.max_people
+      </if>
+      <if test="isBalance == 0">
+        and (SELECT count(*) from cms_train_order cto1 WHERE cto1.train_id = t.id and  cto1.state = true) &gt;= t.max_people
+      </if>
+    </if>
+    ORDER by t.create_time desc
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+
+  <select id="queryTrainListCountPc" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select count(t.id)
+    from cms_train t
+    left join cms_venue v on v.venue_id = t.venue_id
+    where 1 = 1
+    <include refid="Query_List_Where" />
+    <if test="isBalance != null ">
+      <if test="isBalance == 1">
+        and (SELECT count(*) from cms_train_order cto1 WHERE cto1.train_id = t.id and  cto1.state = true) &lt; t.max_people
+      </if>
+      <if test="isBalance == 0">
+        and (SELECT count(*) from cms_train_order cto1 WHERE cto1.train_id = t.id and  cto1.state = true) &gt;= t.max_people
+      </if>
+    </if>
+  </select>
+
+
+</mapper>

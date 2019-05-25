@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+
+
+<mapper namespace="com.sun3d.why.dao.AppImageWithStartMapper" >
+
+
+
+  <update id="delAppImage" parameterType="int">
+     update app_imagewithstart set status=0 where imageid=#{imageid}
+  </update>
+  
+
+  <insert id="insertAppImage" parameterType="com.sun3d.why.model.app.AppImageOfOpen">
+    <selectKey resultType="java.lang.Integer" order="AFTER"  keyProperty="imageid">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into app_imagewithstart(city,imageurl_retina,imageurl_normal,startDate,endDate,isDefaultImage)
+    values(#{city},#{imageurl_retina},#{imageurl_normal},#{startDate},#{endDate},#{isDefaultImage})
+  </insert>
+
+
+  <update id="updateAppImage" parameterType="com.sun3d.why.model.app.AppImageOfOpen">
+    update app_imagewithstart
+    set
+    city=#{city},
+    imageurl_retina=#{imageurl_retina},
+    imageurl_normal=#{imageurl_normal},
+    startDate=#{startDate},
+    endDate=#{endDate},
+    isDefaultImage = #{isDefaultImage}
+    where imageid=#{imageid}
+  </update>
+
+  <select id="selectAppImage" parameterType="int" resultType="com.sun3d.why.model.app.AppImageOfOpen">
+
+    select imageid,city,imageurl_retina,imageurl_normal,status,cdate,startDate,endDate,isDefaultImage from app_imagewithstart where status = 1 and imageid=#{imageid}
+    order by imageid desc
+
+  </select>
+
+
+  <select id="selectAppImageList" parameterType="hashmap" resultType="com.sun3d.why.model.app.AppImageOfOpen">
+
+    select imageid,city,imageurl_retina,imageurl_normal,status,cdate,startDate,endDate,isDefaultImage from app_imagewithstart where
+    status = 1
+    <if test="city != null">
+      and city=#{city}
+    </if>
+    order by imageid desc
+  </select>
+
+  <update id="setDefaultOpenImage" parameterType="hashmap">
+    update app_imagewithstart set isDefaultImage=1 and imageid=#{imageid}
+  </update>
+
+  <update id="removeDefaultOpenImage" parameterType="hashmap">
+    update app_imagewithstart set isDefaultImage=0 where isDefaultImage=1 and city=#{city};
+  </update>
+
+
+</mapper>
+
+

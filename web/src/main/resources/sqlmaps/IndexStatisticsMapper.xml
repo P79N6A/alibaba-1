@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.IndexStatisticsMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.IndexStatistics" >
+    <result column="AREA" property="area" jdbcType="VARCHAR" />
+    <result column="STATISTICS_COUNT" property="statisticsCount" jdbcType="INTEGER" />
+    <result column="STATISTICS_TYPE" property="statisticsType" jdbcType="INTEGER" />
+    <result column="STATISTICS_TIME" property="statisticsTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    AREA, STATISTICS_COUNT, STATISTICS_TYPE, STATISTICS_TIME
+  </sql>
+  
+  <select id="queryByMap" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from index_statistics where 1=1
+    <if test="area != null" >
+      and area = #{area}
+	</if>
+
+  </select>
+  <delete id="deleteInfo"  >
+    delete from index_statistics
+  </delete>
+
+  <insert id="addIndexStatistics" parameterType="com.sun3d.why.model.IndexStatistics" >
+    insert into index_statistics
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="area != null" >
+        AREA,
+      </if>
+      <if test="statisticsCount != null" >
+        STATISTICS_COUNT,
+      </if>
+      <if test="statisticsType != null" >
+        STATISTICS_TYPE,
+      </if>
+      <if test="statisticsTime != null" >
+        STATISTICS_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="statisticsCount != null" >
+        #{statisticsCount,jdbcType=INTEGER},
+      </if>
+      <if test="statisticsType != null" >
+        #{statisticsType,jdbcType=INTEGER},
+      </if>
+
+      <if test="statisticsTime != null" >
+        #{statisticsTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+	<!-- 后台首页按区统计 -->
+	<sql id="reserveActivityCountByArea" >
+    	(select count(aa.ACTIVITY_ID) 
+    	 from cms_activity aa 
+    	 where aa.ACTIVITY_IS_DEL = 1 and aa.ACTIVITY_STATE = 6 and aa.ACTIVITY_IS_RESERVATION = 2 and aa.ACTIVITY_AREA = a.ACTIVITY_AREA
+    	 	<!-- 截止昨天 -->
+    	 	and date_format(aa.ACTIVITY_CREATE_TIME,'%Y-%m-%d') &lt; date_format(now(),'%Y-%m-%d')
+    	 <choose>
+	    	<when test="activityCreateTime != null">
+	    		and date_format(aa.ACTIVITY_CREATE_TIME,'%Y-%m') = #{activityCreateTime}
+	    	</when>
+	    	<otherwise>
+	    		and date_format(aa.ACTIVITY_CREATE_TIME,'%Y-%m') = date_format(now(),'%Y-%m')
+	    	</otherwise>
+		 </choose>
+		 )
+	</sql>
+	<select id="queryIndexStatisticsByArea" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.IndexStatistics" >
+	    select
+	    	a.ACTIVITY_AREA as activityArea,
+	    	count(a.ACTIVITY_ID) as activityCount,
+	    	count(a.ACTIVITY_ID)/count(distinct vr.VENUE_ID) as averageActivityCount,
+	    	<include refid="reserveActivityCountByArea"/> as reserveActivityCount,
+	    	<include refid="reserveActivityCountByArea"/>/count(a.ACTIVITY_ID) as reserveActivityProportion,
+	    	(select count(distinct r.ROOM_ID)
+	    	 from cms_room r
+	    	 left join cms_room_book rb on rb.ROOM_ID = r.ROOM_ID
+	    	 LEFT JOIN cms_venue v on r.ROOM_VENUE_ID = v.VENUE_ID
+	    	 where v.VENUE_AREA = a.ACTIVITY_AREA and r.ROOM_STATE = 6 and r.ROOM_IS_DEL = 1 and rb.BOOK_STATUS = 1
+		    	 <!-- 截止昨天 -->
+	    	 	 and date_format(rb.CREATE_TIME,'%Y-%m-%d') &lt; date_format(now(),'%Y-%m-%d')
+	    	 	<choose>
+			    	<when test="activityCreateTime != null">
+			    		and date_format(rb.CREATE_TIME,'%Y-%m') = #{activityCreateTime}
+			    	</when>
+			    	<otherwise>
+			    		and date_format(rb.CREATE_TIME,'%Y-%m') = date_format(now(),'%Y-%m')
+			    	</otherwise>
+				 </choose>
+	    	 ) as reserveActivityRoomCount
+	    from cms_activity a
+	    left join cms_activity_venue_relevance vr on vr.ACTIVITY_ID = a.ACTIVITY_ID
+	    where 1=1 and a.ACTIVITY_IS_DEL = 1 and a.ACTIVITY_STATE = 6 and  a.ACTIVITY_CITY like '%${activityCity}%'
+	    	<!-- 截止昨天 -->
+    	 	and date_format(a.ACTIVITY_CREATE_TIME,'%Y-%m-%d') &lt; date_format(now(),'%Y-%m-%d')
+	    <choose>
+	    	<when test="activityCreateTime != null">
+	    		and date_format(a.ACTIVITY_CREATE_TIME,'%Y-%m') = #{activityCreateTime}
+	    	</when>
+	    	<otherwise>
+	    		and date_format(a.ACTIVITY_CREATE_TIME,'%Y-%m') = date_format(now(),'%Y-%m')
+	    	</otherwise>
+	    </choose>
+	    <if test="activityArea != null and activityArea != ''" >
+			and a.ACTIVITY_AREA like '%${activityArea}%'
+		</if>
+		group by a.ACTIVITY_AREA
+		order by activityCount desc
+    </select>
+    
+    <!-- 后台首页按场馆统计 -->
+    <sql id="reserveActivityCountByVenue" >
+    	(select count(aa.ACTIVITY_ID) 
+    	 from cms_activity aa 
+    	 left join cms_activity_venue_relevance vrr on vrr.ACTIVITY_ID = aa.ACTIVITY_ID 
+    	 where aa.ACTIVITY_IS_DEL = 1 and aa.ACTIVITY_STATE = 6 and aa.ACTIVITY_IS_RESERVATION = 2 and v.VENUE_ID = vrr.VENUE_ID
+    	 	<!-- 截止昨天 -->
+    	 	and date_format(aa.ACTIVITY_CREATE_TIME,'%Y-%m-%d') &lt; date_format(now(),'%Y-%m-%d')
+    	 <choose>
+	    	<when test="activityCreateTime != null">
+	    		and date_format(aa.ACTIVITY_CREATE_TIME,'%Y-%m') = #{activityCreateTime}
+	    	</when>
+	    	<otherwise>
+	    		and date_format(aa.ACTIVITY_CREATE_TIME,'%Y-%m') = date_format(now(),'%Y-%m')
+	    	</otherwise>
+		 </choose>
+		 )
+	</sql>
+	<select id="queryIndexStatisticsByVenue" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.IndexStatistics" >
+	    select
+	    	v.VENUE_ID as venueId,
+	    	v.VENUE_NAME as venueName,
+	    	count(a.ACTIVITY_ID) as activityCount,
+	    	count(a.ACTIVITY_ID)/count(distinct vr.VENUE_ID) as averageActivityCount,
+	    	<include refid="reserveActivityCountByVenue"/> as reserveActivityCount,
+	    	<include refid="reserveActivityCountByVenue"/>/count(a.ACTIVITY_ID) as reserveActivityProportion,
+	    	(select count(distinct r.ROOM_ID)
+	    	 from cms_room r
+	    	 left join cms_room_book rb on rb.ROOM_ID = r.ROOM_ID
+	    	 where r.ROOM_VENUE_ID = v.VENUE_ID and r.ROOM_STATE = 6 and r.ROOM_IS_DEL = 1 and rb.BOOK_STATUS = 1
+	    	 	<!-- 截止昨天 -->
+	    	 	and date_format(rb.CREATE_TIME,'%Y-%m-%d') &lt; date_format(now(),'%Y-%m-%d')
+	    	 	<choose>
+			    	<when test="activityCreateTime != null">
+			    		and date_format(rb.CREATE_TIME,'%Y-%m') = #{activityCreateTime}
+			    	</when>
+			    	<otherwise>
+			    		and date_format(rb.CREATE_TIME,'%Y-%m') = date_format(now(),'%Y-%m')
+			    	</otherwise>
+				 </choose>
+	    	 ) as reserveActivityRoomCount
+	    from cms_activity a
+	    left join cms_activity_venue_relevance vr on vr.ACTIVITY_ID = a.ACTIVITY_ID
+	    left join cms_venue v on v.VENUE_ID = vr.VENUE_ID and v.VENUE_IS_DEL = 1 and v.VENUE_STATE = 6
+	    where 1=1 and a.ACTIVITY_IS_DEL = 1 and a.ACTIVITY_STATE = 6 and v.VENUE_NAME is not null
+	    	<!-- 截止昨天 -->
+    	 	and date_format(a.ACTIVITY_CREATE_TIME,'%Y-%m-%d') &lt; date_format(now(),'%Y-%m-%d')
+	    <choose>
+	    	<when test="activityCreateTime != null">
+	    		and date_format(a.ACTIVITY_CREATE_TIME,'%Y-%m') = #{activityCreateTime}
+	    	</when>
+	    	<otherwise>
+	    		and date_format(a.ACTIVITY_CREATE_TIME,'%Y-%m') = date_format(now(),'%Y-%m')
+	    	</otherwise>
+	    </choose>
+	    <if test="activityArea != null" >
+			and a.ACTIVITY_AREA like '%${activityArea}%'
+		</if>
+	    <if test="venueId != null and venueId != ''" >
+			and v.VENUE_ID = #{venueId}
+		</if>
+	    <if test="venueDeptId != null" >
+			and v.VENUE_DEPT_ID = #{venueDeptId}
+		</if>
+		group by v.VENUE_ID
+		order by activityCount desc
+    </select>
+</mapper>

@@ -1,0 +1,46 @@
+@charset "utf-8";
+/* CSS Document */
+/* 清除内外边距 */
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */
+dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
+pre, /* text formatting elements 文本格式元素 */
+fieldset, lengend, button, input, textarea, /* form elements 表单元素 */
+th, td { /* table elements 表格元素 */
+    margin: 0;
+    padding: 0;
+}
+
+/* 设置默认字体 */
+body,
+button, input, select, textarea { /* for ie */
+    /*font: 12px/1 Tahoma, Helvetica, Arial, "宋体", sans-serif;*/
+    font: 12px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif; /* 用 ascii 字符表示，使得在任何编码下都无问题 */
+}
+/* 重置列表元素 */
+ul, ol { list-style: none; }
+/* 重置文本格式元素 */
+a { text-decoration: none; cursor: pointer;}
+a:hover { text-decoration: none; }
+
+body{font-family:\5FAE\8F6F\96C5\9ED1; min-width: 1000px;}
+input, but{font-family:\5FAE\8F6F\96C5\9ED1;}
+input[type=checkbox] {visibility: hidden;}
+a{color:#244C6B;}
+ul{list-style: none;}
+/*公用CSS*/
+.fl{ float: left; display:inline;}
+.fr{ float: right; display:inline;}
+/*top*/
+.top{ width: 100%; height: 98px; overflow: hidden; background:url(../image/logo.png) no-repeat #B3D0E6; border-bottom:1px solid #75ABD1;}
+.status-bar{ margin-left: 270px; padding: 10px 0; height: 35px; overflow: hidden; margin-top: 0;}
+.status-bar .time{font-size:12px; color:#244C6B; line-height:35px;}
+.status-bar .status-bar-right{ height:35px; line-height:35px; overflow:hidden;}
+.status-bar .status-bar-right .home{ float: left; display: inline-block; height:35px; margin-right:10px; padding:0 15px; background-color:#FFF; overflow:hidden; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;/* position:relative; z-index:2; behavior: url(css/PIE.htc);*/ text-align: center; font-weight: bold; color: #244D6B;}
+.status-bar .status-bar-right .login{margin-right: 4px;}
+.status-bar .status-bar-right .signout{ margin-right: 15px; color:#244C6B;}
+.nav-bar{ margin-left:270px; height:43px; margin-top: 0;}
+.nav-bar .main-nav{display: inline;}
+.nav-bar .main-nav li{ float:left; width:80px; height:43px; margin-right: 10px;}
+.nav-bar .main-nav li a{ color: #fff; display: block; width:80px; background-color: #75ABD1; line-height: 43px; font-size: 14px; font-weight: bold;text-shadow:1px 1px 1px rgba(0,0,0,0.2)
+;text-align: center; -moz-border-top-left-radius:4px; -moz-border-top-right-radius:4px;/* behavior: url(css/PIE.htc); position:relative; z-index:2;*/border-radius: 4px 4px 0 0; -webkit-border-radius: 4px 4px 0 0; -moz-border-radius: 4px 4px 0 0;}
+.nav-bar .main-nav li:hover a,.nav-bar .main-nav li.cur a{color: #244D6B; background: #D2E3F0; text-shadow:none;}

@@ -1,0 +1,441 @@
+/* top */
+div.top_wrap {
+  width: 100%;
+  background: #f7f7f7;
+  height: 46px;
+  overflow: hidden;
+  border-bottom: 1px solid #dcdcdc; }
+  div.top_wrap div.top {
+    width: 1200px;
+    margin: 0 auto; }
+    div.top_wrap div.top a.logo {
+      display: block;
+      width: 78px;
+      height: 19px;
+      margin-top: 16px; }
+    div.top_wrap div.top a.exit {
+      display: block;
+      color: #262626;
+      font-size: 12px;
+      line-height: 54px;
+      height: 46px; }
+
+/* foot */
+.foot_wrap {
+  width: 100%;
+  height: 260px;
+  background: #4f4165; }
+  .foot_wrap .foot {
+    width: 1060px;
+    background: #4f4165;
+    padding: 31px 75px 0 65px;
+    margin: 0 auto; }
+    .foot_wrap .foot div.info {
+      width: 858px;
+      margin-right: 55px; }
+      .foot_wrap .foot div.info div.floor1 {
+        height: 42px;
+        border-bottom: 1px solid #c5b2d0;
+        font-size: 14px;
+        line-height: 42px; }
+        .foot_wrap .foot div.info div.floor1 a {
+          color: #fff49a;
+          padding: 0 32px; }
+        .foot_wrap .foot div.info div.floor1 b {
+          display: inline-block;
+          width: 1px;
+          height: 10px;
+          background: #c5b2d0; }
+        .foot_wrap .foot div.info div.floor1 p {
+          color: #e68fff;
+          margin-right: 70px; }
+      .foot_wrap .foot div.info div.floor2 {
+        padding: 22px 134px 0 30px; }
+        .foot_wrap .foot div.info div.floor2 p {
+          color: #ddb8f3;
+          font-size: 13px;
+          line-height: 25px; }
+        .foot_wrap .foot div.info div.floor2 p.last {
+          margin-top: 22px; }
+    .foot_wrap .foot div.code {
+      width: 147px;
+      padding-top: 12px;
+      text-align: center;
+      color: #ddb8f3;
+      font-size: 14px;
+      line-height: 40px; }
+      .foot_wrap .foot div.code img {
+        display: block;
+        width: 147px;
+        height: 147px; }
+
+p.crumbs {
+  width: 1200px;
+  margin: 0 auto;
+  color: #666666;
+  font-size: 16px;
+  line-height: 87px; }
+
+div.content_wrap {
+  width: 1198px;
+  border: 1px solid #dcdcdc;
+  background: #fff;
+  margin: 0 auto;
+  margin-bottom: 37px; }
+  div.content_wrap div.content {
+    width: 820px;
+    margin: 0 auto;
+    padding-bottom: 65px; }
+    div.content_wrap div.content h1 {
+      color: #9b4aca;
+      font-size: 30px;
+      text-align: center;
+      height: 166px;
+      line-height: 216px;
+      overflow: hidden; }
+    div.content_wrap div.content h1.success {
+      line-height: 300px; }
+    div.content_wrap div.content p {
+      line-height: 50px;
+      font-size: 18px;
+      color: #666; }
+    div.content_wrap div.content p.question, div.content_wrap div.content p.number {
+      line-height: 34px;
+      color: #bb61df; }
+    div.content_wrap div.content p.question {
+      margin-top: 40px; }
+    div.content_wrap div.content p.questions {
+      margin-top: 24px;
+      color: #666666;
+      text-align: center;
+      margin-bottom: 100px; }
+    div.content_wrap div.content p.number {
+      margin-bottom: 40px; }
+  div.content_wrap a.btn {
+    display: block;
+    margin-left: 78px;
+    margin-right: 22px;
+    width: 280px;
+    height: 70px;
+    line-height: 70px;
+    text-align: center;
+    color: #fff;
+    font-size: 24px; }
+  div.content_wrap a.btn_bgone {
+    background: url(../../image/cnwd/images/btn_bgone.png) no-repeat; }
+  div.content_wrap a.btn_bgtwo {
+    background: url(../../image/cnwd/images/btn_bgtwo.png) no-repeat; }
+  div.content_wrap div.section {
+    padding: 23px 0 170px 70px; }
+    div.content_wrap div.section .information {
+      margin-top: 50px; }
+      div.content_wrap div.section .information span.name {
+        display: block;
+        float: left;
+        line-height: 40px;
+        color: #262626;
+        font-size: 16px;
+        width: 108px;
+        text-align: right;
+        overflow: hidden;
+        margin-right: 38px; }
+      div.content_wrap div.section .information input {
+        display: block;
+        float: left;
+        border: 1px solid #dcdcdc;
+        line-height: 38px; }
+      div.content_wrap div.section .information input[type="checkbox"] {
+        border: none; }
+      div.content_wrap div.section .information .text_one {
+        width: 538px;
+        height: 38px;
+        padding: 0 20px; }
+      div.content_wrap div.section .information .text_two {
+        width: 238px;
+        height: 38px;
+        padding: 0 20px; }
+      div.content_wrap div.section .information label {
+        height: 40px;
+        margin-right: 46px;
+        line-height: 40px;
+        display: inline-block;
+        position: relative; }
+        div.content_wrap div.section .information label span.button {
+          position: absolute;
+          height: 40px;
+          display: block;
+          background: #fff url(../../image/cnwd/images/labelone.png) no-repeat 10px center;
+          text-indent: 40px;
+          cursor: pointer;
+          font-size:16px; }
+        div.content_wrap div.section .information label span.button.cur {
+          background: #fff url(../../image/cnwd/images/labeltwo.png) no-repeat 10px center; }
+        div.content_wrap div.section .information label input {
+          display: block;
+          width: 78px;
+          margin-top: 12px; }
+        div.content_wrap div.section .information label input.big_w {
+          width: 110px; }
+        div.content_wrap div.section .information label input.biger {
+          width: 500px; }
+      div.content_wrap div.section .information .mar_left {
+        margin-top: 15px;
+        margin-left: 146px;
+        float: left; }
+      div.content_wrap div.section .information .mar_top {
+        margin-top: 15px; }
+      div.content_wrap div.section .information .detail_type {
+        width: 186px;
+        padding: 0 20px;
+        display: none;
+        height: 38px; }
+      div.content_wrap div.section .information .team_info {
+        width: 538px;
+        padding: 12px 20px;
+        border: 1px solid #dcdcdc;
+        resize: none;
+        font-size: 16px;
+        height: 224px; }
+      div.content_wrap div.section .information div.dance {
+        display: inline-block;
+        height: 40px;
+        line-height: 40px;
+        display: none; }
+        div.content_wrap div.section .information div.dance .dance_type {
+          display: inline-block;
+          font-size: 16px;
+          color: #262626;
+          width: 90px;
+          height: 30px;
+          line-height: 30px;
+          text-align: center;
+          position: relative;
+          background: #f3eff5;
+          margin-right: 50px;
+          cursor: pointer; }
+          div.content_wrap div.section .information div.dance .dance_type img {
+            display: block;
+            position: absolute;
+            width: 16px;
+            height: 17px;
+            bottom: 0;
+            right: 0; }
+      div.content_wrap div.section .information div.info {
+        margin-top: 5px; }
+        div.content_wrap div.section .information div.info p {
+          font-size: 16px;
+          color: #999999;
+          line-height: 30px; }
+        div.content_wrap div.section .information div.info .vedio {
+          display: block;
+          width: 300px;
+          /* height: 170px; */
+          background: #eee;
+          margin-top: 26px; }
+        div.content_wrap div.section .information div.info a.sel_vedio {
+          display: block;
+          width: 180px;
+          height: 40px;
+          color: #fff;
+          font-size: 16px;
+          line-height: 40px;
+          background-size: 180px 40px;
+          text-align: center;
+          margin-top: 33px; }
+        div.content_wrap div.section .information div.info .col {
+          color: #bb61df;
+          line-height: 40px;
+          margin-top: 33px;
+          margin-left: 28px; }
+        div.content_wrap div.section .information div.info .mar {
+          margin-top: 122px; }
+        div.content_wrap div.section .information div.info .upload {
+          display: block;
+          width: 120px;
+          height: 130px;
+          background: #d0bbf9 url(../../image/cnwd/images/upload.png) no-repeat center 26px;
+          overflow: hidden;
+          line-height: 190px;
+          text-align: center;
+          color: #fff;
+          margin-top: 33px; }
+        div.content_wrap div.section .information div.info .upload_img {
+          margin-top: 33px; }
+          div.content_wrap div.section .information div.info .upload_img img {
+            display: block;
+            width: 120px;
+            height: 130px;
+            background: #eee; }
+    div.content_wrap div.section a.btn_next {
+      margin: 0 auto;
+      margin-top: 118px; }
+  div.content_wrap .btn_wrap {
+    width: 866px;
+    margin: 120px auto 0; }
+
+div.login {
+  width: 100%;
+  height: 820px;
+  background: url(../../image/cnwd/images/bg.jpg) no-repeat;
+  overflow: hidden;
+  position: relative; }
+  div.login .index_logo {
+    position: absolute;
+    display: block;
+    width: 226px;
+    height: 56px;
+    top: 10%;
+    left: 6%; }
+  div.login div.main {
+    width: 856px;
+    height: 400px;
+    position: absolute;
+    left: 50%;
+    margin-left: -428px; }
+    div.login div.main h1 {
+      height: 130px;
+      line-height: 220px;
+      overflow: hidden;
+      color: #fff;
+      font-size: 36px;
+      text-align: center;
+      font-weight: normal; }
+    div.login div.main h2 {
+      font-size: 32px;
+      color: #fff;
+      line-height: 84px;
+      font-weight: normal;
+      text-align: center;
+      height: 84px;
+      overflow: hidden;
+      margin: 0 auto;
+      background: url(../../image/cnwd/images/h2_bg.png) no-repeat center; }
+    div.login div.main div.content {
+      width: 847px;
+      height: 636px;
+      margin: 0 auto;
+      background: url(../../image/cnwd/images/login_bg.png) no-repeat;
+      margin-top: -34px;
+      overflow: hidden; }
+      div.login div.main div.content form {
+        width: 700px;
+        height: 490px;
+        margin: 72px auto 0; }
+        div.login div.main div.content form h3 {
+          color: #fff;
+          height: 90px;
+          font-size: 36px;
+          text-align: center;
+          line-height: 142px;
+          font-weight: normal;
+          overflow: hidden; }
+        div.login div.main div.content form div.information {
+          width: 500px;
+          height: 70px;
+          margin: 0 auto;
+          margin-top: 42px;
+          font-size: 24px; 
+          position:relative;}
+           div.login div.main div.content form div.information span.error{
+				position: absolute;
+				line-height: 36px;
+				height: 35px;
+				background:#f53d76 url(../../image/cnwd/images/error.png) no-repeat 12px center;
+				color:#fff;
+				font-size: 18px;
+				text-indent: 28px;
+				bottom: -34px;
+				left: 20px;
+				padding:0 20px;
+				border-radius: 5px;
+	
+			}
+			 div.login div.main div.content form div.information span.error:before{
+				content: '';
+				border-left: 7px solid transparent;
+				border-right: 7px solid transparent;
+				border-top: 7px solid transparent;
+				border-bottom: 7px solid #f53d76;
+				position: absolute;
+			    top: -14px;
+			    left: 15px;
+			}
+          div.login div.main div.content form div.information input {
+            display: block;
+            border-radius: 5px;
+            border: none;
+            text-indent: 82px;
+            font-size: 24px;
+            line-height: 70px;
+            height: 70px;
+            color: #8012b8; }
+          div.login div.main div.content form div.information input::-webkit-input-placeholder {
+            color: #a18ba5; }
+          div.login div.main div.content form div.information input:-moz-placeholder {
+            color: #a18ba5; }
+          div.login div.main div.content form div.information input::-moz-placeholder {
+            color: #a18ba5; }
+          div.login div.main div.content form div.information input:-ms-input-placeholder {
+            color: #a18ba5; }
+          div.login div.main div.content form div.information input.login_name {
+            width: 100%;
+            background: #fff url(../../image/cnwd/images/loginname.png) no-repeat 26px center; }
+          div.login div.main div.content form div.information input.loginname {
+            background: #fff url(../../image/cnwd/images/login_name.png) no-repeat 26px center; }
+          div.login div.main div.content form div.information input.login_code {
+            width: 280px;
+            background: #fff url(../../image/cnwd/images/login_code.png) no-repeat 26px center; }
+          div.login div.main div.content form div.information input.logincode {
+            width: 280px;
+            background: #fff url(../../image/cnwd/images/logincode.png) no-repeat 26px center; }
+          div.login div.main div.content form div.information .getcode {
+            display: block;
+            width: 200px;
+            height: 69px;
+            line-height: 70px;
+            /* font-size: 24px; */
+            color: #fff;
+            text-align: center;
+            border-top: 1px solid #e599f5;
+            background: #d760f0;
+            border-radius: 5px; }
+          div.login div.main div.content form div.information a.login {
+            display: block;
+            width: 100%;
+            height: 70px;
+            border-radius: 5px;
+            text-align: center;
+            line-height: 70px;
+            /* font-size: 24px; */
+            color: #8114b9;
+            background: #ffdf5f;
+            letter-spacing: 14px; }
+
+ul.steps {
+  width: 672px;
+  height: 139px;
+  margin: 0 auto;
+  position: relative; }
+  ul.steps li {
+    width: 224px;
+    height: 139px;
+    float: left;
+    line-height: 156px;
+    text-align: center;
+    font-size: 16px;
+    color: #a29ec7;
+    background: url(../../image/cnwd/images/steptwo.png) no-repeat center 34px; }
+  ul.steps li.cur {
+    color: #37105f;
+    background: url(../../image/cnwd/images/stepone.png) no-repeat center 34px; }
+  ul.steps hr {
+    position: absolute;
+    top: 38px;
+    left: 117px;
+    height: 2px;
+    background: #bcbad4;
+    width: 214px; }
+  ul.steps hr.hrtwo {
+    left: 341px; }
+  ul.steps hr.cur {
+    background: #401b66; }

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsAntiqueTypeMapper">
+
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsAntiqueType" >
+    <id column="ANTIQUE_TYPE_ID" property="antiqueTypeId" jdbcType="VARCHAR" />
+    <result column="VENUE_ID" property="venueId" jdbcType="VARCHAR" />
+    <result column="ANTIQUE_TYPE_NAME" property="antiqueTypeName" jdbcType="VARCHAR" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="ANTIQUE_TYPE_STATE" property="antiqueTypeState" jdbcType="INTEGER" />
+    <result column="Venue_Name" property="venueName" jdbcType="VARCHAR" />
+  </resultMap>
+
+<!--
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+
+  -->
+
+
+
+  <sql id="Base_Column_List" >
+    ANTIQUE_TYPE_ID, VENUE_ID, ANTIQUE_TYPE_NAME, CREATE_USER, CREATE_TIME, UPDATE_USER, 
+    UPDATE_TIME, ANTIQUE_TYPE_STATE
+  </sql>
+
+
+
+
+  <select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cms_antique_type
+    where ANTIQUE_TYPE_ID = #{antiqueTypeId,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="queryCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    SELECT COUNT(*) FROM  cms_antique_type  ct
+    inner JOIN  cms_venue cv ON ct.VENUE_ID = cv.VENUE_ID
+    <where>
+          <if test="venueId!=null">
+            ct.VENUE_ID=#{venueId,jdbcType=VARCHAR}
+          </if>
+          <if test="antiqueTypeName!=null">
+            ct.ANTIQUE_TYPE_NAME LIKE #{antiqueTypeName,jdbcType=VARCHAR}
+          </if>
+          <if test="venueDept != null" >
+            cv.VENUE_DEPT LIKE #{venueDept}
+          </if>
+    </where>
+
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cms_antique_type
+    where ANTIQUE_TYPE_ID = #{antiqueTypeId,jdbcType=VARCHAR}
+  </delete>
+
+  <select id="queryByConditions" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+    ct.ANTIQUE_TYPE_ID,
+    ct.VENUE_ID,
+    ct.ANTIQUE_TYPE_NAME,
+    ct.CREATE_USER,
+    ct.CREATE_TIME,
+    ct.UPDATE_USER,
+    ct.UPDATE_TIME,
+    ct.ANTIQUE_TYPE_STATE,
+    cv.VENUE_NAME Venue_Name
+    FROM  cms_antique_type ct inner JOIN  cms_venue cv ON ct.VENUE_ID = cv.VENUE_ID
+            <where>
+                <if test="venueId!=null">
+                  ct.VENUE_ID=#{venueId,jdbcType=VARCHAR}
+                </if>
+                <if test="antiqueTypeName!=null">
+                  ct.ANTIQUE_TYPE_NAME LIKE #{antiqueTypeName,jdbcType=VARCHAR}
+                </if>
+                <if test="venueDept != null" >
+                  cv.VENUE_DEPT LIKE #{venueDept}
+                </if>
+            </where>
+        ORDER BY ct.UPDATE_TIME DESC
+        <if test="firstResult != null">
+          limit ${firstResult},${rows}
+        </if>
+  </select>
+
+  <select id="queryByVenueId" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT
+    ct.ANTIQUE_TYPE_ID,
+    ct.VENUE_ID,
+    ct.ANTIQUE_TYPE_NAME,
+    ct.CREATE_USER,
+    ct.CREATE_TIME,
+    ct.UPDATE_USER,
+    ct.UPDATE_TIME,
+    ct.ANTIQUE_TYPE_STATE,
+    cv.VENUE_NAME Venue_Name
+    FROM cms_antique_type ct  JOIN cms_venue cv
+    ON ct.VENUE_ID = cv.VENUE_ID
+        <where>
+            <if test="venueId!=null">
+              ct.VENUE_ID = #{venueId,jdbcType=VARCHAR}
+            </if>
+            <if test="venueDept != null" >
+              cv.VENUE_DEPT LIKE #{venueDept}
+            </if>
+        </where>
+      order by UPDATE_TIME DESC
+  </select>
+
+
+
+  <insert id="insert" parameterType="com.sun3d.why.model.CmsAntiqueType" >
+    insert into cms_antique_type (ANTIQUE_TYPE_ID, VENUE_ID, ANTIQUE_TYPE_NAME, 
+      CREATE_USER, CREATE_TIME, UPDATE_USER, 
+      UPDATE_TIME, ANTIQUE_TYPE_STATE)
+    values (#{antiqueTypeId,jdbcType=VARCHAR}, #{venueId,jdbcType=VARCHAR}, #{antiqueTypeName,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{antiqueTypeState,jdbcType=INTEGER})
+  </insert>
+
+
+  <insert id="addAntiqueType" parameterType="com.sun3d.why.model.CmsAntiqueType" >
+    insert into cms_antique_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="antiqueTypeId != null" >
+        ANTIQUE_TYPE_ID,
+      </if>
+      <if test="venueId != null" >
+        VENUE_ID,
+      </if>
+      <if test="antiqueTypeName != null" >
+        ANTIQUE_TYPE_NAME,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="antiqueTypeState != null" >
+        ANTIQUE_TYPE_STATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="antiqueTypeId != null" >
+        #{antiqueTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="venueId != null" >
+        #{venueId,jdbcType=VARCHAR},
+      </if>
+      <if test="antiqueTypeName != null" >
+        #{antiqueTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="antiqueTypeState != null" >
+        #{antiqueTypeState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+
+  <insert id="addBatch" parameterType="java.util.List">
+      insert into cms_antique_type (ANTIQUE_TYPE_ID, VENUE_ID, ANTIQUE_TYPE_NAME,
+      CREATE_USER, CREATE_TIME, UPDATE_USER,
+      UPDATE_TIME, ANTIQUE_TYPE_STATE)
+      values
+    <foreach collection="list" item="c" separator=",">
+          (
+          #{c.antiqueTypeId,jdbcType=VARCHAR},
+          #{c.venueId,jdbcType=VARCHAR},
+          #{c.antiqueTypeName,jdbcType=VARCHAR},
+          #{c.createUser,jdbcType=VARCHAR},
+          #{c.createTime,jdbcType=TIMESTAMP},
+          #{c.updateUser,jdbcType=VARCHAR},
+          #{c.updateTime,jdbcType=TIMESTAMP},
+          #{c.antiqueTypeState,jdbcType=INTEGER}
+          )
+    </foreach>
+  </insert>
+
+
+
+
+  <update id="updateById" parameterType="com.sun3d.why.model.CmsAntiqueType" >
+    update cms_antique_type
+    <set >
+      <if test="venueId != null" >
+        VENUE_ID = #{venueId,jdbcType=VARCHAR},
+      </if>
+      <if test="antiqueTypeName != null" >
+        ANTIQUE_TYPE_NAME = #{antiqueTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="antiqueTypeState != null" >
+        ANTIQUE_TYPE_STATE = #{antiqueTypeState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ANTIQUE_TYPE_ID = #{antiqueTypeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sun3d.why.model.CmsAntiqueType" >
+    update cms_antique_type
+    set VENUE_ID = #{venueId,jdbcType=VARCHAR},
+      ANTIQUE_TYPE_NAME = #{antiqueTypeName,jdbcType=VARCHAR},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      ANTIQUE_TYPE_STATE = #{antiqueTypeState,jdbcType=INTEGER}
+    where ANTIQUE_TYPE_ID = #{antiqueTypeId,jdbcType=VARCHAR}
+  </update>
+
+
+  <!--根据展馆id查询藏品类型-->
+  <select id="queryAppAntiqueType" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT distinct(ANTIQUE_TYPE_NAME)
+    FROM cms_antique_type
+    WHERE 1=1
+    <if test="venueId != null">
+      AND VENUE_ID = #{venueId,jdbcType=INTEGER}
+    </if>
+    <if test="antiqueTypeState != null">
+      AND ANTIQUE_TYPE_STATE = #{antiqueTypeState,jdbcType=INTEGER}
+    </if>
+    order by UPDATE_TIME DESC
+  </select>
+</mapper>

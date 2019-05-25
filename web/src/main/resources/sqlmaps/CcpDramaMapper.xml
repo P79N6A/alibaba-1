@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ccp.CcpDramaMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ccp.CcpDrama" >
+    <id column="DRAMA_ID" property="dramaId" jdbcType="VARCHAR" />
+    <result column="DRAMA_NAME" property="dramaName" jdbcType="VARCHAR" />
+    <result column="DRAMA_IMG" property="dramaImg" jdbcType="VARCHAR" />
+    <result column="DRAMA_TAG" property="dramaTag" jdbcType="VARCHAR" />
+    <result column="DRAMA_TIME" property="dramaTime" jdbcType="VARCHAR" />
+    <result column="DRAMA_ADDRESS" property="dramaAddress" jdbcType="VARCHAR" />
+    <result column="DRAMA_INTRO" property="dramaIntro" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    
+    <result column="IS_VOTE" property="isVote" jdbcType="INTEGER" />
+    <result column="VOTE_COUNT" property="voteCount" jdbcType="INTEGER" />
+    <result column="COMMENT_COUNT" property="commentCount" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    DRAMA_ID, DRAMA_NAME, DRAMA_IMG, DRAMA_TAG, DRAMA_TIME, DRAMA_ADDRESS, DRAMA_INTRO, 
+    CREATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_drama
+    where DRAMA_ID = #{dramaId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_drama
+    where DRAMA_ID = #{dramaId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.ccp.CcpDrama" >
+    insert into ccp_drama
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      DRAMA_ID,
+      <if test="dramaName != null" >
+        DRAMA_NAME,
+      </if>
+      <if test="dramaImg != null" >
+        DRAMA_IMG,
+      </if>
+      <if test="dramaTag != null" >
+        DRAMA_TAG,
+      </if>
+      <if test="dramaTime != null" >
+        DRAMA_TIME,
+      </if>
+      <if test="dramaAddress != null" >
+        DRAMA_ADDRESS,
+      </if>
+      <if test="dramaIntro != null" >
+        DRAMA_INTRO,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{dramaId,jdbcType=VARCHAR},
+      <if test="dramaName != null" >
+        #{dramaName,jdbcType=VARCHAR},
+      </if>
+      <if test="dramaImg != null" >
+        #{dramaImg,jdbcType=VARCHAR},
+      </if>
+      <if test="dramaTag != null" >
+        #{dramaTag,jdbcType=VARCHAR},
+      </if>
+      <if test="dramaTime != null" >
+        #{dramaTime,jdbcType=VARCHAR},
+      </if>
+      <if test="dramaAddress != null" >
+        #{dramaAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="dramaIntro != null" >
+        #{dramaIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.ccp.CcpDrama" >
+    update ccp_drama
+    <set >
+      <if test="dramaName != null" >
+        DRAMA_NAME = #{dramaName,jdbcType=VARCHAR},
+      </if>
+      <if test="dramaImg != null" >
+        DRAMA_IMG = #{dramaImg,jdbcType=VARCHAR},
+      </if>
+      <if test="dramaTag != null" >
+        DRAMA_TAG = #{dramaTag,jdbcType=VARCHAR},
+      </if>
+      <if test="dramaTime != null" >
+        DRAMA_TIME = #{dramaTime,jdbcType=VARCHAR},
+      </if>
+      <if test="dramaAddress != null" >
+        DRAMA_ADDRESS = #{dramaAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="dramaIntro != null" >
+        DRAMA_INTRO = #{dramaIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where DRAMA_ID = #{dramaId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryCcpDramalist" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.ccp.CcpDrama" >
+    select 
+	    cd.DRAMA_ID, 
+	    cd.DRAMA_NAME, 
+	    cd.DRAMA_IMG, 
+	    cd.DRAMA_TAG, 
+	    cd.DRAMA_TIME, 
+	    cd.DRAMA_ADDRESS, 
+	    cd.DRAMA_INTRO, 
+	    <if test="userId!=null">
+	    	IF((SELECT count(DISTINCT cdv.DRAMA_VOTE_ID)
+	        FROM ccp_drama_vote cdv
+	        WHERE cdv.DRAMA_ID = cd.DRAMA_ID and cdv.USER_ID = #{userId} and DATE_FORMAT(cdv.CREATE_TIME, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')
+	        )>0,1,0) as IS_VOTE,
+	    </if>
+	    <if test="sort == 2">
+		    (SELECT count(DISTINCT cdv.DRAMA_VOTE_ID)
+	        FROM ccp_drama_vote cdv
+	        WHERE cd.DRAMA_ID = cdv.DRAMA_ID
+	        ) as VOTE_COUNT,
+	    </if>
+	    <if test="sort == 3">
+	    	(SELECT count(DISTINCT cdc.DRAMA_COMMENT_ID)
+	        FROM ccp_drama_comment cdc
+	        WHERE cd.DRAMA_ID = cdc.DRAMA_ID
+	        ) as COMMENT_COUNT,
+	    </if>
+	    cd.CREATE_TIME
+    from ccp_drama cd
+    where 1=1
+    <if test="dramaId != null">
+    	and cd.DRAMA_ID = #{dramaId}
+    </if>
+    group by cd.DRAMA_ID
+    order by
+	    <if test="sort == 2">VOTE_COUNT DESC,</if>
+	    <if test="sort == 3">COMMENT_COUNT DESC,</if>
+	    cd.CREATE_TIME DESC
+  </select>
+</mapper>

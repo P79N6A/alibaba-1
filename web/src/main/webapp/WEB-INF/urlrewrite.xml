@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.0//EN"
+        "http://tuckey.org/res/dtds/urlrewrite2.5.dtd">
+
+<urlrewrite>
+
+
+	<rule>
+		<note>example：/activity/activityId/detail.html</note>
+		<from>/activity/([A-Za-z0-9]+)/([A-Za-z0-9]+).html</from>
+		<to type="forward">/frontActivity/frontActivityDetail.do?activityId=$1</to>
+	</rule>
+	<rule>
+		<note>example：venue/ad3543821f274053bc5e38504c751519/detail.html=</note>
+		<from>/venue/([A-Za-z0-9]+)/([A-Za-z0-9]+).html</from>
+		<to type="forward">/frontVenue/venueDetail.do?venueId=$1</to>
+	</rule>
+	<rule>
+		<note>example：/index.html</note>
+		<from>/index.html</from>
+		<to type="forward">/frontIndex/index.do</to>
+	</rule>
+	<rule>
+		<note>example：/activity/list.htm</note>
+		<from>/activity/list.html</from>
+		<to type="forward">/frontActivity/activityList.do</to>
+	</rule>
+
+	<rule>
+		<note>example：/venue/list.htm</note>
+		<from>/venue/list.html</from>
+		<to type="forward">/frontVenue/venueList.do</to>
+	</rule>
+
+</urlrewrite>
+

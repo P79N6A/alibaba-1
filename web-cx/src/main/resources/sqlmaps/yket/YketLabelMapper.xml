@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.YketLabelMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.bean.yket.YketLabel" >
+    <id column="label_id" property="labelId" jdbcType="VARCHAR" />
+    <result column="label_name" property="labelName" jdbcType="VARCHAR" />
+    <result column="course_number" property="courseNumber" jdbcType="INTEGER" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="label_type" property="labelType" jdbcType="INTEGER" />
+    <result column="msg" property="msg" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap type="com.sun3d.why.model.vo.yket.YketLabelVo" id="labelListMap" extends="BaseResultMap">
+      <result column="courseCount" property="courseCount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    label_id, label_name, course_number, deleted, sort, label_type, msg, create_user, 
+    update_user, create_date, update_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from yket_label
+    where label_id = #{labelId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from yket_label
+    where label_id = #{labelId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sun3d.why.model.bean.yket.YketLabel" >
+    insert into yket_label (label_id, label_name, course_number, 
+      deleted, sort, label_type, 
+      msg, create_user, update_user, 
+      create_date, update_date)
+    values (#{labelId,jdbcType=VARCHAR}, #{labelName,jdbcType=VARCHAR}, #{courseNumber,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=BIT}, #{sort,jdbcType=INTEGER}, #{labelType,jdbcType=INTEGER}, 
+      #{msg,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sun3d.why.model.bean.yket.YketLabel" >
+    insert into yket_label
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="labelId != null" >
+        label_id,
+      </if>
+      <if test="labelName != null" >
+        label_name,
+      </if>
+      <if test="courseNumber != null" >
+        course_number,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="labelType != null" >
+        label_type,
+      </if>
+      <if test="msg != null" >
+        msg,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="labelId != null" >
+        #{labelId,jdbcType=VARCHAR},
+      </if>
+      <if test="labelName != null" >
+        #{labelName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseNumber != null" >
+        #{courseNumber,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="labelType != null" >
+        #{labelType,jdbcType=INTEGER},
+      </if>
+      <if test="msg != null" >
+        #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sun3d.why.model.bean.yket.YketLabel" >
+    update yket_label
+    <set >
+      <if test="labelName != null" >
+        label_name = #{labelName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseNumber != null" >
+        course_number = #{courseNumber,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="labelType != null" >
+        label_type = #{labelType,jdbcType=INTEGER},
+      </if>
+      <if test="msg != null" >
+        msg = #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where label_id = #{labelId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sun3d.why.model.bean.yket.YketLabel" >
+    update yket_label
+    set label_name = #{labelName,jdbcType=VARCHAR},
+      course_number = #{courseNumber,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=BIT},
+      sort = #{sort,jdbcType=INTEGER},
+      label_type = #{labelType,jdbcType=INTEGER},
+      msg = #{msg,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where label_id = #{labelId,jdbcType=VARCHAR}
+  </update>
+ <select id="listLable" resultMap="labelListMap">
+select 
+ yl.label_id,
+ yl.label_name,
+ yl.course_number,
+ yl.deleted,
+ temp.courseCount,
+ yl.sort,
+ yl.label_type,
+ yl.msg,
+ yl.create_user,
+ yl.update_user,
+ yl.create_date,
+ yl.update_date
+from yket_label yl
+left join (SELECT label_id,COUNT(object_id) as courseCount  from yket_label_relation where label_type=#{labelType,jdbcType=INTEGER}  GROUP BY label_id
+) temp on temp.label_id=yl.label_id
+where  yl.deleted=0 
+<if test="labelName!=null">
+    and yl.label_name=#{labelName,jdbcType=VARCHAR}
+</if>
+<if test="labelType!=null">
+   and yl.label_type=#{labelType,jdbcType=INTEGER}
+</if>
+order by courseCount desc,yl.create_date desc
+<if test="firstResult != null">
+        limit ${firstResult},${rows}
+</if>
+ </select>
+ <select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+select 
+count(*)
+from yket_label yl
+where  yl.deleted=0 
+<if test="labelName!=null">
+   and yl.label_name=#{labelName,jdbcType=VARCHAR}
+</if>
+<if test="labelType!=null">
+   and yl.label_type=#{labelType,jdbcType=INTEGER}
+</if>
+</select>
+<select id="queryByLabelName" resultType="java.lang.Integer" parameterType="java.util.Map"> 
+	select count(*) from yket_label where deleted=0
+<if test="labelName!=null">
+   and label_name=#{labelName,jdbcType=VARCHAR}
+</if>
+<if test="labelType!=null">
+   and label_type=#{labelType,jdbcType=INTEGER}
+</if>
+</select>  
+<select id="moveUp" resultMap="BaseResultMap" parameterType="java.util.Map">
+ 	  SELECT
+		 yl.label_id,
+		 yl.label_name,
+		 yl.course_number,
+		 yl.deleted,
+		 yl.sort,
+		 yl.label_type,
+		 yl.msg,
+		 yl.create_user,
+		 yl.update_user,
+		 yl.create_date,
+		 yl.update_date
+      FROM
+	     yket_label yl
+      WHERE
+	     yl.sort &lt;= #{sort}
+	  order by sort desc  
+      LIMIT 2
+</select> 
+<select id="moveDown" resultMap="BaseResultMap" parameterType="java.util.Map">
+ 	  SELECT
+		 yl.label_id,
+		 yl.label_name,
+		 yl.course_number,
+		 yl.deleted,
+		 yl.sort,
+		 yl.label_type,
+		 yl.msg,
+		 yl.create_user,
+		 yl.update_user,
+		 yl.create_date,
+		 yl.update_date
+      FROM
+	     yket_label yl
+      WHERE
+	     yl.sort &gt;= #{sort}
+	  order by sort asc 
+      LIMIT 2
+</select> 
+<select id="listLableForJson" resultMap="BaseResultMap">
+select 
+ yl.label_id,
+ yl.label_name
+from yket_label yl
+where  yl.deleted=0 
+<if test="labelType!=null">
+   and yl.label_type=#{labelType,jdbcType=INTEGER}
+</if>
+ <if test="firstResult != null">
+        limit ${firstResult},${rows}
+</if>
+ </select>
+ <select id="typeList" resultMap="BaseResultMap">
+ 	select 
+ 	label_id,
+ 	label_name
+ 	from yket_label where deleted=0 
+ 	and label_type=#{labelType}
+ </select>	
+ 	
+ 
+</mapper>

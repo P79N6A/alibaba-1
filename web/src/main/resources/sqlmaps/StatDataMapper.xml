@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.StatDataMapper">
+    <resultMap id="BaseResultMap" type="com.sun3d.why.model.StatData">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="datatype" property="datatype" jdbcType="VARCHAR"/>
+        <result column="city" property="city" jdbcType="VARCHAR"/>
+        <result column="ctype" property="ctype" jdbcType="VARCHAR"/>
+        <result column="carea" property="carea" jdbcType="VARCHAR"/>
+        <result column="clevel" property="clevel" jdbcType="VARCHAR"/>
+        <result column="vname" property="vname" jdbcType="VARCHAR"/>
+        <result column="val1" property="val1" jdbcType="INTEGER"/>
+        <result column="val2" property="val2" jdbcType="INTEGER"/>
+        <result column="val3" property="val3" jdbcType="INTEGER"/>
+        <result column="val4" property="val4" jdbcType="INTEGER"/>
+        <result column="val5" property="val5" jdbcType="INTEGER"/>
+        <result column="cdate" property="cdate" jdbcType="DATE"/>
+        <result column="week" property="week" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="selectByAdmin" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        substring(a.carea,4) as carea,
+        a.vname,
+        a.cdate,
+        SUM(a.val1) as val1,
+        SUM(a.val2) as val2,
+        SUM(a.val3) as val3,
+        SUM(a.val4) as val4,
+        SUM(a.val5) as val5
+        FROM
+        stat_data a
+        WHERE 1=1
+        <if test="cType != null">
+            AND a.datatype = #{cType}
+        </if>
+        <if test="clevel != null">
+            AND a.clevel = #{clevel}
+        </if>
+        <if test="carea != null and allArea != 0">
+
+                AND a.carea = #{carea,jdbcType=VARCHAR}
+
+        </if>
+        <if test="vname != null">
+            AND a.vname = #{vname}
+        </if>
+        <if test="startTime != null">
+            and a.cdate &gt;= #{startTime}
+        </if>
+        <if test="endTime != null">
+            and a.cdate &lt;= #{endTime}
+        </if>
+        <if test="cdate != null">
+            <if test="dateTpye == day">
+                AND a.cdate = #{cdate}
+            </if>
+            <if test="dateTpye == week">
+                AND week (a.cdate) = week (#{cdate})
+                AND YEAR (a.cdate) = YEAR (#{cdate})
+            </if>
+            <if test="dateTpye == month">
+                AND month (a.cdate) = month (#{cdate})
+                AND YEAR (a.cdate) = YEAR (#{cdate})
+            </if>
+        </if>
+        GROUP BY
+        <if test="allArea == 0">
+            a.carea
+        </if>
+        <if test="allVenue == 0">
+            a.vname
+        </if>
+        <if test="cdate == null">
+            <if test="dateType==1">
+                a.cdate DESC
+            </if>
+            <if test="dateType==2">
+                WEEK (a.cdate) DESC
+            </if>
+            <if test="dateType==3">
+                MONTH (a.cdate) DESC
+            </if>
+        </if>
+
+    </select>
+    <select id="selectVenueByAdmin" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        substring(a.carea,4) as carea,
+        a.vname,
+        a.cdate,
+        <if test="allArea == 0">
+            COUNT(a.vname) as val4,
+            sum(a.val1) as val1,
+            sum(a.val2) as val2,
+            sum(a.val3) as val3
+        </if>
+        <if test="allArea != 0">
+            a.val1 as val1,
+            a.val2 as val2,
+            a.val3 as val3
+        </if>
+        FROM
+        stat_data a
+        WHERE 1=1
+        <if test="cType != null">
+            AND a.datatype = #{cType}
+        </if>
+        <if test="carea != null and allArea != 0">
+            AND a.carea = #{carea,jdbcType=VARCHAR}
+        </if>
+        <if test="vname != null">
+            AND a.vname = #{vname}
+        </if>
+        <if test="startTime != null">
+            and a.cdate = #{startTime}
+        </if>
+        <if test="cdate != null">
+            <if test="dateTpye == day">
+                AND a.cdate = #{cdate}
+            </if>
+
+        </if>
+        GROUP BY
+        <if test="allArea == 0">
+            a.carea
+        </if>
+        <if test="allVenue == 0">
+            a.vname
+        </if>
+        <if test="cdate == null">
+            <if test="dateType==1">
+                a.cdate DESC
+            </if>
+            <if test="dateType==2">
+                WEEK (a.cdate) DESC
+            </if>
+            <if test="dateType==3">
+                MONTH (a.cdate) DESC
+            </if>
+        </if>
+
+    </select>
+    <insert id="insertSelective" parameterType="com.sun3d.why.model.StatData">
+        insert into stat_data
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="datatype != null">
+                datatype,
+            </if>
+            <if test="city != null">
+                city,
+            </if>
+            <if test="ctype != null">
+                ctype,
+            </if>
+            <if test="carea != null">
+                carea,
+            </if>
+            <if test="clevel != null">
+                clevel,
+            </if>
+            <if test="vname != null">
+                vname,
+            </if>
+            <if test="val1 != null">
+                val1,
+            </if>
+            <if test="val2 != null">
+                val2,
+            </if>
+            <if test="val3 != null">
+                val3,
+            </if>
+            <if test="val4 != null">
+                val4,
+            </if>
+            <if test="val5 != null">
+                val5,
+            </if>
+            <if test="cdate != null">
+                cdate,
+            </if>
+            <if test="week != null">
+                week,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="datatype != null">
+                #{datatype,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="ctype != null">
+                #{ctype,jdbcType=VARCHAR},
+            </if>
+            <if test="carea != null">
+                #{carea,jdbcType=VARCHAR},
+            </if>
+            <if test="clevel != null">
+                #{clevel,jdbcType=VARCHAR},
+            </if>
+            <if test="vname != null">
+                #{vname,jdbcType=VARCHAR},
+            </if>
+            <if test="val1 != null">
+                #{val1,jdbcType=INTEGER},
+            </if>
+            <if test="val2 != null">
+                #{val2,jdbcType=INTEGER},
+            </if>
+            <if test="val3 != null">
+                #{val3,jdbcType=INTEGER},
+            </if>
+            <if test="val4 != null">
+                #{val4,jdbcType=INTEGER},
+            </if>
+            <if test="val5 != null">
+                #{val5,jdbcType=INTEGER},
+            </if>
+            <if test="cdate != null">
+                #{cdate,jdbcType=DATE},
+            </if>
+            <if test="week != null">
+                #{week,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+</mapper>

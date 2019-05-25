@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ccp.CcpDramaCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ccp.CcpDramaComment" >
+    <id column="DRAMA_COMMENT_ID" property="dramaCommentId" jdbcType="VARCHAR" />
+    <result column="DRAMA_ID" property="dramaId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="DRAMA_COMMENT_REMARK" property="dramaCommentRemark" jdbcType="VARCHAR" />
+    <result column="DRAMA_STATUS" property="dramaStatus" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_HEAD_IMG_URL" property="userHeadImgUrl" jdbcType="VARCHAR" />
+    <result column="DRAMA_NAME" property="dramaName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    DRAMA_COMMENT_ID, DRAMA_ID, USER_ID, DRAMA_COMMENT_REMARK, DRAMA_STATUS, CREATE_TIME, 
+    UPDATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_drama_comment
+    where DRAMA_COMMENT_ID = #{dramaCommentId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_drama_comment
+    where DRAMA_COMMENT_ID = #{dramaCommentId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.ccp.CcpDramaComment" >
+    insert into ccp_drama_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      DRAMA_COMMENT_ID,
+      <if test="dramaId != null" >
+        DRAMA_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="dramaCommentRemark != null" >
+        DRAMA_COMMENT_REMARK,
+      </if>
+      <if test="dramaStatus != null" >
+        DRAMA_STATUS,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{dramaCommentId,jdbcType=VARCHAR},
+      <if test="dramaId != null" >
+        #{dramaId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="dramaCommentRemark != null" >
+        #{dramaCommentRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="dramaStatus != null" >
+        #{dramaStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.ccp.CcpDramaComment" >
+    update ccp_drama_comment
+    <set >
+      <if test="dramaId != null" >
+        DRAMA_ID = #{dramaId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="dramaCommentRemark != null" >
+        DRAMA_COMMENT_REMARK = #{dramaCommentRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="dramaStatus != null" >
+        DRAMA_STATUS = #{dramaStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where DRAMA_COMMENT_ID = #{dramaCommentId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryCcpDramaCommentlist" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.ccp.CcpDramaComment" >
+    select 
+    	cdc.DRAMA_COMMENT_ID, 
+    	cdc.DRAMA_ID, 
+    	cdc.USER_ID, 
+    	cdc.DRAMA_COMMENT_REMARK, 
+    	cdc.DRAMA_STATUS, 
+    	cdc.CREATE_TIME, 
+    	cdc.UPDATE_TIME,
+    	ctu.USER_NAME,
+    	ctu.USER_HEAD_IMG_URL,
+    	cd.DRAMA_NAME
+    from ccp_drama_comment cdc
+    left join cms_terminal_user ctu on ctu.USER_ID = cdc.USER_ID
+    left join ccp_drama cd on cd.DRAMA_ID = cdc.DRAMA_ID
+    where 1=1
+    <if test="dramaId!=null">
+    	and cdc.DRAMA_ID = #{dramaId}
+    </if>
+    <if test="dramaStatus!=null">
+    	and cdc.DRAMA_STATUS = #{dramaStatus}
+    </if>
+    <if test="dramaStatus==null">
+    	and (cdc.DRAMA_STATUS = 0 or cdc.DRAMA_STATUS = 2)
+    </if>
+    order by
+	    <if test="dramaStatus==2">
+	    	cdc.UPDATE_TIME DESC,
+	    </if>
+	    cdc.CREATE_TIME DESC
+    <if test="firstResult != null">
+        limit ${firstResult},${rows}
+    </if>
+  </select>
+</mapper>

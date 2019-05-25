@@ -1,0 +1,704 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsTeamUserMapper" >
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsTeamUser" >
+		<id column="TUSER_ID" property="tuserId" jdbcType="VARCHAR" />
+		<result column="TUSER_NAME" property="tuserName" jdbcType="VARCHAR" />
+		<result column="TUSER_IS_VENUE" property="tuserIsVenue" jdbcType="INTEGER" />
+		<result column="TUSER_IS_ACTIVIEY" property="tuserIsActiviey" jdbcType="INTEGER" />
+		<result column="TUSER_IS_DISPLAY" property="tuserIsDisplay" jdbcType="INTEGER" />
+		<result column="TUSER_PROVINCE" property="tuserProvince" jdbcType="VARCHAR" />
+		<result column="TUSER_CITY" property="tuserCity" jdbcType="VARCHAR" />
+		<result column="TUSER_COUNTY" property="tuserCounty" jdbcType="VARCHAR" />
+		<result column="TUSER_TEAM_TYPE" property="tuserTeamType" jdbcType="VARCHAR" />
+		<result column="TUSER_PICTURE" property="tuserPicture" jdbcType="VARCHAR" />
+		<result column="T_CREATE_USER" property="tCreateUser" jdbcType="VARCHAR" />
+		<result column="T_CREATE_TIME" property="tCreateTime" jdbcType="TIMESTAMP" />
+		<result column="T_UPDATE_USER" property="tUpdateUser" jdbcType="VARCHAR" />
+		<result column="T_UPDATE_TIME" property="tUpdateTime" jdbcType="TIMESTAMP" />
+		<result column="T_DEPT" property="tDept" jdbcType="VARCHAR" />
+		<result column="TUSER_TEAM_REMARK" property="tuserTeamRemark" jdbcType="LONGVARCHAR" />
+		<result column="TUSER_LIMIT" property="tuserLimit" jdbcType="INTEGER" />
+		<result column="TUSER_CROWD_TAG" property="tuserCrowdTag" jdbcType="LONGVARCHAR"/>
+		<result column="TUSER_PROPERTY_TAG" property="tuserPropertyTag" jdbcType="LONGVARCHAR"/>
+		<result column="TUSER_SITE_TAG" property="tuserSiteTag" jdbcType="LONGVARCHAR"/>
+		<result column="TUSER_LOCATION_DICT" property="tuserLocationDict" jdbcType="LONGVARCHAR"/>
+		<result column="year_collect_count" property="yearCollectCount" jdbcType="INTEGER" />
+		<result column="year_browse_count" property="yearBrowseCount" jdbcType="INTEGER" />
+		<result column="dict_name" property="dictName" jdbcType="VARCHAR" />
+		<result column="apply_id" property="applyId" jdbcType="VARCHAR" />
+		<result column="check_count" property="checkCount" jdbcType="INTEGER" />
+		<result column="manager_name" property="managerName" jdbcType="VARCHAR" />
+		<result column="apply_check_state" property="applyCheckState" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="apply_update_time" property="applyUpdateTime" jdbcType="TIMESTAMP" />
+		<result column="apply_is_state" property="applyIsState" jdbcType="INTEGER" />
+		<result column="user_sex" property="userSex" jdbcType="INTEGER" />
+		<result column="USER_TELEPHONE" property="userTelephone" jdbcType="VARCHAR" />
+		<result column="TUSER_TAG" property="tuserTag" jdbcType="VARCHAR" />
+		<result column="TUSER_YEAR" property="tuserYear" jdbcType="INTEGER" />
+		<result column="TUSER_USER_TYPE" property="tuserUserType" jdbcType="INTEGER" />
+	</resultMap>
+
+	<select id="queryCmsTeamUserByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+		A.TUSER_ID, A.TUSER_NAME, A.TUSER_IS_VENUE, A.TUSER_IS_ACTIVIEY,A.TUSER_IS_DISPLAY,A.TUSER_PROVINCE, A.TUSER_CITY, A.TUSER_COUNTY,
+		A.TUSER_TEAM_TYPE, A.TUSER_PICTURE, A.T_CREATE_USER, A.T_CREATE_TIME, S.USER_ACCOUNT AS T_UPDATE_USER,
+		A.T_UPDATE_TIME, A.T_DEPT, A.TUSER_TEAM_REMARK,A.TUSER_LIMIT,d.DICT_NAME,u.user_name as manager_name,u.USER_TELEPHONE,
+		A.TUSER_USER_TYPE,A.TUSER_TAG,A.TUSER_YEAR
+		FROM CMS_TEAM_USER A LEFT JOIN SYS_USER S ON A.T_UPDATE_USER = S.USER_ID
+		left join sys_dict d on A.TUSER_TEAM_TYPE = d.DICT_ID
+		left join cms_apply_join_team j on A.tuser_id = j.tuser_id and j.apply_check_state=3 and j.apply_is_state=1
+		left join cms_terminal_user u on j.user_id = u.user_id
+		WHERE 1=1
+		<if test="tuserName != null" >
+			AND A.TUSER_NAME LIKE CONCAT('%',#{tuserName},'%')
+		</if>
+		<if test="tuserCounty != null" >
+			AND A.TUSER_COUNTY LIKE #{tuserCounty}
+		</if>
+		<if test="tDept != null" >
+			AND A.T_DEPT like #{tDept}
+		</if>
+		<if test="tuserIsDisplay != null" >
+			AND A.TUSER_IS_DISPLAY = #{tuserIsDisplay}
+		</if>
+	<!--  	<if test="tuserIsDisplay == null" >
+			AND A.TUSER_IS_DISPLAY in (0,2)
+		</if>-->
+		<if test="tuserIsVenue != null" >
+			AND A.TUSER_IS_VENUE = #{tuserIsVenue}
+		</if>
+		<if test="tuserIsActiviey != null" >
+			AND A.TUSER_IS_ACTIVIEY = #{tuserIsActiviey}
+		</if>
+		<if test="tuserTeamType != null" >
+			AND A.TUSER_TEAM_TYPE = #{tuserTeamType}
+		</if>
+		<if test="tuserIdExclude != null" >
+			AND A.TUSER_ID &lt;> #{tuserIdExclude}
+		</if>
+		<if test="tuserId != null" >
+			AND A.TUSER_ID = #{tuserId}
+		</if>
+		ORDER BY A.T_UPDATE_TIME DESC
+		<if test="firstResult != null">
+			limit #{firstResult},#{rows}
+		</if>
+	</select>
+
+	<select id="queryCmsTeamUserCountByCondition" parameterType="java.util.Map" resultType="java.lang.Integer" >
+		SELECT COUNT(*)
+		FROM CMS_TEAM_USER A LEFT JOIN SYS_USER S ON A.T_UPDATE_USER = S.USER_ID
+		WHERE 1=1
+		<if test="tuserName != null" >
+			AND A.TUSER_NAME LIKE CONCAT('%',#{tuserName},'%')
+		</if>
+		<if test="tuserCounty != null" >
+			AND A.TUSER_COUNTY LIKE #{tuserCounty}
+		</if>
+		<if test="tDept != null" >
+			AND A.T_DEPT like #{tDept}
+		</if>
+		<if test="tuserIsDisplay != null" >
+			AND A.TUSER_IS_DISPLAY = #{tuserIsDisplay}
+		</if>
+		<if test="tuserIsVenue != null" >
+			AND A.TUSER_IS_VENUE = #{tuserIsVenue}
+		</if>
+		<if test="tuserIsActiviey != null" >
+			AND A.TUSER_IS_ACTIVIEY = #{tuserIsActiviey}
+		</if>
+		<if test="tuserTeamType != null" >
+			AND A.TUSER_TEAM_TYPE = #{tuserTeamType}
+		</if>
+		<if test="tuserIdExclude != null" >
+			AND A.TUSER_ID &lt;> #{tuserIdExclude}
+		</if>
+		<if test="tuserId != null" >
+			AND A.TUSER_ID = #{tuserId}
+		</if>
+	</select>
+
+	<select id="queryCmsTeamUserById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT
+		a.TUSER_ID, a.TUSER_NAME, a.TUSER_IS_VENUE, a.TUSER_IS_ACTIVIEY, a.TUSER_CROWD_TAG, a.TUSER_PROPERTY_TAG, a.TUSER_SITE_TAG, a.TUSER_LOCATION_DICT,
+		a.TUSER_IS_DISPLAY, a.TUSER_PROVINCE, a.TUSER_CITY, a.TUSER_COUNTY,	a.TUSER_TEAM_TYPE, a.TUSER_PICTURE,
+		a.T_CREATE_USER, a.T_CREATE_TIME, a.T_UPDATE_USER, a.T_UPDATE_TIME, a.T_DEPT, a.TUSER_TEAM_REMARK,a.TUSER_LIMIT,
+		b.user_id,a.tuser_limit,b.apply_id,b.apply_check_state,a.TUSER_USER_TYPE,a.TUSER_TAG,a.TUSER_YEAR
+		FROM CMS_TEAM_USER a left join cms_apply_join_team b on a.tuser_id = b.tuser_id and b.apply_is_state = 1 and b.apply_check_state=3
+		WHERE a.TUSER_ID = #{tuserId,jdbcType=VARCHAR}
+	</select>
+
+	<insert id="addCmsTeamUser" parameterType="com.sun3d.why.model.CmsTeamUser" >
+		INSERT INTO CMS_TEAM_USER
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="tuserId != null" >
+				TUSER_ID,
+			</if>
+			<if test="tuserName != null" >
+				TUSER_NAME,
+			</if>
+			<if test="tuserIsVenue != null" >
+				TUSER_IS_VENUE,
+			</if>
+			<if test="tuserIsActiviey != null" >
+				TUSER_IS_ACTIVIEY,
+			</if>
+			<if test="tuserIsDisplay != null" >
+				TUSER_IS_DISPLAY,
+			</if>
+			<if test="tuserProvince != null" >
+				TUSER_PROVINCE,
+			</if>
+			<if test="tuserCity != null" >
+				TUSER_CITY,
+			</if>
+			<if test="tuserCounty != null" >
+				TUSER_COUNTY,
+			</if>
+			<if test="tuserTeamType != null" >
+				TUSER_TEAM_TYPE,
+			</if>
+			<if test="tuserPicture != null" >
+				TUSER_PICTURE,
+			</if>
+			<if test="tCreateUser != null" >
+				T_CREATE_USER,
+			</if>
+			<if test="tCreateTime != null" >
+				T_CREATE_TIME,
+			</if>
+			<if test="tUpdateUser != null" >
+				T_UPDATE_USER,
+			</if>
+			<if test="tUpdateTime != null" >
+				T_UPDATE_TIME,
+			</if>
+			<if test="tDept != null" >
+				T_DEPT,
+			</if>
+			<if test="tuserTeamRemark != null" >
+				TUSER_TEAM_REMARK,
+			</if>
+			<if test="tuserLimit != null" >
+				TUSER_LIMIT,
+			</if>
+			<if test="tuserCrowdTag != null" >
+				TUSER_CROWD_TAG,
+			</if>
+			<if test="tuserPropertyTag != null" >
+				TUSER_PROPERTY_TAG,
+			</if>
+			<if test="tuserSiteTag != null" >
+				TUSER_SITE_TAG,
+			</if>
+			<if test="tuserLocationDict != null" >
+				TUSER_LOCATION_DICT,
+			</if>
+			<if test="tuserTag != null" >
+				TUSER_TAG,
+			</if>
+			<if test="tuserYear != null" >
+				TUSER_YEAR,
+			</if>
+			<if test="tuserUserType != null" >
+				TUSER_USER_TYPE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="tuserId != null" >
+				#{tuserId,jdbcType=VARCHAR},
+			</if>
+			<if test="tuserName != null" >
+				#{tuserName,jdbcType=VARCHAR},
+			</if>
+			<if test="tuserIsVenue != null" >
+				#{tuserIsVenue,jdbcType=INTEGER},
+			</if>
+			<if test="tuserIsActiviey != null" >
+				#{tuserIsActiviey,jdbcType=INTEGER},
+			</if>
+			<if test="tuserIsDisplay != null" >
+				#{tuserIsDisplay,jdbcType=INTEGER},
+			</if>
+			<if test="tuserProvince != null" >
+				#{tuserProvince,jdbcType=VARCHAR},
+			</if>
+			<if test="tuserCity != null" >
+				#{tuserCity,jdbcType=VARCHAR},
+			</if>
+			<if test="tuserCounty != null" >
+				#{tuserCounty,jdbcType=VARCHAR},
+			</if>
+			<if test="tuserTeamType != null" >
+				#{tuserTeamType,jdbcType=VARCHAR},
+			</if>
+			<if test="tuserPicture != null" >
+				#{tuserPicture,jdbcType=VARCHAR},
+			</if>
+			<if test="tCreateUser != null" >
+				#{tCreateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="tCreateTime != null" >
+				#{tCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tUpdateUser != null" >
+				#{tUpdateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="tUpdateTime != null" >
+				#{tUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tDept != null" >
+				#{tDept,jdbcType=VARCHAR},
+			</if>
+			<if test="tuserTeamRemark != null" >
+				#{tuserTeamRemark,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="tuserLimit != null" >
+				#{tuserLimit,jdbcType=INTEGER},
+			</if>
+			<if test="tuserCrowdTag != null" >
+				#{tuserCrowdTag,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="tuserPropertyTag != null" >
+				#{tuserPropertyTag,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="tuserSiteTag != null" >
+				#{tuserSiteTag,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="tuserLocationDict != null" >
+				#{tuserLocationDict,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="tuserTag != null" >
+				#{tuserTag,jdbcType=VARCHAR},
+			</if>
+			<if test="tuserYear != null" >
+				#{tuserYear,jdbcType=INTEGER},
+			</if>
+			<if test="tuserUserType != null" >
+				#{tuserUserType,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="editCmsTeamUser" parameterType="com.sun3d.why.model.CmsTeamUser" >
+		UPDATE CMS_TEAM_USER
+		<set >
+			<if test="tuserName != null" >
+				TUSER_NAME = #{tuserName,jdbcType=VARCHAR},
+			</if>
+			<if test="tuserIsVenue != null" >
+				TUSER_IS_VENUE = #{tuserIsVenue,jdbcType=INTEGER},
+			</if>
+			<if test="tuserIsActiviey != null" >
+				TUSER_IS_ACTIVIEY = #{tuserIsActiviey,jdbcType=INTEGER},
+			</if>
+			<if test="tuserIsDisplay != null" >
+				TUSER_IS_DISPLAY = #{tuserIsDisplay,jdbcType=INTEGER},
+			</if>
+			<if test="tuserProvince != null" >
+				TUSER_PROVINCE = #{tuserProvince,jdbcType=VARCHAR},
+			</if>
+			<if test="tuserCity != null" >
+				TUSER_CITY = #{tuserCity,jdbcType=VARCHAR},
+			</if>
+			<if test="tuserCounty != null" >
+				TUSER_COUNTY = #{tuserCounty,jdbcType=VARCHAR},
+			</if>
+			<if test="tuserTeamType != null" >
+				TUSER_TEAM_TYPE = #{tuserTeamType,jdbcType=VARCHAR},
+			</if>
+			<if test="tuserPicture != null" >
+				TUSER_PICTURE = #{tuserPicture,jdbcType=VARCHAR},
+			</if>
+			<if test="tCreateUser != null" >
+				T_CREATE_USER = #{tCreateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="tCreateTime != null" >
+				T_CREATE_TIME = #{tCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tUpdateUser != null" >
+				T_UPDATE_USER = #{tUpdateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="tUpdateTime != null" >
+				T_UPDATE_TIME = #{tUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tDept != null" >
+				T_DEPT = #{tDept,jdbcType=VARCHAR},
+			</if>
+			<if test="tuserTeamRemark != null" >
+				TUSER_TEAM_REMARK = #{tuserTeamRemark,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="tuserLimit != null" >
+				TUSER_LIMIT = #{tuserLimit,jdbcType=INTEGER},
+			</if>
+			<if test="tuserCrowdTag != null" >
+				TUSER_CROWD_TAG = #{tuserCrowdTag,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="tuserPropertyTag != null" >
+				TUSER_PROPERTY_TAG = #{tuserPropertyTag,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="tuserSiteTag != null" >
+				TUSER_SITE_TAG = #{tuserSiteTag,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="tuserLocationDict != null" >
+				TUSER_LOCATION_DICT = #{tuserLocationDict,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="tuserTag != null" >
+				TUSER_TAG = #{tuserTag,jdbcType=VARCHAR},
+			</if>
+			<if test="tuserYear != null" >
+				TUSER_YEAR = #{tuserYear,jdbcType=INTEGER},
+			</if>
+			<if test="tuserUserType != null" >
+				TUSER_USER_TYPE = #{tuserUserType,jdbcType=INTEGER},
+			</if>
+		</set>
+		WHERE TUSER_ID = #{tuserId,jdbcType=VARCHAR}
+	</update>
+
+	<!--本周热门文化团体（周浏览次数）-->
+	<select id="queryWeekHotTeamUser" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT A.TUSER_ID,A.TUSER_NAME,A.TUSER_PROVINCE,A.TUSER_CITY,A.TUSER_COUNTY,A.TUSER_PICTURE
+		FROM cms_team_user A LEFT JOIN  cms_statistics S on A.TUSER_ID = S.S_ID
+		WHERE 1=1
+		<if test="tuserName != null" >
+			AND A.TUSER_NAME LIKE #{tuserName}
+		</if>
+		<if test="tuserCounty != null" >
+			AND A.TUSER_COUNTY LIKE #{tuserCounty}
+		</if>
+		<if test="tDept != null" >
+			AND A.T_DEPT like #{tDept}
+		</if>
+		<if test="tuserIsDisplay != null" >
+			AND A.TUSER_IS_DISPLAY = #{tuserIsDisplay}
+		</if>
+		ORDER BY S.WEEK_BROWSE_COUNT DESC
+		limit #{firstResult},#{rows}
+	</select>
+
+	<select id="countWeekHotTeamUser" parameterType="java.util.Map"  resultType="java.lang.Integer" >
+		SELECT count(*) from cms_team_user A LEFT JOIN  cms_statistics S on A.TUSER_ID = S.S_ID
+		WHERE 1=1
+		<if test="tuserName != null" >
+			AND A.TUSER_NAME LIKE #{tuserName}
+		</if>
+		<if test="tuserCounty != null" >
+			AND A.TUSER_COUNTY LIKE #{tuserCounty}
+		</if>
+		<if test="tDept != null" >
+			AND A.T_DEPT like #{tDept}
+		</if>
+		<if test="tuserIsDisplay != null" >
+			AND A.TUSER_IS_DISPLAY = #{tuserIsDisplay}
+		</if>
+	</select>
+
+	<!--前端2.0团体收藏列表-->
+	<select id="queryCollectTeamUser" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT TUSER_ID,TUSER_NAME,TUSER_PROVINCE,TUSER_CITY,TUSER_COUNTY,TUSER_PICTURE,YEAR_BROWSE_COUNT,YEAR_COLLECT_COUNT
+		FROM cms_collect INNER JOIN cms_team_user ON relate_id = tuser_id
+		LEFT JOIN cms_statistics ON tuser_id = s_id
+		WHERE 1=1
+		<if test="userId != null and userId != ''">
+			and user_id = #{userId}
+		</if>
+		<if test="type != null and type != ''">
+			and type = #{type}
+		</if>
+		<if test="tuserName != null and tuserName != ''">
+			and tuser_name like #{tuserName}
+		</if>
+		ORDER BY YEAR_COLLECT_COUNT desc, YEAR_BROWSE_COUNT DESC
+		limit #{firstResult},#{rows}
+	</select>
+	<select id="queryCollectTeamUserCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+		SELECT count(*)
+		FROM cms_collect INNER JOIN cms_team_user ON relate_id = tuser_id
+		LEFT JOIN cms_statistics ON tuser_id = s_id
+		WHERE 1=1
+		<if test="userId != null and userId != ''">
+			and user_id = #{userId}
+		</if>
+		<if test="type != null and type != ''">
+			and type = #{type}
+		</if>
+		<if test="tuserName != null and tuserName != ''">
+			and tuser_name like #{tuserName}
+		</if>
+	</select>
+
+	<!--前端2.0团体首页-->
+	<select id="queryFrontTeamUserByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select t.tuser_id,t.tuser_name,t.tuser_province,t.tuser_city,t.tuser_county,t.tuser_picture,s.year_collect_count,s.year_browse_count
+		from cms_team_user t left join cms_statistics s on t.tuser_id = s.s_id and s.s_type = 4
+		where 1=1
+		<if test="tuserCounty != null" >
+			and t.tuser_county like #{tuserCounty}
+		</if>
+		<if test="tuserName != null" >
+			and t.tuser_name like #{tuserName}
+		</if>
+		<if test="tuserIsDisplay != null" >
+			and t.tuser_is_display = #{tuserIsDisplay}
+		</if>
+		<if test="tagId != null">
+			and (TUSER_CROWD_TAG like #{tagId} or TUSER_PROPERTY_TAG like #{tagId} or TUSER_SITE_TAG like #{tagId})
+		</if>
+		order by s.year_browse_count desc
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</select>
+
+	<select id="queryFrontTeamUserCountByCondition" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*)
+		from cms_team_user t left join cms_statistics s on t.tuser_id = s.s_id and s.s_type = 4
+		where 1=1
+		<if test="tuserCounty != null" >
+			and t.tuser_county like #{tuserCounty}
+		</if>
+		<if test="tuserName != null" >
+			and t.tuser_name like #{tuserName}
+		</if>
+		<if test="tuserIsDisplay != null" >
+			and t.tuser_is_display = #{tuserIsDisplay}
+		</if>
+		<if test="tagId != null">
+			and (TUSER_CROWD_TAG like #{tagId} or TUSER_PROPERTY_TAG like #{tagId} or TUSER_SITE_TAG like #{tagId})
+		</if>
+	</select>
+
+	<!--前端2.0团体列表页-->
+	<select id="queryFrontTeamUserListByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select t.tuser_id,t.tuser_name,t.tuser_province,t.tuser_city,t.tuser_county,t.tuser_picture,s.year_collect_count,s.year_browse_count
+		from cms_team_user t left join cms_statistics s on t.tuser_id = s.s_id and s.s_type = 4
+		where 1=1
+		<if test="tuserName != null" >
+			and t.tuser_name like #{tuserName}
+		</if>
+		<if test="tuserIsDisplay != null" >
+			and t.tuser_is_display = #{tuserIsDisplay}
+		</if>
+		<if test="tuserCrowdTag != null">
+			and t.tuser_crowd_tag like #{tuserCrowdTag}
+		</if>
+		<if test="tuserPropertyTag != null">
+			and t.tuser_property_tag like #{tuserPropertyTag}
+		</if>
+		<if test="tuserSiteTag != null">
+			and t.tuser_site_tag like #{tuserSiteTag}
+		</if>
+		<if test="tuserCounty != null">
+			and t.tuser_county like #{tuserCounty}
+			<if test="tuserLocationDict != null">
+				and t.tuser_location_dict = #{tuserLocationDict}
+			</if>
+		</if>
+		<if test="sortType == 2">
+			order by s.year_browse_count asc
+		</if>
+		<if test="sortType == 3">
+			order by s.year_browse_count desc
+		</if>
+		<if test="sortType == 4">
+			order by t.t_update_time asc
+		</if>
+		<if test="sortType == 5">
+			order by t.t_update_time desc
+		</if>
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</select>
+	<select id="queryFrontTeamUserListCountByCondition" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*)
+		from cms_team_user t left join cms_statistics s on t.tuser_id = s.s_id and s.s_type = 4
+		where 1=1
+		<if test="tuserName != null" >
+			and t.tuser_name like #{tuserName}
+		</if>
+		<if test="tuserIsDisplay != null" >
+			and t.tuser_is_display = #{tuserIsDisplay}
+		</if>
+		<if test="tuserCrowdTag != null">
+			and t.tuser_crowd_tag like #{tuserCrowdTag}
+		</if>
+		<if test="tuserPropertyTag != null">
+			and t.tuser_property_tag like #{tuserPropertyTag}
+		</if>
+		<if test="tuserSiteTag != null">
+			and t.tuser_site_tag like #{tuserSiteTag}
+		</if>
+		<if test="tuserCounty != null">
+			and t.tuser_county like #{tuserCounty}
+			<if test="tuserLocationDict != null">
+				and t.tuser_location_dict = #{tuserLocationDict}
+			</if>
+		</if>
+	</select>
+
+	<!-- 前端2.0查询团体详情中的推荐团体 -->
+	<select id="queryRecommentTeamUser" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT a.tuser_id,a.tuser_name,a.tuser_county,a.tuser_picture,b.dict_name from cms_team_user a left join sys_dict b on a.tuser_team_type=b.dict_id where 1=1
+		<if test="tuserTeamType != null">
+			and TUSER_TEAM_TYPE = #{tuserTeamType,jdbcType=VARCHAR}
+		</if>
+		<if test="tuserIsDisplay != null">
+			and TUSER_IS_DISPLAY = #{tuserIsDisplay,jdbcType=INTEGER}
+		</if>
+		<if test="tuserCounty != null">
+			and TUSER_COUNTY = #{tuserCounty, jdbcType=VARCHAR}
+		</if>
+		<if test="tuserId != null">
+			and TUSER_ID &lt;> #{tuserId, jdbcType=VARCHAR}
+		</if>
+		order by T_UPDATE_TIME desc
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</select>
+
+	<!--前端2.0 我管理的团体,成员管理-->
+	<select id="queryMyManagerTeamUser" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select a.tuser_id,a.tuser_name,a.tuser_limit,a.T_CREATE_TIME,c.USER_NICK_NAME as dict_name,b.apply_update_time as T_UPDATE_TIME,b.apply_is_state,
+			c.USER_HEAD_IMG_URL as TUSER_PICTURE,b.apply_id,c.USER_TELEPHONE,b.apply_check_state,b.apply_update_time,a.tuser_province,
+		   a.tuser_crowd_tag,a.tuser_property_tag,a.tuser_site_tag,a.tuser_location_dict,a.tuser_city,a.tuser_county,c.user_sex,a.TUSER_USER_TYPE,a.TUSER_IS_DISPLAY,a.TUSER_IS_ACTIVIEY,
+		(
+			SELECT
+			count(*)
+			FROM
+			cms_team_user aa
+			INNER JOIN cms_apply_join_team bb ON aa.tuser_id = bb.tuser_id
+			INNER JOIN cms_terminal_user cc ON bb.user_id = cc.USER_ID
+			WHERE
+			bb.apply_check_state = 1
+			AND bb.apply_is_state = 2
+			AND bb.tuser_id = b.tuser_id
+		) check_count,
+		(
+		SELECT
+		ccc.user_nick_name
+		FROM
+		cms_team_user aaa
+		INNER JOIN cms_apply_join_team bbb ON aaa.tuser_id = bbb.tuser_id
+		INNER JOIN cms_terminal_user ccc ON bbb.user_id = ccc.USER_ID
+		WHERE
+		bbb.apply_check_state = 3
+		AND bbb.apply_is_state = 1
+		and bbb.tuser_id = b.tuser_id
+		) manager_name
+		from cms_team_user a inner join cms_apply_join_team b on a.tuser_id = b.tuser_id
+		inner join cms_terminal_user c on b.user_id = c.USER_ID
+		where 1=1
+		
+		<if test="tuserName != null" >
+			AND a.TUSER_NAME LIKE CONCAT('%',#{tuserName},'%')
+		</if>
+		<if test="applyCheckState != null">
+			and b.apply_check_state = #{applyCheckState}
+		</if>
+		<if test="applyIsState != null">
+			and b.apply_is_state = #{applyIsState}
+		</if>
+		<if test="userId != null">
+			and c.user_id = #{userId}
+		</if>
+		<if test="tuserId != null">
+			and b.tuser_id = #{tuserId}
+		</if>
+		<if test="tuserIsDisplay != null">
+			and a.tuser_is_display = #{tuserIsDisplay}
+		</if>
+		<if test="tuserIsActiviey != null" >
+			and a.TUSER_IS_ACTIVIEY = #{tuserIsActiviey}
+		</if>
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</select>
+	<select id="queryMyManagerTeamUserCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*) from cms_team_user a inner join cms_apply_join_team b on a.tuser_id = b.tuser_id
+		inner join cms_terminal_user c on b.user_id = c.USER_ID
+		where 1=1
+		<if test="tuserName != null" >
+			AND a.TUSER_NAME LIKE CONCAT('%',#{tuserName},'%')
+		</if>
+		<if test="applyCheckState != null">
+			and b.apply_check_state = #{applyCheckState}
+		</if>
+		<if test="applyIsState != null">
+			and b.apply_is_state = #{applyIsState}
+		</if>
+		<if test="userId != null">
+			and c.user_id = #{userId}
+		</if>
+		<if test="tuserId != null">
+			and b.tuser_id = #{tuserId}
+		</if>
+			<if test="tuserIsActiviey != null" >
+			and a.TUSER_IS_ACTIVIEY = #{tuserIsActiviey}
+		</if>
+	</select>
+
+	<select id="queryTeamCountByArea" resultType="hashmap" parameterType="java.util.Map">
+		select count(*) as statisticsCount, a.TUSER_COUNTY as area from cms_team_user a where 1=1
+		<if test="tuserIsDisplay != null">
+			and a.TUSER_IS_DISPLAY = #{tuserIsDisplay}
+		</if>
+		group by a.TUSER_COUNTY
+	</select>
+	<!--app根据团体id获取团体详情 -->
+	<select id="queryAppTeamUserById" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+		DISTINCT ct.TUSER_ID,
+		s.DICT_NAME,
+		ct.TUSER_PICTURE,
+		ct.TUSER_NAME,
+		ct.TUSER_PROVINCE,
+		ct.TUSER_CITY,
+		ct.TUSER_COUNTY,
+		ct.TUSER_LIMIT,
+		ct.TUSER_TEAM_REMARK
+		FROM
+		cms_team_user ct
+		LEFT JOIN cms_apply_join_team a
+		on ct.TUSER_ID=a.tuser_id
+		LEFT JOIN sys_dict s ON ct.TUSER_TEAM_TYPE = s.DICT_ID
+		where 1=1
+		<if test="tuserIsDisplay != null">
+			and ct.TUSER_IS_DISPLAY = #{tuserIsDisplay,jdbcType=INTEGER}
+		</if>
+		<if test="teamUserId != null">
+			and ct.TUSER_ID =#{teamUserId,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<!--app根据用户id编辑团体图片-->
+	<update id="editAppTeamUserById" parameterType="com.sun3d.why.model.CmsTeamUser" >
+		update cms_team_user
+		<set >
+			<if test="tuserPicture != null" >
+				TUSER_PICTURE = #{tuserPicture,jdbcType=VARCHAR}
+			</if>
+		</set>
+		where TUSER_ID = #{tuserId,jdbcType=VARCHAR}
+	</update>
+	<!--app根据用户id查询团体信息 -->
+	<select id="queryAppTeamUserList" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select a.tuser_id,a.tuser_name
+		from cms_team_user a inner join cms_apply_join_team b on a.tuser_id = b.tuser_id
+		inner join cms_terminal_user c on b.user_id = c.USER_ID
+		where 1=1
+		<if test="applyCheckState != null">
+			and b.apply_check_state = #{applyCheckState}
+		</if>
+		<if test="applyIsState != null">
+			and b.apply_is_state = #{applyIsState}
+		</if>
+		<if test="userId != null">
+			and c.user_id = #{userId}
+		</if>
+	</select>
+</mapper>

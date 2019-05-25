@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsFeedbackMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsFeedback" >
+    <id column="FEED_BACK_ID" property="feedBackId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="FEED_CONTENT" property="feedContent" jdbcType="VARCHAR" />
+    <result column="FEED_IMG_URL" property="feedImgUrl" jdbcType="VARCHAR" />
+    <result column="FEED_TYPE" property="feedType" jdbcType="VARCHAR" />
+    <result column="FEED_TIME" property="feedTime" jdbcType="TIMESTAMP" />
+    <result column="USER_MOBILE_NO" property="userMobileNo" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_AREA" property="userArea" jdbcType="VARCHAR" />
+    <result column="REPLY_ID" property="replyId" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <insert id="insertFeedInformation" parameterType="com.sun3d.why.model.CmsFeedback" >
+    insert into cms_feedback
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="feedBackId != null" >
+        FEED_BACK_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="feedContent != null" >
+        FEED_CONTENT,
+      </if>
+      <if test="feedType != null" >
+        FEED_TYPE,
+      </if>
+      <if test="feedTime != null" >
+        FEED_TIME,
+      </if>
+      <if test="feedImgUrl != null" >
+        FEED_IMG_URL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="feedBackId != null" >
+        #{feedBackId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="feedContent != null" >
+        #{feedContent,jdbcType=VARCHAR},
+      </if>
+      <if test="feedType != null" >
+        #{feedType,jdbcType=VARCHAR},
+      </if>
+      <if test="feedTime != null" >
+        #{feedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="feedImgUrl != null" >
+        #{feedImgUrl,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <!--查询反馈条数 -->
+  <select id="queryFeedInformationByCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+    SELECT
+    count(*)
+    FROM
+    cms_feedback cf
+    INNER JOIN cms_terminal_user ct ON cf.USER_ID = ct.USER_ID
+    WHERE  1=1
+    <if test="feedcontent != null" >
+      and cf.FEED_CONTENT LIKE #{feedcontent,jdbcType=INTEGER}
+    </if>
+  </select>
+  <!--查询反馈内容-->
+  <select id="queryFeedInformationByContent" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT
+    cf.FEED_BACK_ID,
+    cf.FEED_CONTENT,
+    cf.FEED_IMG_URL,
+    cf.FEED_TYPE,
+    ct.USER_AREA,
+    ct.USER_NAME,
+    ct.USER_MOBILE_NO,
+    cf.FEED_TIME,
+    cfr.REPLY_ID
+    FROM
+    cms_feedback cf
+    INNER JOIN cms_terminal_user ct
+    on cf.USER_ID=ct.USER_ID
+    LEFT JOIN cms_feedback_reply cfr on cf.FEED_BACK_ID = cfr.FEED_BACK_ID
+    WHERE 1=1
+    <if test="feedcontent != null" >
+      and cf.FEED_CONTENT LIKE #{feedcontent,jdbcType=INTEGER}
+    </if>
+    ORDER BY cf.FEED_TIME DESC
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+    <!--app根据用户id获取反馈列表 -->
+  <select id="queryAppFeedInformationListById" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT
+    cf.FEED_CONTENT,
+    cf.FEED_IMG_URL
+    FROM
+    cms_feedback cf
+    <if test="userId != null" >
+      and cf.USER_ID = #{userId,jdbcType=VARCHAR}
+    </if>
+    ORDER BY cf.FEED_TIME DESC
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+</select>
+</mapper>

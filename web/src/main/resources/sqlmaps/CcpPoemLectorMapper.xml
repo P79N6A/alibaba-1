@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ccp.CcpPoemLectorMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ccp.CcpPoemLector" >
+    <id column="LECTOR_ID" property="lectorId" jdbcType="VARCHAR" />
+    <result column="LECTOR_NAME" property="lectorName" jdbcType="VARCHAR" />
+    <result column="LECTOR_HEAD_IMG" property="lectorHeadImg" jdbcType="VARCHAR" />
+    <result column="LECTOR_JOB" property="lectorJob" jdbcType="VARCHAR" />
+    <result column="LECTOR_INTRO" property="lectorIntro" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    LECTOR_ID, LECTOR_NAME, LECTOR_HEAD_IMG, LECTOR_JOB, LECTOR_INTRO, CREATE_TIME, CREATE_USER
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_poem_lector
+    where LECTOR_ID = #{lectorId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_poem_lector
+    where LECTOR_ID = #{lectorId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.ccp.CcpPoemLector" >
+    insert into ccp_poem_lector
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      LECTOR_ID,
+      <if test="lectorName != null" >
+        LECTOR_NAME,
+      </if>
+      <if test="lectorHeadImg != null" >
+        LECTOR_HEAD_IMG,
+      </if>
+      <if test="lectorJob != null" >
+        LECTOR_JOB,
+      </if>
+      <if test="lectorIntro != null" >
+        LECTOR_INTRO,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{lectorId,jdbcType=VARCHAR},
+      <if test="lectorName != null" >
+        #{lectorName,jdbcType=VARCHAR},
+      </if>
+      <if test="lectorHeadImg != null" >
+        #{lectorHeadImg,jdbcType=VARCHAR},
+      </if>
+      <if test="lectorJob != null" >
+        #{lectorJob,jdbcType=VARCHAR},
+      </if>
+      <if test="lectorIntro != null" >
+        #{lectorIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.ccp.CcpPoemLector" >
+    update ccp_poem_lector
+    <set >
+      <if test="lectorName != null" >
+        LECTOR_NAME = #{lectorName,jdbcType=VARCHAR},
+      </if>
+      <if test="lectorHeadImg != null" >
+        LECTOR_HEAD_IMG = #{lectorHeadImg,jdbcType=VARCHAR},
+      </if>
+      <if test="lectorJob != null" >
+        LECTOR_JOB = #{lectorJob,jdbcType=VARCHAR},
+      </if>
+      <if test="lectorIntro != null" >
+        LECTOR_INTRO = #{lectorIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where LECTOR_ID = #{lectorId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryAllPoemLector" resultMap="BaseResultMap">
+  	select *
+  	from ccp_poem_lector
+  	order by CREATE_TIME desc
+  </select>
+</mapper>

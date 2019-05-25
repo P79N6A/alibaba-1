@@ -1,0 +1,49 @@
+ [
+  {
+  "groupName": "性别",
+  "tagList": [
+              {
+              "tagName": "男",
+              "tagId": "1"
+              },
+              {
+              "tagName": "女",
+              "tagId": "2"
+              }
+              ]
+  },
+  {
+  "groupName": "当前\n状态",
+  "tagList": [
+              {
+              "tagName": "为人父母",
+              "tagId": "1"
+              },
+              {
+              "tagName": "恋爱/已婚",
+              "tagId": "2"
+              },
+              {
+              "tagName": "单身",
+              "tagId": "3"
+              }
+              ]
+  },
+  {
+  "groupName": "年龄",
+  "tagList": [
+              {
+              "tagName": "年轻人",
+              "tagId": "1"
+              },
+              {
+              "tagName": "中年人",
+              "tagId": "2"
+              },
+              {
+              "tagName": "老年人",
+              "tagId": "3"
+              }
+              ]
+  }
+]

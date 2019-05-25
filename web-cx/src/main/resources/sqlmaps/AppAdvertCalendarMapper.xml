@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.AppAdvertCalendarMapper">
+    <resultMap id="BaseResultMap" type="com.sun3d.why.model.AppAdvertCalendar">
+        <id column="advert_id" property="advertId" jdbcType="VARCHAR"/>
+        <result column="advert_name" property="advertName" jdbcType="VARCHAR"/>
+        <result column="advert_date" property="advertDate" jdbcType="TIMESTAMP"/>
+        <result column="adv_link" property="advLink" jdbcType="INTEGER"/>
+        <result column="adv_link_type" property="advLinkType" jdbcType="INTEGER"/>
+        <result column="adv_url" property="advUrl" jdbcType="VARCHAR"/>
+        <result column="adv_img_url" property="advImgUrl" jdbcType="VARCHAR"/>
+        <result column="adv_state" property="advState" jdbcType="INTEGER"/>
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="update_by" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    advert_id, advert_name, advert_date, adv_link, adv_link_type, adv_url, adv_img_url, 
+    adv_state, create_by, update_by, create_time, update_time
+  </sql>
+    <select id="getAdvert" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List"/>
+        from app_advert_calendar
+        where advert_id = #{advertId,jdbcType=VARCHAR}
+    </select>
+    <select id="selectAdvertIndex" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from app_advert_calendar
+        where adv_state='1'
+        <if test="advertId != null">
+            and advert_id = ${advertId}
+        </if>
+        <if test="firstResult != null">
+            limit ${firstResult},${rows}
+        </if>
+    </select>
+    <select id="selectAdvertCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM app_advert_calendar where adv_state='1'
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from app_advert_calendar
+    where advert_id = #{advertId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="addAdvert" parameterType="com.sun3d.why.model.AppAdvertCalendar">
+        insert into app_advert_calendar
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="advertId != null">
+                advert_id,
+            </if>
+            <if test="advertName != null">
+                advert_name,
+            </if>
+            <if test="advertDate != null">
+                advert_date,
+            </if>
+            <if test="advLink != null">
+                adv_link,
+            </if>
+            <if test="advLinkType != null">
+                adv_link_type,
+            </if>
+            <if test="advUrl != null">
+                adv_url,
+            </if>
+            <if test="advImgUrl != null">
+                adv_img_url,
+            </if>
+            <if test="advState != null">
+                adv_state,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="advertId != null">
+                #{advertId,jdbcType=VARCHAR},
+            </if>
+            <if test="advertName != null">
+                #{advertName,jdbcType=VARCHAR},
+            </if>
+            <if test="advertDate != null">
+                #{advertDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="advLink != null">
+                #{advLink,jdbcType=INTEGER},
+            </if>
+            <if test="advLinkType != null">
+                #{advLinkType,jdbcType=INTEGER},
+            </if>
+            <if test="advUrl != null">
+                #{advUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advImgUrl != null">
+                #{advImgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advState != null">
+                #{advState,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="editAdvert" parameterType="com.sun3d.why.model.AppAdvertCalendar">
+        update app_advert_calendar
+        <set>
+            <if test="advertName != null">
+                advert_name = #{advertName,jdbcType=VARCHAR},
+            </if>
+            <if test="advertDate != null">
+                advert_date = #{advertDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="advLink != null">
+                adv_link = #{advLink,jdbcType=INTEGER},
+            </if>
+            <if test="advLinkType != null">
+                adv_link_type = #{advLinkType,jdbcType=INTEGER},
+            </if>
+            <if test="advUrl != null">
+                adv_url = #{advUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advImgUrl != null">
+                adv_img_url = #{advImgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advState != null">
+                adv_state = #{advState,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where advert_id = #{advertId,jdbcType=VARCHAR}
+    </update>
+
+	<select id="queryCalendarAdvertByDate" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from app_advert_calendar
+        where adv_state='1'
+        <if test="date != null">
+            and advert_date = #{date}
+        </if>
+    </select>
+</mapper>

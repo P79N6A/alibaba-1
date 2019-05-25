@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsUserWantgoMapper">
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsUserWantgo">
+		<id column="SID" property="sid" jdbcType="VARCHAR" />
+		<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+		<result column="RELATE_ID" property="relateId" jdbcType="VARCHAR" />
+		<result column="RELATE_TYPE" property="relateType" jdbcType="INTEGER" />
+		<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="USER_HEAD_IMG_URL" property="userHeadImgUrl" jdbcType="VARCHAR" />
+		<result column="USER_SEX" property="userSex" jdbcType="INTEGER" />
+		<result column="USER_BIRTH" property="userBirth" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<!-- 添加我想去数据 -->
+	<insert id="addUserWantgo" parameterType="com.sun3d.why.model.CmsUserWantgo">
+		insert into cms_user_wantgo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sid != null">
+				SID,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="relateId != null">
+				RELATE_ID,
+			</if>
+			<if test="relateType != null">
+				RELATE_TYPE,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sid != null">
+				#{sid,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="relateId != null">
+				#{relateId,jdbcType=VARCHAR},
+			</if>
+			<if test="relateType != null">
+				#{relateType,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	
+	<!-- 根据relateId查询我想去总数目 -->
+	<select id="queryUserWantgoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		FROM cms_user_wantgo auw
+		<if test="relateType == 2">
+			inner JOIN cms_activity ca ON ca.activity_id = auw.relate_id
+		</if>
+		<if test="relateType == 1">
+			inner JOIN cms_venue cv ON cv.venue_id = auw.relate_id
+		</if>
+		inner JOIN cms_terminal_user ctu ON ctu.user_id = auw.user_id
+		WHERE 1=1
+		<if test="relateType == 2">
+			and ca.ACTIVITY_IS_DEL = 1 and ca.activity_state = 6
+		</if>
+		<if test="relateType == 1">
+			and cv.venue_is_del = 1 and cv.venue_state = 6
+		</if>
+		<if test="relateId != null">
+			and auw.RELATE_ID = #{relateId,jdbcType=VARCHAR}
+		</if>
+		<if test="userId != null">
+			and auw.USER_ID = #{userId,jdbcType=VARCHAR}
+		</if>
+	</select>
+	
+	<!-- 根据relateId查询我想去列表 -->
+	<select id="queryAppUserWantgoList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+		auw.USER_ID,
+		ctu.USER_NAME,
+		ctu.USER_HEAD_IMG_URL,
+		ctu.USER_SEX,
+		ctu.USER_BIRTH
+		FROM cms_user_wantgo auw
+		<if test="relateType == 2">
+			inner JOIN cms_activity ca ON ca.activity_id = auw.relate_id
+		</if>
+		<if test="relateType == 1">
+			inner JOIN cms_venue cv ON cv.venue_id = auw.relate_id
+		</if>
+		inner JOIN cms_terminal_user ctu ON ctu.user_id = auw.user_id
+		WHERE 1=1
+		<if test="relateType == 2">
+			and ca.ACTIVITY_IS_DEL = 1 and ca.activity_state = 6
+		</if>
+		<if test="relateType == 1">
+			and cv.venue_is_del = 1 and cv.venue_state = 6
+		</if>
+		<if test="relateId != null">
+			and auw.relate_id = #{relateId,jdbcType=VARCHAR}
+		</if>
+		<if test="userId != null">
+			and auw.USER_ID = #{userId,jdbcType=VARCHAR}
+		</if>
+		ORDER BY auw.CREATE_TIME desc
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</select>
+
+	<!--app查询该用户是否报名该活动或场馆 -->
+	<select id="queryAppUserWantCountById" parameterType="com.sun3d.why.model.CmsUserWantgo" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		FROM cms_user_wantgo auw
+		WHERE 1=1
+		<if test="relateId != null">
+			and auw.relate_id = #{relateId,jdbcType=VARCHAR}
+		</if>
+		<if test="userId != null">
+			and auw.USER_ID=#{userId,jdbcType=VARCHAR}
+		</if>
+	</select>
+    <!--app用户取消活动报名 -->
+	<delete id="deleteUserWantgo" parameterType="com.sun3d.why.model.CmsUserWantgo" >
+		delete from cms_user_wantgo
+		where USER_ID = #{userId,jdbcType=VARCHAR}
+		and relate_id = #{relateId,jdbcType=VARCHAR}
+	</delete>
+	
+	<select id="countUserWantgo" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM CMS_USER_WANTGO AUW
+			WHERE 1=1
+		<if test="relateId != null">
+		AND 
+			AUW.RELATE_ID = #{relateId,jdbcType=VARCHAR}
+		</if>
+		<if test="userId != null">
+		AND 
+			AUW.USER_ID=#{userId,jdbcType=VARCHAR}
+		</if>
+	</select>
+</mapper>

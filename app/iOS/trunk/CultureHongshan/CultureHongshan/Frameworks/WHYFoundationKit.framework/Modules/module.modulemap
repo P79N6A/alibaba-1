@@ -1,0 +1,6 @@
+framework module WHYFoundationKit {
+  umbrella header "WHYFoundationKit.h"
+
+  export *
+  module * { export * }
+}

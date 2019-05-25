@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sun3d.why.dao.volunteer.VolunteerRelationMapper">
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.volunteer.VolunteerRelation">
+    <id column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="volunteer_activity_id" jdbcType="VARCHAR" property="volunteerActivityId" />
+    <result column="volunteer_id" jdbcType="VARCHAR" property="volunteerId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_id" jdbcType="VARCHAR" property="createId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_id" jdbcType="VARCHAR" property="updateId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    uuid, volunteer_activity_id, volunteer_id, status, create_time, create_id, update_time,
+    update_id
+  </sql>
+
+  <resultMap id="volunteerMap" type="com.sun3d.why.model.volunteer.Volunteer">
+    <id column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="card_id" jdbcType="VARCHAR" property="cardId" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="region" jdbcType="VARCHAR" property="region" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="occupation" jdbcType="VARCHAR" property="occupation" />
+    <result column="brief" jdbcType="VARCHAR" property="brief" />
+    <result column="service_total" jdbcType="VARCHAR" property="serviceTotal" />
+    <result column="birthday" jdbcType="VARCHAR" property="birthday" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="education" jdbcType="INTEGER" property="education" />
+    <result column="political" jdbcType="INTEGER" property="political" />
+    <result column="create_id" jdbcType="VARCHAR" property="createId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_id" jdbcType="VARCHAR" property="updateId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="volunteer_base_column">
+    uuid, user_id, type, status, card_id, sex, phone, email, region, address, occupation,
+    brief, service_total, birthday, name, education, political, create_id, create_time,
+    update_id, update_time
+  </sql>
+
+  <select id="queryVolunteerRelationDetail" parameterType="com.sun3d.why.model.volunteer.VolunteerRelation" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_volunteer_relation
+    where status !=9
+    <if test="uuid != null">
+       and uuid = #{uuid,jdbcType=VARCHAR}
+    </if>
+    <if test="volunteerActivityId != null">
+      and volunteer_activity_id = #{volunteerActivityId,jdbcType=VARCHAR}
+    </if>
+    <if test="volunteerId != null">
+      and volunteer_id = #{volunteerId,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="queryVolunteerListByRelation" parameterType="map" resultMap="volunteerMap">
+    select
+    <include refid="volunteer_base_column" />
+
+    from t_volunteer
+    where status !=9 and uuid in (
+
+    select volunteer_id from t_volunteer_relation r
+    where r.status != 9
+    <if test="uuid != null">
+      and r.uuid = #{uuid,jdbcType=VARCHAR}
+    </if>
+    <if test="volunteerActivityId != null">
+      and r.volunteer_activity_id = #{volunteerActivityId,jdbcType=VARCHAR}
+    </if>
+    <if test="volunteerId != null">
+      and r.volunteer_id = #{volunteerId,jdbcType=VARCHAR}
+    </if>
+    )
+  </select>
+
+  <select id="queryVolunteerRelationList" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_volunteer_relation
+    where status !=9
+    <if test="uuid != null">
+      and uuid = #{uuid,jdbcType=VARCHAR}
+    </if>
+    <if test="volunteerActivityId != null">
+      and volunteer_activity_id = #{volunteerActivityId,jdbcType=VARCHAR}
+    </if>
+    <if test="volunteerId != null">
+      and volunteer_id = #{volunteerId,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <insert id="insert" parameterType="com.sun3d.why.model.volunteer.VolunteerRelation">
+    insert into t_volunteer_relation (uuid, volunteer_activity_id, volunteer_id,
+      status, create_time, create_id,
+      update_time, update_id)
+    values (#{uuid,jdbcType=VARCHAR}, #{volunteerActivityId,jdbcType=VARCHAR}, #{volunteerId,jdbcType=VARCHAR},
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createId,jdbcType=VARCHAR},
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="addVolunteerRelation" parameterType="com.sun3d.why.model.volunteer.VolunteerRelation">
+    insert into t_volunteer_relation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        uuid,
+      <if test="volunteerActivityId != null">
+        volunteer_activity_id,
+      </if>
+      <if test="volunteerId != null">
+        volunteer_id,
+      </if>
+        status,
+        create_time,
+        create_id,
+        update_time,
+        update_id,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+        #{uuid,jdbcType=VARCHAR},
+      <if test="volunteerActivityId != null">
+        #{volunteerActivityId,jdbcType=VARCHAR},
+      </if>
+      <if test="volunteerId != null">
+        #{volunteerId,jdbcType=VARCHAR},
+      </if>
+        #{status,jdbcType=INTEGER},
+        sysdate(),
+        #{createId,jdbcType=VARCHAR},
+        #{updateTime,jdbcType=TIMESTAMP},
+        sysdate(),
+    </trim>
+  </insert>
+  <update id="updateVolunteerRelation" parameterType="com.sun3d.why.model.volunteer.VolunteerRelation">
+    update t_volunteer_relation
+    set
+        status = #{status,jdbcType=INTEGER},
+        update_time = sysdate(),
+        update_id = #{updateId,jdbcType=VARCHAR}
+
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sun3d.why.model.volunteer.VolunteerRelation">
+    update t_volunteer_relation
+    set volunteer_activity_id = #{volunteerActivityId,jdbcType=VARCHAR},
+      volunteer_id = #{volunteerId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_id = #{createId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_id = #{updateId,jdbcType=VARCHAR}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

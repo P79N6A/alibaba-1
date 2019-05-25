@@ -1,0 +1,6 @@
+@charset "utf-8";
+/* create by minh 低于IE9版本兼容 */
+.user-box .img{ background: url("../image/user-img-iebg.png") no-repeat;}
+.left .btn-release{ behavior: url("css/PIE.htc"); position: relative;}
+
+

@@ -1,0 +1,236 @@
+@charset "UTF-8";
+/*  
+ *  文化云移动端颜色管理css
+ *  此CSS为上海文化云颜色风格
+ *  
+ * 
+ */
+/*首页活动价格标签颜色*/
+.activePay {
+  background-color: #36c7de;
+}
+
+/*活动列表已定完样式*/
+.actOrderNone {
+  background-color: rgba(38, 38, 38, 0.7) !important;
+}
+
+/*日历顶部导航条颜色*/
+.index-top {
+  background-color: #494c5b;
+}
+
+/*文化日历    今天    颜色*/
+.whyDataList .whyToday {
+  background-color: #f45034;
+  color: #fff;
+  border: 1px solid #f45034;
+}
+
+/*日历页左上角  我的日历  按钮*/
+.myDate {
+  border: 1px solid #fff;
+  background-color: #f45034;
+  color: #fff;
+}
+
+/*日历标签颜色*/
+.dateReyingyingpianTag {
+  width: 170px;
+  background-color: #96c2db;
+  border-radius: 5px;
+  margin-right: 20px;
+  float: left;
+  text-align: center;
+  font-size: 30px;
+  line-height: 50px;
+  color: #fff;
+}
+
+.dateWutaiyanchuTag {
+  width: 170px;
+  background-color: #aec1cf;
+  border-radius: 5px;
+  margin-right: 20px;
+  float: left;
+  text-align: center;
+  font-size: 30px;
+  line-height: 50px;
+  color: #fff;
+}
+
+.dateMeishuzhanlanTag {
+  width: 170px;
+  background-color: #7db3cf;
+  border-radius: 5px;
+  margin-right: 20px;
+  float: left;
+  text-align: center;
+  font-size: 30px;
+  line-height: 50px;
+  color: #fff;
+}
+
+.dateYinyuehuiTag {
+  width: 170px;
+  background-color: #939fdb;
+  border-radius: 5px;
+  margin-right: 20px;
+  float: left;
+  text-align: center;
+  font-size: 30px;
+  line-height: 50px;
+  color: #fff;
+}
+
+.dateYanchanghuiTag {
+  width: 170px;
+  background-color: #aaa1d0;
+  border-radius: 5px;
+  margin-right: 20px;
+  float: left;
+  text-align: center;
+  font-size: 30px;
+  line-height: 50px;
+  color: #fff;
+}
+
+.dateWudaoTag {
+  width: 170px;
+  background-color: #afb7e5;
+  border-radius: 5px;
+  margin-right: 20px;
+  float: left;
+  text-align: center;
+  font-size: 30px;
+  line-height: 50px;
+  color: #fff;
+}
+
+.dateHuajugejuTag {
+  width: 170px;
+  background-color: #a4acd0;
+  border-radius: 5px;
+  margin-right: 20px;
+  float: left;
+  text-align: center;
+  font-size: 30px;
+  line-height: 50px;
+  color: #fff;
+}
+
+.dateXiququyiTag {
+  width: 170px;
+  background-color: #adb1ca;
+  border-radius: 5px;
+  margin-right: 20px;
+  float: left;
+  text-align: center;
+  font-size: 30px;
+  line-height: 50px;
+  color: #fff;
+}
+
+.dateErtongjuTag {
+  width: 170px;
+  background-color: #a9c7eb;
+  border-radius: 5px;
+  margin-right: 20px;
+  float: left;
+  text-align: center;
+  font-size: 30px;
+  line-height: 50px;
+  color: #fff;
+}
+
+.dateZajimoshuTag {
+  width: 170px;
+  background-color: #858eaf;
+  border-radius: 5px;
+  margin-right: 20px;
+  float: left;
+  text-align: center;
+  font-size: 30px;
+  line-height: 50px;
+  color: #fff;
+}
+
+/*详情页右下方按钮    立即预约   咨询*/
+.footmenu-button5 button {
+  color: #fff;
+  background-color: #36c7de;
+}
+
+/*社团列表页标签颜色*/
+.community-list-font-title > ul > li {
+  border: 1px solid #8C8C8C;
+  background-color: #f1f1f1;
+}
+
+/*社团详情页标签颜色 */
+.community-video-person-tab1 > li > div {
+  color: #262626;
+  border: 1px solid #262626;
+  background-color: #f1f1f1;
+}
+
+/*社团照片视频 选中按钮颜色*/
+.community-tab-on {
+  background-color: #6571b0;
+  color: #fff;
+}
+
+/*社团照片视频按钮颜色*/
+.community-tab-list1 {
+  background-color: #f4f4f4;
+  border: 1px solid #808080;
+}
+
+/*广场置顶背景颜色*/
+.squareOnTop .squareActPush {
+  background-color: #F3F3F3 !important;
+  border-bottom: 3px solid #fff;
+}
+
+/*登录页登陆按钮*/
+.login-button button {
+  background-color: #f45034;
+  color: #fff;
+}
+
+/*订单页标签*/
+.m-o-l-1 {
+  color: #fff;
+  background-color: #f45034;
+}
+
+/*底部菜单颜色*/
+.footer {
+  background-color: #f3f3f3;
+}
+
+/*订单付款按钮预留css --? */
+.orderPayBtn {
+  background-color: #f45034 !important;
+  color: #fff;
+}
+
+/*取消支付订单按钮预留css --? */
+.orderPayCancel {
+  background-color: #F4F4F4 !important;
+  color: #6771a7 !important;
+}
+
+/*活动详情余票数预留css --？ */
+.standbyTicketNum {
+  color: #f45034;
+}
+
+/*城市选择标签*/
+.cityL-c div:nth-child(2) {
+  background-color: #f45034;
+  border: 1px solid #767da2;
+  color: #fff;
+}
+
+/*图文直播直播*/

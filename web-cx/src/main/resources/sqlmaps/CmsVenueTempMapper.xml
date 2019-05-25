@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsVenueTempMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.temp.CmsVenueTemp" >
+    <id column="VENUE_ID" property="venueId" jdbcType="VARCHAR" />
+    <result column="VENUE_NAME" property="venueName" jdbcType="VARCHAR" />
+    <result column="VENUE_ICON_URL" property="venueIconUrl" jdbcType="VARCHAR" />
+    <result column="VENUE_DETAIL_URL" property="venueDetailUrl" jdbcType="VARCHAR" />
+    <result column="VENUE_ADDRESS" property="venueAddress" jdbcType="VARCHAR" />
+    <result column="VENUE_TEL" property="venueTel" jdbcType="VARCHAR" />
+    <result column="VENUE_AREA" property="venueArea" jdbcType="VARCHAR" />
+    <result column="VENUE_CREATE_TIME" property="venueCreateTime" jdbcType="TIMESTAMP" />
+    <result column="VENUE_UPDATE_TIME" property="venueUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="VENUE_CREATE_USER" property="venueCreateUser" jdbcType="VARCHAR" />
+    <result column="VENUE_UPDATE_USER" property="venueUpdateUser" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <sql id="Base_Column" >
+    VENUE_ID, VENUE_NAME,
+    VENUE_ICON_URL, VENUE_DETAIL_URL,
+    VENUE_ADDRESS, VENUE_TEL,
+    VENUE_AREA, VENUE_CREATE_TIME,
+    VENUE_UPDATE_TIME, VENUE_CREATE_USER,
+    VENUE_UPDATE_USER
+  </sql>
+
+  <select id="queryByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT
+    VENUE_ID, VENUE_NAME,
+    VENUE_ICON_URL, VENUE_DETAIL_URL,
+    VENUE_ADDRESS, VENUE_TEL,
+    VENUE_AREA
+    FROM  cms_venue_temp
+    WHERE  VENUE_AREA =#{areaCode}
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+
+  <select id="countByCondition" parameterType="java.util.Map" resultType="java.lang.Integer" >
+    select count(*) from cms_venue_temp
+     WHERE  VENUE_AREA =#{areaCode}
+  </select>
+
+</mapper>

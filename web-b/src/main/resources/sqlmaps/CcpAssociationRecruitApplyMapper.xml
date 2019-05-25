@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sun3d.why.dao.CcpAssociationRecruitApplyMapper">
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CcpAssociationRecruitApply">
+    <id column="RECRUIT_APPLY_ID" jdbcType="VARCHAR" property="recruitApplyId" />
+    <result column="RECRUIT_ID" jdbcType="VARCHAR" property="recruitId" />
+    <result column="ASSN_ID" jdbcType="VARCHAR" property="assnId" />
+    <result column="APPLY_ID" jdbcType="VARCHAR" property="applyId" />
+    <result column="APPLY_NAME" jdbcType="VARCHAR" property="applyName" />
+    <result column="APPLY_CARD" jdbcType="VARCHAR" property="applyCard" />
+    <result column="MOBLIE" jdbcType="VARCHAR" property="moblie" />
+    <result column="PERSON_PROFILE" jdbcType="VARCHAR" property="personProfile" />
+    <result column="APPLY_TIME" jdbcType="TIMESTAMP" property="applyTime" />
+    <result column="APPLY_STATUS" jdbcType="INTEGER" property="applyStatus" />
+    <result column="OPERATION_USER" jdbcType="VARCHAR" property="operationUser" />
+    <result column="OPERATION_TIME" jdbcType="TIMESTAMP" property="operationTime" />
+    <result column="PIC" jdbcType="VARCHAR" property="pic" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    RECRUIT_APPLY_ID, RECRUIT_ID, ASSN_ID, APPLY_ID, APPLY_NAME, APPLY_CARD, MOBLIE, 
+    PERSON_PROFILE, APPLY_TIME, APPLY_STATUS, OPERATION_USER, OPERATION_TIME, PIC
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_association_recruit_apply
+    where RECRUIT_APPLY_ID = #{recruitApplyId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ccp_association_recruit_apply
+    where RECRUIT_APPLY_ID = #{recruitApplyId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sun3d.why.model.CcpAssociationRecruitApply">
+    insert into ccp_association_recruit_apply (RECRUIT_APPLY_ID, RECRUIT_ID, ASSN_ID, 
+      APPLY_ID, APPLY_NAME, APPLY_CARD, 
+      MOBLIE, PERSON_PROFILE, APPLY_TIME, 
+      APPLY_STATUS, OPERATION_USER, OPERATION_TIME, 
+      PIC)
+    values (#{recruitApplyId,jdbcType=VARCHAR}, #{recruitId,jdbcType=VARCHAR}, #{assnId,jdbcType=VARCHAR}, 
+      #{applyId,jdbcType=VARCHAR}, #{applyName,jdbcType=VARCHAR}, #{applyCard,jdbcType=VARCHAR}, 
+      #{moblie,jdbcType=VARCHAR}, #{personProfile,jdbcType=VARCHAR}, #{applyTime,jdbcType=TIMESTAMP}, 
+      #{applyStatus,jdbcType=INTEGER}, #{operationUser,jdbcType=VARCHAR}, #{operationTime,jdbcType=TIMESTAMP}, 
+      #{pic,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sun3d.why.model.CcpAssociationRecruitApply">
+    insert into ccp_association_recruit_apply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recruitApplyId != null">
+        RECRUIT_APPLY_ID,
+      </if>
+      <if test="recruitId != null">
+        RECRUIT_ID,
+      </if>
+      <if test="assnId != null">
+        ASSN_ID,
+      </if>
+      <if test="applyId != null">
+        APPLY_ID,
+      </if>
+      <if test="applyName != null">
+        APPLY_NAME,
+      </if>
+      <if test="applyCard != null">
+        APPLY_CARD,
+      </if>
+      <if test="moblie != null">
+        MOBLIE,
+      </if>
+      <if test="personProfile != null">
+        PERSON_PROFILE,
+      </if>
+      <if test="applyTime != null">
+        APPLY_TIME,
+      </if>
+      <if test="applyStatus != null">
+        APPLY_STATUS,
+      </if>
+      <if test="operationUser != null">
+        OPERATION_USER,
+      </if>
+      <if test="operationTime != null">
+        OPERATION_TIME,
+      </if>
+      <if test="pic != null">
+        PIC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recruitApplyId != null">
+        #{recruitApplyId,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitId != null">
+        #{recruitId,jdbcType=VARCHAR},
+      </if>
+      <if test="assnId != null">
+        #{assnId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyId != null">
+        #{applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyName != null">
+        #{applyName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyCard != null">
+        #{applyCard,jdbcType=VARCHAR},
+      </if>
+      <if test="moblie != null">
+        #{moblie,jdbcType=VARCHAR},
+      </if>
+      <if test="personProfile != null">
+        #{personProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null">
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyStatus != null">
+        #{applyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="operationUser != null">
+        #{operationUser,jdbcType=VARCHAR},
+      </if>
+      <if test="operationTime != null">
+        #{operationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pic != null">
+        #{pic,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sun3d.why.model.CcpAssociationRecruitApply">
+    update ccp_association_recruit_apply
+    <set>
+      <if test="recruitId != null">
+        RECRUIT_ID = #{recruitId,jdbcType=VARCHAR},
+      </if>
+      <if test="assnId != null">
+        ASSN_ID = #{assnId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyId != null">
+        APPLY_ID = #{applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyName != null">
+        APPLY_NAME = #{applyName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyCard != null">
+        APPLY_CARD = #{applyCard,jdbcType=VARCHAR},
+      </if>
+      <if test="moblie != null">
+        MOBLIE = #{moblie,jdbcType=VARCHAR},
+      </if>
+      <if test="personProfile != null">
+        PERSON_PROFILE = #{personProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null">
+        APPLY_TIME = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyStatus != null">
+        APPLY_STATUS = #{applyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="operationUser != null">
+        OPERATION_USER = #{operationUser,jdbcType=VARCHAR},
+      </if>
+      <if test="operationTime != null">
+        OPERATION_TIME = #{operationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pic != null">
+        PIC = #{pic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RECRUIT_APPLY_ID = #{recruitApplyId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sun3d.why.model.CcpAssociationRecruitApply">
+    update ccp_association_recruit_apply
+    set RECRUIT_ID = #{recruitId,jdbcType=VARCHAR},
+      ASSN_ID = #{assnId,jdbcType=VARCHAR},
+      APPLY_ID = #{applyId,jdbcType=VARCHAR},
+      APPLY_NAME = #{applyName,jdbcType=VARCHAR},
+      APPLY_CARD = #{applyCard,jdbcType=VARCHAR},
+      MOBLIE = #{moblie,jdbcType=VARCHAR},
+      PERSON_PROFILE = #{personProfile,jdbcType=VARCHAR},
+      APPLY_TIME = #{applyTime,jdbcType=TIMESTAMP},
+      APPLY_STATUS = #{applyStatus,jdbcType=INTEGER},
+      OPERATION_USER = #{operationUser,jdbcType=VARCHAR},
+      OPERATION_TIME = #{operationTime,jdbcType=TIMESTAMP},
+      PIC = #{pic,jdbcType=VARCHAR}
+    where RECRUIT_APPLY_ID = #{recruitApplyId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryRecruitApplyCountByMap" resultType="java.lang.Integer" parameterType="java.util.Map">
+    SELECT
+		count(*)
+	FROM ccp_association_recruit_apply a
+	LEFT JOIN ccp_association b ON a.ASSN_ID = b.ASSN_ID
+	LEFT JOIN cms_terminal_user c ON c.USER_ID = a.APPLY_ID
+	WHERE 1=1 and a.APPLY_STATUS=1
+		<if test="selectinput != null">
+            AND (c.USER_NAME like #{selectinput} or a.APPLY_NAME like #{selectinput} or a.APPLY_CARD like #{selectinput} or a.MOBLIE like #{selectinput})
+        </if>
+		<if test="assnId != null">
+            AND a.ASSN_ID = #{assnId,jdbcType=VARCHAR}
+        </if>
+		<if test="assnName != null">
+            AND b.ASSN_NAME like #{assnName,jdbcType=VARCHAR}
+        </if>
+        <if test="applyStartTime != null">
+            AND a.APPLY_TIME &gt;= #{applyStartTime}
+        </if>
+        <if test="applyEndTime != null">
+            AND a.APPLY_TIME &lt;= #{applyEndTime}
+        </if>
+  </select>
+  
+  <resultMap extends="BaseResultMap" id="QueryRecruitApplyMap" type="com.sun3d.why.model.CcpAssociationRecruitApply">
+    <result column="ASSN_NAME" jdbcType="VARCHAR" property="assnName" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+  </resultMap>
+  
+  <select id="queryRecruitApplyByMap" resultMap="QueryRecruitApplyMap" parameterType="java.util.Map">
+    SELECT
+		a.RECRUIT_APPLY_ID, a.RECRUIT_ID, a.ASSN_ID, a.APPLY_ID, a.APPLY_NAME, a.APPLY_CARD, a.MOBLIE, 
+    a.APPLY_TIME, a.APPLY_STATUS, a.OPERATION_USER, a.OPERATION_TIME,
+    b.ASSN_NAME,
+    c.USER_NAME
+	FROM ccp_association_recruit_apply a
+	LEFT JOIN ccp_association b ON a.ASSN_ID = b.ASSN_ID
+	LEFT JOIN cms_terminal_user c ON c.USER_ID = a.APPLY_ID
+	WHERE 1=1 and a.APPLY_STATUS=1
+		<if test="selectinput != null">
+            AND (c.USER_NAME like #{selectinput} or a.APPLY_NAME like #{selectinput} or a.APPLY_CARD like #{selectinput} or a.MOBLIE like #{selectinput})
+        </if>
+		<if test="assnId != null">
+            AND a.ASSN_ID = #{assnId,jdbcType=VARCHAR}
+        </if>
+		<if test="assnName != null">
+            AND b.ASSN_NAME like #{assnName,jdbcType=VARCHAR}
+        </if>
+        <if test="applyStartTime != null">
+            AND a.APPLY_TIME &gt;= #{applyStartTime}
+        </if>
+        <if test="applyEndTime != null">
+            AND a.APPLY_TIME &lt;= #{applyEndTime}
+        </if>
+        
+	ORDER BY a.APPLY_TIME DESC
+	<if test="firstResult != null">
+        limit ${firstResult},${rows}
+    </if>
+  </select>
+</mapper>

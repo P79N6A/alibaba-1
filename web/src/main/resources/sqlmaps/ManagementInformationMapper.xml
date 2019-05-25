@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ManagementInformationMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ManagementInformation" >
+    <id column="INFORMATION_ID" property="informationId" jdbcType="VARCHAR" />
+    <result column="INFORMATION_TAGS" property="informationTags" jdbcType="VARCHAR" />
+    <result column="INFORMATION_TITLE" property="informationTitle" jdbcType="VARCHAR" />
+    <result column="AUTHOR_NAME" property="authorName" jdbcType="VARCHAR" />
+    <result column="PUBLISHER_NAME" property="publisherName" jdbcType="VARCHAR" />
+    <result column="INFORMATION_LON" property="informationLon" jdbcType="DOUBLE" />
+    <result column="INFORMATION_LAT" property="informationLat" jdbcType="DOUBLE" />
+    <result column="SHARE_TITLE" property="shareTitle" jdbcType="VARCHAR" />
+    <result column="SHARE_SUMMARY" property="shareSummary" jdbcType="VARCHAR" />
+    <result column="SHARE_COUNT" property="shareCount" jdbcType="INTEGER" />
+    <result column="BROWSE_COUNT" property="browseCount" jdbcType="INTEGER" />
+    <result column="INFORMATION_ICON_URL" property="informationIconUrl" jdbcType="VARCHAR" />
+    <result column="SHARE_ICON_URL" property="shareIconUrl" jdbcType="VARCHAR" />
+    <result column="INFORMATION_FOOTER" property="informationFooter" jdbcType="INTEGER" />
+    <result column="INFORMATION_CREATE_TIME" property="informationCreateTime" jdbcType="TIMESTAMP" />
+    <result column="INFORMATION_UPDATE_TIME" property="informationUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="INFORMATION_CREATE_USER" property="informationCreateUser" jdbcType="VARCHAR" />
+    <result column="INFORMATION_UPDATE_USER" property="informationUpdateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.sun3d.why.model.ManagementInformation" extends="BaseResultMap" >
+    <result column="INFORMATION_CONTENT" property="informationContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    INFORMATION_ID, INFORMATION_TAGS, INFORMATION_TITLE, AUTHOR_NAME, PUBLISHER_NAME,
+    INFORMATION_LON, INFORMATION_LAT, SHARE_TITLE, SHARE_SUMMARY, SHARE_COUNT, BROWSE_COUNT,
+    INFORMATION_ICON_URL, SHARE_ICON_URL, INFORMATION_FOOTER, INFORMATION_CREATE_TIME,
+    INFORMATION_UPDATE_TIME, INFORMATION_CREATE_USER, INFORMATION_UPDATE_USER
+  </sql>
+  <sql id="Blob_Column_List" >
+    INFORMATION_CONTENT
+  </sql>
+  <!--/**-->
+  <!--* 根据传入的map查询咨询管理的总条数-->
+  <!--* @param map 查询条件-->
+  <!--* @return 咨询管理总条数-->
+  <!--*/-->
+  <select id="informationListCount" parameterType="java.util.Map"
+          resultType="java.lang.Integer" >
+    select
+    COUNT(*)
+    from management_information
+  </select>
+  <!--/**-->
+  <!--* 根据传入的map查询咨询管理列表信息-->
+  <!--* @param map  查询条件-->
+  <!--* @return 咨询管理列表信息-->
+  <!--*/-->
+  <select id="informationList" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from management_information
+    WHERE 1=1
+    <if test="informationTitle != null">
+      AND INFORMATION_TITLE = #{informationTitle,jdbcType=INTEGER}
+    </if>
+    order by INFORMATION_UPDATE_TIME desc
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+  <!--/**-->
+  <!--* 根据传入的Id查询咨询管理列表信息-->
+  <!--* @param map  查询条件-->
+  <!--* @return 咨询管理列表信息-->
+  <!--*/-->
+  <select id="selectByInformationId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from management_information
+    where INFORMATION_ID = #{informationId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from management_information
+    where INFORMATION_ID = #{informationId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertInformation" parameterType="com.sun3d.why.model.ManagementInformation" >
+    insert into management_information
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="informationId != null" >
+        INFORMATION_ID,
+      </if>
+      <if test="informationTags != null" >
+        INFORMATION_TAGS,
+      </if>
+      <if test="informationTitle != null" >
+        INFORMATION_TITLE,
+      </if>
+      <if test="authorName != null" >
+        AUTHOR_NAME,
+      </if>
+      <if test="publisherName != null" >
+        PUBLISHER_NAME,
+      </if>
+      <if test="informationLon != null" >
+        INFORMATION_LON,
+      </if>
+      <if test="informationLat != null" >
+        INFORMATION_LAT,
+      </if>
+      <if test="shareTitle != null" >
+        SHARE_TITLE,
+      </if>
+      <if test="shareSummary != null" >
+        SHARE_SUMMARY,
+      </if>
+      <if test="shareCount != null" >
+        SHARE_COUNT,
+      </if>
+      <if test="browseCount != null" >
+        BROWSE_COUNT,
+      </if>
+      <if test="informationIconUrl != null" >
+        INFORMATION_ICON_URL,
+      </if>
+      <if test="shareIconUrl != null" >
+        SHARE_ICON_URL,
+      </if>
+      <if test="informationFooter != null" >
+        INFORMATION_FOOTER,
+      </if>
+      <if test="informationCreateTime != null" >
+        INFORMATION_CREATE_TIME,
+      </if>
+      <if test="informationUpdateTime != null" >
+        INFORMATION_UPDATE_TIME,
+      </if>
+      <if test="informationCreateUser != null" >
+        INFORMATION_CREATE_USER,
+      </if>
+      <if test="informationUpdateUser != null" >
+        INFORMATION_UPDATE_USER,
+      </if>
+      <if test="informationContent != null" >
+        INFORMATION_CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="informationId != null" >
+        #{informationId,jdbcType=VARCHAR},
+      </if>
+      <if test="informationTags != null" >
+        #{informationTags,jdbcType=VARCHAR},
+      </if>
+      <if test="informationTitle != null" >
+        #{informationTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="authorName != null" >
+        #{authorName,jdbcType=VARCHAR},
+      </if>
+      <if test="publisherName != null" >
+        #{publisherName,jdbcType=VARCHAR},
+      </if>
+      <if test="informationLon != null" >
+        #{informationLon,jdbcType=DOUBLE},
+      </if>
+      <if test="informationLat != null" >
+        #{informationLat,jdbcType=DOUBLE},
+      </if>
+      <if test="shareTitle != null" >
+        #{shareTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="shareSummary != null" >
+        #{shareSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="shareCount != null" >
+        #{shareCount,jdbcType=INTEGER},
+      </if>
+      <if test="browseCount != null" >
+        #{browseCount,jdbcType=INTEGER},
+      </if>
+      <if test="informationIconUrl != null" >
+        #{informationIconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="shareIconUrl != null" >
+        #{shareIconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="informationFooter != null" >
+        #{informationFooter,jdbcType=INTEGER},
+      </if>
+      <if test="informationCreateTime != null" >
+        #{informationCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="informationUpdateTime != null" >
+        #{informationUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="informationCreateUser != null" >
+        #{informationCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="informationUpdateUser != null" >
+        #{informationUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="informationContent != null" >
+        #{informationContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByInformationId" parameterType="com.sun3d.why.model.ManagementInformation" >
+    update management_information
+    <set >
+      <if test="informationTags != null" >
+        INFORMATION_TAGS = #{informationTags,jdbcType=VARCHAR},
+      </if>
+      <if test="informationTitle != null" >
+        INFORMATION_TITLE = #{informationTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="authorName != null" >
+        AUTHOR_NAME = #{authorName,jdbcType=VARCHAR},
+      </if>
+      <if test="publisherName != null" >
+        PUBLISHER_NAME = #{publisherName,jdbcType=VARCHAR},
+      </if>
+      <if test="informationLon != null" >
+        INFORMATION_LON = #{informationLon,jdbcType=DOUBLE},
+      </if>
+      <if test="informationLat != null" >
+        INFORMATION_LAT = #{informationLat,jdbcType=DOUBLE},
+      </if>
+      <if test="shareTitle != null" >
+        SHARE_TITLE = #{shareTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="shareSummary != null" >
+        SHARE_SUMMARY = #{shareSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="shareCount != null" >
+        SHARE_COUNT = #{shareCount,jdbcType=INTEGER},
+      </if>
+      <if test="browseCount != null" >
+        BROWSE_COUNT = #{browseCount,jdbcType=INTEGER},
+      </if>
+      <if test="informationIconUrl != null" >
+        INFORMATION_ICON_URL = #{informationIconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="shareIconUrl != null" >
+        SHARE_ICON_URL = #{shareIconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="informationFooter != null" >
+        INFORMATION_FOOTER = #{informationFooter,jdbcType=INTEGER},
+      </if>
+      <if test="informationCreateTime != null" >
+        INFORMATION_CREATE_TIME = #{informationCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="informationUpdateTime != null" >
+        INFORMATION_UPDATE_TIME = #{informationUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="informationCreateUser != null" >
+        INFORMATION_CREATE_USER = #{informationCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="informationUpdateUser != null" >
+        INFORMATION_UPDATE_USER = #{informationUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="informationContent != null" >
+        INFORMATION_CONTENT = #{informationContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where INFORMATION_ID = #{informationId,jdbcType=VARCHAR}
+  </update>
+</mapper>

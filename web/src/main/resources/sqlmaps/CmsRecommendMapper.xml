@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsRecommendMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsRecommend" >
+    <id column="RECOMMEND_ID" property="recommendId" jdbcType="VARCHAR" />
+    <result column="RECOMMEND_TYPE" property="recommendType" jdbcType="INTEGER" />
+    <result column="RECOMMEND_LOC" property="recommendLoc" jdbcType="INTEGER" />
+    <result column="RECOMMEND_USER" property="recommendUser" jdbcType="VARCHAR" />
+    <result column="RECOMMEND_TIME" property="recommendTime" jdbcType="TIMESTAMP" />
+    <result column="RELATED_ID" property="relatedId" jdbcType="VARCHAR" />
+
+    <result column="content_name" property="contentName" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="recommend_user_name" property="recommendUserName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <insert id="addCmsRecommend" parameterType="com.sun3d.why.model.CmsRecommend" >
+    insert into cms_recommend
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recommendId != null" >
+        RECOMMEND_ID,
+      </if>
+      <if test="recommendType != null" >
+        RECOMMEND_TYPE,
+      </if>
+      <if test="recommendLoc != null" >
+        RECOMMEND_LOC,
+      </if>
+      <if test="recommendUser != null" >
+        RECOMMEND_USER,
+      </if>
+      <if test="recommendTime != null" >
+        RECOMMEND_TIME,
+      </if>
+      <if test="relatedId != null" >
+        RELATED_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recommendId != null" >
+        #{recommendId,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendType != null" >
+        #{recommendType,jdbcType=INTEGER},
+      </if>
+      <if test="recommendLoc != null" >
+        #{recommendLoc,jdbcType=INTEGER},
+      </if>
+      <if test="recommendUser != null" >
+        #{recommendUser,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendTime != null" >
+        #{recommendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="relatedId != null" >
+        #{relatedId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteCmsRecommendById" parameterType="java.lang.String" >
+    delete from cms_recommend
+    where RECOMMEND_ID = #{recommendId,jdbcType=VARCHAR}
+  </delete>
+
+  <update id="editCmsRecommend" parameterType="com.sun3d.why.model.CmsRecommend" >
+    update cms_recommend
+    <set >
+      <if test="recommendType != null" >
+        RECOMMEND_TYPE = #{recommendType,jdbcType=INTEGER},
+      </if>
+      <if test="recommendLoc != null" >
+        RECOMMEND_LOC = #{recommendLoc,jdbcType=INTEGER},
+      </if>
+      <if test="recommendUser != null" >
+        RECOMMEND_USER = #{recommendUser,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendTime != null" >
+        RECOMMEND_TIME = #{recommendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="relatedId != null" >
+        RELATED_ID = #{relatedId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RECOMMEND_ID = #{recommendId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="queryCmsRecommendById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    RECOMMEND_ID, RECOMMEND_TYPE, RECOMMEND_LOC, RECOMMEND_USER, RECOMMEND_TIME, RELATED_ID
+    from cms_recommend
+    where RECOMMEND_ID = #{recommendId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryCmsRecommendList" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    select r.RECOMMEND_ID, r.RECOMMEND_TYPE, r.RECOMMEND_LOC, r.RECOMMEND_USER, r.RECOMMEND_TIME, r.RELATED_ID,a.ACTIVITY_NAME as content_name,a.ACTIVITY_AREA as area,u.USER_ACCOUNT as recommend_user_name
+    from cms_recommend r
+    inner join cms_activity a on r.RELATED_ID = a.ACTIVITY_ID
+    left join sys_user u on r.RECOMMEND_USER = u.USER_ID
+    where r.RECOMMEND_TYPE = 1
+    <if test="contentName != null">
+        and a.ACTIVITY_NAME like #{contentName}
+    </if>
+    order by RECOMMEND_TIME desc
+    limit #{firstResult},#{rows}
+  </select>
+
+  <select id="queryCmsRecommendCount" parameterType="java.util.HashMap" resultType="java.lang.Integer" >
+    select count(*)
+    from cms_recommend r inner join cms_activity a on r.RELATED_ID = a.ACTIVITY_ID
+    where 1=1 and r.RECOMMEND_TYPE = 1
+  </select>
+
+  <select id="queryVenueAllArea" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+    select a.ACTIVITY_AREA as area
+    from cms_recommend r
+    inner join cms_activity a on r.RELATED_ID = a.ACTIVITY_ID
+    left join sys_user u on r.RECOMMEND_USER = u.USER_ID
+    where r.RECOMMEND_TYPE = 1
+    group by area
+  </select>
+
+  <select id="queryCmsRecommend" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.CmsRecommend" >
+    select
+    RECOMMEND_ID, RECOMMEND_TYPE, RECOMMEND_LOC, RECOMMEND_USER, RECOMMEND_TIME, RELATED_ID
+    from cms_recommend
+    where 1 =1
+    <if test="recommendType != null" >
+      and RECOMMEND_TYPE = #{recommendType,jdbcType=INTEGER}
+    </if>
+    <if test="recommendLoc != null" >
+      and RECOMMEND_LOC = #{recommendLoc,jdbcType=INTEGER}
+    </if>
+    <if test="recommendUser != null" >
+      and RECOMMEND_USER = #{recommendUser,jdbcType=VARCHAR}
+    </if>
+    <if test="recommendTime != null" >
+      and RECOMMEND_TIME = #{recommendTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="relatedId != null" >
+      and RELATED_ID = #{relatedId,jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>

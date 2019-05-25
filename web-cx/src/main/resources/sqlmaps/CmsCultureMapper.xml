@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsCultureMapper">
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsCulture" >
+    <id column="culture_Id" property="cultureId" jdbcType="VARCHAR" />
+    <result column="culture_Name" property="cultureName" jdbcType="VARCHAR" />
+    <result column="culture_ImgUrl" property="cultureImgurl" jdbcType="VARCHAR" />
+    <result column="culture_Province" property="cultureProvince" jdbcType="VARCHAR" />
+    <result column="culture_City" property="cultureCity" jdbcType="VARCHAR" />
+    <result column="culture_Area" property="cultureArea" jdbcType="VARCHAR" />
+    <result column="culture_State" jdbcType="INTEGER" property="cultureState" />
+    <result column="create_Time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_User" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_Time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="update_User" property="updateUser" jdbcType="VARCHAR" />
+    <result column="culture_System" property="cultureSystem" jdbcType="LONGVARCHAR" />
+    <result column="culture_Years" property="cultureYears" jdbcType="LONGVARCHAR" />
+    <result column="culture_Type" property="cultureType" jdbcType="LONGVARCHAR" />
+    <result column="culture_Des" property="cultureDes" jdbcType="LONGVARCHAR" />
+    <!--自定义显示名称-->
+    <result column="cultureSystemName" property="cultureSystemName" jdbcType="VARCHAR" />
+    <result column="cultureNameYear" property="cultureYearName" jdbcType="VARCHAR" />
+    <result column="cultureTypeName" property="cultureTypeName" jdbcType="VARCHAR" />
+
+    <!--非遗视频地址-->
+    <result column="culture_VedioUrl" property="cultureVediourl" jdbcType="VARCHAR" />
+
+    <result column="sysUserName" property="sysUserName" jdbcType="VARCHAR" />
+    <!--浏览量-->
+    <result column="year_browse_count" property="yearBrowseCount" jdbcType="INTEGER"/>
+
+    <!--app添加字段 -->
+    <result column="DICT_NAME" property="dictName" jdbcType="VARCHAR" />
+
+  </resultMap>
+
+
+
+<sql id="Base_Column_List" >
+  culture_Id, culture_Name, culture_ImgUrl, culture_Province, culture_City, culture_Area,culture_State,
+  create_Time, create_User, update_Time, update_User,culture_System,culture_Years,culture_Type,culture_Des,culture_VedioUrl
+</sql>
+
+
+<!--app获取非遗详情 -->
+  <select id="queryAppById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+SELECT c.culture_ImgUrl,c.culture_Name,s.DICT_NAME,c.culture_City,c.culture_Area,c.culture_Des,c.culture_Id FROM cms_culture c
+LEFT JOIN sys_dict s on c.culture_Type=s.DICT_ID
+where 1=1
+and c.culture_Id=#{cultureId,jdbcType=VARCHAR} and c.culture_State=1;
+  </select>
+
+  <select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT
+      culture_Id, culture_Name, culture_ImgUrl,
+      culture_Province, culture_City, culture_Area,
+      culture_State,culture_System,culture_Years,culture_Type,culture_Des,culture_VedioUrl
+    FROM cms_culture
+    WHERE culture_Id = #{cultureId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryByConditions" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+    culture_Id, culture_Name, culture_ImgUrl, culture_Province, culture_City, culture_Area,culture_State,
+    update_Time, update_User,culture_System,culture_Years,culture_Type,
+    s.dict_name cultureSystemName,
+    sd.dict_name cultureTypeName,
+    user.USER_ACCOUNT sysUserName
+    from cms_culture
+
+    JOIN  SYS_DICT s
+    ON culture_System = s.dict_id
+
+    JOIN  SYS_DICT sd
+    ON culture_Type = sd.dict_id
+
+    JOIN  sys_user user
+    ON update_User =  user.user_id
+    WHERE  1=1
+
+    <if test="culState!=null">
+        AND culture_State=#{culState}
+        </if>
+      <if test="areaData!=null">
+        AND culture_Area LIKE #{areaData}
+        </if>
+      <if test="culName!=null">
+        AND culture_Name LIKE #{culName}
+      </if>
+      <if test="culType!=null">
+        AND culture_Type = #{culType}
+      </if>
+       <if test="culSystem!=null">
+         AND  culture_System = #{culSystem}
+       </if>
+
+     ORDER  by update_Time DESC
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+
+  <select id="queryCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT
+    COUNT(*)
+    FROM cms_culture
+
+/*    JOIN  SYS_DICT s ON culture_System = s.dict_id
+
+    JOIN  SYS_DICT sd ON culture_Type = sd.dict_id*/
+
+    WHERE  1=1
+
+      <if test="culState!=null">
+        AND culture_State=#{culState}
+      </if>
+
+      <if test="areaData!=null">
+        AND culture_Area LIKE #{areaData}
+      </if>
+
+      <if test="culName!=null">
+        AND culture_Name LIKE #{culName}
+      </if>
+
+      <if test="culType!=null">
+        AND culture_Type = #{culType}
+      </if>
+
+      <if test="culSystem!=null">
+        AND culture_System = #{culSystem}
+      </if>
+
+      <if test="culYear!=null">
+        AND  culture_Years = #{culYear}
+      </if>
+
+  </select>
+
+
+
+
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cms_culture
+    where culture_Id = #{cultureId,jdbcType=VARCHAR}
+  </delete>-->
+
+
+
+
+<!--  <insert id="addCmsCulture" parameterType="com.sun3d.why.model.CmsCulture" >
+    insert into cms_culture (culture_Id, culture_Name, culture_ImgUrl, 
+      culture_Province, culture_City, culture_Area, 
+      create_Time, create_User,culture_State, update_Time,
+      update_User, culture_System, culture_Years, 
+      culture_Type)
+    values (#{cultureId,jdbcType=VARCHAR}, #{cultureName,jdbcType=VARCHAR}, #{cultureImgurl,jdbcType=VARCHAR}, 
+      #{cultureProvince,jdbcType=VARCHAR}, #{cultureCity,jdbcType=VARCHAR}, #{cultureArea,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR},
+      #{cultureState,jdbcType=INTEGER},
+      #{updateTime,jdbcType=TIMESTAMP},
+      #{updateUser,jdbcType=VARCHAR}, #{cultureSystem,jdbcType=LONGVARCHAR}, #{cultureYears,jdbcType=LONGVARCHAR}, 
+      #{cultureType,jdbcType=LONGVARCHAR})
+  </insert>-->
+
+
+  <insert id="addCmsCulture" parameterType="com.sun3d.why.model.CmsCulture" >
+    insert into cms_culture
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cultureId != null" >
+        culture_Id,
+      </if>
+      <if test="cultureName != null" >
+        culture_Name,
+      </if>
+      <if test="cultureImgurl != null" >
+        culture_ImgUrl,
+      </if>
+      <if test="cultureProvince != null" >
+        culture_Province,
+      </if>
+      <if test="cultureCity != null" >
+        culture_City,
+      </if>
+      <if test="cultureArea != null" >
+        culture_Area,
+      </if>
+      <if test="createTime != null" >
+        create_Time,
+      </if>
+      <if test="createUser != null" >
+        create_User,
+      </if>
+      <if test="updateTime != null" >
+        update_Time,
+      </if>
+      <if test="updateUser != null" >
+        update_User,
+      </if>
+      <if test="cultureSystem != null" >
+        culture_System,
+      </if>
+      <if test="cultureYears != null" >
+        culture_Years,
+      </if>
+      <if test="cultureType != null" >
+        culture_Type,
+      </if>
+      <if test="cultureState != null">
+        culture_State,
+      </if>
+      <if test="cultureDes != null">
+        culture_Des,
+      </if>
+      <if test="cultureVediourl != null">
+        culture_VedioUrl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cultureId != null" >
+        #{cultureId,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureName != null" >
+        #{cultureName,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureImgurl != null" >
+        #{cultureImgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureProvince != null" >
+        #{cultureProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureCity != null" >
+        #{cultureCity,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureArea != null" >
+        #{cultureArea,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureSystem != null" >
+        #{cultureSystem,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cultureYears != null" >
+        #{cultureYears,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cultureType != null" >
+        #{cultureType,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cultureState != null">
+        #{cultureState,jdbcType=INTEGER},
+      </if>
+      <if test="cultureDes != null">
+        #{cultureDes,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureVediourl != null">
+        #{cultureVediourl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+
+
+  <!--<update id="" parameterType="map" >
+    update cms_culture
+    <set >
+      <if test="record.cultureId != null" >
+        culture_Id = #{record.cultureId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cultureName != null" >
+        culture_Name = #{record.cultureName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cultureImgurl != null" >
+        culture_ImgUrl = #{record.cultureImgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cultureProvince != null" >
+        culture_Province = #{record.cultureProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cultureCity != null" >
+        culture_City = #{record.cultureCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cultureArea != null" >
+        culture_Area = #{record.cultureArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_Time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null" >
+        create_User = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_Time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null" >
+        update_User = #{record.updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cultureSystem != null" >
+        culture_System = #{record.cultureSystem,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.cultureYears != null" >
+        culture_Years = #{record.cultureYears,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.cultureType != null" >
+        culture_Type = #{record.cultureType,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>-->
+
+
+
+
+
+  <update id="updateCmsCulture" parameterType="com.sun3d.why.model.CmsCulture">
+    update cms_culture
+    <set >
+      <if test="cultureName != null" >
+        culture_Name = #{cultureName,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureImgurl != null" >
+        culture_ImgUrl = #{cultureImgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureProvince != null" >
+        culture_Province = #{cultureProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureCity != null" >
+        culture_City = #{cultureCity,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureArea != null" >
+        culture_Area = #{cultureArea,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_Time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_User = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_Time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        update_User = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cultureSystem != null" >
+        culture_System = #{cultureSystem,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cultureYears != null" >
+        culture_Years = #{cultureYears,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cultureType != null" >
+        culture_Type = #{cultureType,jdbcType=LONGVARCHAR},
+      </if>
+
+      <if test="cultureState != null">
+        culture_State = #{cultureState,jdbcType=INTEGER},
+      </if>
+
+      <if test="cultureDes != null">
+        culture_Des = #{cultureDes,jdbcType=INTEGER},
+      </if>
+
+      <if test="cultureVediourl != null">
+        culture_VedioUrl= #{cultureVediourl,jdbcType=VARCHAR},
+      </if>
+
+    </set>
+    where culture_Id = #{cultureId,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="queryArea" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+    culture_Area
+    from
+    cms_culture
+    GROUP  by culture_Area
+  </select>
+
+  <delete id="delete" parameterType="java.lang.String">
+    DELETE  from  cms_culture WHERE  culture_Id=#{id}
+  </delete>
+ <!--app根据条件筛选非遗 -->
+  <select id="queryAppCultureIndex" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select    c.culture_Id, c.culture_Name, c.culture_ImgUrl
+   FROM  cms_culture c left join cms_statistics s on c.CULTURE_ID= s.s_id and s.s_type = 5
+    WHERE  1=1
+      <if test="cultureState!=null">
+        and c.culture_State=#{cultureState}
+    </if>
+      <if test="areaArea!=null">
+        and c.culture_Area LIKE #{areaArea}
+    </if>
+      <if test="cultureName!=null">
+        and c.culture_Name LIKE #{cultureName}
+    </if>
+      <if test="cultureType!=null">
+        and c.culture_Type = #{cultureType}
+    </if>
+      <if test="culSystem!=null">
+        and   c.culture_System = #{culSystem}
+    </if>
+   <if test="appType!=null and appType==1">
+     order BY  c.update_Time DESC
+   </if>
+    <if test="appType!=null and appType==2">
+      order by s.year_browse_count desc
+    </if>
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+  <select id="queryAppCultureCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select   COUNT(*)
+    FROM  cms_culture c left join cms_statistics s on c.CULTURE_ID= s.s_id and s.s_type = 5
+    WHERE  1=1
+    <if test="cultureState!=null">
+     and  c.culture_State=#{cultureState}
+    </if>
+    <if test="areaArea!=null">
+      and c.culture_Area LIKE #{areaArea}
+    </if>
+    <if test="cultureName!=null">
+      and c.culture_Name LIKE #{cultureName}
+    </if>
+    <if test="cultureType!=null">
+      and c.culture_Type = #{cultureType}
+    </if>
+    <if test="culSystem!=null">
+      and c.culture_System = #{culSystem}
+    </if>
+  </select>
+
+
+<!--网页列表查询-->
+  <select id="queryFrontList" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT
+    c.culture_Id,
+    c.culture_Name,
+    c.culture_ImgUrl,
+/*   去掉非必要字段  c.culture_Province,
+    c.culture_City,
+    c.culture_Area,
+    c.culture_State,
+    c.culture_System,*/
+    c.culture_Years,
+    c.culture_Type,
+    s.YEAR_BROWSE_COUNT as yearBrowseCount,
+    sd.dict_name cultureTypeName
+    FROM cms_culture c
+
+    JOIN  SYS_DICT sd
+    ON c.culture_Type = sd.dict_id
+
+    LEFT JOIN
+    cms_statistics s
+    ON s.S_ID = c.culture_Id
+
+    WHERE   c.culture_State=1
+
+    <if test="culName!=null">
+      AND c.culture_Name LIKE #{culName}
+    </if>
+    <if test="culType!=null">
+      AND c.culture_Type = #{culType}
+    </if>
+    <if test="culSystem!=null">
+      AND  c.culture_System = #{culSystem}
+    </if>
+
+    <if test="culYear!=null">
+      AND  c.culture_Years = #{culYear}
+    </if>
+
+    ORDER  BY c.update_Time DESC
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+
+
+  <!-- 前端2.0查询非遗详情中的推荐非遗 -->
+  <select id="queryRecommendCulture" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT a.culture_id,a.culture_name,a.culture_ImgUrl,a.culture_type,b.dict_name,d.year_browse_count
+    from cms_culture a left join sys_dict b on a.culture_type=b.dict_id
+    left join cms_statistics d on a.culture_id=d.s_id
+    where 1=1
+    <if test="cultureState != null">
+      and a.culture_state =#{cultureState}
+    </if>
+    <if test="cultureArea != null">
+      and a.culture_Area =#{cultureArea}
+    </if>
+    <if test="cultureType != null">
+      and a.culture_type =#{cultureType}
+    </if>
+    <if test="cultureId != null">
+      and a.culture_id &lt;> #{cultureId}
+    </if>
+    order by d.year_browse_count desc
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+</mapper>

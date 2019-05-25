@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        style="@style/item_ll_style"
+        >
+
+        <TextView
+            style="@style/item_name_style"
+            android:text="活动室："
+            />
+        <TextView
+            android:id="@+id/item_venue_name"
+            style="@style/item_content_style"
+            android:layout_weight="1"
+            android:text="dddddddddddddd"
+            />
+
+        <TextView
+            android:id="@+id/isAdmission"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:text="已入场"
+            android:visibility="gone"
+            android:gravity="bottom"
+            android:textColor="#2CDEB4"
+            />
+    </LinearLayout>
+    <View
+       style="@style/item_line_style"></View>
+    <LinearLayout
+        style="@style/item_ll_style"
+        >
+        <TextView
+            style="@style/item_name_style"
+            android:text="使用时间：" />
+        <CheckBox
+            android:id="@+id/item_venue_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:layout_gravity="center_vertical"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="false"
+            android:textColor="@color/white"
+            android:background="@drawable/shape_data_bg"
+            android:button="@null"
+            android:paddingRight="8dp"
+            android:paddingLeft="8dp"
+            android:layout_margin="3dp"
+            android:text="dddddddd"
+            android:textSize="17sp"/>
+    </LinearLayout>
+    <View
+        style="@style/item_line_style"></View>
+</LinearLayout>

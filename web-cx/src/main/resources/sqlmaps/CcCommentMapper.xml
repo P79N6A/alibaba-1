@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CcCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CcComment" >
+    <id column="COMMENT_ID" property="commentId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="COMMENT_REMARK" property="commentRemark" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    
+    <result column="USER_HEAD_IMG_URL" property="userHeadImgUrl" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    COMMENT_ID, USER_ID, COMMENT_REMARK, CREATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cc_comment
+    where COMMENT_ID = #{commentId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cc_comment
+    where COMMENT_ID = #{commentId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.CcComment" >
+    insert into cc_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      COMMENT_ID,
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="commentRemark != null" >
+        COMMENT_REMARK,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{commentId,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="commentRemark != null" >
+        #{commentRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.CcComment" >
+    update cc_comment
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="commentRemark != null" >
+        COMMENT_REMARK = #{commentRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where COMMENT_ID = #{commentId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryAllCcComment" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    	cc.COMMENT_ID, cc.USER_ID, cc.COMMENT_REMARK, cc.CREATE_TIME,t.USER_HEAD_IMG_URL,t.USER_NAME
+    from cc_comment cc
+    left join cms_terminal_user t on cc.USER_ID = t.user_id
+    order by cc.CREATE_TIME desc
+  </select>
+</mapper>

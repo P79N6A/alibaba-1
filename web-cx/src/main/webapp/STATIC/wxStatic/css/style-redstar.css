@@ -1,0 +1,987 @@
+/*缁俱垺妲︽稉顓炴禇閺嶅嘲绱�*/
+
+* {
+	-webkit-tap-highlight-color: transparent;
+	/* For some Androids */
+}
+
+html,
+body {}
+
+.redstarMain {
+	width: 750px;
+	margin: auto;
+	overflow: hidden;
+	position: relative;
+}
+
+.indexBg {
+	padding-bottom: 50px;
+	min-height: 100%;
+	background: url(../image/redStar/indexbg.png)no-repeat center center;
+	background-size: 100% 100%;
+}
+
+.helpBg {
+	background: url(../image/redStar/helpbg.png)no-repeat center center;
+	background-size: 100% 100%;
+}
+
+.otherBg {
+	background: url(../image/redStar/bg.png)no-repeat center center;
+	background-size: 100% 100%;
+}
+
+.indexTtImg {
+	padding-top: 30px;
+	text-align: center;
+}
+
+.redstarBtnList {
+	position: absolute;
+	right: 30px;
+	top: 30px;
+}
+
+.redstarKepp,
+.redstarWhy,
+.redstarShare {
+	float: left;
+	margin-right: 30px;
+}
+
+.playChance {
+	height: 70px;
+}
+
+.playChanceFont {
+	width: 580px;
+	margin: 10px auto 0;
+}
+
+.playChanceFont>p {
+	float: left;
+	font-size: 40px;
+	line-height: 77px;
+}
+
+.inviteBtn {
+	float: right;
+}
+
+.redstarRound {
+	margin-top: 40px;
+}
+
+.redstarHead {
+	background: url(../image/redStar/bghead.png) no-repeat center center;
+	width: 285px;
+	height: 151px;
+	margin: 40px auto 0;
+	position: relative;
+}
+
+.redstarHeadImg {
+	width: 71px;
+	height: 65px;
+	position: absolute;
+	left: 20px;
+	top: 5px;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+.redstarHeadName {
+	width: 150px;
+	height: 40px;
+	line-height: 40px;
+	font-size: 20px;
+	color: #83430f;
+	position: absolute;
+	left: 105px;
+	top: 35px;
+}
+
+.redstarHeadName p {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.redstarP {
+	margin-top: 40px;
+}
+
+.redstarPDiv {
+	border: 1px solid #af152a;
+	border-radius: 10px;
+	padding: 20px 30px;
+	width: 500px;
+	margin: auto;
+}
+
+.redstarPDiv p {
+	text-align: center;
+	font-size: 30px;
+}
+
+.redstarPDiv p span {
+	color: #af152a;
+}
+
+.redstarRule {
+	position: absolute;
+	left: -180px;
+	top: 20px;
+}
+
+.redstarCup {
+	position: absolute;
+	right: -180px;
+	top: 20px;
+}
+
+.playnumNone {
+	position: fixed;
+	z-index: 10;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	width: 100%;
+	height: 100%;
+	background: rgba(255, 245, 227, 0.95);
+}
+
+.playnumNonePop {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	width: 588px;
+	height: 685px;
+	background: url(../image/redStar/playNone.png) no-repeat center center;
+}
+
+.redstarYaoqing {
+	width: 529px;
+	height: 104px;
+	text-align: center;
+	margin: 390px auto 0;
+}
+
+.redstarXiaci {
+	width: 529px;
+	height: 104px;
+	text-align: center;
+	margin: 30px auto 0;
+}
+
+.redstarUserBravo {
+	position: absolute;
+	left: 75px;
+	top: 90px;
+	width: 140px;
+	height: 50px;
+	font-size: 23px;
+	color: #961121;
+	line-height: 50px;
+}
+
+.miniBag {
+	position: absolute;
+	right: 15px;
+	bottom: 10px;
+	width: 53px;
+	height: 50px;
+}
+
+.redstarPoint {
+	position: fixed;
+	z-index: 10;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	width: 100%;
+	height: 100%;
+	background: rgba(255, 245, 227, 0.95);
+}
+
+.redstarPointPop {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	width: 588px;
+	height: 685px;
+	background: url(../image/redStar/pointpop.png) no-repeat center center;
+}
+
+.redstarPointFont {
+	width: 500px;
+	margin: 160px auto 0;
+}
+
+.redstarPointFont>p {
+	width: 500px;
+	font-size: 30px;
+	color: #262626;
+	line-height: 50px;
+}
+
+.redstarPointBtn {
+	width: 529px;
+	height: 104px;
+	margin: 130px auto 0;
+}
+
+.redstarRuleDiv {
+	position: fixed;
+	z-index: 10;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	width: 100%;
+	height: 100%;
+	background: rgba(255, 245, 227, 0.95);
+}
+
+.redstarRuleFont {
+	width: 534px;
+	height: 951px;
+	margin: 50px auto 0;
+	background: url(../image/redStar/bg_rule.png) no-repeat center center;
+}
+
+.fontDiv {
+	padding: 200px 60px 0;
+	font-size: 24px;
+	color: #262626;
+	line-height: 40px;
+}
+
+.fontDiv>p {
+	margin-bottom: 10px;
+}
+
+.redstarRuleBtn {
+	width: 451px;
+	height: 89px;
+	margin: 50px auto 0;
+}
+
+.redstarStele {
+	position: fixed;
+	z-index: 10;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	width: 100%;
+	height: 100%;
+	background: rgba(255, 245, 227, 0.95);
+}
+
+.redstarSteleDiv {
+	width: 543px;
+	height: 951px;
+	margin: 50px auto 0;
+	background: url(../image/redStar/bg_stele.png) no-repeat center center;
+	overflow: hidden;
+}
+
+.redstarSteleBtn {
+	width: 451px;
+	height: 89px;
+	margin: 50px auto 0;
+}
+
+.redstarRanking {}
+
+.redstarRanking {}
+
+.redstarRankingMe {
+	border: 1px solid #745410;
+	width: 450px;
+	height: 100px;
+	background-color: #b21828;
+	border-radius: 10px;
+	margin: 235px auto 85px;
+}
+
+.rankingMeImg {
+	float: left;
+	margin: 7px;
+	border: 3px solid #ba7a1e;
+	width: 80px;
+	height: 80px;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+.rankingMeDetail {
+	float: left;
+	width: 315px;
+	height: 80px;
+	margin: 10px;
+}
+
+.MyInfo {
+	float: left;
+	width: 230px;
+	height: 80px;
+	overflow: hidden;
+}
+
+.MyInfoR {
+	line-height: 45px;
+	font-size: 26px;
+	color: #fed68e;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.MyInfoN {
+	font-size: 20px;
+	line-height: 35px;
+	color: #fed68e;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.MyNum {
+	float: right;
+	color: #fed68e;
+	font-size: 26px;
+	line-height: 80px;
+	width: 80px;
+	text-align: right;
+	overflow: hidden;
+}
+
+.redstarRankingOther {
+	border: 1px solid #745410;
+	width: 450px;
+	height: 100px;
+	background-color: #fed68e;
+	border-radius: 10px;
+	margin: 0 auto 15px;
+}
+
+.topTwo {
+	background-color: #ffb735;
+}
+
+.otherInfoR {
+	line-height: 45px;
+	font-size: 26px;
+	color: #262626;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.otherInfoN {
+	font-size: 20px;
+	line-height: 35px;
+	color: #262626;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.otherNum {
+	float: right;
+	color: #262626;
+	font-size: 26px;
+	line-height: 80px;
+	width: 80px;
+	text-align: right;
+	overflow: hidden;
+}
+
+.RankingList {
+	width: 478px;
+	height: 460px;
+	margin: auto;
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+.redstarGame {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	background: url(../image/redStar/questionbg.png) no-repeat center center;
+	background-size: 100% 100%;
+}
+
+.redstar-gamepage {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.redstar-num {
+	width: 570px;
+	margin: auto;
+	height: 310px;
+	position: relative;
+}
+
+.redstargame-runbg {
+	z-index: 2;
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
+	width: 570px;
+	height: 35px;
+	margin: auto;
+	background: url(../image/movie/line-2.png) no-repeat center center;
+}
+
+.redstargame-runcl {
+	z-index: 1;
+	position: absolute;
+	transition-timing-function: ease-in-out;
+	transition: width 1.7s;
+	left: 4px;
+	bottom: 5px;
+	width: 0px;
+	height: 26px;
+	background-color: #ae172a;
+}
+
+.redstargame-content {
+	padding-top: 5px;
+	background-size: 580px 830px;
+	position: relative;
+	text-align: center;
+	width: 100%;
+}
+
+.answerImg {
+	width: 630px;
+	height: 482px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+.redq-false,
+.redq-true {
+	z-index: 10;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+	display: none;
+	background: rgba(255, 245, 227, 0.95);
+}
+
+.redstargame-ckb {
+	margin-top: 28px;
+	width: 100%;
+	height: 100px;
+	text-align: center;
+}
+
+.missioncomplete,
+.missionfaild {
+	z-index: 10;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	margin: auto;
+	background: rgba(255, 245, 227, 0.95);
+	display: none;
+}
+
+.redstarTitle {
+	margin: 20px auto 0px;
+	width: 600px;
+	height:140px;
+	font-size: 28px;
+}
+
+.completeimg,
+.faildimg {
+	width: 672px;
+	height: 600px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	margin: auto;
+}
+
+.completeBtn,
+.faildBtn {
+	width: 515px;
+	height: 102px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+.completeimg>p,
+.faildimg>p {
+	width: 280px;
+	line-height: 60px;
+	font-size: 60px;
+	margin: auto;
+	text-align: center;
+	color: #da555a;
+}
+
+.completeimg {
+	background: url(../image/redStar/complete.png) no-repeat center 60px;
+}
+
+.faildimg {
+	background: url(../image/redStar/faild.png) no-repeat center 60px;
+}
+
+.redstarQuesGo {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	background: rgba(255, 245, 227, 0.95);
+	z-index: 10;
+	display: none;
+}
+
+.redstarQuesGoPop {
+	background: url(../image/redStar/quesstartbg.png) no-repeat center center;
+	width: 585px;
+	height: 568px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+.startTitle {
+	margin: 40px auto 0;
+	width: 485px;
+	text-align: center;
+	font-size: 70px;
+	color: #d13b41;
+}
+
+.startTips {
+	margin: 40px auto 0;
+	width: 485px;
+	font-size: 30px;
+	color: #262626;
+	line-height: 50px;
+}
+
+.quesStartBtn {
+	width: 529px;
+	height: 104px;
+	text-align: center;
+	margin: 140px auto 0;
+}
+
+.allDone {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	background: rgba(255, 245, 227, 0.95);
+	z-index: 10;
+	display: none;
+}
+
+.allDoneImg {
+	background: url(../image/redStar/quesstartbg.png) no-repeat center center;
+	width: 585px;
+	height: 568px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+.allDoneTitle {
+	font-size: 70px;
+	color: #d13b41;
+	text-align: center;
+	width: 500px;
+	margin: 20px auto 0;
+}
+
+.allDoneFont {
+	font-size: 30px;
+	width: 500px;
+	margin: 20px auto 0;
+	line-height: 40px;
+}
+
+.getbagBtn {
+	width: 529px;
+	height: 104px;
+	text-align: center;
+	margin: 80px auto 0;
+}
+
+.infoSubmit {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	background: rgba(255, 245, 227, 0.95);
+	z-index: 10;
+	display: none;
+}
+
+.infoSubmitDiv {
+	background: url(../image/redStar/info.png) no-repeat center center;
+	width: 585px;
+	height: 695px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+.infoName {
+	width: 405px;
+	height: 80px;
+	margin: 155px 0 0 145px;
+}
+
+.infoPhone {
+	width: 405px;
+	height: 80px;
+	margin: 35px 0 0 145px;
+}
+
+.infoName input,
+.infoPhone input {
+	border: none;
+	background-color: transparent;
+	width: 365px;
+	height: 80px;
+	padding: 0 20px;
+	font-size: 32px;
+	color: #ffe9c1;
+}
+
+.submitBtn {
+	width: 529px;
+	height: 104px;
+	text-align: center;
+	margin: 175px auto 0;
+}
+
+.submitPop {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	background: rgba(255, 245, 227, 0.95);
+	z-index: 10;
+	display: none;
+}
+
+.submitPopEr {
+	width: 585px;
+	height: 833px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+.submitPopBtn {
+	width: 529px;
+	height: 104px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 40px;
+	margin: auto;
+}
+
+.revlPop {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	background: rgba(255, 245, 227, 0.95);
+	z-index: 10;
+	display: none;
+}
+
+.revlPopBtn {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 50px;
+	margin: auto;
+	width: 529px;
+	height: 104px;
+	z-index: 2;
+}
+
+.revlPopQrcode {
+	position: absolute;
+	left: -700px;
+	right: 0;
+	top: -440px;
+	bottom: 0;
+	z-index: 1;
+}
+
+.revlPopEr {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	width: 585px;
+	height: 913px;
+}
+
+.revlPopFont {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 140px;
+	width: 455px;
+	margin: auto;
+	font-size: 30px;
+	color: #262626;
+	line-height: 50px;
+}
+
+.redHelp {
+	width: 635px;
+	height: 770px;
+	margin: 30px auto 0;
+	position: relative;
+	z-index: 2;
+}
+
+.changeImgBtn1 {
+	position: absolute;
+	width: 200px;
+	height: 200px;
+	right: 160px;
+	top: 70px;
+	z-index: 3;
+}
+
+.headImgDiv {
+	width: 200px;
+	height: 200px;
+	position: absolute;
+	z-index: -1;
+	right: 160px;
+	top: 70px;
+	background-color: #ffe9c1;
+}
+
+.redHelpGet{
+	width: 579px;
+	height: 104px;
+	position: absolute;
+	bottom: 100px;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+
+.redHelpFont{
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 500px;
+	font-size: 30px;
+	text-align: center;
+	width: 500px;
+	margin: auto;
+	color: #ffe9c1;
+}
+
+.redstarRuleDiv2 {
+	position: fixed;
+	z-index: 10;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	width: 100%;
+	height: 100%;
+	background: rgba(255, 245, 227, 0.95);
+}
+
+/* 鍒嗕韩钂欑増 */
+
+.div-share {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 100;
+    display: none;
+}
+
+.share-bg {
+    height: 100%;
+    width: 100%;
+    background-color: #333333;
+    filter: alpha(Opacity=50);
+    -moz-opacity: 0.8;
+    opacity: 0.8;
+}
+
+.share {
+    text-align: center;
+    width: 450px;
+    height: 540px;
+    position: absolute;
+    top: 220px;
+    left: 150px;
+    background-color: #fff;
+    border-radius: 10px;
+    font-size: 26px;
+}
+
+.share img {
+    margin: 50px auto 20px auto;
+    position: absolute;
+    left: -405px;
+    top: -500px;
+    z-index: 200;
+}
+
+.share button {
+    border-radius: 5px;
+    border: 1px solid #d0d0d0;
+    background-color: #f5f5f5;
+    margin-top: 20px;
+    width: 210px;
+    height: 80px;
+    font-size: 30px;
+}
+
+
+/*婢堆嗘祮閻╂ɑ鐗卞锟�*/
+
+.g-content {
+	width: 100%;
+	background: #fbe3cc;
+	height: auto;
+}
+
+.g-content .g-lottery-case {
+	width: 500px;
+	height: 445px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.g-content .g-lottery-case .g-left h2 {
+	font-size: 20px;
+	line-height: 32px;
+	font-weight: normal;
+	margin-left: 20px;
+}
+
+.g-content .g-lottery-case .g-left {
+	width: 450px;
+	float: left;
+}
+
+.g-lottery-box {
+	width: 667px;
+	height: 636px;
+	margin: auto;
+	position: relative;
+	background: url(../image/redStar/round.png) no-repeat center center;
+	background-size: 667px 636px;
+}
+
+.g-lottery-box .g-lottery-img {
+	width: 340px;
+	height: 340px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+.g-lottery-box .playbtn {
+	width: 186px;
+	height: 186px;
+	position: absolute;
+	top: 70px;
+	left: 77px;
+	background: url(../image/redStar/roundBtnOff.png) no-repeat center center;
+}
+
+
+/*END*/

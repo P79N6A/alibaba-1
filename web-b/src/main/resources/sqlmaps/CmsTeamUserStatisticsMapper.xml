@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsTeamUserStatisticsMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsTeamUserStatistics" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TUSER_ID" property="tuserId" jdbcType="VARCHAR" />
+    <result column="OPERATE_TYPE" property="operateType" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="Operate_Count" property="OperateCount" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- 根据周查询团体用户数据-->
+  <select id="queryTeamUserStatisticsByWeekDate" resultMap="BaseResultMap" >
+    SELECT s.TUSER_ID,s.OPERATE_TYPE,COUNT(*) as Operate_Count from cms_team_user_statistics s
+    WHERE  s.CREATE_TIME &gt;= #{0} and s.CREATE_TIME &lt;= #{1}
+    group by s.TUSER_ID,s.OPERATE_TYPE
+  </select>
+  <!--根据月查询团体用户数据-->
+  <select id="queryTeamUserStatisticsByMonthDate" resultMap="BaseResultMap" >
+    SELECT s.TUSER_ID,s.OPERATE_TYPE,COUNT(*) as Operate_Count from cms_team_user_statistics s
+     WHERE  DATE_FORMAT(s.CREATE_TIME,'%Y-%m') &gt;= #{0} and  DATE_FORMAT(s.CREATE_TIME,'%Y-%m') &lt;= #{1}
+    group by s.TUSER_ID,s.OPERATE_TYPE
+  </select>
+  <!--根据季度，年份查询团体用户数据 -->
+
+  <select id="queryTeamUserStatisticsByQuarterDate" resultMap="BaseResultMap" >
+    SELECT s.TUSER_ID,s.OPERATE_TYPE,COUNT(*) as Operate_Count from cms_team_user_statistics s
+    WHERE  DATE_FORMAT(s.CREATE_TIME,'%Y-%m-%d') &gt;= #{0} and  DATE_FORMAT(s.CREATE_TIME,'%Y-%m-%d') &lt;= #{1}
+    group by s.TUSER_ID,s.OPERATE_TYPE
+  </select>
+<!--添加月团体用户数据 -->
+  <insert id="addTermUserStatistics" parameterType="com.sun3d.why.model.CmsTeamUserStatistics" >
+    insert into cms_team_user_statistics
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="tuserId != null" >
+        TUSER_ID,
+      </if>
+      <if test="operateType != null" >
+        OPERATE_TYPE,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER,
+      </if>
+      <if test="ip != null" >
+        IP,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="tuserId != null" >
+        #{tuserId,jdbcType=VARCHAR},
+      </if>
+      <if test="operateType != null" >
+        #{operateType,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <!--根据条件查询团队用户数据 -->
+  <select id="queryTermUserCountByCondition" resultType="java.lang.Integer"
+          parameterType="java.util.Map">
+    select count(*) from cms_team_user_statistics s
+    WHERE  1=1
+    <if test="operateType != null and operateType != ''">
+      and s.OPERATE_TYPE =#{operateType,jdbcType=INTEGER}
+    </if>
+    <if test="tuserId != null and tuserId != ''">
+      and s.TUSER_ID =#{tuserId,jdbcType=VARCHAR}
+    </if>
+    <!-- <if test="startDate != null and endDate !=null">
+       and s.CREATE_TIME BETWEEN #{startDate}# AND #{endDate}#
+     </if>-->
+    <if test="startDate != null and startDate != ''">
+      and s.CREATE_TIME &gt;=#{startDate}
+    </if>
+    <if test="endDate != null and endDate != ''">
+      and s.CREATE_TIME &lt;=#{endDate}
+    </if>
+    <if test="userId != null and userId != ''">
+      and s.USER_ID =#{userId,jdbcType=VARCHAR}
+    </if>
+    <if test="ip != null and ip != ''">
+      and s.IP =#{ip,jdbcType=VARCHAR}
+    </if>
+    <if test="status != null and status != ''">
+      and s.STATUS =#{status,jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <!--app用户取消收藏团体-->
+  <delete id="deleteTeamUser" parameterType="com.sun3d.why.model.CmsTeamUserStatistics">
+    delete from cms_team_user_statistics
+    where 1=1
+    <if test="userId != null">
+      and USER_ID = #{userId,jdbcType=VARCHAR}
+    </if>
+    <if test="tuserId != null">
+      and TUSER_ID = #{tuserId,jdbcType=VARCHAR}
+    </if>
+    <if test="operateType != null">
+      and OPERATE_TYPE = #{operateType,jdbcType=INTEGER}
+    </if>
+  </delete>
+</mapper>

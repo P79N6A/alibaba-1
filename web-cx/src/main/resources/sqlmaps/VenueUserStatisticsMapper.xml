@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.VenueUserStatisticsMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.VenueUserStatistics" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="VENUE_ID" property="venueId" jdbcType="VARCHAR" />
+    <result column="OPERATE_TYPE" property="operateType" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="Operate_Count" property="OperateCount" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- 分页信息 -->
+  <sql id="pagination_condition">
+    limit ${firstResult},${rows}
+  </sql>
+
+  <!-- 根据周查询场馆用户关系表数据-->
+  <select id="queryVenueUserStatisticsByWeekDate" resultMap="BaseResultMap" >
+    SELECT s.VENUE_ID,s.OPERATE_TYPE,COUNT(*) as Operate_Count from cms_venue_user_statistics s
+    WHERE  s.CREATE_TIME &gt;= #{0} and s.CREATE_TIME &lt;= #{1}
+    group by s.VENUE_ID,s.OPERATE_TYPE
+  </select>
+<!--根据月查询场馆用户关系数据 -->
+  <select id="queryVenueUserStatisticsByMonthDate" resultMap="BaseResultMap" >
+    SELECT s.VENUE_ID,s.OPERATE_TYPE,COUNT(*) as Operate_Count from cms_venue_user_statistics s
+    WHERE  DATE_FORMAT(s.CREATE_TIME,'%Y-%m') &gt;= #{0} and  DATE_FORMAT(s.CREATE_TIME,'%Y-%m') &lt;= #{1}
+    group by s.VENUE_ID,s.OPERATE_TYPE
+  </select>
+  <!--根据季度，年查询场馆用户关系数据 -->
+  <select id="queryVenueUserStatisticsByQuarterDate" resultMap="BaseResultMap" >
+    SELECT s.VENUE_ID,s.OPERATE_TYPE,COUNT(*) as Operate_Count from cms_venue_user_statistics s
+    WHERE  DATE_FORMAT(s.CREATE_TIME,'%Y-%m-%d') &gt;= #{0} and  DATE_FORMAT(s.CREATE_TIME,'%Y-%m-%d') &lt;= #{1}
+    group by s.VENUE_ID,s.OPERATE_TYPE
+  </select>
+  <!--添加场馆用户信息 -->
+  <insert id="addVenueUserStatistics" parameterType="com.sun3d.why.model.VenueUserStatistics" >
+    insert into cms_venue_user_statistics
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="venueId != null" >
+        VENUE_ID,
+      </if>
+      <if test="operateType != null" >
+        OPERATE_TYPE,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER,
+      </if>
+      <if test="ip != null" >
+        IP,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="venueId != null" >
+        #{venueId,jdbcType=VARCHAR},
+      </if>
+      <if test="operateType != null" >
+        #{operateType,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+ <!-- <select id="countByExample" parameterType="com.sun3d.why.model.VenueUserStatisticsExample" resultType="java.lang.Integer" >
+    select count(*) from cms_venue_user_statistics
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>-->
+  <!--根据条件查询场馆用户数据 -->
+  <select id="queryVenueUserCountByCondition" resultType="java.lang.Integer"
+          parameterType="java.util.Map">
+    select count(*) from cms_venue_user_statistics s
+    WHERE  1=1
+    <if test="operateType != null and operateType != ''">
+      and s.OPERATE_TYPE =#{operateType,jdbcType=INTEGER}
+    </if>
+    <if test="venueId != null and venueId != ''">
+      and s.VENUE_ID =#{venueId,jdbcType=VARCHAR}
+    </if>
+    <!-- <if test="startDate != null and endDate !=null">
+       and s.CREATE_TIME BETWEEN #{startDate}# AND #{endDate}#
+     </if>-->
+    <if test="startDate != null and startDate != ''">
+      and s.CREATE_TIME &gt;=#{startDate}
+    </if>
+    <if test="endDate != null and endDate != ''">
+      and s.CREATE_TIME &lt;=#{endDate}
+    </if>
+    <if test="userId != null and userId != ''">
+      and s.USER_ID =#{userId,jdbcType=VARCHAR}
+    </if>
+    <if test="ip != null and ip != ''">
+      and s.IP =#{ip,jdbcType=VARCHAR}
+    </if>
+    <if test="status != null and status != ''">
+      and s.STATUS =#{status,jdbcType=INTEGER}
+    </if>
+  </select>
+  <!--app用户取消收藏展馆 -->
+  <delete id="deleteVenueUser" parameterType="com.sun3d.why.model.VenueUserStatistics">
+    delete from cms_venue_user_statistics
+    where 1=1
+    <if test="userId != null">
+      and USER_ID = #{userId,jdbcType=VARCHAR}
+    </if>
+    <if test="venueId != null">
+      and VENUE_ID = #{venueId,jdbcType=VARCHAR}
+    </if>
+    <if test="operateType != null">
+      and OPERATE_TYPE = #{operateType,jdbcType=INTEGER}
+    </if>
+  </delete>
+</mapper>

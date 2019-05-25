@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CourseMapper">
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.peopleTrain.Course">
+		<id column="COURSE_ID" property="courseId" jdbcType="VARCHAR" />
+		<result column="COURSE_TITLE" property="courseTitle"
+			jdbcType="VARCHAR" />
+		<result column="COURSE_TYPE" property="courseType"
+			jdbcType="VARCHAR" />
+		<result column="COURSE_RANK" property="courseRank"
+			jdbcType="VARCHAR" />
+		<result column="MARJOR_TYPE" property="majorType"
+			jdbcType="VARCHAR" />
+		<result column="PICTURE_URL" property="pictureUrl"
+			jdbcType="VARCHAR" />
+		<result column="PEOPLE_NUMBER" property="peopleNumber"
+			jdbcType="INTEGER" />
+		<result column="COURSE_PHONE_NUM" property="coursePhoneNum"
+			jdbcType="VARCHAR" />
+		<result column="COURSE_STATE" property="courseState"
+			jdbcType="INTEGER" />
+		<result column="COURSE_FIELD" property="courseField"
+			jdbcType="VARCHAR" />
+		<result column="COLLEGES_ATTRIBUTES" property="collegesAttributes"
+			jdbcType="VARCHAR" />
+		<result column="COURSE_DESCRIPTION" property="courseDescription"
+			jdbcType="LONGVARCHAR" />
+		<result column="CREATE_USER" property="createUser"
+			jdbcType="VARCHAR" />	
+		<result column="CREATE_TIME" property="createTime"
+			jdbcType="TIMESTAMP" />	
+		<result column="TRAIN_ADDRESS" property="trainAddress"
+			jdbcType="VARCHAR" />
+		<result column="TARGET_AUDIENC" property="targetAudienc"
+			jdbcType="VARCHAR" />
+		<result column="TEACHER_INTRO" property="teacherIntro"
+			jdbcType="VARCHAR" />
+		<result column="TRAIN_TIME" property="trainTime"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_NUM" property="orderNum"
+		jdbcType="INTEGER" />
+		<result column="COURSE_CHECK" property="courseCheck"
+		jdbcType="INTEGER" />
+		<result column="CREATE_USER_ID" property="createUserId"
+			jdbcType="VARCHAR" />
+		<result column="UPDATE_USER_ID" property="updateUserId"
+			jdbcType="VARCHAR" />
+		<result column="UPDATE_USER" property="updateUser"
+			jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime"
+			jdbcType="TIMESTAMP" />			
+		<result column="COURSE_START_TIME" property="courseStartTime"
+			jdbcType="VARCHAR" />			
+		<result column="COURSE_END_TIME" property="courseEndTime"
+			jdbcType="VARCHAR" />			
+	</resultMap>
+	<!-- 分页信息 -->
+	<sql id="pagination_condition">
+		limit ${firstResult},${rows}
+	</sql>
+	<!--后台sql -->
+	
+	<insert id="saveCourse" parameterType="com.sun3d.why.model.peopleTrain.Course">
+		insert into course
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="courseId != null">
+				COURSE_ID,
+			</if>
+			<if test="courseTitle != null">
+				COURSE_TITLE,
+			</if>
+			<if test="courseType != null">
+				COURSE_TYPE,
+			</if>
+			<if test="courseRank != null">
+				COURSE_RANK,
+			</if>
+			<if test="pictureUrl != null">
+				PICTURE_URL,
+			</if>
+			<if test="peopleNumber != null">
+				PEOPLE_NUMBER,
+			</if>
+			<if test="coursePhoneNum != null">
+				COURSE_PHONE_NUM,
+			</if>
+			<if test="courseState != null">
+				COURSE_STATE,
+			</if>
+			<if test="courseCheck != null">
+				COURSE_CHECK,
+			</if>
+			<if test="courseField != null">
+				COURSE_FIELD,
+			</if>
+			<if test="majorType != null">
+				MARJOR_TYPE,
+			</if>
+			<if test="courseDescription != null">
+				COURSE_DESCRIPTION,
+			</if>
+			<if test="createUser != null">
+				CREATE_USER,
+			</if>
+			<if test="createTime != null">
+	            CREATE_TIME,
+			</if>
+			<if test="trainAddress != null">
+	            TRAIN_ADDRESS,
+			</if>
+			<if test="targetAudienc != null">
+	            TARGET_AUDIENC,
+			</if>
+			<if test="teacherIntro != null">
+	            TEACHER_INTRO,
+			</if>
+			<if test="courseStartTime != null">
+	            COURSE_START_TIME,
+			</if>
+			<if test="courseEndTime != null">
+	            COURSE_END_TIME,
+			</if>
+			<if test="trainTime != null">
+	            TRAIN_TIME,
+			</if>
+			<if test="createUserId != null">
+	            CREATE_USER_ID,
+			</if>
+			<if test="updateUserId != null">
+	            UPDATE_USER_ID,
+			</if>
+			<if test="updateUser != null">
+	            UPDATE_USER,
+			</if>
+			<if test="updateTime != null">
+	            UPDATE_TIME,
+			</if>
+		
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="courseId != null">
+				#{courseId,jdbcType=VARCHAR},
+			</if>
+			<if test="courseTitle != null">
+				#{courseTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="courseType != null">
+				#{courseType,jdbcType=VARCHAR},
+			</if>
+			<if test="courseRank != null">
+				#{courseRank,jdbcType=VARCHAR},
+			</if>
+			<if test="pictureUrl != null">
+				#{pictureUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="peopleNumber != null">
+				#{peopleNumber,jdbcType=INTEGER},
+			</if>
+			<if test="coursePhoneNum != null">
+				#{coursePhoneNum,jdbcType=VARCHAR},
+			</if>
+			<if test="courseState != null">
+				#{courseState,jdbcType=INTEGER},
+			</if>
+			<if test="courseCheck != null">
+				#{courseCheck,jdbcType=INTEGER},
+			</if>
+			<if test="courseField != null">
+				#{courseField,jdbcType=VARCHAR},
+			</if>
+			<if test="majorType != null">
+				#{majorType,jdbcType=VARCHAR},
+			</if>
+			<if test="courseDescription != null">
+				#{courseDescription,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="createUser != null">
+				#{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="trainAddress != null">
+				#{trainAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="targetAudienc != null">
+				#{targetAudienc,jdbcType=VARCHAR},
+			</if>
+			<if test="teacherIntro != null">
+				#{teacherIntro,jdbcType=VARCHAR},
+			</if>
+			<if test="courseStartTime != null">
+				#{courseStartTime,jdbcType=VARCHAR},
+			</if>
+			<if test="courseEndTime != null">
+				#{courseEndTime,jdbcType=VARCHAR},
+			</if>
+			<if test="trainTime != null">
+				#{trainTime,jdbcType=VARCHAR},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="updateUser != null">
+				#{updateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 查询报名用户信息列表 -->
+	<select id="queryCourserByCondition" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+	    SELECT c.COURSE_ID,c.COURSE_TITLE,c.CREATE_TIME,c.CREATE_USER,c.COURSE_STATE,c.COURSE_CHECK,(
+		SELECT
+		s.DICT_NAME
+		FROM
+		sys_dict s
+		WHERE
+		s.DICT_ID = c.COURSE_TYPE
+		) AS courseType,(select case when INSTR(c.course_field,',') &gt; 0 then (select GROUP_CONCAT(sd.DICT_NAME) 
+		from sys_dict sd where FIND_IN_SET(sd.DICT_ID,c.COURSE_FIELD))  ELSE
+        (select sd.DICT_NAME from sys_dict sd where sd.DICT_ID=c.COURSE_FIELD) END) AS courseField  from  course c
+	   	where 1 =1
+	   		<if test="courseType != null and courseType != ''">
+			 and c.COURSE_TYPE = #{courseType,jdbcType=VARCHAR}
+		   </if>
+	   		<if test="courseField != null and courseField != ''">
+			 and c.COURSE_FIELD like '%${courseField}%'
+		   </if>
+	   	   <if test="searchKey != null and searchKey != ''">
+			and c.COURSE_TITLE like '%${searchKey}%'
+		   </if>
+		   <if test="sysUserId != null">
+			and c.CREATE_USER_ID = #{sysUserId}
+		   </if>
+		   and c.COURSE_STATE!=3
+		   ORDER bY c.CREATE_TIME DESC
+		   <if test="firstResult != null">
+			limit ${firstResult},${rows}
+		   </if>
+	</select>
+
+	<!-- 查询后台活动列表信息总条数 -->
+	<select id="queryCourserCountByCondition" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		 SELECT count(*) from  course c
+	   	where 1 =1
+	   		<if test="courseType != null and courseType != ''">
+			 and c.COURSE_TYPE = #{courseType,jdbcType=VARCHAR}
+		   </if>
+	   		<if test="courseField != null and courseField != ''">
+			 and c.COURSE_FIELD like '%${courseField}%'
+		   </if>
+	   		<if test="searchKey != null and searchKey != ''">
+			and c.COURSE_TITLE like '%${searchKey}%' 
+		   </if>
+		   <if test="sysUserId != null">
+			and c.CREATE_USER_ID = #{sysUserId}
+		   </if>
+		   and c.COURSE_STATE!=3
+	</select>
+		<!-- 查询报名用户信息列表 -->
+<!-- 	<select id="queryTrainTerminalUserByCondition" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+	    SELECT 
+	    c.USER_NAME,
+	    c.USER_SEX,
+	    c.USER_MOBILE_NO,
+	    t.ID_NUMBER,
+	    t.CREATE_TIME
+         from  train_terminal_user t 
+	    LEFT JOIN
+	    cms_terminal_user c 
+	    ON t.USER_ID = c.USER_ID
+	   	where 1 =1
+	   		<if test="userId != null">
+           and t.USER_ID = #{userId,jdbcType=VARCHAR}
+		</if>
+
+	</select> -->
+	<select id="queryCourseListForFront" parameterType="java.util.Map" resultMap="BaseResultMap">
+		 SELECT c.COURSE_ID,c.COURSE_TITLE,c.COURSE_PHONE_NUM,c.COURSE_TYPE,c.PEOPLE_NUMBER,c.COURSE_FIELD,c.COURSE_DESCRIPTION,c.TRAIN_TIME,c.TEACHER_INTRO,c.TRAIN_ADDRESS,c.TARGET_AUDIENC,
+		 c.COURSE_START_TIME,c.COURSE_END_TIME,co.ORDER_NUM as ORDER_NUM 
+		 from course c
+		 LEFT JOIN (select COURSE_ID, count(COURSE_ID) as ORDER_NUM from course_order where ORDER_STATUS !=3 and  ORDER_STATUS !=4 group by COURSE_ID) as co on co.COURSE_ID = c.COURSE_ID
+		 where 1=1
+		 <if test="courseType != null">
+			and c.COURSE_TYPE = #{courseType}
+		 </if>
+		 <if test="courseRank != null">
+			and c.COURSE_RANK = #{courseRank}
+		 </if>
+		 <if test="courseField != null">
+			and c.COURSE_FIELD like #{courseField}
+		 </if>
+		 <if test="courseState != null">
+			and c.COURSE_STATE = #{courseState}
+		 </if>
+		  and  c.COURSE_STATE!=3
+		 order by c.CREATE_TIME desc
+	</select>
+	
+	<select id="queryCourseByCourseId" parameterType="java.lang.String" resultMap="BaseResultMap">
+		 SELECT * from course 
+		 where COURSE_ID = #{courseId}
+	</select>
+	
+	
+	<select id="queryCourseByIn" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		 SELECT c.COURSE_ID,c.COURSE_TITLE from course c
+		 where 1=1
+		 <if test="sqlStr != null">
+			and ${sqlStr}
+		 </if>
+		 order by c.CREATE_TIME desc
+	</select>
+	
+	<!--上架下架-->
+		<update id="editState" parameterType="com.sun3d.why.model.peopleTrain.Course" >
+		update course
+		<set>
+			<if test="courseTitle != null">
+				COURSE_TITLE=#{courseTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="courseType != null">
+				COURSE_TYPE=#{courseType,jdbcType=VARCHAR},
+			</if>
+			<if test="courseRank != null">
+				COURSE_RANK=#{courseRank,jdbcType=VARCHAR},
+			</if>
+			<if test="pictureUrl != null">
+				PICTURE_URL=#{pictureUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="peopleNumber != null">
+				PEOPLE_NUMBER=#{peopleNumber,jdbcType=INTEGER},
+			</if>
+			<if test="coursePhoneNum != null">
+				COURSE_PHONE_NUM=#{coursePhoneNum,jdbcType=VARCHAR},
+			</if>
+			<if test="courseState != null">
+				COURSE_STATE=#{courseState,jdbcType=INTEGER},
+			</if>
+			<if test="courseField != null">
+				COURSE_FIELD=#{courseField,jdbcType=VARCHAR},
+			</if>
+			<if test="majorType != null">
+				MARJOR_TYPE=#{majorType,jdbcType=VARCHAR},
+			</if>
+			<if test="courseDescription != null">
+				COURSE_DESCRIPTION=#{courseDescription,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="createUser != null">
+				CREATE_USER=#{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME=#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="trainAddress != null">
+				TRAIN_ADDRESS=#{trainAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="targetAudienc != null">
+				TARGET_AUDIENC=#{targetAudienc,jdbcType=VARCHAR},
+			</if>
+			<if test="teacherIntro != null">
+				TEACHER_INTRO=#{teacherIntro,jdbcType=VARCHAR},
+			</if>
+			<if test="courseStartTime != null">
+				COURSE_START_TIME=#{courseStartTime,jdbcType=VARCHAR},
+			</if>
+			<if test="courseEndTime != null">
+				COURSE_END_TIME=#{courseEndTime,jdbcType=VARCHAR},
+			</if>
+			<if test="trainTime != null">
+				TRAIN_TIME=#{trainTime,jdbcType=VARCHAR},
+			</if>
+			<if test="courseCheck != null">
+				COURSE_CHECK = #{courseCheck,jdbcType=INTEGER},
+			</if>
+			<if test="createUserId != null">
+				CREATE_USER_ID = #{createUserId,jdbcType=INTEGER},
+			</if>
+			<if test="updateUserId != null">
+				UPDATE_USER_ID = #{updateUserId,jdbcType=INTEGER},
+			</if>
+			<if test="updateUser != null">
+				UPDATE_USER = #{updateUser,jdbcType=INTEGER},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where COURSE_ID = #{courseId,jdbcType=VARCHAR}
+	</update>
+	
+</mapper>

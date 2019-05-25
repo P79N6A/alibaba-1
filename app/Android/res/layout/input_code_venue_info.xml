@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/white"
+            ></View>
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/activity_bg_color"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="8dp">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@string/order_context_prefix"
+                android:textColor="#999999" />
+
+            <TextView
+                android:id="@+id/input_code_venue_info_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="null"
+                android:textColor="#999999" />
+
+            <TextView
+                android:id="@+id/code_venue_verification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/input_code_verification"
+                android:text="@string/input_verification_text"
+                android:textColor="@color/user_return"
+                android:visibility="gone"></TextView>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white"
+            >
+            <LinearLayout
+                style="@style/item_ll_style">
+
+                <TextView
+                  style="@style/item_name_style"
+                    android:text="场馆:" />
+
+                <TextView
+                    android:id="@+id/input_code_venue_info_name"
+                    style="@style/item_content_style"
+                    android:text="场馆1" />
+            </LinearLayout>
+
+            <View
+                style="@style/item_line_style"></View>
+
+            <LinearLayout
+                style="@style/item_ll_style">
+
+                <TextView
+                    style="@style/item_name_style"
+                    android:text="@string/venue_context_ticket"
+                    />
+
+                <TextView
+                    android:id="@+id/input_code_venue_info_ticket_code"
+                    style="@style/item_content_style"
+                    android:text="445577557" />
+            </LinearLayout>
+            <View
+                style="@style/item_line_style"></View>
+
+            <LinearLayout
+                style="@style/item_ll_style">
+
+                <TextView
+                    style="@style/item_name_style"
+                    android:text="团体名称:" />
+
+                <TextView
+                    android:id="@+id/input_code_venue_info_tram_name"
+                    style="@style/item_content_style"
+                    android:text="团体1" />
+            </LinearLayout>
+            <View
+                style="@style/item_line_style"></View>
+
+            <LinearLayout
+                style="@style/item_ll_style">
+
+                <TextView
+                    style="@style/item_name_style"
+                    android:text="手机号:"
+                    />
+
+                <TextView
+                    android:id="@+id/input_code_venue_info_tram_phone"
+                    style="@style/item_content_style"
+                    android:text="15866666666" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.2dp"
+                android:background="#CCCCCC"></View>
+
+        </LinearLayout>
+
+
+        <View
+            style="@style/item_line_w_style"></View>
+
+        <ListView
+            android:id="@+id/input_code_venue_info_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:scrollbars="none"
+            android:layout_above="@+id/input_code_ok"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            ></ListView>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        >
+
+
+
+        <Button
+            android:id="@+id/input_code_ok"
+            android:layout_width="@dimen/code_info_confirm"
+            android:layout_height="@dimen/code_info_confirm_height"
+            android:textSize="14sp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/shape_input_veri"
+            android:text="@string/order_context_ok"
+            android:textColor="@color/white" />
+
+        <View
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"></View>
+    </LinearLayout>
+
+
+
+</RelativeLayout>

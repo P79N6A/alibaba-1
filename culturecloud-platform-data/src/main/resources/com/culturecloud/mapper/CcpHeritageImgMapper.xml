@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.culturecloud.dao.heritage.CcpHeritageImgMapper" >
+  <resultMap id="BaseResultMap" type="com.culturecloud.model.bean.heritage.CcpHeritageImg" >
+    <id column="HERITAGE_IMG_ID" property="heritageImgId" jdbcType="VARCHAR" />
+    <result column="HERITAGE_ID" property="heritageId" jdbcType="VARCHAR" />
+    <result column="HERITAGE_IMG_URL" property="heritageImgUrl" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    HERITAGE_IMG_ID, HERITAGE_ID, HERITAGE_IMG_URL, CREATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_heritage_img
+    where HERITAGE_IMG_ID = #{heritageImgId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_heritage_img
+    where HERITAGE_IMG_ID = #{heritageImgId,jdbcType=VARCHAR}
+  </delete>
+  
+  <delete id="deleteByHerigateId" parameterType="java.lang.String" >
+    delete from ccp_heritage_img
+    where HERITAGE_ID = #{heritageId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.culturecloud.model.bean.heritage.CcpHeritageImg" >
+    insert into ccp_heritage_img
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      HERITAGE_IMG_ID,
+      <if test="heritageId != null" >
+        HERITAGE_ID,
+      </if>
+      <if test="heritageImgUrl != null" >
+        HERITAGE_IMG_URL,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{heritageImgId,jdbcType=VARCHAR},
+      <if test="heritageId != null" >
+        #{heritageId,jdbcType=VARCHAR},
+      </if>
+      <if test="heritageImgUrl != null" >
+        #{heritageImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.culturecloud.model.bean.heritage.CcpHeritageImg" >
+    update ccp_heritage_img
+    <set >
+      <if test="heritageId != null" >
+        HERITAGE_ID = #{heritageId,jdbcType=VARCHAR},
+      </if>
+      <if test="heritageImgUrl != null" >
+        HERITAGE_IMG_URL = #{heritageImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where HERITAGE_IMG_ID = #{heritageImgId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,19 @@
+@charset "utf-8";
+/* CSS Document */
+body{font-family:"微软雅黑";}
+#help_center{width:885px;margin:0 auto; margin-top:100px;}
+#help_center .hc_l{ width:195px;min-height:640px;border:1px solid #e1eaee;background:#ffffff;}
+#help_center .hc_l dl dt{height:45px;line-height:45px;color:#ffffff;font-size:14px;text-align:left; padding-left:45px; background:#5e7987 url(/STATIC/html/images/ask_white.png) no-repeat 20px center;}
+#help_center .hc_l dl dd{height:60px;line-height:60px;text-align:center;width:190px;margin:0 auto;border-bottom:1px solid #e1eaee;}
+#help_center .hc_l dl dd a{ width:150px; padding-left:40px;display:block;color:#333333;font-size:14px; text-align: left;}
+#help_center .hc_l dl dd a:hover{color:#4a819d; font-size:14px; background:url(/STATIC/html/images/hoverbg.png) no-repeat 20px center;}
+#help_center .hc_l dl dd.curchoose a{color:#4a819d; font-size:14px; background:url(/STATIC/html/images/hoverbg.png) no-repeat 20px center;}
+#help_center .hc_l dl .fack{height:45px;line-height:45px;color:#ffffff;font-size:14px;text-align:left; padding-left:45px; background:#5e7987 url(/STATIC/html/images/lis.png) no-repeat 20px center;}
+#help_center .hc_r{width:675px;min-height:640px;overflow:hidden; border:1px solid #d5e3e9; margin-left:10px;}
+.subNav{height:43px;line-height:43px;border-bottom:solid 1px #d5e3e9;color:#333333;font-size:14px;cursor:pointer;font-size:16px;padding-left:30px;background:#fafbfc url(/STATIC/html/images/bottom_arrow.png) no-repeat;background-position:95% 50%}
+.subNav:hover{background:#5e7987 url(/STATIC/html/images/top_arrow.png) no-repeat 630px center;color:#ffffff;}
+.currentDd{color:#277fc2}
+.currentDt{background:#5e7987 url(/STATIC/html/images/top_arrow.png) no-repeat 630px center;color:#ffffff;}
+.navContent{display: none;border-bottom:solid 1px #e5e3da; padding:15px 0px;}
+.navContent li a{display:block;font-size:14px;line-height:28px;color:#333333;width:605px;padding:2px 30px;}
+.navContent li a:hover{color:#333;}

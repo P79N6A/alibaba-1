@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.culturecloud.dao.micronote.CcpMicronoteMapper" >
+  <resultMap id="BaseResultMap" type="com.culturecloud.model.bean.micronote.CcpMicronote" >
+    <id column="NOTE_ID" property="noteId" jdbcType="VARCHAR" />
+    <result column="NOTE_NUM" property="noteNum" jdbcType="INTEGER" />
+    <result column="NOTE_TITLE" property="noteTitle" jdbcType="VARCHAR" />
+    <result column="NOTE_PUBLISHER_NAME" property="notePublisherName" jdbcType="VARCHAR" />
+    <result column="NOTE_PUBLISHER_AGE" property="notePublisherAge" jdbcType="VARCHAR" />
+    <result column="NOTE_PUBLISHER_MOBILE" property="notePublisherMobile" jdbcType="VARCHAR" />
+    <result column="NOTE_CONTENT" property="noteContent" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseResultResMap" type="com.culturecloud.model.response.micronote.CcpMicronoteResVO" >
+    <id column="NOTE_ID" property="noteId" jdbcType="VARCHAR" />
+    <result column="NOTE_NUM" property="noteNum" jdbcType="INTEGER" />
+    <result column="NOTE_TITLE" property="noteTitle" jdbcType="VARCHAR" />
+    <result column="NOTE_PUBLISHER_NAME" property="notePublisherName" jdbcType="VARCHAR" />
+    <result column="NOTE_PUBLISHER_AGE" property="notePublisherAge" jdbcType="VARCHAR" />
+    <result column="NOTE_PUBLISHER_MOBILE" property="notePublisherMobile" jdbcType="VARCHAR" />
+    <result column="NOTE_CONTENT" property="noteContent" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    
+    <result column="NOTE_IS_VOTE" property="noteIsVote" jdbcType="VARCHAR" />
+    <result column="VOTE_COUNT" property="voteCount" jdbcType="VARCHAR" />
+    <result column="USER_HEAD_IMG_URL" property="userHeadImgUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    NOTE_ID,NOTE_NUM, NOTE_TITLE, NOTE_PUBLISHER_NAME, NOTE_PUBLISHER_AGE, NOTE_PUBLISHER_MOBILE, 
+    NOTE_CONTENT, CREATE_TIME, CREATE_USER, UPDATE_TIME, UPDATE_USER
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_micronote
+    where NOTE_ID = #{noteId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_micronote
+    where NOTE_ID = #{noteId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.culturecloud.model.request.micronote.CcpMicronoteReqVO" >
+    insert into ccp_micronote
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      NOTE_ID,
+      <if test="noteTitle != null" >
+        NOTE_TITLE,
+      </if>
+      <if test="noteNum != null" >
+        NOTE_NUM,
+      </if>
+      <if test="notePublisherName != null" >
+        NOTE_PUBLISHER_NAME,
+      </if>
+      <if test="notePublisherAge != null" >
+        NOTE_PUBLISHER_AGE,
+      </if>
+      <if test="notePublisherMobile != null" >
+        NOTE_PUBLISHER_MOBILE,
+      </if>
+      <if test="noteContent != null" >
+        NOTE_CONTENT,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{noteId,jdbcType=VARCHAR},
+      <if test="noteNum != null" >
+        #{noteNum,jdbcType=INTEGER},
+      </if>
+      <if test="noteTitle != null" >
+        #{noteTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="notePublisherName != null" >
+        #{notePublisherName,jdbcType=VARCHAR},
+      </if>
+      <if test="notePublisherAge != null" >
+        #{notePublisherAge,jdbcType=VARCHAR},
+      </if>
+      <if test="notePublisherMobile != null" >
+        #{notePublisherMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="noteContent != null" >
+        #{noteContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.culturecloud.model.request.micronote.CcpMicronoteReqVO" >
+    update ccp_micronote
+    <set >
+      <if test="noteNum != null" >
+        NOTE_NUM = #{noteNum,jdbcType=INTEGER},
+      </if>
+      <if test="noteTitle != null" >
+        NOTE_TITLE = #{noteTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="notePublisherName != null" >
+        NOTE_PUBLISHER_NAME = #{notePublisherName,jdbcType=VARCHAR},
+      </if>
+      <if test="notePublisherAge != null" >
+        NOTE_PUBLISHER_AGE = #{notePublisherAge,jdbcType=VARCHAR},
+      </if>
+      <if test="notePublisherMobile != null" >
+        NOTE_PUBLISHER_MOBILE = #{notePublisherMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="noteContent != null" >
+        NOTE_CONTENT = #{noteContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where NOTE_ID = #{noteId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectMicronoteListCount" resultType="java.lang.Integer" parameterType="com.culturecloud.model.request.micronote.CcpMicronoteReqVO" >
+    SELECT	
+		COUNT(*)
+	FROM ccp_micronote cm
+	WHERE 1=1
+	<if test="noteTitle!=null and noteTitle!=''">
+	    AND cm.NOTE_TITLE like CONCAT('%',#{noteTitle},'%')
+    </if>
+  </select>
+  
+  <select id="selectMicronoteList" resultMap="BaseResultResMap" parameterType="com.culturecloud.model.request.micronote.CcpMicronoteReqVO" >
+    SELECT	
+		cm.NOTE_ID, 
+		cm.NOTE_NUM, 
+		cm.NOTE_TITLE, 
+		cm.NOTE_PUBLISHER_NAME, 
+		cm.NOTE_PUBLISHER_AGE, 
+		cm.NOTE_PUBLISHER_MOBILE, 
+    	cm.NOTE_CONTENT, 
+    	cm.CREATE_TIME,
+    	<if test="userId!=null">
+            (SELECT count(*)
+            FROM ccp_micronote_vote vote
+            WHERE vote.NOTE_ID = cm.NOTE_ID
+            AND vote.USER_ID = #{userId}
+            AND DATE_FORMAT(vote.CREATE_TIME, '%Y-%m-%d')=DATE_FORMAT(NOW(), '%Y-%m-%d')
+            ) AS NOTE_IS_VOTE,
+        </if> 
+        <!-- 自己发布的笔记排第一 -->
+        IF(cm.CREATE_USER = #{userId},0,1) AS SORT,
+		ctu.USER_NAME AS CREATE_USER,
+		ctu.USER_HEAD_IMG_URL,
+		COUNT(cmv.NOTE_ID) AS VOTE_COUNT,
+		cm.UPDATE_USER
+	FROM ccp_micronote cm
+	LEFT JOIN cms_terminal_user ctu ON ctu.USER_ID = cm.CREATE_USER
+	LEFT JOIN ccp_micronote_vote cmv ON cm.NOTE_ID = cmv.NOTE_ID
+	WHERE 1=1
+	<if test="noteTitle!=null and noteTitle!=''">
+	    AND cm.NOTE_TITLE like CONCAT('%',#{noteTitle},'%')
+    </if>
+	GROUP BY cm.NOTE_ID
+	ORDER BY SORT,cm.CREATE_TIME DESC
+	<if test="resultFirst != null">
+        limit ${resultFirst},${resultSize}
+    </if>
+  </select>
+  
+  <select id="selectMicronoteRankingList" resultMap="BaseResultResMap" parameterType="com.culturecloud.model.request.micronote.CcpMicronoteReqVO" >
+    SELECT	
+		cm.NOTE_ID, 
+		cm.NOTE_NUM, 
+		cm.NOTE_TITLE, 
+		cm.NOTE_PUBLISHER_NAME, 
+		cm.NOTE_PUBLISHER_AGE, 
+		cm.NOTE_PUBLISHER_MOBILE, 
+    	cm.NOTE_CONTENT, 
+    	cm.CREATE_TIME,
+		ctu.USER_NAME AS CREATE_USER,
+		ctu.USER_HEAD_IMG_URL,
+		COUNT(cmv.NOTE_ID) AS VOTE_COUNT
+	FROM ccp_micronote cm
+	LEFT JOIN cms_terminal_user ctu ON ctu.USER_ID = cm.CREATE_USER
+	LEFT JOIN ccp_micronote_vote cmv ON cm.NOTE_ID = cmv.NOTE_ID
+	GROUP BY cm.NOTE_ID
+	ORDER BY VOTE_COUNT DESC,cm.CREATE_TIME
+	LIMIT 0,10
+  </select>
+  
+  <select id="selectMicronoteByCondition" resultMap="BaseResultResMap" parameterType="com.culturecloud.model.request.micronote.CcpMicronoteReqVO" >
+    SELECT	
+		cm.NOTE_ID, 
+		cm.NOTE_NUM, 
+		cm.NOTE_TITLE, 
+		cm.NOTE_PUBLISHER_NAME, 
+		cm.NOTE_PUBLISHER_AGE, 
+		cm.NOTE_PUBLISHER_MOBILE, 
+    	cm.NOTE_CONTENT, 
+    	cm.CREATE_TIME,
+		ctu.USER_NAME AS CREATE_USER,
+		ctu.USER_HEAD_IMG_URL,
+		<if test="userId!=null">
+            (SELECT count(*)
+            FROM ccp_micronote_vote vote
+            WHERE vote.NOTE_ID = cm.NOTE_ID
+            AND vote.USER_ID = #{userId}
+            AND DATE_FORMAT(vote.CREATE_TIME, '%Y-%m-%d')=DATE_FORMAT(NOW(), '%Y-%m-%d')
+            ) AS NOTE_IS_VOTE,
+        </if>
+		COUNT(cmv.NOTE_ID) AS VOTE_COUNT
+	FROM ccp_micronote cm
+	LEFT JOIN ccp_micronote_vote cmv ON cm.NOTE_ID = cmv.NOTE_ID
+	LEFT JOIN cms_terminal_user ctu ON ctu.USER_ID = cm.CREATE_USER
+	WHERE 1=1
+		<!-- 查自己的笔记用 -->
+		<if test="userId!=null and noteId==null">
+			AND cm.CREATE_USER = #{userId}
+		</if>
+		<if test="noteId!=null">
+			AND cm.NOTE_ID = #{noteId}
+		</if>
+	GROUP BY cm.NOTE_ID
+	ORDER BY VOTE_COUNT DESC
+  </select>
+  
+  <select id="selectRankingByVoteCount" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    SELECT COUNT(*)+1 FROM
+		(SELECT	 COUNT(cmv.NOTE_ID) AS VOTE_COUNT
+		FROM ccp_micronote cm
+		LEFT JOIN ccp_micronote_vote cmv ON cm.NOTE_ID = cmv.NOTE_ID
+		GROUP BY cm.NOTE_ID) c
+	WHERE c.VOTE_COUNT > #{voteCount}
+  </select>
+</mapper>

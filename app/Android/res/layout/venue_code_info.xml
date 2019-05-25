@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/main_input_code_height"
+    android:background="@color/white" >
+
+    <ScrollView
+        android:id="@+id/scroll_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <RelativeLayout style="@style/input_code_info_style" >
+
+                <TextView
+                    android:id="@+id/relative_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/venue_context_prefix" />
+
+                <TextView
+                    android:id="@+id/code_venue_order_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/relative_text"
+                    android:text="@string/venue_context" />
+
+                <TextView
+                    android:id="@+id/code_venue_verification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/input_code_verification"
+                    android:text="@string/input_verification_text"
+                    android:textColor="@color/user_return" />
+            </RelativeLayout>
+
+            <View style="@style/all_title_below_linear" />
+
+            <LinearLayout style="@style/input_code_info_style" >
+
+                <TextView
+                    style="@style/code_info_type_style"
+                    android:text="@string/venue_context_venue"
+                    android:textColor="@color/event_title_color"
+                    android:textSize="@dimen/code_info_activity" />
+
+                <TextView
+                    android:id="@+id/code_venue_order_activity"
+                    style="@style/code_info_type_style"
+                    android:text="@string/venue_context"
+                    android:textColor="@color/event_title_color"
+                    android:textSize="@dimen/code_info_activity" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/input_code_info_style"
+                android:layout_marginBottom="@dimen/input_code_left"
+                android:layout_marginTop="@null" >
+
+                <TextView
+                    style="@style/code_info_type_style"
+                    android:text="@string/venue_context_address"
+                    android:textColor="@color/event_title_color" />
+
+                <TextView
+                    android:id="@+id/code_venue_order_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/venue_context" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/input_code_info_style"
+                android:layout_marginBottom="@dimen/input_code_left"
+                android:layout_marginTop="@null" >
+
+                <TextView
+                    style="@style/code_info_type_style"
+                    android:text="@string/venue_context_room"
+                    android:textColor="@color/event_title_color" />
+
+                <TextView
+                    android:id="@+id/code_venue_order_screenings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/venue_context" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/input_code_info_style"
+                android:layout_marginBottom="@dimen/input_code_left"
+                android:layout_marginTop="@null" >
+
+                <TextView
+                    style="@style/code_info_type_style"
+                    android:text="@string/venue_context_usetime"
+                    android:textColor="@color/event_title_color" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <Button
+                        android:id="@+id/code_venue_order_seat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/input_code_left"
+                        android:background="@drawable/shape_input_tiem"
+                        android:paddingBottom="8dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="8dp"
+                        android:textColor="@color/black"
+                        android:text="@string/venue_context" />
+
+                    <Button
+                        android:id="@+id/code_venue_order_seats"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_input_tiem"
+                        android:paddingBottom="8dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="8dp"
+                        android:textColor="@color/black"
+                        android:text="@string/venue_context"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/room_linear"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginBottom="@dimen/input_code_left"
+                android:background="#F7DFD8"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/linear_screenings2"
+                style="@style/input_code_info_style"
+                android:layout_marginBottom="@dimen/input_code_left"
+                android:layout_marginTop="@null"
+                android:visibility="gone" >
+
+                <TextView
+                    style="@style/code_info_type_style"
+                    android:text="@string/venue_context_room"
+                    android:textColor="@color/event_title_color" />
+
+                <TextView
+                    android:id="@+id/code_venue_order_screenings2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/venue_context" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_seat2"
+                style="@style/input_code_info_style"
+                android:layout_marginBottom="@dimen/input_code_left"
+                android:layout_marginTop="@null"
+                android:visibility="gone" >
+
+                <TextView
+                    style="@style/code_info_type_style"
+                    android:text="@string/venue_context_usetime"
+                    android:textColor="@color/event_title_color" />
+
+                <Button
+                    android:id="@+id/code_venue_order_seat2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_input_tiem"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="8dp"
+                    android:textColor="@color/black"
+                    android:text="@string/venue_context" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/input_code_info_style"
+                android:layout_marginBottom="@dimen/input_code_left"
+                android:layout_marginTop="@null" >
+
+                <TextView
+                    style="@style/code_info_type_style"
+                    android:text="@string/venue_context_usegroups"
+                    android:textColor="@color/event_title_color" />
+
+                <TextView
+                    android:id="@+id/code_venue_order_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/venue_context" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/input_code_info_style"
+                android:layout_marginBottom="@dimen/input_code_left"
+                android:layout_marginTop="@null" >
+
+                <TextView
+                    style="@style/code_info_type_style"
+                    android:text="@string/venue_context_ticket"
+                    android:textColor="@color/event_title_color" />
+
+                <TextView
+                    android:id="@+id/code_venue_order_ticket"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/venue_context" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/input_code_info_style"
+                android:layout_marginBottom="@dimen/input_code_left"
+                android:layout_marginTop="@null" >
+
+                <TextView
+                    style="@style/code_info_type_style"
+                    android:text="@string/venue_context_phone"
+                    android:textColor="@color/event_title_color" />
+
+                <TextView
+                    android:id="@+id/code_venue_order_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/venue_context" />
+            </LinearLayout>
+
+            <View style="@style/all_title_below_linear" />
+    <Button
+        android:id="@+id/input_code_ok"
+        android:layout_width="@dimen/code_info_confirm"
+        android:layout_height="@dimen/code_info_confirm_height"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/input_code_info_order"
+        android:layout_marginTop="@dimen/input_code_info_order"
+        android:background="@drawable/shape_input_veri"
+        android:text="@string/order_context_ok"
+        android:textColor="@color/white" />
+        </LinearLayout>
+    </ScrollView>
+
+
+    <ImageView
+        android:id="@+id/confirm_code_anim"
+        android:layout_width="@dimen/confirm_code_anim"
+        android:layout_height="@dimen/confirm_code_anim"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/input_code_verification"
+        android:layout_marginRight="@dimen/input_code_verification"
+        android:background="@drawable/sh_icon_been_verified"
+        android:visibility="gone" />
+
+</RelativeLayout>

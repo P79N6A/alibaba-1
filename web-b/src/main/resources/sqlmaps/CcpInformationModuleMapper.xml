@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CcpInformationModuleMapper" >
+  <resultMap id="BaseResultMap" type="com.culturecloud.model.bean.common.CcpInformationModule" >
+    <id column="INFORMATION_MODULE_ID" property="informationModuleId" jdbcType="VARCHAR" />
+    <result column="INFORMATION_MODULE_NAME" property="informationModuleName" jdbcType="VARCHAR" />
+    <result column="INFORMATION_MODULE_STATUS" property="informationModuleStatus" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    INFORMATION_MODULE_ID, INFORMATION_MODULE_NAME, INFORMATION_MODULE_STATUS, CREATE_TIME, 
+    CREATE_USER, UPDATE_TIME, UPDATE_USER
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_information_module
+    where INFORMATION_MODULE_ID = #{informationModuleId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_information_module
+    where INFORMATION_MODULE_ID = #{informationModuleId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.culturecloud.model.bean.common.CcpInformationModule" >
+    insert into ccp_information_module
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      INFORMATION_MODULE_ID,
+      <if test="informationModuleName != null" >
+        INFORMATION_MODULE_NAME,
+      </if>
+      <if test="informationModuleStatus != null" >
+        INFORMATION_MODULE_STATUS,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{informationModuleId,jdbcType=VARCHAR},
+      <if test="informationModuleName != null" >
+        #{informationModuleName,jdbcType=VARCHAR},
+      </if>
+      <if test="informationModuleStatus != null" >
+        #{informationModuleStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.culturecloud.model.bean.common.CcpInformationModule" >
+    update ccp_information_module
+    <set >
+      <if test="informationModuleName != null" >
+        INFORMATION_MODULE_NAME = #{informationModuleName,jdbcType=VARCHAR},
+      </if>
+      <if test="informationModuleStatus != null" >
+        INFORMATION_MODULE_STATUS = #{informationModuleStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where INFORMATION_MODULE_ID = #{informationModuleId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryInformationModuleByConditionCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	 select count(*) from ccp_information_module
+  	 where 1 = 1 and INFORMATION_MODULE_STATUS = 1
+  	 <if test="informationModuleName != null">
+  	 	and INFORMATION_MODULE_NAME like CONCAT('%','${informationModuleName}','%' )
+  	 </if>
+  </select>
+  
+  <select id="queryInformationModuleByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+	select u.USER_NICK_NAME as CREATE_USER,uu.USER_NICK_NAME as UPDATE_USER,im.*
+	from ccp_information_module im
+	left join sys_user u on u.user_id = im.CREATE_USER
+   	left join sys_user uu on uu.user_id = im.UPDATE_USER
+  	where 1 = 1 and im.INFORMATION_MODULE_STATUS = 1
+	<if test="informationModuleName != null">
+  		and im.INFORMATION_MODULE_NAME like CONCAT('%','${informationModuleName}','%' )
+	</if>
+  	order by im.CREATE_TIME desc
+	<if test="firstResult != null">
+		limit ${firstResult},${rows}
+	</if>
+  </select>
+  
+</mapper>

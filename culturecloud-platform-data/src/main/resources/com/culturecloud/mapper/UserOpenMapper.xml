@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.culturecloud.dao.openrs.UserOpenApiMapper" >
+
+  <resultMap id="BaseResultMap" type="com.culturecloud.dao.dto.openrs.UserOpenDTO" >
+    <result column="userId" property="userId" jdbcType="VARCHAR" />
+    <result column="userNickName" property="userNickName" jdbcType="VARCHAR" />
+    <result column="telphone" property="telphone" jdbcType="VARCHAR" />
+    <result column="mobilephone" property="mobilephone" jdbcType="VARCHAR" />
+    <result column="headUrl" property="headUrl" jdbcType="VARCHAR" />
+    <result column="integralNow" property="integralNow" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="userName" property="userName" jdbcType="VARCHAR" />
+    <result column="userCardNo" property="userCardNo" jdbcType="VARCHAR" />
+    <result column="userType" property="userType" jdbcType="INTEGER" />
+    <result column="SOURCE_CODE" property="sourceCode" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap id="UserCollectMap" type="com.culturecloud.dao.dto.openrs.UserCollectDTO" >
+    <result column="collectId" property="collectId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="getUser" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select a.USER_ID as userId,a.USER_NICK_NAME as userNickName,a.USER_MOBILE_NO as mobilephone,a.USER_TELEPHONE as telphone,a.USER_HEAD_IMG_URL as headUrl,a.USER_SEX as sex,
+    	a.USER_NAME as userName, a.user_Card_No as userCardNo , a.user_Type as userType ,a.SOURCE_CODE
+	from cms_terminal_user as a where a.USER_ID=#{userId,jdbcType=VARCHAR}
+  </select>
+  
+    <select id="userAuth" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select a.USER_ID as userId,a.USER_NICK_NAME as userNickName,a.USER_TELEPHONE as telphone,a.USER_HEAD_IMG_URL as headUrl,b.INTEGRAL_NOW as integralNow,a.USER_SEX as sex  
+from cms_terminal_user as a left join sys_user_integral as b on a.USER_ID=b.USER_ID 
+where a.USER_IS_DISABLE='1' and a.USER_MOBILE_NO=#{username,jdbcType=VARCHAR} and a.USER_PWD=#{pwd,jdbcType=VARCHAR}  limit 0,1
+  </select>
+ 
+  <select id="usercollect" resultMap="UserCollectMap" parameterType="java.lang.String" >
+    select a.RELATE_ID as collectId,a.TYPE as type 
+from cms_collect as a  where a.USER_ID=#{userId,jdbcType=VARCHAR}
+  </select>
+  
+</mapper>

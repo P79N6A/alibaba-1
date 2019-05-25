@@ -1,0 +1,99 @@
+.model-main{
+	font-family: "微软雅黑";
+	width: 750px;
+	margin: auto;
+}
+
+.model-head{
+	background-color: #f5f5f5;
+	padding: 20px 40px;
+}
+
+.model-head>p{
+	float: left;
+	font-size: 22px;
+	color: #333333;
+}
+
+.model-head>ul{
+	float: left;
+}
+
+.model-head>ul>li{
+	margin-left: 20px;
+	float: left;
+	font-size: 16px;
+	color: #575757;
+}
+
+.model-head>ul>li>input{
+	margin-right: 5px;
+	width: 20px;
+	height: 12px;
+}
+
+.model-content{
+	padding: 35px 35px 0px;
+	text-align: center;
+}
+
+.model-content>p{
+	line-height: 25px;
+}
+
+.model-content>img{
+	display: block;
+	margin: auto;
+	margin-bottom: 35px;
+}
+
+.model-content-top>img,.model-content-middle>img,.model-content-end>img{
+	display: block;
+	margin: auto;
+}
+
+.model-content-top,.model-content-middle,.model-content-end{
+	width: 675px;
+	margin: auto;
+	position: relative;
+}
+
+.model-content-top>p{
+	margin: auto;
+	color: #fff;
+	width: 675px;
+	font-size: 25px;
+	line-height: 60px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+}
+
+.model-content-middle{
+	/*background: url(../image/whymodel/mb-1.png) repeat-y center center;*/
+}
+
+.model-content-middle>p>img{
+	margin-right: 30px;
+}
+
+.model-content-middle>p{
+	line-height: 40px;
+	margin-left: 170px;
+	text-align: left;
+	font-size: 14px;
+}
+
+.model-content-end{
+	margin-bottom: 35px;
+}
+
+.model-footer{
+	font-size: 20px;
+	padding: 0px 35px 35px 35px;
+}
+
+.inputText{
+	border: none;
+}

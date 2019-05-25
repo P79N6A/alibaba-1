@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsActivityVoteMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsActivityVote" >
+    <id column="VOTE_ID" property="voteId" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_ID" property="activityId" jdbcType="VARCHAR" />
+    <result column="VOTE_TITEL" property="voteTitel" jdbcType="VARCHAR" />
+    <result column="VOTE_IS_DEL" property="voteIsDel" jdbcType="INTEGER" />
+    <result column="VOTE_DATE" property="voteDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="ACTIVITY_NAME" property="activityName" jdbcType="VARCHAR"/>
+    <result column="VOTE_DESCRIBE" property="voteDescribe" jdbcType="VARCHAR"/>
+    <result column="VOTE_COVER_IMG_URL" property="voteCoverImgUrl" jdbcType="VARCHAR"/>
+    <!-- app添加字段-->
+    <result column="VOTE_CONTENT" property="voteContent" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="customResultMap" type="com.sun3d.why.model.CmsActivityVote" >
+    <id column="VOTE_ID" property="voteId" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_ID" property="activityId" jdbcType="VARCHAR" />
+    <result column="VOTE_TITEL" property="voteTitel" jdbcType="VARCHAR" />
+    <result column="VOTE_IS_DEL" property="voteIsDel" jdbcType="INTEGER" />
+    <result column="VOTE_DATE" property="voteDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+<!--    <result column="ACTIVITY_NAME" property="activityName" jdbcType="VARCHAR"/>-->
+    <result column="VOTE_DESCRIBE" property="voteDescribe" jdbcType="VARCHAR"/>
+    <result column="VOTE_COVER_IMG_URL" property="voteCoverImgUrl" jdbcType="VARCHAR"/>
+
+    <collection property="relateList" ofType="com.sun3d.why.model.CmsActivityVoteRelevance"
+                javaType="java.util.List"
+                resultMap="com.sun3d.why.dao.CmsActivityVoteRelevanceMapper.BaseResultMap" >
+    </collection>
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    cv.VOTE_ID, cv.ACTIVITY_ID,ca.ACTIVITY_NAME, cv.VOTE_TITEL, cv.VOTE_IS_DEL, cv.VOTE_DATE, cv.UPDATE_DATE,cv.VOTE_DESCRIBE,cv.VOTE_COVER_IMG_URL
+  </sql>
+
+
+  <sql id="Custom_Column_List" >
+    VOTE_ID, ACTIVITY_ID,VOTE_TITEL,VOTE_IS_DEL,VOTE_DATE, UPDATE_DATE,VOTE_DESCRIBE,VOTE_COVER_IMG_URL
+  </sql>
+
+  <select id="queryActivityVoteCountByCondition" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(*)
+    from cms_activity_vote  cv
+    left join cms_activity ca on cv.ACTIVITY_ID = ca.ACTIVITY_ID
+    where 1=1
+    <if test="voteIsDel != null">
+      and  cv.VOTE_IS_DEL =#{voteIsDel,jdbcType=VARCHAR}
+    </if>
+    <if test="activityName != null">
+      and  (ca.ACTIVITY_NAME LIKE #{activityName,jdbcType=VARCHAR} or cv.VOTE_TITEL LIKE #{activityName,jdbcType=VARCHAR})
+    </if>
+  </select>
+
+  <select id="queryActivityVoteByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select <include refid="Base_Column_List" />
+    from cms_activity_vote  cv
+    left join cms_activity ca on cv.ACTIVITY_ID = ca.ACTIVITY_ID
+    where 1=1
+    <if test="voteIsDel != null">
+      and  cv.VOTE_IS_DEL =#{voteIsDel,jdbcType=VARCHAR}
+    </if>
+    <if test="activityName != null">
+      and  (ca.ACTIVITY_NAME LIKE #{activityName,jdbcType=VARCHAR} or cv.VOTE_TITEL LIKE #{activityName,jdbcType=VARCHAR})
+    </if>
+    ORDER BY UPDATE_DATE DESC
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+
+  <insert id="addActivityVote" parameterType="com.sun3d.why.model.CmsActivityVote">
+    INSERT  INTO cms_activity_vote
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="voteId != null">
+        VOTE_ID,
+      </if>
+      <if test="activityId != null">
+        ACTIVITY_ID,
+      </if>
+    <if test="voteTitel != null">
+      VOTE_TITEL,
+    </if>
+    <if test="voteIsDel != null">
+      VOTE_IS_DEL,
+    </if>
+    <if test="voteDate != null">
+      VOTE_DATE,
+    </if>
+    <if test="updateDate != null">
+      UPDATE_DATE,
+    </if>
+      <if test="voteDescribe != null">
+        VOTE_DESCRIBE,
+      </if>
+      <if test="voteCoverImgUrl != null">
+        VOTE_COVER_IMG_URL,
+      </if>
+    </trim>
+
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="voteId != null">
+        #{voteId,jdbcType=VARCHAR},
+      </if>
+      <if test="activityId != null">
+        #{activityId,jdbcType=VARCHAR},
+      </if>
+      <if test="voteTitel != null">
+         #{voteTitel,jdbcType=VARCHAR},
+      </if>
+      <if test="voteIsDel != null">
+         #{voteIsDel,jdbcType=INTEGER},
+      </if>
+      <if test="voteDate != null">
+        #{voteDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="voteDescribe != null">
+        #{voteDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="voteCoverImgUrl != null">
+        #{voteCoverImgUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+
+  </insert>
+
+
+  <update id="editCmsActivityVote" parameterType="com.sun3d.why.model.CmsActivityVote">
+      update cms_activity_vote
+      <set>
+        <if test="activityId != null">
+          ACTIVITY_ID = #{activityId,jdbcType=VARCHAR},
+        </if>
+        <if test="voteTitel != null">
+          VOTE_TITEL = #{voteTitel,jdbcType=VARCHAR},
+        </if>
+        <if test="voteIsDel != null">
+          VOTE_IS_DEL = #{voteIsDel,jdbcType=INTEGER},
+        </if>
+        <if test="voteDate != null">
+          VOTE_DATE = #{voteDate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="updateDate != null">
+          UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="voteDescribe != null">
+          VOTE_DESCRIBE = #{voteDescribe,jdbcType=VARCHAR},
+        </if>
+        <if test="voteCoverImgUrl != null">
+          VOTE_COVER_IMG_URL = #{voteCoverImgUrl,jdbcType=VARCHAR},
+        </if>
+      </set>
+      where VOTE_ID = #{voteId,jdbcType=VARCHAR}
+  </update>
+
+  <!--逻辑删除投票记录-->
+  <update id="deleteActivityVote" parameterType="java.lang.String" >
+    update cms_activity_vote
+    SET VOTE_IS_DEL = 0
+    where VOTE_ID = #{voteId,jdbcType=VARCHAR}
+  </update>
+
+<select id="queryActivityVoteById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cms_activity_vote  cv
+    left join cms_activity ca on cv.ACTIVITY_ID = ca.ACTIVITY_ID
+    where VOTE_ID = #{voteId,jdbcType=VARCHAR}
+</select>
+
+
+  <select id="queryActivityVoteByVoteTitel" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select vote_id,vote_titel
+    from cms_activity_vote
+    where
+    VOTE_IS_DEL = 1
+    AND VOTE_TITEL = #{voteTitel,jdbcType=VARCHAR}
+  </select>
+
+
+<!--根据活动查询投票列表-->
+  <select id="queryVoteList" resultMap="customResultMap" parameterType="java.util.Map">
+    SELECT <include refid="Custom_Column_List" />
+    FROM cms_activity_vote
+    WHERE  ACTIVITY_ID = #{activityId} AND  VOTE_IS_DEL=1
+    ORDER BY VOTE_DATE DESC ,UPDATE_DATE DESC
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+<!--根据投票id查询详情 排名倒序  名次升序 -->
+  <select id="queryDetailById" resultMap="customResultMap" parameterType="java.lang.String">
+    SELECT
+    VOTE_TITEL,VOTE_DESCRIBE,
+    VOTE_COVER_IMG_URL,ca.*
+    FROM cms_activity_vote  cv  JOIN  cms_activity_vote_relevance ca
+    ON  cv.VOTE_ID = ca.VOTE_ID
+    WHERE  cv.VOTE_ID = #{voteId}
+    ORDER  BY  ca.VOTE_COUNT  DESC,ca.VOTE_SORT ASC
+  </select>
+
+  <!--app查询活动投票管理 -->
+  <select id="queryAppUserVoteById" resultMap="BaseResultMap" parameterType="java.util.Map">
+SELECT
+	COUNT(cuv.VOTE_RELATE_ID) AS voteCount,
+	cr.VOTE_CONTENT,
+	cr.VOTE_ID,
+  cr.VOTE_COVER_IMG_URL,
+  cr.VOTE_TITEL,
+  cr.VOTE_DESCRIBE,
+  cr.total as totals
+FROM
+	cms_user_vote cuv
+RIGHT JOIN (
+	SELECT
+		cav.VOTE_COVER_IMG_URL,
+		cav.VOTE_ID,
+		cav.VOTE_TITEL,
+		cav.VOTE_DESCRIBE,
+		COUNT(cuv.VOTE_RELATE_ID) AS total,
+    cavr.VOTE_CONTENT
+	FROM
+		cms_activity_vote cav
+	LEFT JOIN cms_activity_vote_relevance cavr ON cav.VOTE_ID = cavr.VOTE_ID
+	LEFT JOIN cms_user_vote cuv ON cavr.VOTE_RELEVANCE_ID = cuv.VOTE_RELATE_ID
+	WHERE
+		1 = 1
+    <if test="activityId != null">
+     AND cav.ACTIVITY_ID = #{activityId,jdbcType=VARCHAR}
+    </if>
+	AND cav.VOTE_IS_DEL = 1
+	GROUP BY
+		cav.VOTE_ID
+	ORDER BY
+		cav.UPDATE_DATE DESC
+) cr ON cuv.VOTE_ID = cr.VOTE_ID
+GROUP BY
+	cuv.VOTE_RELATE_ID
+ORDER BY
+	voteCount DESC
+    limit 1
+  </select>
+
+  <!--app查询活动投票总数 -->
+  <select id="queryAppUserVoteCountById" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(*) from (SELECT
+    COUNT(cuv.VOTE_RELATE_ID) AS voteCount,
+    cr.VOTE_CONTENT,
+    cr.VOTE_ID,
+    cr.VOTE_COVER_IMG_URL,
+    cr.VOTE_TITEL,
+    cr.VOTE_DESCRIBE,
+    cr.total as totals
+    FROM
+    cms_user_vote cuv
+    RIGHT JOIN (
+    SELECT
+    cav.VOTE_COVER_IMG_URL,
+    cav.VOTE_ID,
+    cav.VOTE_TITEL,
+    cav.VOTE_DESCRIBE,
+    COUNT(cuv.VOTE_RELATE_ID) AS total,
+    cavr.VOTE_CONTENT
+    FROM
+    cms_activity_vote cav
+    LEFT JOIN cms_activity_vote_relevance cavr ON cav.VOTE_ID = cavr.VOTE_ID
+    LEFT JOIN cms_user_vote cuv ON cavr.VOTE_RELEVANCE_ID = cuv.VOTE_RELATE_ID
+    WHERE
+    1 = 1
+    <if test="activityId != null">
+      AND cav.ACTIVITY_ID = #{activityId,jdbcType=VARCHAR}
+    </if>
+    AND cav.VOTE_IS_DEL = 1
+    GROUP BY
+    cav.VOTE_ID
+    ORDER BY
+    cav.UPDATE_DATE DESC
+    ) cr ON cuv.VOTE_ID = cr.VOTE_ID
+    GROUP BY
+    cuv.VOTE_RELATE_ID) a
+  </select>
+
+  <select id="queryForIndex" resultMap="customResultMap" parameterType="java.util.Map">
+    SELECT <include refid="Custom_Column_List" />
+    FROM cms_activity_vote cav,
+    (
+    SELECT  cs.VOTE_ID  voteId , SUM(cs.VOTE_COUNT) total   FROM   cms_activity_vote_relevance  cs
+
+    JOIN  cms_activity_vote     ca
+
+    ON  ca.VOTE_ID = cs.VOTE_ID
+
+    where ca.ACTIVITY_ID=#{activityId}  AND ca.VOTE_IS_DEL=1 GROUP BY cs.VOTE_ID ORDER BY total desc LIMIT 1
+    ) cc
+
+    WHERE  cav.VOTE_ID=cc.voteId
+
+    <!--ACTIVITY_ID = #{activityId} AND  VOTE_IS_DEL=1
+    ORDER BY VOTE_DATE DESC ,UPDATE_DATE DESC LIMIT 1-->
+  </select>
+
+  <select id="queryForIndexData"  resultType="java.util.Map" parameterType="java.lang.String">
+      SELECT cc.vote_content title,sum(cc.vote_count) total from (
+            (SELECT cd.*   from
+                    (
+                      SELECT * FROM
+
+                      cms_activity_vote_relevance cr
+
+                      where cr.VOTE_ID=#{voteId}
+
+                      ORDER BY cr.VOTE_COUNT DESC
+
+                    ) cd
+            ) cc
+        ) GROUP BY cc.VOTE_ID
+  </select>
+</mapper>

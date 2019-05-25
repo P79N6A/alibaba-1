@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CcpCultureContestQuestionMapper" >
+  <resultMap id="BaseResultMap" type="com.culturecloud.model.bean.culture.CcpCultureContestQuestion" >
+    <id column="culture_question_id" property="cultureQuestionId" jdbcType="INTEGER" />
+    <result column="question_content" property="questionContent" jdbcType="VARCHAR" />
+    <result column="question_type" property="questionType" jdbcType="INTEGER" />
+    <result column="right_answer" property="rightAnswer" jdbcType="INTEGER" />
+    <result column="question_create_user" property="questionCreateUser" jdbcType="VARCHAR" />
+    <result column="question_create_time" property="questionCreateTime" jdbcType="TIMESTAMP" />
+    <result column="stage_number" property="stageNumber" jdbcType="INTEGER" />
+  </resultMap>
+  
+  
+  
+  
+  <sql id="Base_Column_List" >
+    culture_question_id, question_content, question_type, right_answer, question_create_user, 
+    question_create_time, stage_number
+  </sql>
+  
+  
+  
+ <select id="queryQuestionCountByCondition" resultType="java.lang.Integer" parameterType="java.util.Map">
+  
+  	 select count(*)
+  
+   	from ccp_culture_contest_question
+   	
+   	     where 1=1 
+   	     
+	 <if test="cultureQuestionId != null" >
+       		and culture_question_id= #{cultureQuestionId,jdbcType=INTEGER}
+      </if>
+      <if test="questionContent != null">
+       		and question_content like CONCAT('%','${questionContent}','%' )
+      </if>
+       <if test="questionType != 0">
+        	and question_type = #{questionType,jdbcType=INTEGER}
+       </if>
+      		and stage_number = #{stageNumber,jdbcType=VARCHAR}
+  
+  </select>
+  
+  
+  
+    <select id="queryQuestionByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+  
+  	select
+  	<include refid="Base_Column_List" />
+  
+   		from ccp_culture_contest_question
+
+   	     where 1=1 
+   	     
+	 <if test="cultureQuestionId != null" >
+       		and culture_question_id= #{cultureQuestionId,jdbcType=INTEGER}
+      </if>
+      <if test="questionContent != null">
+       		and question_content like CONCAT('%','${questionContent}','%' )
+      </if>
+       <if test="questionType != 0">
+        	and question_type = #{questionType,jdbcType=INTEGER}
+       </if>
+      		and stage_number = #{stageNumber,jdbcType=VARCHAR}
+      		order by culture_question_id DESC
+      		limit ${firstResult},${rows}
+      		
+  </select>
+   
+   
+   
+   
+   <select id="queryQuestionById" resultMap="BaseResultMap"  parameterType="java.lang.Integer">
+  
+  	select
+  	<include refid="Base_Column_List" />
+  
+   		from ccp_culture_contest_question where culture_question_id= #{cultureQuestionId,jdbcType=INTEGER}
+     
+  </select>
+   
+  
+  
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ccp_culture_contest_question
+    where culture_question_id = #{cultureQuestionId,jdbcType=INTEGER}
+  </delete>
+  
+  
+  
+  
+  
+  <insert id="insert" parameterType="com.culturecloud.model.bean.culture.CcpCultureContestQuestion">
+	  
+      <selectKey keyProperty="cultureQuestionId" order="AFTER" resultType="java.lang.Integer">
+	  	SELECT LAST_INSERT_ID()
+	  </selectKey>
+    
+    
+    insert into ccp_culture_contest_question (culture_question_id, question_content, 
+      question_type, right_answer, question_create_user, 
+      question_create_time, stage_number)
+    values (#{cultureQuestionId,jdbcType=INTEGER}, #{questionContent,jdbcType=VARCHAR}, 
+      #{questionType,jdbcType=INTEGER}, #{rightAnswer,jdbcType=INTEGER}, #{questionCreateUser,jdbcType=VARCHAR}, 
+      #{questionCreateTime,jdbcType=TIMESTAMP}, #{stageNumber,jdbcType=INTEGER})
+      
+     
+  </insert>
+  
+  
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.culturecloud.model.bean.culture.CcpCultureContestQuestion" >
+    update ccp_culture_contest_question
+    set question_content = #{questionContent,jdbcType=VARCHAR},
+      question_type = #{questionType,jdbcType=INTEGER},
+      right_answer = #{rightAnswer,jdbcType=INTEGER},
+      question_create_user = #{questionCreateUser,jdbcType=VARCHAR},
+      question_create_time = #{questionCreateTime,jdbcType=TIMESTAMP},
+      stage_number = #{stageNumber,jdbcType=INTEGER}
+    where culture_question_id = #{cultureQuestionId,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.culturecloud.model.bean.culture.CcpCultureContestQuestion" >
+    update ccp_culture_contest_question
+    <set >
+      <if test="questionContent != null" >
+        question_content = #{questionContent,jdbcType=VARCHAR},
+      </if>
+      <if test="questionType != null" >
+        question_type = #{questionType,jdbcType=INTEGER},
+      </if>
+      <if test="rightAnswer != null" >
+        right_answer = #{rightAnswer,jdbcType=INTEGER},
+      </if>
+      <if test="questionCreateUser != null" >
+        question_create_user = #{questionCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="questionCreateTime != null" >
+        question_create_time = #{questionCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stageNumber != null" >
+        stage_number = #{stageNumber,jdbcType=INTEGER},
+      </if>
+    </set>
+    where culture_question_id = #{cultureQuestionId,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  
+  
+</mapper>

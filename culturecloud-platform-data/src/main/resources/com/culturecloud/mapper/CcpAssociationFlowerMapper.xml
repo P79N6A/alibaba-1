@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.culturecloud.dao.association.CcpAssociationFlowerMapper" >
+  <resultMap id="BaseResultMap" type="com.culturecloud.model.bean.association.CcpAssociationFlower" >
+    <result column="ASSN_ID" property="assnId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+  	ASSN_ID,USER_ID,CREATE_TIME
+  </sql>
+  
+  <select id="countUserAssociationTodayFlower"  resultType="int" parameterType="com.culturecloud.model.bean.association.CcpAssociationFlower">
+  
+  	select count(*) 
+  	
+  	from ccp_association_flower
+  	
+  	where 1=1
+  	
+  	AND USER_ID=#{userId}
+  	
+  	AND ASSN_ID=#{assnId}
+  	
+  	AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')=DATE_FORMAT(NOW(), '%Y-%m-%d')
+  	
+  </select>
+  
+   <insert id="insert" parameterType="com.culturecloud.model.bean.association.CcpAssociationFlower" >
+  
+    insert into ccp_association_flower (ASSN_ID, USER_ID, CREATE_TIME)
+    
+     values (#{assnId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+     
+    </insert>
+</mapper>

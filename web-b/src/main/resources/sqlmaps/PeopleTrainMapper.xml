@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.PeopleTrainMapper">
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.peopleTrain.TrainTerminalUser">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="USER_ID" property="userId"
+			jdbcType="VARCHAR" />
+		<result column="USER_EMAIL" property="userEmail"
+			jdbcType="VARCHAR" />
+		<result column="ID_NUMBER" property="idNumber"
+			jdbcType="VARCHAR" />
+		<result column="UNIT_AREA" property="unitArea"
+			jdbcType="VARCHAR" />
+		<result column="UNIT_NAME" property="unitName"
+			jdbcType="VARCHAR" />
+		<result column="JOB_POSITION" property="jobPosition"
+			jdbcType="VARCHAR" />
+		<result column="JOB_TITLE" property="jobTitle"
+			jdbcType="VARCHAR" />
+		<result column="ENGAGED_FIELD" property="engagedField"
+			jdbcType="VARCHAR" />
+		<result column="ERTFICATE_NUMBER" property="ertificateNumber"
+			jdbcType="VARCHAR" />
+		<result column="VERIFICATION_CODE" property="verificationCode"
+			jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime"
+			jdbcType="TIMESTAMP" />
+		<result column="UPDATE_TIME" property="updateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="USER_NAME" property="userName"
+			jdbcType="VARCHAR" />
+		<result column="USER_SEX" property="userSex"
+			jdbcType="INTEGER" />
+		<result column="USER_MOBILE_NO" property="userMobileNo"
+			jdbcType="VARCHAR" />
+		<result column="jobName" property="jobName"
+			jdbcType="VARCHAR" />
+		<result column="titleName" property="titleName"
+			jdbcType="VARCHAR" />
+		<result column="fieldName" property="fieldName"
+			jdbcType="VARCHAR" />
+		<result column="REAL_NAME" property="realName"
+			jdbcType="VARCHAR" />	
+	</resultMap>
+	<!-- 分页信息 -->
+	<sql id="pagination_condition">
+		limit ${firstResult},${rows}
+	</sql>
+	<!--后台sql -->
+
+	<!-- 查询报名用户信息列表 -->
+	<select id="queryTrainTerminalUserByCondition" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+	    SELECT 
+	    c.USER_NAME,
+	    c.USER_SEX,
+	    c.USER_MOBILE_NO,
+	    c.USER_ID,sd.DICT_NAME as jobName,d.DICT_NAME as titleName,
+	    t.*
+        from  train_terminal_user t 
+	    LEFT JOIN sys_dict sd 
+	    ON t.JOB_POSITION = sd.DICT_ID
+	    LEFT JOIN sys_dict d 
+	    ON t.JOB_TITLE = d.DICT_ID
+	    LEFT JOIN
+	    cms_terminal_user c 
+	    ON t.USER_ID = c.USER_ID
+	   	where 1 =1
+	   	<if test="searchKey != null and searchKey != ''">
+			and (c.USER_NAME like '%${searchKey}%' or t.ID_NUMBER like '%${searchKey}%')
+		</if>
+		<if test="sysUserId != null">
+			and t.VERIFICATION_CODE = ( SELECT cc.ID FROM course_captcha cc where cc.USER_ID = #{sysUserId} ) 
+		</if>
+		<if test="userMobileNo != null">
+			and c.USER_MOBILE_NO like #{userMobileNo}
+		</if>
+		order by t.CREATE_TIME DESC
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</select>
+
+	<!-- 查询后台活动列表信息总条数 -->
+	<select id="queryTrainTerminalUserCountByCondition" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		 SELECT 
+	    count(*)
+	    from  train_terminal_user t 
+	    LEFT JOIN
+	    cms_terminal_user c 
+	    ON t.USER_ID = c.USER_ID
+	    where 1 =1
+	    <if test="sysUserId != null">
+			and t.VERIFICATION_CODE = ( SELECT cc.ID FROM course_captcha cc where cc.USER_ID = #{sysUserId} ) 
+		</if>
+	   	<if test="searchKey != null and searchKey != ''">
+			and (c.USER_NAME like '%${searchKey}%' or t.ID_NUMBER like '%${searchKey}%')
+		</if>
+		<if test="userMobileNo != null">
+			and c.USER_MOBILE_NO like #{userMobileNo}
+		</if>
+	</select>
+	
+	<insert id="addTrainTerminalUser" parameterType="com.sun3d.why.model.peopleTrain.TrainTerminalUser" >
+    insert into train_terminal_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="userEmail != null" >
+        USER_EMAIL,
+      </if>
+      <if test="idNumber != null" >
+        ID_NUMBER,
+      </if>
+      <if test="unitArea != null" >
+        UNIT_AREA,
+      </if>
+      <if test="unitName != null" >
+        UNIT_NAME,
+      </if>
+      <if test="jobPosition != null" >
+        JOB_POSITION,
+      </if>
+      <if test="jobTitle != null" >
+        JOB_TITLE,
+      </if>
+      <if test="engagedField != null" >
+        ENGAGED_FIELD,
+      </if>
+      <if test="ertificateNumber != null" >
+        ERTFICATE_NUMBER,
+      </if>
+      <if test="verificationCode != null" >
+        VERIFICATION_CODE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="realName != null" >
+        REAL_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="idNumber != null" >
+        #{idNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="unitArea != null" >
+        #{unitArea,jdbcType=VARCHAR},
+      </if>
+      <if test="unitName != null" >
+        #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="jobPosition != null" >
+        #{jobPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="jobTitle != null" >
+        #{jobTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="engagedField != null" >
+        #{engagedField,jdbcType=VARCHAR},
+      </if>
+      <if test="ertificateNumber != null" >
+        #{ertificateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="verificationCode != null" >
+        #{verificationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateTrainTerminalUser" parameterType="com.sun3d.why.model.peopleTrain.TrainTerminalUser" >
+    update train_terminal_user
+    <set >
+      <if test="userEmail != null" >
+        USER_EMAIL = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="idNumber != null" >
+        ID_NUMBER = #{idNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="unitArea != null" >
+        UNIT_AREA = #{unitArea,jdbcType=VARCHAR},
+      </if>
+      <if test="unitName != null" >
+        UNIT_NAME = #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="jobPosition != null" >
+        JOB_POSITION = #{jobPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="jobTitle != null" >
+        JOB_TITLE = #{jobTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="engagedField != null" >
+        ENGAGED_FIELD = #{engagedField,jdbcType=VARCHAR},
+      </if>
+      <if test="ertificateNumber != null" >
+        ERTFICATE_NUMBER = #{ertificateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="verificationCode != null" >
+        VERIFICATION_CODE = #{verificationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="realName != null" >
+        REAL_NAME = #{realName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryTrainUserByUserId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+	    SELECT 
+	    t.USER_ID,t.REAL_NAME,t.USER_EMAIL,t.ID_NUMBER,t.UNIT_AREA,t.UNIT_NAME,t.JOB_POSITION,t.JOB_TITLE,t.ENGAGED_FIELD,t.ERTFICATE_NUMBER,cp.CODE as VERIFICATION_CODE,t.CREATE_TIME,
+	    c.USER_NAME,
+	    c.USER_SEX,
+	    c.USER_MOBILE_NO,
+	    c.USER_ID,sd.DICT_NAME as jobName,d.DICT_NAME as titleName,d2.DICT_NAME as fieldName
+        from  train_terminal_user t 
+	    LEFT JOIN sys_dict sd 
+	    ON t.JOB_POSITION = sd.DICT_ID
+	    LEFT JOIN sys_dict d 
+	    ON t.JOB_TITLE = d.DICT_ID
+	    LEFT JOIN sys_dict d2 
+	    ON t.ENGAGED_FIELD = d2.DICT_ID
+	    LEFT JOIN
+	    cms_terminal_user c 
+	    ON t.USER_ID = c.USER_ID
+	    LEFT JOIN course_captcha cp 
+	    ON t.VERIFICATION_CODE = cp.ID
+	   	where t.USER_ID = #{userId}
+	</select>
+	
+<!-- 查询报名用户信息列表 -->
+	<select id="queryPeopleTrainById" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+	  SELECT 
+	    c.USER_NAME,
+	    c.USER_SEX,
+	    c.USER_MOBILE_NO,
+	    c.USER_ID,
+	    t.*
+         from  train_terminal_user t 
+	    LEFT JOIN
+	    cms_terminal_user c 
+	    ON t.USER_ID = c.USER_ID
+	   	where 1 =1
+	   	<if test="searchKey != null">
+			and ( c.USER_MOBILE_NO = #{searchKey} or t.ID_NUMBER = #{searchKey} )
+		</if>
+		order by t.CREATE_TIME DESC
+	</select> 
+</mapper>

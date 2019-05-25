@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.SysModuleMapper">
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.SysModule">
+		<id column="MODULE_ID" property="moduleId" jdbcType="VARCHAR" />
+		<result column="MODULE_NAME" property="moduleName" jdbcType="VARCHAR" />
+		<result column="MODULE_URL" property="moduleUrl" jdbcType="VARCHAR" />
+		<result column="MODULE_PARENT_ID" property="moduleParentId"
+			jdbcType="VARCHAR" />
+		<result column="MODULE_REMARK" property="moduleRemark"
+			jdbcType="VARCHAR" />
+		<result column="MODULE_STATE" property="moduleState" jdbcType="INTEGER" />
+		<result column="MODULE_SORT" property="moduleSort" jdbcType="INTEGER" />
+		<result column="MODULE_CREATE_USER" property="moduleCreateUser"
+			jdbcType="VARCHAR" />
+		<result column="MODULE_CREATE_TIME" property="moduleCreateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="MODULE_UPDATE_USER" property="moduleUpdateUser"
+			jdbcType="VARCHAR" />
+		<result column="MODULE_UPDATE_TIME" property="moduleUpdateTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<!-- 分页信息 -->
+	<sql id="pagination_condition">
+		limit ${firstResult},${rows}
+	</sql>
+
+	<insert id="addModule" parameterType="com.sun3d.why.model.SysModule">
+		insert into SYS_MODULE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="moduleId != null">
+				MODULE_ID,
+			</if>
+			<if test="moduleName != null">
+				MODULE_NAME,
+			</if>
+			<if test="moduleUrl != null">
+				MODULE_URL,
+			</if>
+			<if test="moduleParentId != null">
+				MODULE_PARENT_ID,
+			</if>
+			<if test="moduleRemark != null">
+				MODULE_REMARK,
+			</if>
+			<if test="moduleState != null">
+				MODULE_STATE,
+			</if>
+			<if test="moduleSort != null">
+				MODULE_SORT,
+			</if>
+			<if test="moduleCreateUser != null">
+				MODULE_CREATE_USER,
+			</if>
+			<if test="moduleCreateTime != null">
+				MODULE_CREATE_TIME,
+			</if>
+			<if test="moduleUpdateUser != null">
+				MODULE_UPDATE_USER,
+			</if>
+			<if test="moduleUpdateTime != null">
+				MODULE_UPDATE_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="moduleId != null">
+				#{moduleId,jdbcType=VARCHAR},
+			</if>
+			<if test="moduleName != null">
+				#{moduleName,jdbcType=VARCHAR},
+			</if>
+			<if test="moduleUrl != null">
+				#{moduleUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="moduleParentId != null">
+				#{moduleParentId,jdbcType=VARCHAR},
+			</if>
+			<if test="moduleRemark != null">
+				#{moduleRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="moduleState != null">
+				#{moduleState,jdbcType=INTEGER},
+			</if>
+			<if test="moduleSort != null">
+				#{moduleSort,jdbcType=INTEGER},
+			</if>
+			<if test="moduleCreateUser != null">
+				#{moduleCreateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="moduleCreateTime != null">
+				#{moduleCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="moduleUpdateUser != null">
+				#{moduleUpdateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="moduleUpdateTime != null">
+				#{moduleUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="editModuleById" parameterType="com.sun3d.why.model.SysModule">
+		update SYS_MODULE
+		<set>
+			<if test="moduleName != null">
+				MODULE_NAME = #{moduleName,jdbcType=VARCHAR},
+			</if>
+			<if test="moduleUrl != null">
+				MODULE_URL = #{moduleUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="moduleParentId != null">
+				MODULE_PARENT_ID = #{moduleParentId,jdbcType=VARCHAR},
+			</if>
+			<if test="moduleRemark != null">
+				MODULE_REMARK = #{moduleRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="moduleState != null">
+				MODULE_STATE = #{moduleState,jdbcType=INTEGER},
+			</if>
+			<if test="moduleSort != null">
+				MODULE_SORT = #{moduleSort,jdbcType=INTEGER},
+			</if>
+			<if test="moduleCreateUser != null">
+				MODULE_CREATE_USER = #{moduleCreateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="moduleCreateTime != null">
+				MODULE_CREATE_TIME = #{moduleCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="moduleUpdateUser != null">
+				MODULE_UPDATE_USER = #{moduleUpdateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="moduleUpdateTime != null">
+				MODULE_UPDATE_TIME = #{moduleUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where MODULE_ID = #{moduleId,jdbcType=VARCHAR}
+	</update>
+
+	<select id="queryModuleByModuleState" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select * from sys_module
+		where module_state = #{moduleState}
+		order by module_sort asc
+	</select>
+
+	<select id="queryModuleByRoleId" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select m.* from SYS_ROLE_MODULE r, SYS_MODULE m  where r.MODULE_ID = m.MODULE_ID and r.ROLE_ID = #{roleId} order by m.module_sort asc
+	</select>
+
+	<select id="selectModuleByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT DISTINCT m.*
+		FROM SYS_USER_ROLE ur,SYS_ROLE_MODULE rm,SYS_MODULE m,SYS_ROLE r
+		where ur.ROLE_ID = rm.ROLE_ID and rm.MODULE_ID = m.MODULE_ID and r.ROLE_ID = rm.ROLE_ID
+			and r.ROLE_STATE = 1 and ur.USER_ID = #{userId}
+	</select>
+
+	<select id="queryParentModuleByUrl" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from sys_module
+		where module_parent_id = '0'
+		and module_url = #{moduleUrl}
+		limit 1;
+	</select>
+
+	<select id="queryChildModuleByUrl" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from sys_module
+		where module_parent_id &lt;> '0'
+		and module_url =  #{moduleUrl}
+		limit 1;
+	</select>
+</mapper>

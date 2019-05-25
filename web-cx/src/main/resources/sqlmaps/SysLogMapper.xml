@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.SysLogMapper">
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.SysLog">
+		<id column="LOG_ID" property="logId" jdbcType="VARCHAR" />
+		<result column="LOG_USER_ID" property="logUserId" jdbcType="VARCHAR" />
+		<result column="LOG_NICK_NAME" property="logNickName" jdbcType="VARCHAR" />
+		<result column="LOG_IP" property="logIp" jdbcType="VARCHAR" />
+		<result column="LOG_MODULE_NAME" property="logModuleName"
+			jdbcType="VARCHAR" />
+		<result column="LOG_REMARK" property="logRemark" jdbcType="VARCHAR" />
+		<result column="LOG_OPER_TIME" property="logOperTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		LOG_ID, LOG_USER_ID, LOG_NICK_NAME, LOG_IP, LOG_MODULE_NAME, LOG_REMARK,
+		LOG_OPER_TIME
+	</sql>
+	<!-- 分页信息 -->
+	<sql id="pagination_condition">
+		limit ${firstResult},${rows}
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.sun3d.why.model.SysLogExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		'true' as QUERYID,
+		<include refid="Base_Column_List" />
+		from SYS_LOG
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+		<if test="firstResult != null">
+			<include refid="pagination_condition" />
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_LOG
+		where LOG_ID = #{logId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from SYS_LOG
+		where LOG_ID = #{logId,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.sun3d.why.model.SysLogExample">
+		delete from SYS_LOG
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.sun3d.why.model.SysLog">
+		insert into SYS_LOG (LOG_ID, LOG_USER_ID, LOG_NICK_NAME,
+		LOG_IP, LOG_MODULE_NAME, LOG_REMARK,
+		LOG_OPER_TIME)
+		values (#{logId,jdbcType=VARCHAR}, #{logUserId,jdbcType=VARCHAR},
+		#{logNickName,jdbcType=VARCHAR},
+		#{logIp,jdbcType=VARCHAR}, #{logModuleName,jdbcType=VARCHAR}, #{logRemark,jdbcType=VARCHAR},
+		#{logOperTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.sun3d.why.model.SysLog">
+		insert into SYS_LOG
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="logId != null">
+				LOG_ID,
+			</if>
+			<if test="logUserId != null">
+				LOG_USER_ID,
+			</if>
+			<if test="logNickName != null">
+				LOG_NICK_NAME,
+			</if>
+			<if test="logIp != null">
+				LOG_IP,
+			</if>
+			<if test="logModuleName != null">
+				LOG_MODULE_NAME,
+			</if>
+			<if test="logRemark != null">
+				LOG_REMARK,
+			</if>
+			<if test="logOperTime != null">
+				LOG_OPER_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="logId != null">
+				#{logId,jdbcType=VARCHAR},
+			</if>
+			<if test="logUserId != null">
+				#{logUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="logNickName != null">
+				#{logNickName,jdbcType=VARCHAR},
+			</if>
+			<if test="logIp != null">
+				#{logIp,jdbcType=VARCHAR},
+			</if>
+			<if test="logModuleName != null">
+				#{logModuleName,jdbcType=VARCHAR},
+			</if>
+			<if test="logRemark != null">
+				#{logRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="logOperTime != null">
+				#{logOperTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.sun3d.why.model.SysLogExample"
+		resultType="java.lang.Integer">
+		select count(*) from SYS_LOG
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update SYS_LOG
+		<set>
+			<if test="record.logId != null">
+				LOG_ID = #{record.logId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.logUserId != null">
+				LOG_USER_ID = #{record.logUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.logNickName != null">
+				LOG_NICK_NAME = #{record.logNickName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.logIp != null">
+				LOG_IP = #{record.logIp,jdbcType=VARCHAR},
+			</if>
+			<if test="record.logModuleName != null">
+				LOG_MODULE_NAME = #{record.logModuleName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.logRemark != null">
+				LOG_REMARK = #{record.logRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="record.logOperTime != null">
+				LOG_OPER_TIME = #{record.logOperTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update SYS_LOG
+		set LOG_ID = #{record.logId,jdbcType=VARCHAR},
+		LOG_USER_ID = #{record.logUserId,jdbcType=VARCHAR},
+		LOG_NICK_NAME = #{record.logNickName,jdbcType=VARCHAR},
+		LOG_IP = #{record.logIp,jdbcType=VARCHAR},
+		LOG_MODULE_NAME = #{record.logModuleName,jdbcType=VARCHAR},
+		LOG_REMARK = #{record.logRemark,jdbcType=VARCHAR},
+		LOG_OPER_TIME = #{record.logOperTime,jdbcType=TIMESTAMP}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.sun3d.why.model.SysLog">
+		update SYS_LOG
+		<set>
+			<if test="logUserId != null">
+				LOG_USER_ID = #{logUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="logNickName != null">
+				LOG_NICK_NAME = #{logNickName,jdbcType=VARCHAR},
+			</if>
+			<if test="logIp != null">
+				LOG_IP = #{logIp,jdbcType=VARCHAR},
+			</if>
+			<if test="logModuleName != null">
+				LOG_MODULE_NAME = #{logModuleName,jdbcType=VARCHAR},
+			</if>
+			<if test="logRemark != null">
+				LOG_REMARK = #{logRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="logOperTime != null">
+				LOG_OPER_TIME = #{logOperTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where LOG_ID = #{logId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.sun3d.why.model.SysLog">
+		update SYS_LOG
+		set LOG_USER_ID = #{logUserId,jdbcType=VARCHAR},
+		LOG_NICK_NAME = #{logNickName,jdbcType=VARCHAR},
+		LOG_IP = #{logIp,jdbcType=VARCHAR},
+		LOG_MODULE_NAME = #{logModuleName,jdbcType=VARCHAR},
+		LOG_REMARK = #{logRemark,jdbcType=VARCHAR},
+		LOG_OPER_TIME = #{logOperTime,jdbcType=TIMESTAMP}
+		where LOG_ID = #{logId,jdbcType=VARCHAR}
+	</update>
+</mapper>

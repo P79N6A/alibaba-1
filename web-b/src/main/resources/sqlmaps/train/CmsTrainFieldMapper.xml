@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.train.CmsTrainFieldMapper">
+    <resultMap id="BaseResultMap" type="com.sun3d.why.model.train.CmsTrainField">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="TRAIN_ID" property="trainId" jdbcType="VARCHAR"/>
+        <result column="field_time_str" property="fieldTimeStr" jdbcType="VARCHAR"/>
+        <result column="field_start_time" property="fieldStartTime" jdbcType="TIMESTAMP"/>
+        <result column="field_end_time" property="fieldEndTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID, TRAIN_ID, field_time_str, field_start_time, field_end_time
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from cms_train_field
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from cms_train_field
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+    <delete id="deleteByTrainId" parameterType="java.lang.String">
+    delete from cms_train_field
+    where TRAIN_ID = #{trainId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.sun3d.why.model.train.CmsTrainField">
+    insert into cms_train_field (ID, TRAIN_ID, field_time_str, 
+      field_start_time, field_end_time)
+    values (#{id,jdbcType=VARCHAR}, #{trainId,jdbcType=VARCHAR}, #{fieldTimeStr,jdbcType=VARCHAR}, 
+      #{fieldStartTime,jdbcType=TIMESTAMP}, #{fieldEndTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.sun3d.why.model.train.CmsTrainField">
+        insert into cms_train_field
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="trainId != null">
+                TRAIN_ID,
+            </if>
+            <if test="fieldTimeStr != null">
+                field_time_str,
+            </if>
+            <if test="fieldStartTime != null">
+                field_start_time,
+            </if>
+            <if test="fieldEndTime != null">
+                field_end_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="trainId != null">
+                #{trainId,jdbcType=VARCHAR},
+            </if>
+            <if test="fieldTimeStr != null">
+                #{fieldTimeStr,jdbcType=VARCHAR},
+            </if>
+            <if test="fieldStartTime != null">
+                #{fieldStartTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="fieldEndTime != null">
+                #{fieldEndTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.sun3d.why.model.train.CmsTrainField">
+        update cms_train_field
+        <set>
+            <if test="trainId != null">
+                TRAIN_ID = #{trainId,jdbcType=VARCHAR},
+            </if>
+            <if test="fieldTimeStr != null">
+                field_time_str = #{fieldTimeStr,jdbcType=VARCHAR},
+            </if>
+            <if test="fieldStartTime != null">
+                field_start_time = #{fieldStartTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="fieldEndTime != null">
+                field_end_time = #{fieldEndTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.sun3d.why.model.train.CmsTrainField">
+    update cms_train_field
+    set TRAIN_ID = #{trainId,jdbcType=VARCHAR},
+      field_time_str = #{fieldTimeStr,jdbcType=VARCHAR},
+      field_start_time = #{fieldStartTime,jdbcType=TIMESTAMP},
+      field_end_time = #{fieldEndTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+    <insert id="insertTrainTimes" parameterType="java.util.List">
+        insert into cms_train_field (ID, TRAIN_ID, field_time_str,
+        field_start_time, field_end_time)
+        values
+        <foreach collection="list" item="record" index="index"
+                 separator=",">
+            (
+            #{record.id,jdbcType=VARCHAR}, #{record.trainId,jdbcType=VARCHAR}, #{record.fieldTimeStr,jdbcType=VARCHAR},
+            #{record.fieldStartTime,jdbcType=TIMESTAMP}, #{record.fieldEndTime,jdbcType=TIMESTAMP}
+            )
+        </foreach>
+    </insert>
+
+    <select id="queryTrainFieldListByTrainId" resultMap="BaseResultMap" parameterType="java.lang.String">
+          select * from cms_train_field t
+          where t.train_id = #{trainId,jdbcType=VARCHAR}
+          order by t.field_time_str
+    </select>
+
+</mapper>

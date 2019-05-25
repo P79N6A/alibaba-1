@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/activity_title_height"
+    android:background="@color/white">
+    
+    <com.sun3d.ticketGdfs.view.RoundImageView
+                android:id="@+id/title_left"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/sh_icon_return"
+                android:src="@drawable/sh_icon_user" />
+    
+    <ImageButton
+            android:id="@+id/title_right"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/select_title_button"
+            android:src="@drawable/sh_icon_burning" />
+    
+
+</RelativeLayout>

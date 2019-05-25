@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CcUserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CcUserInfo" >
+    <id column="INFO_ID" property="infoId" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_MOBILE" property="userMobile" jdbcType="VARCHAR" />
+    <result column="HOUSE_NUM" property="houseNum" jdbcType="VARCHAR" />
+    <result column="CAR_NUM" property="carNum" jdbcType="VARCHAR" />
+    <result column="REST_NUM" property="restNum" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    INFO_ID, USER_NAME, USER_MOBILE, HOUSE_NUM, CAR_NUM, REST_NUM
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cc_user_info
+    where INFO_ID = #{infoId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cc_user_info
+    where INFO_ID = #{infoId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.CcUserInfo" >
+    insert into cc_user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      INFO_ID,
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="userMobile != null" >
+        USER_MOBILE,
+      </if>
+      <if test="houseNum != null" >
+        HOUSE_NUM,
+      </if>
+      <if test="carNum != null" >
+        CAR_NUM,
+      </if>
+      <if test="restNum != null" >
+        REST_NUM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{infoId,jdbcType=VARCHAR},
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="houseNum != null" >
+        #{houseNum,jdbcType=VARCHAR},
+      </if>
+      <if test="carNum != null" >
+        #{carNum,jdbcType=VARCHAR},
+      </if>
+      <if test="restNum != null" >
+        #{restNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.CcUserInfo" >
+    update cc_user_info
+    <set >
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        USER_MOBILE = #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="houseNum != null" >
+        HOUSE_NUM = #{houseNum,jdbcType=VARCHAR},
+      </if>
+      <if test="carNum != null" >
+        CAR_NUM = #{carNum,jdbcType=VARCHAR},
+      </if>
+      <if test="restNum != null" >
+        REST_NUM = #{restNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where INFO_ID = #{infoId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryUserInfo" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.CcUserInfo" >
+    select 
+    	INFO_ID, USER_NAME, USER_MOBILE, HOUSE_NUM, CAR_NUM, REST_NUM
+    from cc_user_info
+    where USER_NAME = #{userName} and USER_MOBILE = #{userMobile}
+  </select>
+</mapper>

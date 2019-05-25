@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.culturecloud.dao.statistics.StatisticsMapper" >
+
+<!--活动统计数据生成-->
+    <insert id="generateActivityStatistics">
+
+    insert into stat_data(datatype,city,carea,ctype,vname,val1,val2,val3,val4,val5,cdate)
+select datatype,left(venue_city,2),left(venue_area,2),tag_id,venue_id,activitycount,bookactivitycount,ticketcount,bookingcount,checkcount,date_format(date_add(now(),INTERVAL -1 DAY),'%Y-%m-%d') from
+(
+ select 'newactivitystat' as  datatype,venue_city,venue_area,tag_id,venue_id,
+ (select count(*) from cms_activity m inner join cms_activity_venue_relevance n on m.activity_id=n.activity_id inner join cms_venue o on n.venue_id=o.venue_id  where o.venue_id=a.venue_id   and datediff(now(),activity_create_time)=1 and activity_is_del=1  and activity_type=b.tag_id ) as activitycount,
+ (select count(*) from cms_activity m inner join cms_activity_venue_relevance n on m.activity_id=n.activity_id inner join cms_venue o on n.venue_id=o.venue_id  where datediff(now(),activity_create_time)=1 and o.venue_id=a.venue_id   and activity_is_del=1  and activity_type=b.tag_id and ACTIVITY_IS_RESERVATION = 2) as bookactivitycount,
+ ifnull(( select sum(ORDER_COUNT) from  cms_activity m inner join cms_activity_venue_relevance n on m.activity_id=n.activity_id inner join cms_venue o on n.venue_id=o.venue_id   inner join cms_activity_event p on m.activity_id=p.activity_id where datediff(now(),activity_create_time)=1 and o.venue_id=a.venue_id   and m.activity_is_del=1  and m.activity_type=b.tag_id group by o.venue_id,m.activity_type),0) as ticketcount,
+ ifnull(( select count(*) from  cms_activity m inner join cms_activity_venue_relevance n on m.activity_id=n.activity_id inner join cms_venue o on n.venue_id=o.venue_id   inner join cms_activity_order p on m.activity_id=p.activity_id where datediff(now(),order_create_time)=1 and  o.venue_id=a.venue_id   and m.activity_is_del=1  and m.activity_type=b.tag_id group by o.venue_id,m.activity_type),0) as bookingcount,
+  ifnull(( select count(*) from  cms_activity m inner join cms_activity_venue_relevance n on m.activity_id=n.activity_id inner join cms_venue o on n.venue_id=o.venue_id   inner join cms_activity_order p on m.activity_id=p.activity_id where ORDER_PAY_STATUS = 4 and datediff(now(),order_update_time)=1 and  o.venue_id=a.venue_id   and m.activity_is_del=1  and m.activity_type=b.tag_id group by o.venue_id,m.activity_type),0) as checkcount
+ from cms_venue a,cms_tag b where  tag_type='411c6c38e1e3415ebff5f3230cb973c1'  and tag_is_delete = 1 and VENUE_IS_DEL = 1
+ )  a where (activitycount+bookactivitycount+ticketcount+bookingcount+checkcount) > 0
+
+
+
+    </insert>
+    
+    
+    <insert id="generateVenueStatistics">
+         insert into stat_data(datatype,city,carea,vname,val1,val2,cdate)
+select 'newvenuestat' as  datatype,venue_city,venue_area,venue_id,count(b.room_id) as roomnum,count(c.`ROOM_ID`) as openroom, date_format(date_add(now(),INTERVAL -1 DAY),'%Y-%m-%d')
+ from cms_venue a
+left join cms_room b on a.venue_id=b.`ROOM_VENUE_ID`
+ left join (select distinct room_id  from cms_room  where  room_state=6 and  room_is_del = 1 and (`ROOM_DAY_MONDAY` =1 or
+  `ROOM_DAY_TUESDAY` =1 or
+  `ROOM_DAY_WEDNESDAY` =1 or
+  `ROOM_DAY_THURSDAY` =1 or
+  `ROOM_DAY_FRIDAY` = 1 or
+  `ROOM_DAY_SATURDAY` = 1 or
+  `ROOM_DAY_SUNDAY`  = 1) and datediff(now(),room_create_time) = 1  ) as c on b.room_id=c.room_id
+ where room_is_del = 1  and  room_state=6 and datediff(now(),b.room_create_time) = 1
+group by venue_id,venue_name,venue_area
+
+
+    </insert>
+
+    <select id="getRegisterUserByArea" resultType="map">
+      select date_format(date_add(now(),INTERVAL -1 DAY),'%Y-%m-%d') as  stime, source_code,count(*) as cou from cms_terminal_user   where datediff(now(),create_time) = 1 group by source_code
+      order by source_code
+    </select>
+
+    <insert id="insertRegisterUserByArea" >
+          insert into stat_data(datatype,carea,clevel,val1,val2,val3,cdate)
+select 'user_reg',source_code,register_origin,
+(select count(*) from cms_terminal_user  where source_code=a.source_code and register_origin=a.register_origin) as  total,
+(select count(*) from  cms_terminal_user  m inner join
+(
+select distinct user_id from cms_activity_order where datediff(now(),order_create_time) = 1
+) n on m.user_id=n.user_id where source_code=a.source_code and register_origin=a.register_origin) as ordnum,
+(select count(*) from  cms_terminal_user where source_code=a.source_code and register_origin=a.register_origin and datediff(now(),create_time) = 1) as cout,
+date_format(date_add(now(),INTERVAL -1 DAY),'%Y-%m-%d') as  stime
+  from (
+  select distinct register_origin,source_code from cms_terminal_user where register_origin is not null
+  ) a
+    </insert>
+
+
+
+</mapper>
+
+

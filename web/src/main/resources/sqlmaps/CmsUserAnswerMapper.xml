@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsUserAnswerMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsUserAnswer" >
+    <id column="USER_ANSWER_ID" property="userAnswerId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_SCORE" property="userScore" jdbcType="INTEGER" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_MOBILE" property="userMobile" jdbcType="VARCHAR" />
+    <result column="USER_EMAIL" property="userEmail" jdbcType="VARCHAR" />
+    <result column="ANSWER_TYPE" property="answerType" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="TOTAL" property="total" jdbcType="INTEGER" />
+    <result column="RANKING" property="ranking" jdbcType="INTEGER" />
+    <result column="PROPORTION" property="proportion" jdbcType="INTEGER" />
+    <result column="USER_HEAD_IMG_URL" property="userHeadImgUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    USER_ANSWER_ID, USER_ID, USER_SCORE, USER_NAME, USER_MOBILE, USER_EMAIL, ANSWER_TYPE, CREATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cms_user_answer
+    where USER_ANSWER_ID = #{userAnswerId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cms_user_answer
+    where USER_ANSWER_ID = #{userAnswerId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.CmsUserAnswer" >
+    insert into cms_user_answer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      USER_ANSWER_ID,
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="userScore != null" >
+        USER_SCORE,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="userMobile != null" >
+        USER_MOBILE,
+      </if>
+      <if test="userEmail != null" >
+        USER_EMAIL,
+      </if>
+      <if test="answerType != null" >
+        ANSWER_TYPE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{userAnswerId,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userScore != null" >
+        #{userScore,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="answerType != null" >
+        #{answerType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.CmsUserAnswer" >
+    update cms_user_answer
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userScore != null" >
+        USER_SCORE = #{userScore,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        USER_MOBILE = #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        USER_EMAIL = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="answerType != null" >
+        ANSWER_TYPE = #{answerType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where USER_ANSWER_ID = #{userAnswerId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.CmsUserAnswer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cms_user_answer
+    where 1=1
+    <if test="userId != null" >
+      and USER_ID = #{userId}
+    </if>
+    <if test="answerType != null" >
+      and ANSWER_TYPE = #{answerType}
+    </if>
+  </select>
+  
+  <select id="statisticsAnswer" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.CmsUserAnswer" >
+    select 
+    	COUNT(*) total,
+    	(select COUNT(*) from cms_user_answer cum where cum.USER_SCORE > #{userScore,jdbcType=VARCHAR} and cum.ANSWER_TYPE = #{answerType})+1 ranking,
+    	(select COUNT(*) from cms_user_answer cum where cum.USER_SCORE &lt; #{userScore,jdbcType=VARCHAR} and cum.ANSWER_TYPE = #{answerType})/(COUNT(*)-1)*100 proportion,
+    	(select USER_NAME from cms_terminal_user where USER_ID = #{userId,jdbcType=VARCHAR}) userName,
+    	(select USER_HEAD_IMG_URL from cms_terminal_user where USER_ID = #{userId,jdbcType=VARCHAR}) userHeadImgUrl
+    from cms_user_answer m
+    where m.ANSWER_TYPE = #{answerType}
+  </select>
+  <select id="queryUserList" resultType="java.lang.Integer" parameterType="java.util.Map">
+      select 
+	  count(*)
+	  from cms_user_answer
+	  where 1=1
+	  <if test="answerType != null and answerType != ''">
+	   AND ANSWER_TYPE=#{answerType,jdbcType=VARCHAR}
+	  </if>
+	  <if test="userName != null and userName != ''">
+	   AND (USER_NAME like CONCAT('%','${userName}','%') OR USER_MOBILE like CONCAT('%','${userName}','%'))
+	  </if>
+      order by CREATE_TIME asc
+  </select>
+  <select id="queryUserMessage" resultMap="BaseResultMap" parameterType="java.util.Map">
+      select 
+      USER_ANSWER_ID, USER_ID,USER_SCORE, USER_NAME, USER_MOBILE, USER_EMAIL, ANSWER_TYPE, CREATE_TIME
+      FROM cms_user_answer 
+      WHERE 1=1
+      <if test="answerType != null and answerType != ''">
+       AND ANSWER_TYPE=#{answerType,jdbcType=VARCHAR}
+      </if>
+      <if test="userName != null and userName != ''">
+	   AND (USER_NAME like CONCAT('%','${userName}','%') OR USER_MOBILE like CONCAT('%','${userName}','%'))
+	  </if>
+       order by CREATE_TIME asc
+      <if test="firstResult != null">
+       limit ${firstResult},${rows}
+      </if>
+  </select>
+</mapper>

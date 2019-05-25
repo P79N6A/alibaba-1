@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.ccp.CcpCultureTeamWorksMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.ccp.CcpCultureTeamWorks" >
+    <id column="CULTURE_TEAM_WORKS_ID" property="cultureTeamWorksId" jdbcType="VARCHAR" />
+    <result column="CULTURE_TEAM_ID" property="cultureTeamId" jdbcType="VARCHAR" />
+    <result column="WORKS_NAME" property="worksName" jdbcType="VARCHAR" />
+    <result column="WORKS_MANUSCRIPT" property="worksManuscript" jdbcType="LONGVARCHAR" />
+    <result column="WORKS_STAGE" property="worksStage" jdbcType="LONGVARCHAR" />
+    <result column="WORKS_SORT" property="worksSort" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    CULTURE_TEAM_WORKS_ID, CULTURE_TEAM_ID, WORKS_NAME,WORKS_MANUSCRIPT, WORKS_STAGE,WORKS_SORT, CREATE_TIME
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ccp_culture_team_works
+    where CULTURE_TEAM_WORKS_ID = #{cultureTeamWorksId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ccp_culture_team_works
+    where CULTURE_TEAM_WORKS_ID = #{cultureTeamWorksId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.ccp.CcpCultureTeamWorks" >
+    insert into ccp_culture_team_works
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      CULTURE_TEAM_WORKS_ID,
+      <if test="cultureTeamId != null" >
+        CULTURE_TEAM_ID,
+      </if>
+      <if test="worksName != null" >
+        WORKS_NAME,
+      </if>
+      <if test="worksManuscript != null" >
+        WORKS_MANUSCRIPT,
+      </if>
+      <if test="worksStage != null" >
+        WORKS_STAGE,
+      </if>
+      <if test="worksSort != null" >
+        WORKS_SORT,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{cultureTeamWorksId,jdbcType=VARCHAR},
+      <if test="cultureTeamId != null" >
+        #{cultureTeamId,jdbcType=VARCHAR},
+      </if>
+      <if test="worksName != null" >
+        #{worksName,jdbcType=VARCHAR},
+      </if>
+      <if test="worksManuscript != null" >
+        #{worksManuscript,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="worksStage != null" >
+        #{worksStage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="worksSort != null" >
+        #{worksSort,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.sun3d.why.model.ccp.CcpCultureTeamWorks" >
+    update ccp_culture_team_works
+    <set >
+      <if test="cultureTeamId != null" >
+        CULTURE_TEAM_ID = #{cultureTeamId,jdbcType=VARCHAR},
+      </if>
+      <if test="worksName != null" >
+        WORKS_NAME = #{worksName,jdbcType=VARCHAR},
+      </if>
+      <if test="worksManuscript != null" >
+        WORKS_MANUSCRIPT = #{worksManuscript,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="worksStage != null" >
+        WORKS_STAGE = #{worksStage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="worksSort != null" >
+        WORKS_SORT = #{worksSort,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where CULTURE_TEAM_WORKS_ID = #{cultureTeamWorksId,jdbcType=VARCHAR}
+  </update>
+  
+  <delete id="deleteByCultureTeamId" parameterType="java.lang.String" >
+    delete from ccp_culture_team_works
+    where CULTURE_TEAM_ID = #{cultureTeamId,jdbcType=VARCHAR}
+  </delete>
+  
+  <select id="queryCultureTeamWorksByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT
+		cctw.CULTURE_TEAM_WORKS_ID, 
+		cctw.CULTURE_TEAM_ID, 
+		cctw.WORKS_NAME,
+		cctw.WORKS_MANUSCRIPT, 
+		cctw.WORKS_STAGE,
+		cctw.WORKS_SORT,
+		cctw.CREATE_TIME
+	FROM ccp_culture_team_works cctw
+	WHERE 1=1
+		<if test="cultureTeamId != null">
+            AND cctw.CULTURE_TEAM_ID like #{cultureTeamId}
+        </if>
+    ORDER BY cctw.WORKS_SORT
+  </select>
+  <select id="queryUserByCultureTeamId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select 
+    CULTURE_TEAM_WORKS_ID, CULTURE_TEAM_ID, WORKS_NAME,WORKS_MANUSCRIPT, 
+    WORKS_STAGE,WORKS_SORT, CREATE_TIME
+    from ccp_culture_team_works
+    where CULTURE_TEAM_ID=#{cultureTeamId}
+  </select>
+  
+  <select id="queryUserByCultureTeamIdList" resultMap="BaseResultMap" parameterType="java.lang.String"> 
+    select 
+    CULTURE_TEAM_WORKS_ID, CULTURE_TEAM_ID, WORKS_NAME,WORKS_MANUSCRIPT, 
+    WORKS_STAGE,WORKS_SORT, CREATE_TIME
+    from ccp_culture_team_works
+    where CULTURE_TEAM_ID=#{cultureTeamId}
+  </select>
+  
+</mapper>

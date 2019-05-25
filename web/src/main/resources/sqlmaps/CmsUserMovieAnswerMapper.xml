@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsUserMovieAnswerMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsUserMovieAnswer" >
+    <id column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_SCORE" property="userScore" jdbcType="INTEGER" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_MOBILE" property="userMobile" jdbcType="VARCHAR" />
+    <result column="USER_EMAIL" property="userEmail" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="TOTAL" property="total" jdbcType="INTEGER" />
+    <result column="RANKING" property="ranking" jdbcType="INTEGER" />
+    <result column="PROPORTION" property="proportion" jdbcType="INTEGER" />
+    <result column="USER_HEAD_IMG_URL" property="userHeadImgUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    USER_ID, USER_SCORE, USER_NAME, USER_MOBILE, USER_EMAIL, CREATE_TIME
+  </sql>
+  
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cms_user_movieanswer
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteById" parameterType="java.lang.String" >
+    delete from cms_user_movieanswer
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sun3d.why.model.CmsUserMovieAnswer" >
+    insert into cms_user_movieanswer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      USER_ID,
+      <if test="userScore != null" >
+        USER_SCORE,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="userMobile != null" >
+        USER_MOBILE,
+      </if>
+      <if test="userEmail != null" >
+        USER_EMAIL,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{userId,jdbcType=VARCHAR},
+      <if test="userScore != null" >
+        #{userScore,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateById" parameterType="com.sun3d.why.model.CmsUserMovieAnswer" >
+    update cms_user_movieanswer
+    <set >
+      <if test="userScore != null" >
+        USER_SCORE = #{userScore,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        USER_MOBILE = #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        USER_EMAIL = #{userEmail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <select id="statisticsMovieAnswer" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.CmsUserMovieAnswer" >
+    select 
+    	COUNT(*) total,
+    	(select COUNT(*) from cms_user_movieanswer cum where cum.USER_SCORE > #{userScore,jdbcType=VARCHAR})+1 ranking,
+    	(select COUNT(*) from cms_user_movieanswer cum where cum.USER_SCORE &lt; #{userScore,jdbcType=VARCHAR})/(COUNT(*)-1)*100 proportion,
+    	(select USER_NAME from cms_terminal_user where USER_ID = #{userId,jdbcType=VARCHAR}) userName,
+    	(select USER_HEAD_IMG_URL from cms_terminal_user where USER_ID = #{userId,jdbcType=VARCHAR}) userHeadImgUrl
+    from cms_user_movieanswer m  
+  </select>
+</mapper>

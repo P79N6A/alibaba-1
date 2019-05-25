@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsActivityVoteRelevanceMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsActivityVoteRelevance" >
+    <id column="VOTE_RELEVANCE_ID" property="voteRelevanceId" jdbcType="VARCHAR" />
+    <result column="VOTE_ID" property="voteId" jdbcType="VARCHAR" />
+    <result column="VOTE_CONTENT" property="voteContent" jdbcType="VARCHAR" />
+    <result column="VOTE_IMG_URL" property="voteImgUrl" jdbcType="VARCHAR" />
+    <result column="VOTE_RELEVANCE_DATE" property="voteRelevanceDate" jdbcType="TIMESTAMP" />
+    <result column="VOTE_COUNT" property="voteCount" jdbcType="INTEGER" />
+    <result column="VOTE_SORT" property="voteSort" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    VOTE_RELEVANCE_ID, VOTE_ID, VOTE_CONTENT, VOTE_IMG_URL, VOTE_RELEVANCE_DATE,VOTE_COUNT
+  </sql>
+
+  <insert id="addCmsActivityVoteRelevance" parameterType="com.sun3d.why.model.CmsActivityVoteRelevance">
+    INSERT INTO cms_activity_vote_relevance
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="voteRelevanceId != null">
+        VOTE_RELEVANCE_ID,
+      </if>
+      <if test="voteId != null">
+        VOTE_ID,
+      </if>
+      <if test="voteContent != null">
+        VOTE_CONTENT,
+      </if>
+      <if test="voteImgUrl != null">
+        VOTE_IMG_URL,
+      </if>
+      <if test="voteRelevanceDate != null">
+        VOTE_RELEVANCE_DATE,
+      </if>
+      <if test="voteCount != null">
+        VOTE_COUNT,
+      </if>
+      <if test="voteSort != null">
+        VOTE_SORT,
+      </if>
+    </trim>
+
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="voteRelevanceId != null">
+        #{voteRelevanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="voteId != null">
+        #{voteId,jdbcType=VARCHAR},
+      </if>
+      <if test="voteContent != null">
+        #{voteContent,jdbcType=VARCHAR},
+      </if>
+      <if test="voteImgUrl != null">
+        #{voteImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="voteRelevanceDate != null">
+        #{voteRelevanceDate,jdbcType=VARCHAR},
+      </if>
+      <if test="voteCount != null">
+        #{voteCount,jdbcType=INTEGER},
+      </if>
+      <if test="voteSort != null">
+        #{voteSort,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="queryVoteRelevanceListByVoteId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from cms_activity_vote_relevance
+    where vote_id =#{voteId,jdbcType=VARCHAR}
+    ORDER BY vote_sort
+
+  </select>
+
+
+  <update id="updateDataById" parameterType="java.util.Map">
+    UPDATE  cms_activity_vote_relevance
+    SET  VOTE_COUNT = #{voteCount}
+    WHERE VOTE_RELEVANCE_ID=#{id}
+  </update>
+
+  <select id="queryDataById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" /> FROM cms_activity_vote_relevance
+    WHERE VOTE_RELEVANCE_ID=#{id}
+  </select>
+
+
+  <delete id="deleteCmsActivityVoteRelevance" parameterType="java.lang.String">
+     delete from cms_activity_vote_relevance where vote_id =#{voteId,jdbcType=VARCHAR}
+  </delete>
+
+  <select id="queryVoteStatistics" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        cavr.VOTE_CONTENT,
+        count(cuv.VOTE_RELATE_ID) as voteCount
+    FROM
+        cms_activity_vote_relevance cavr
+    LEFT JOIN cms_user_vote cuv ON cavr.VOTE_RELEVANCE_ID = cuv.VOTE_RELATE_ID
+    WHERE
+        cavr.VOTE_ID = #{vote_id,jdbcType=VARCHAR}
+    GROUP BY
+        cavr.VOTE_RELEVANCE_ID
+     ORDER BY cavr.vote_sort
+
+  </select>
+
+</mapper>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsCulturalOrderOrderMapper" >
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsCulturalOrderOrder" >
+		<id column="cultural_order_order_id" property="culturalOrderOrderId" jdbcType="VARCHAR" />
+		<result column="cultural_order_id" property="culturalOrderId" jdbcType="VARCHAR" />
+		<result column="cultural_order_event_id" property="culturalOrderEventId" jdbcType="VARCHAR" />
+		<result column="cultural_order_order_status" property="culturalOrderOrderStatus" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="user_description" property="userDescription" jdbcType="VARCHAR" />
+		<result column="cultural_order_order_date" property="culturalOrderOrderDate" jdbcType="DATE" />
+		<result column="cultural_order_order_period" property="culturalOrderOrderPeriod" jdbcType="VARCHAR" />
+		<result column="cultural_order_order_area" property="culturalOrderOrderArea" jdbcType="VARCHAR" />
+		<result column="cultural_order_order_town" property="culturalOrderOrderTown" jdbcType="VARCHAR" />
+		<result column="cultural_order_order_address" property="culturalOrderOrderAddress" jdbcType="VARCHAR" />
+		<result column="cultural_order_reply" property="culturalOrderReply" jdbcType="VARCHAR" />
+		<result column="cultural_order_audit_user" property="culturalOrderAuditUser" jdbcType="VARCHAR" />
+		<result column="cultural_order_audit_time" property="culturalOrderAuditTime" jdbcType="TIMESTAMP" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<!-- 分页信息 -->
+	<sql id="pagination_condition">
+		LIMIT ${firstResult},${rows}
+	</sql>
+	
+	<select id="queryOrderListByCulturalOrderId" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT *
+		FROM cms_cultural_order_order
+		WHERE cultural_order_id = #{culturalOrderId,jdbcType=VARCHAR}
+		AND cultural_order_order_status IN (0,1,2)
+	</select>
+	
+	<select id="queryCulturalOrderOrderList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT ccoo.*,
+		cco.cultural_order_name AS culturalOrderName,
+		sd.dict_name as culturalOrderTypeName,
+		cco.cultural_order_large_type as culturalOrderLargeType,
+		<if test="culturalOrderLargeType == 1">
+			ccoe.cultural_order_event_date AS culturalOrderEventDate,
+			ccoe.cultural_order_event_time AS culturalOrderEventTime,
+			cco.cultural_order_address AS culturalOrderAddress,
+		</if>
+		ctu.user_name as userName,
+		ctu.user_mobile_no as userMobileNo
+		FROM cms_cultural_order_order ccoo
+		LEFT JOIN cms_cultural_order cco ON cco.cultural_order_id = ccoo.cultural_order_id
+		LEFT JOIN sys_dict sd ON sd.dict_id = cco.cultural_order_type
+		LEFT JOIN cms_terminal_user ctu ON ctu.user_id = ccoo.user_id
+		<if test="culturalOrderLargeType == 1">
+		LEFT JOIN cms_cultural_order_event ccoe ON ccoo.cultural_order_event_id = ccoe.cultural_order_event_id
+		</if>
+		WHERE 1=1
+		AND cco.cultural_order_large_type = #{culturalOrderLargeType,jdbcType=INTEGER}
+		AND cco.cultural_order_status in (0,1)
+		AND ccoo.cultural_order_order_status in (0,1,2)
+		AND cco.user_dept_path like CONCAT(#{userDeptPath,jdbcType=VARCHAR},'%')
+		<if test="culturalOrderName != null">
+		AND cco.cultural_order_name like BINARY CONCAT('%',#{culturalOrderName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="culturalOrderType != null">
+		AND cco.cultural_order_type = #{culturalOrderType,jdbcType=VARCHAR}
+		</if>
+		<if test="culturalOrderOrderStatus != null">
+		AND ccoo.cultural_order_order_status = #{culturalOrderOrderStatus,jdbcType=INTEGER}
+		</if>
+		ORDER BY ccoo.create_time DESC
+		<if test="firstResult != null">
+			<include refid="pagination_condition"/>
+		</if>
+	</select>
+	
+	<select id="queryCulturalOrderOrderListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT count(*)
+		FROM cms_cultural_order_order ccoo
+		LEFT JOIN cms_cultural_order cco ON cco.cultural_order_id = ccoo.cultural_order_id
+		WHERE 1=1
+		AND cco.cultural_order_large_type = #{culturalOrderLargeType,jdbcType=INTEGER}
+		AND cco.cultural_order_status in (0,1)
+		AND ccoo.cultural_order_order_status in (0,1,2)
+		AND cco.user_dept_path like CONCAT(#{userDeptPath,jdbcType=VARCHAR},'%')
+		<if test="culturalOrderName != null">
+		AND cco.cultural_order_name like BINARY CONCAT('%',#{culturalOrderName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="culturalOrderType != null">
+		AND cco.cultural_order_type = #{culturalOrderType,jdbcType=VARCHAR}
+		</if>
+		<if test="culturalOrderOrderStatus != null">
+		AND ccoo.cultural_order_order_status = #{culturalOrderOrderStatus,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	<select id="queryCulturalOrderOrderById" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT *
+		FROM cms_cultural_order_order
+		WHERE cultural_order_order_id = #{culturalOrderOrderId,jdbcType=VARCHAR}
+	</select>
+	
+	<update id="updateCulturalOrderOrder" parameterType="java.util.Map">
+		UPDATE cms_cultural_order_order
+		<set>
+			<if test="userDescription != null">
+				user_description = #{userDescription,jdbcType=VARCHAR},
+			</if>
+			<if test="culturalOrderOrderDate != null">
+				cultural_order_order_date = #{culturalOrderOrderDate,jdbcType=DATE},
+			</if>
+			<if test="culturalOrderOrderPeriod != null">
+				cultural_order_order_period = #{culturalOrderOrderPeriod,jdbcType=VARCHAR},
+			</if>
+			<if test="culturalOrderOrderArea != null">
+				cultural_order_order_area = #{culturalOrderOrderArea,jdbcType=VARCHAR},
+			</if>
+			<if test="culturalOrderOrderTown != null">
+				cultural_order_order_town = #{culturalOrderOrderTown,jdbcType=VARCHAR},
+			</if>
+			<if test="culturalOrderOrderAddress != null">
+				cultural_order_order_address = #{culturalOrderOrderAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="culturalOrderOrderStatus != null">
+				cultural_order_order_status = #{culturalOrderOrderStatus,jdbcType=INTEGER},
+			</if>
+			<if test="culturalOrderReply != null">
+				cultural_order_reply = #{culturalOrderReply,jdbcType=VARCHAR},
+			</if>
+			<if test="culturalOrderAuditTime != null">
+				cultural_order_audit_time = #{culturalOrderAuditTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="culturalOrderAuditUser != null">
+				cultural_order_audit_user = #{culturalOrderAuditUser,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE cultural_order_order_id = #{culturalOrderOrderId,jdbcType=VARCHAR}
+	</update>
+</mapper>

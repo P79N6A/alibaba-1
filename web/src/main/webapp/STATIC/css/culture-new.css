@@ -1,0 +1,42 @@
+@charset "utf-8";
+/**/
+#header-con{ height: 90px; background: #6376A0;}
+#header-con .header-con{ height: 90px;}
+#header-con .header-con .logo{ margin: 24px 0 0 18px;}
+#header-con .header-con .nav{ height: 90px; margin: 0 0 0 45px;}
+#header-con .header-con .nav a{ display: block; width: 85px; height: 20px; line-height: 20px; color: #FFFFFF; font-size: 12px; padding: 65px 0 6px; margin-top: -10px; position: relative;}
+#header-con .header-con .nav a.cur,#header-con .header-con .nav a:hover{ color: #6376A0; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; background-color: #FFFFFF;}
+#header-con .header-con .nav a i{ display: block; width: 32px; height: 32px; position: absolute; left: 26px; top: 27px; background: url("../image/nav-icon2.png") no-repeat;}
+#header-con .header-con .nav .activity i{ height: 32px; top: 27px; background: url("../image/activity-icon1.png") no-repeat; background-position: 0 -30px;}
+#header-con .header-con .nav .activity.cur i,#header-con .header-con .nav .activity:hover i{ height: 28px; top: 29px; background-position: 0 0;}
+#header-con .header-con .nav .venues i{ background-position: -32px 0;}
+#header-con .header-con .nav .group i{ background-position: -64px 0;}
+#header-con .header-con .nav .culture i{ background-position: -128px 0;}
+#header-con .header-con .nav .culture.cur i,#header-con .header-con .nav .culture:hover i{ background-position: -160px 0;}
+#header-con .header-con .nav .read i{ background-position: -192px 0;}
+#header-con .header-con .nav .read.cur i,#header-con .header-con .nav .read:hover i{ background-position: -224px 0;}
+#header-con .in-hot-search{ width: 240px; background: url("../image/in-hot-search2.png") no-repeat; border-radius: 0; -moz-border-radius:0; -webkit-border-radius:0;}
+#header-con .in-hot-search input{ width: 180px; background: transparent;}
+#header-con .header-con .user-info-top .txt{ width: 98px; color: #FFFFFF; font-weight: bold; overflow: visible;}
+#header-con .header-con .user-info-top .txt a{ color: #FFFFFF;}
+#header-con .header-con .user-info-top .txt .txt-login{ display: block; float: left; position: relative; padding-left: 34px;}
+#header-con .header-con .user-info-top .txt .txt-login-btn{ padding-right: 4px;}
+#header-con .header-con .user-info-top .txt .txt-register-btn{ display: inline-block; height: 16px; line-height: 16px; border-left: solid 1px #ffffff; padding-left: 6px; margin-top: 9px; *vertical-align: top;*margin-top:0;}
+#header-con .header-con .user-info-top .txt-login .txt-menu{ display: none; position: absolute; top: 35px; left: -67px; width: 150px; padding: 33px 18px 14px 17px; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; background-color: #6376A0;}
+#header-con .header-con .user-info-top .txt-menu a{ display: block; width: 150px; height: 40px; line-height: 40px; padding: 10px 0; border-top: solid 1px #8291B3;}
+#header-con .header-con .user-info-top .txt-menu a:first-child{ border-top: 0;}
+#header-con .header-con .user-info-top .txt-menu a span{ display: inline-block; height: 40px; line-height: 40px; color: #FFFFFF; font-weight: bold; margin-left: 14px; vertical-align: top;}
+#header-con .header-con .user-info-top .txt-menu a i{ display: inline-block; width: 40px; height: 40px; background: url("../image/login-icon2.png") no-repeat; vertical-align: top;}
+#header-con .header-con .user-info-top .txt-menu a.cloud i{ background-position: 0 -160px;}
+#header-con .header-con .user-info-top .txt-menu a.qq i{ background-position: 0 -40px;}
+#header-con .header-con .user-info-top .txt-menu a.sina i{ background-position: 0 -80px;}
+#header-con .header-con .user-info-top .txt-menu a.weixin i{ background-position: 0 -120px;}
+#header-con .header-con .user-info-top .menu{ background: #6376A0;}
+#header-con .header-con .user-info-top .photo{ display: block; padding-left: 48px;}
+#in-top{ border-top: solid 1px #F0F0F0; border-bottom: solid 1px #F0F0F0;}
+#in-top .top-search{ color: #63769F; background-image: url("../image/top-search-bg2.jpg");}
+#in-top .top-search a{ color: #63769F;}
+#in-top .top-search a:hover, #in-top .top-search a.cur{ color: #FFFFFF; background-color: #6376A0;}
+/*login*/
+.digital_banner{ width: 100%; margin: 15px auto 25px; overflow: hidden;}
+.digital_banner .sub_img{ width: 1200px; margin: 0 auto; overflow: hidden;}

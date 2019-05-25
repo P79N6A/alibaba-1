@@ -1,0 +1,722 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsAntiqueMapper">
+	<!-- 返回数据组成的MAP -->
+	<resultMap id="CmsAntiqueResultMap" type="com.sun3d.why.model.CmsAntique">
+		<id column="ANTIQUE_ID" property="antiqueId" jdbcType="VARCHAR" />
+		<result column="VENUE_ID" property="venueId" jdbcType="VARCHAR" />
+		<result column="ANTIQUE_TYPE_ID" property="antiqueVenueId"
+			jdbcType="VARCHAR" />
+		<result column="ANTIQUE_NAME" property="antiqueName" jdbcType="VARCHAR" />
+		<result column="ANTIQUE_IMG_URL" property="antiqueImgUrl"
+			jdbcType="VARCHAR" />
+		<result column="ANTIQUE_GALLERY_ADDRESS" property="antiqueGalleryAddress"
+			jdbcType="VARCHAR" />
+		<result column="ANTIQUE_GALLERY_ADDRESS_URL" property="antiqueGalleryAddressUrl"
+			jdbcType="VARCHAR" />
+		<result column="ANTIQUE_DYNASTY" property="antiqueYears"
+			jdbcType="VARCHAR" />
+		<result column="ANTIQUE_SOURCE" property="antiqueSource"
+			jdbcType="VARCHAR" />
+		<result column="ANTIQUE_IS_VOICE" property="antiqueIsVoice"
+			jdbcType="INTEGER" />
+		<result column="ANTIQUE_VOICE_URL" property="antiqueVoiceUrl"
+			jdbcType="VARCHAR" />
+		<result column="ANTIQUE_VIDEO_URL" property="antiqueVideoUrl"
+			jdbcType="VARCHAR" />
+		<result column="ANTIQUE_IS_3D" property="antiqueIs3d" jdbcType="INTEGER" />
+		<result column="ANTIQUE_3D_URL" property="antique3dUrl"
+			jdbcType="VARCHAR" />
+		<result column="ANTIQUE_SORT" property="antiqueSort" jdbcType="INTEGER" />
+		<result column="ANTIQUE_TOP_LEVEL" property="antiqueTopLevel"
+			jdbcType="INTEGER" />
+		<result column="ANTIQUE_IS_DEL" property="antiqueIsDel"
+			jdbcType="INTEGER" />
+		<result column="ANTIQUE_STATE" property="antiqueState"
+			jdbcType="INTEGER" />
+		<result column="ANTIQUE_CREATE_TIME" property="antiqueCreateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="ANTIQUE_UPDATE_TIME" property="antiqueUpdateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="ANTIQUE_CREATE_USER" property="antiqueCreateUser"
+			jdbcType="VARCHAR" />
+		<result column="ANTIQUE_UPDATE_USER" property="antiqueUpdateUser"
+			jdbcType="VARCHAR" />
+		<result column="ANTIQUE_DEPT" property="antiqueDept" jdbcType="VARCHAR" />
+		<result column="ANTIQUE_REMARK" property="antiqueRemark"
+			jdbcType="LONGVARCHAR" />
+		<result column="DYNASTY_NAME" property="dynastyName" jdbcType="VARCHAR" />
+		<result column="statistic_count" property="statisticCount"
+			jdbcType="INTEGER" />
+		<result column="venue_area" property="venueArea" jdbcType="VARCHAR" />
+		<result column="ANTIQUE_SPECIFICATION" property="antiqueSpecification"
+			jdbcType="VARCHAR" />
+
+		<!--app添加藏品字段 -->
+		<result column="DICT_NAME" property="dictName" jdbcType="VARCHAR" />
+		<result column="VENUE_NAME" property="venueName" jdbcType="VARCHAR" />
+		
+		<result column="WANT_COUNT" property="wantCount" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="queryCmsAntiqueById" resultMap="CmsAntiqueResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		ca.ANTIQUE_ID, ca.VENUE_ID, ca.ANTIQUE_TYPE_ID,
+		ca.ANTIQUE_NAME, ca.ANTIQUE_IMG_URL,
+		ca.ANTIQUE_GALLERY_ADDRESS,
+		ca.ANTIQUE_GALLERY_ADDRESS_URL, ca.ANTIQUE_DYNASTY, ca.ANTIQUE_SOURCE,
+		ca.ANTIQUE_IS_VOICE,
+		ca.ANTIQUE_VOICE_URL,
+		ca.ANTIQUE_VIDEO_URL,
+		ca.ANTIQUE_IS_3D, ca.ANTIQUE_3D_URL, ca.ANTIQUE_SORT,
+		ca.ANTIQUE_TOP_LEVEL,
+		ca.ANTIQUE_IS_DEL, ca.ANTIQUE_STATE,
+		ca.ANTIQUE_CREATE_TIME, ca.ANTIQUE_UPDATE_TIME,
+		ca.ANTIQUE_CREATE_USER,
+		ca.ANTIQUE_UPDATE_USER,
+		ca.ANTIQUE_DEPT,ca.ANTIQUE_REMARK,sd.DICT_NAME
+		DYNASTY_NAME,c.VENUE_NAME,cat.ANTIQUE_TYPE_NAME as ANTIQUE_SPECIFICATION,
+		(select count(*) from cms_user_wantgo d where d.relate_id = ca.ANTIQUE_ID and d.relate_type = 5) as WANT_COUNT
+		FROM CMS_ANTIQUE ca
+		LEFT JOIN sys_dict sd ON ca.ANTIQUE_DYNASTY = sd.DICT_ID
+		left JOIN cms_venue
+		c on c.VENUE_ID=ca.VENUE_ID
+		left JOIN cms_antique_type cat on ca.ANTIQUE_TYPE_ID=cat.ANTIQUE_TYPE_ID
+		WHERE ca.ANTIQUE_ID =
+		#{antiqueId,jdbcType=VARCHAR}
+		limit 0,1
+	</select>
+
+	<insert id="addCmsAntique" parameterType="com.sun3d.why.model.CmsAntique">
+		INSERT INTO CMS_ANTIQUE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="antiqueId != null">
+				ANTIQUE_ID,
+			</if>
+			<if test="venueId != null">
+				VENUE_ID,
+			</if>
+			<if test="antiqueVenueId != null">
+				ANTIQUE_TYPE_ID,
+			</if>
+			<if test="antiqueName != null">
+				ANTIQUE_NAME,
+			</if>
+			<if test="antiqueImgUrl != null">
+				ANTIQUE_IMG_URL,
+			</if>
+			<if test="antiqueGalleryAddress != null">
+				ANTIQUE_GALLERY_ADDRESS,
+			</if>
+			<if test="antiqueGalleryAddressUrl != null">
+				ANTIQUE_GALLERY_ADDRESS_URL,
+			</if>
+			<if test="antiqueYears != null">
+				ANTIQUE_DYNASTY,
+			</if>
+			<if test="antiqueSource != null">
+				ANTIQUE_SOURCE,
+			</if>
+			<if test="antiqueIsVoice != null">
+				ANTIQUE_IS_VOICE,
+			</if>
+			<if test="antiqueVoiceUrl != null">
+				ANTIQUE_VOICE_URL,
+			</if>
+			<if test="antiqueVideoUrl != null">
+				ANTIQUE_VIDEO_URL,
+			</if>
+			<if test="antiqueIs3d != null">
+				ANTIQUE_IS_3D,
+			</if>
+			<if test="antique3dUrl != null">
+				ANTIQUE_3D_URL,
+			</if>
+			<if test="antiqueSort != null">
+				ANTIQUE_SORT,
+			</if>
+			<if test="antiqueTopLevel != null">
+				ANTIQUE_TOP_LEVEL,
+			</if>
+			<if test="antiqueIsDel != null">
+				ANTIQUE_IS_DEL,
+			</if>
+			<if test="antiqueState != null">
+				ANTIQUE_STATE,
+			</if>
+			<if test="antiqueCreateTime != null">
+				ANTIQUE_CREATE_TIME,
+			</if>
+			<if test="antiqueUpdateTime != null">
+				ANTIQUE_UPDATE_TIME,
+			</if>
+			<if test="antiqueCreateUser != null">
+				ANTIQUE_CREATE_USER,
+			</if>
+			<if test="antiqueUpdateUser != null">
+				ANTIQUE_UPDATE_USER,
+			</if>
+			<if test="antiqueDept != null">
+				ANTIQUE_DEPT,
+			</if>
+			<if test="antiqueRemark != null">
+				ANTIQUE_REMARK,
+			</if>
+			<if test="sysId != null">
+				SYS_ID,
+			</if>
+			<if test="sysNo != null">
+				SYS_NO,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="antiqueId != null">
+				#{antiqueId,jdbcType=VARCHAR},
+			</if>
+			<if test="venueId != null">
+				#{venueId,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueVenueId != null">
+				#{antiqueVenueId,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueName != null">
+				#{antiqueName,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueImgUrl != null">
+				#{antiqueImgUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueGalleryAddress != null">
+				#{antiqueGalleryAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueGalleryAddressUrl != null">
+				#{antiqueGalleryAddressUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueYears != null">
+				#{antiqueYears,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueSource != null">
+				#{antiqueSource,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueIsVoice != null">
+				#{antiqueIsVoice,jdbcType=INTEGER},
+			</if>
+			<if test="antiqueVoiceUrl != null">
+				#{antiqueVoiceUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueVideoUrl != null">
+				#{antiqueVideoUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueIs3d != null">
+				#{antiqueIs3d,jdbcType=INTEGER},
+			</if>
+			<if test="antique3dUrl != null">
+				#{antique3dUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueSort != null">
+				#{antiqueSort,jdbcType=INTEGER},
+			</if>
+			<if test="antiqueTopLevel != null">
+				#{antiqueTopLevel,jdbcType=INTEGER},
+			</if>
+			<if test="antiqueIsDel != null">
+				#{antiqueIsDel,jdbcType=INTEGER},
+			</if>
+			<if test="antiqueState != null">
+				#{antiqueState,jdbcType=INTEGER},
+			</if>
+			<if test="antiqueCreateTime != null">
+				#{antiqueCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="antiqueUpdateTime != null">
+				#{antiqueUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="antiqueCreateUser != null">
+				#{antiqueCreateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueUpdateUser != null">
+				#{antiqueUpdateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueDept != null">
+				#{antiqueDept,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueRemark != null">
+				#{antiqueRemark,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="sysId != null">
+				#{sysId,jdbcType=VARCHAR},
+			</if>
+			<if test="sysNo != null">
+				#{sysNo,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="editCmsAntique" parameterType="com.sun3d.why.model.CmsAntique">
+		UPDATE CMS_ANTIQUE
+		<set>
+			<if test="venueId != null">
+				VENUE_ID = #{venueId,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueVenueId != null">
+				ANTIQUE_TYPE_ID = #{antiqueVenueId,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueName != null">
+				ANTIQUE_NAME = #{antiqueName,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueImgUrl != null">
+				ANTIQUE_IMG_URL = #{antiqueImgUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueGalleryAddress != null">
+				ANTIQUE_GALLERY_ADDRESS =
+				#{antiqueGalleryAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueGalleryAddressUrl != null">
+				ANTIQUE_GALLERY_ADDRESS_URL =
+				#{antiqueGalleryAddressUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueYears != null">
+				ANTIQUE_DYNASTY = #{antiqueYears,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueSource != null">
+				ANTIQUE_SOURCE = #{antiqueSource,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueIsVoice != null">
+				ANTIQUE_IS_VOICE = #{antiqueIsVoice,jdbcType=INTEGER},
+			</if>
+			<if test="antiqueVoiceUrl != null">
+				ANTIQUE_VOICE_URL = #{antiqueVoiceUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueVideoUrl != null">
+				ANTIQUE_VIDEO_URL = #{antiqueVideoUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueIs3d != null">
+				ANTIQUE_IS_3D = #{antiqueIs3d,jdbcType=INTEGER},
+			</if>
+			<if test="antique3dUrl != null">
+				ANTIQUE_3D_URL = #{antique3dUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueSort != null">
+				ANTIQUE_SORT = #{antiqueSort,jdbcType=INTEGER},
+			</if>
+			<if test="antiqueTopLevel != null">
+				ANTIQUE_TOP_LEVEL = #{antiqueTopLevel,jdbcType=INTEGER},
+			</if>
+			<if test="antiqueIsDel != null">
+				ANTIQUE_IS_DEL = #{antiqueIsDel,jdbcType=INTEGER},
+			</if>
+			<if test="antiqueState != null">
+				ANTIQUE_STATE = #{antiqueState,jdbcType=INTEGER},
+			</if>
+			<if test="antiqueCreateTime != null">
+				ANTIQUE_CREATE_TIME =
+				#{antiqueCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="antiqueUpdateTime != null">
+				ANTIQUE_UPDATE_TIME =
+				#{antiqueUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="antiqueCreateUser != null">
+				ANTIQUE_CREATE_USER =
+				#{antiqueCreateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueUpdateUser != null">
+				ANTIQUE_UPDATE_USER =
+				#{antiqueUpdateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueDept != null">
+				ANTIQUE_DEPT = #{antiqueDept,jdbcType=VARCHAR},
+			</if>
+			<if test="antiqueRemark != null">
+				ANTIQUE_REMARK = #{antiqueRemark,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		WHERE ANTIQUE_ID = #{antiqueId,jdbcType=VARCHAR}
+	</update>
+
+	<select id="queryCmsAntiqueByCondition" parameterType="java.util.Map"
+		resultMap="CmsAntiqueResultMap">
+		SELECT
+		A.ANTIQUE_ID,A.VENUE_ID,A.ANTIQUE_TYPE_ID,A.ANTIQUE_NAME,A.ANTIQUE_IMG_URL,A.ANTIQUE_GALLERY_ADDRESS,A.ANTIQUE_GALLERY_ADDRESS_URL
+		,A.ANTIQUE_DYNASTY,A.ANTIQUE_SOURCE,A.ANTIQUE_IS_VOICE,A.ANTIQUE_IS_3D,A.ANTIQUE_3D_URL,A.ANTIQUE_SORT
+		,A.ANTIQUE_TOP_LEVEL,A.ANTIQUE_IS_DEL,A.ANTIQUE_STATE,
+		A.ANTIQUE_CREATE_TIME,A.ANTIQUE_UPDATE_TIME,
+		SU.`USER_NICK_NAME` AS ANTIQUE_CREATE_USER,S.`USER_NICK_NAME` AS ANTIQUE_UPDATE_USER
+		,A.ANTIQUE_DEPT,V.VENUE_NAME AS ANTIQUE_VIDEO_URL ,
+		A.ANTIQUE_VOICE_URL
+		FROM cms_antique A 
+		LEFT JOIN cms_venue V ON A.`VENUE_ID` = V.`VENUE_ID`
+		LEFT JOIN sys_user S ON A.`ANTIQUE_UPDATE_USER` = S.`USER_ID`
+		LEFT JOIN sys_user SU ON A.`ANTIQUE_CREATE_USER` = SU.`USER_ID`
+		WHERE 1=1
+		<if test="searchKey != null and searchKey != ''">
+			and (A.ANTIQUE_NAME like '%${searchKey}%' or s.USER_NICK_NAME like '%${searchKey}%' or su.USER_NICK_NAME like '%${searchKey}%')
+		</if>
+		<if test="antiqueName != null">
+			AND A.ANTIQUE_NAME LIKE #{antiqueName}
+		</if>
+		<if test="antiqueIsDel != null">
+			AND A.ANTIQUE_IS_DEL = #{antiqueIsDel}
+		</if>
+		<if test="antiqueState != null">
+			AND A.ANTIQUE_STATE = #{antiqueState}
+		</if>
+		<if test="venueArea != null">
+			AND V.VENUE_AREA like #{venueArea}
+		</if>
+		<if test="venueType != null">
+			AND V.VENUE_TYPE = #{venueType}
+		</if>
+		<if test="venueId != null">
+			AND V.VENUE_ID = #{venueId}
+		</if>
+		<if test="venueDept != null">
+			AND V.VENUE_DEPT like #{venueDept}
+		</if>
+		<if test="antiqueVenueId != null">
+			AND A.ANTIQUE_TYPE_ID = #{antiqueVenueId}
+		</if>
+		<if test="antiqueId != null">
+			AND A.ANTIQUE_ID = #{antiqueId}
+		</if>
+		<if test="antiqueYears != null">
+			AND A.ANTIQUE_DYNASTY = #{antiqueYears}
+		</if>
+		<if test="antiqueIdExclude != null">
+			AND A.ANTIQUE_ID != #{antiqueIdExclude}
+		</if>
+		ORDER BY A.ANTIQUE_UPDATE_TIME desc
+		limit #{firstResult},#{rows}
+	</select>
+
+	<select id="queryCmsAntiqueCountByCondition" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		SELECT COUNT(*) 
+		FROM cms_antique A 
+		LEFT JOIN cms_venue V ON A.`VENUE_ID` = V.`VENUE_ID`
+		LEFT JOIN sys_user S ON A.`ANTIQUE_UPDATE_USER` = S.`USER_ID`
+		LEFT JOIN sys_user SU ON A.`ANTIQUE_CREATE_USER` = SU.`USER_ID`
+		WHERE 1=1
+		<if test="searchKey != null and searchKey != ''">
+			and (A.ANTIQUE_NAME like '%${searchKey}%' or s.USER_NICK_NAME like '%${searchKey}%' or su.USER_NICK_NAME like '%${searchKey}%')
+		</if>
+		<if test="antiqueName != null">
+			AND A.ANTIQUE_NAME LIKE #{antiqueName}
+		</if>
+		<if test="antiqueIsDel != null">
+			AND A.ANTIQUE_IS_DEL = #{antiqueIsDel}
+		</if>
+		<if test="antiqueState != null">
+			AND A.ANTIQUE_STATE = #{antiqueState}
+		</if>
+		<if test="venueArea != null">
+			AND V.VENUE_AREA like #{venueArea}
+		</if>
+		<if test="venueType != null">
+			AND V.VENUE_TYPE = #{venueType}
+		</if>
+		<if test="venueId != null">
+			AND V.VENUE_ID = #{venueId}
+		</if>
+		<if test="venueDept != null">
+			AND V.VENUE_DEPT like #{venueDept}
+		</if>
+		<if test="antiqueId != null">
+			AND A.ANTIQUE_ID = #{antiqueId}
+		</if>
+		<if test="antiqueVenueId != null">
+			AND A.ANTIQUE_TYPE_ID = #{antiqueVenueId}
+		</if>
+		<if test="antiqueYears != null">
+			AND A.ANTIQUE_DYNASTY = #{antiqueYears}
+		</if>
+	</select>
+
+	<!--推荐馆藏-->
+	<select id="queryRelatedAntique" parameterType="java.util.Map"
+			resultMap="CmsAntiqueResultMap">
+		SELECT
+		A.ANTIQUE_ID,A.ANTIQUE_NAME,A.ANTIQUE_IMG_URL
+		FROM cms_antique A
+		WHERE 1=1
+		<if test="antiqueIsDel != null">
+			AND A.ANTIQUE_IS_DEL = #{antiqueIsDel}
+		</if>
+		<if test="antiqueState != null">
+			AND A.ANTIQUE_STATE = #{antiqueState}
+		</if>
+		<if test="venueId != null">
+			AND A.VENUE_ID = #{venueId}
+		</if>
+		<if test="antiqueId != null">
+			AND A.ANTIQUE_ID = #{antiqueId}
+		</if>
+		<if test="antiqueIdExclude != null">
+			AND A.ANTIQUE_ID != #{antiqueIdExclude}
+		</if>
+		ORDER BY A.ANTIQUE_UPDATE_TIME desc
+		limit #{firstResult},#{rows}
+	</select>
+
+	<!--本周最受欢迎藏品(周浏览次数) -->
+	<select id="queryBestWelcomeAntique" resultMap="CmsAntiqueResultMap"
+		parameterType="java.util.Map">
+		SELECT ANTIQUE_ID,a.VENUE_ID,ANTIQUE_IMG_URL,ANTIQUE_NAME
+		from
+		cms_antique A left join cms_venue V on A.venue_id = V.venue_id LEFT
+		JOIN cms_statistics on ANTIQUE_ID=S_ID
+		<if test="antiqueIsDel != null">
+			AND A.ANTIQUE_IS_DEL = #{antiqueIsDel}
+		</if>
+		<if test="antiqueState != null">
+			AND A.ANTIQUE_STATE = #{antiqueState}
+		</if>
+		<if test="venueArea != null">
+			AND V.VENUE_AREA like #{venueArea}
+		</if>
+		<if test="venueType != null">
+			AND V.VENUE_TYPE = #{venueType}
+		</if>
+		<if test="venueId != null">
+			AND V.VENUE_ID = #{venueId}
+		</if>
+		ORDER BY WEEK_BROWSE_COUNT desc
+		limit #{firstResult},#{rows}
+	</select>
+
+	<select id="countBestWelcomeAntique" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		SELECT count(*)
+		from cms_antique A left join cms_venue V on A.venue_id
+		= V.venue_id LEFT
+		JOIN cms_statistics on ANTIQUE_ID=S_ID
+		<if test="antiqueIsDel != null">
+			AND A.ANTIQUE_IS_DEL = #{antiqueIsDel}
+		</if>
+		<if test="antiqueState != null">
+			AND A.ANTIQUE_STATE = #{antiqueState}
+		</if>
+		<if test="venueArea != null">
+			AND V.VENUE_AREA like #{venueArea}
+		</if>
+		<if test="venueType != null">
+			AND V.VENUE_TYPE = #{venueType}
+		</if>
+		<if test="venueId != null">
+			AND V.VENUE_ID = #{venueId}
+		</if>
+		ORDER BY WEEK_BROWSE_COUNT desc
+	</select>
+
+	<!--前台场馆详情显示相关馆藏 -->
+	<select id="queryCmsAntique" resultMap="CmsAntiqueResultMap"
+		parameterType="java.util.Map">
+		SELECT v.ANTIQUE_ID,v.ANTIQUE_NAME,v.ANTIQUE_IMG_URL from CMS_ANTIQUE
+		v where v.VENUE_ID = #{venueId,jdbcType=VARCHAR}
+		<if test="antiqueState != null">
+			AND v.ANTIQUE_STATE =#{antiqueState,jdbcType=INTEGER}
+		</if>
+		<if test="antiqueIsDel != null">
+			AND v.ANTIQUE_IS_DEL = #{antiqueIsDel,jdbcType=INTEGER}
+		</if>
+		ORDER BY v.ANTIQUE_UPDATE_TIME DESC
+	</select>
+
+	<!--前台场馆详情显示相关馆藏总数 -->
+	<select id="countAntique" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		SELECT count(*) FROM CMS_ANTIQUE v where v.VENUE_ID =
+		#{venueId,jdbcType=VARCHAR}
+		<if test="antiqueState != null">
+			AND v.ANTIQUE_STATE =#{antiqueState,jdbcType=INTEGER}
+		</if>
+		<if test="antiqueIsDel != null">
+			AND v.ANTIQUE_IS_DEL = #{antiqueIsDel,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<update id="updateAntiqueStateById" parameterType="java.util.Map">
+		UPDATE
+		CMS_ANTIQUE
+		SET ANTIQUE_STATE=6,
+		ANTIQUE_UPDATE_USER=#{userId},
+		ANTIQUE_UPDATE_TIME=#{updateTime}
+		WHERE ANTIQUE_ID = #{antiqueId}
+	</update>
+
+	<delete id="deleteAntiqueById" parameterType="java.lang.String">
+		DELETE FROM
+		CMS_ANTIQUE
+		WHERE ANTIQUE_ID = #{antiqueId}
+	</delete>
+	<!--app根据展馆id获取藏品列表 -->
+	<select id="queryAppAntiqueList" resultMap="CmsAntiqueResultMap"
+		parameterType="java.util.Map">
+		SELECT
+		c.ANTIQUE_NAME,
+		c.ANTIQUE_IMG_URL,
+		c.ANTIQUE_ID,
+		s.DICT_NAME
+		FROM
+		cms_antique c
+		LEFT JOIN sys_dict s ON c.ANTIQUE_DYNASTY = s.DICT_ID
+		WHERE
+		1 = 1
+		<if test="venueId != null">
+			AND c.VENUE_ID = #{venueId}
+		</if>
+		<if test="antiqueIsDel != null">
+			AND c.ANTIQUE_IS_DEL = #{antiqueIsDel}
+		</if>
+		<if test="antiqueState != null">
+			AND c.ANTIQUE_STATE = #{antiqueState}
+		</if>
+		ORDER BY c.ANTIQUE_UPDATE_TIME desc
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</select>
+	<!--why3.5 app根据展馆id获取藏品个数 -->
+	<select id="queryAppAntiqueListCount" resultType="java.lang.Integer"
+			parameterType="java.util.Map">
+		SELECT count(*)
+		FROM
+		cms_antique c
+		WHERE
+		1 = 1
+		<if test="venueId != null">
+			AND c.VENUE_ID = #{venueId}
+		</if>
+		<if test="antiqueIsDel != null">
+			AND c.ANTIQUE_IS_DEL = #{antiqueIsDel}
+		</if>
+		<if test="antiqueState != null">
+			AND c.ANTIQUE_STATE = #{antiqueState}
+		</if>
+	</select>
+	
+	<select id="queryAppAntique" resultMap="CmsAntiqueResultMap"
+		parameterType="java.util.Map">
+		
+		SELECT
+		c.ANTIQUE_NAME,
+		c.ANTIQUE_IMG_URL,
+		c.ANTIQUE_ID,
+		s.DICT_NAME,
+		ct.ANTIQUE_TYPE_NAME
+		FROM
+		cms_antique c
+		
+		LEFT JOIN sys_dict s ON c.ANTIQUE_DYNASTY = s.DICT_ID
+		
+		LEFT JOIN cms_antique_type ct  ON ct.ANTIQUE_TYPE_ID = c.ANTIQUE_TYPE_ID
+		
+		WHERE 1=1 
+		and c.ANTIQUE_IS_DEL=1
+		and c.ANTIQUE_STATE=6
+		<if test="antiqueTypeName!=null">
+			AND ct.ANTIQUE_TYPE_NAME = #{antiqueTypeName,jdbcType=VARCHAR}
+		</if>
+		<if test="antiqueDynasty != null">
+			AND s.DICT_NAME = #{antiqueDynasty,jdbcType=VARCHAR}
+		</if>
+		<if test="venueId!=null">
+			AND ct.VENUE_ID=#{venueId,jdbcType=VARCHAR}
+		</if>
+			ORDER BY c.ANTIQUE_UPDATE_TIME DESC
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</select>
+	
+	<!--app根据藏品类别名称筛选藏品 -->
+	<select id="queryAppAntiqueTypeNameList" resultMap="CmsAntiqueResultMap"
+		parameterType="java.util.Map">
+		SELECT
+		cs.ANTIQUE_NAME,
+		cs.ANTIQUE_ID,
+		cs.ANTIQUE_IMG_URL,
+		s.DICT_NAME
+		FROM
+		sys_dict s
+		RIGHT JOIN (
+		SELECT
+		c.ANTIQUE_NAME,
+		c.ANTIQUE_ID,
+		c.ANTIQUE_IMG_URL,
+		c.ANTIQUE_DYNASTY
+		FROM
+		cms_antique_type ct
+		INNER JOIN
+		cms_antique c ON ct.ANTIQUE_TYPE_ID = c.ANTIQUE_TYPE_ID
+		WHERE 1=1
+		<if test="antiqueTypeName!=null">
+			AND ct.ANTIQUE_TYPE_NAME LIKE
+			#{antiqueTypeName,jdbcType=VARCHAR}
+		</if>
+		<if test="antiqueTypeState!=null">
+			AND ct.ANTIQUE_TYPE_STATE =
+			#{antiqueTypeState,jdbcType=INTEGER}
+		</if>
+		<if test="venueId!=null">
+			AND ct.VENUE_ID=#{venueId,jdbcType=VARCHAR}
+		</if>
+		ORDER BY ct.UPDATE_TIME DESC
+		) cs ON cs.ANTIQUE_DYNASTY = s.DICT_ID
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</select>
+	<!--app根据藏品年代筛选藏品列表 -->
+	<select id="queryAppAntiqueDynastyList" resultMap="CmsAntiqueResultMap"
+		parameterType="java.util.Map">
+		SELECT
+		c.ANTIQUE_NAME,
+		c.ANTIQUE_IMG_URL,
+		c.ANTIQUE_ID,
+		sd.DICT_NAME
+		FROM
+		cms_antique c
+		INNER JOIN (
+		SELECT
+		s.DICT_ID,
+		s.DICT_NAME
+		FROM
+		sys_dict s
+		WHERE 1=1
+		<if test="antiqueDynasty != null">
+			AND s.DICT_NAME = #{antiqueDynasty,jdbcType=VARCHAR}
+		</if>
+		<if test="dictState != null">
+			AND s.DICT_STATE = #{dictState,jdbcType=INTEGER}
+		</if>
+		ORDER BY s.DICT_UPDATE_TIME DESC
+		) sd ON c.ANTIQUE_DYNASTY = sd.DICT_ID
+		WHERE 1=1
+		and c.ANTIQUE_IS_DEL=1
+		and c.ANTIQUE_STATE=6
+		<if test="venueId!=null">
+			AND c.VENUE_ID=#{venueId,jdbcType=VARCHAR}
+		</if>
+		ORDER BY c.ANTIQUE_UPDATE_TIME DESC
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</select>
+
+
+	<!-- 内容统计-藏品统计-begin -->
+	<select id="queryAntiqueStatistic" resultMap="CmsAntiqueResultMap"
+		parameterType="com.sun3d.why.model.CmsAntique">
+		select VENUE_AREA,count(*) as statistic_count
+		from
+		cms_antique a
+		inner join cms_venue v on a.VENUE_ID = v.VENUE_ID
+		where
+		v.VENUE_IS_DEL = 1 and v.VENUE_STATE = 6
+		and a.ANTIQUE_IS_DEL = 1 and
+		a.ANTIQUE_STATE = 6
+		GROUP BY VENUE_AREA;
+	</select>
+	<!-- 内容统计-藏品统计-end -->
+</mapper>

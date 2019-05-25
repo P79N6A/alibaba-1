@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsCommentMapper">
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsComment">
+		<result column="COMMENT_ID" property="commentId" jdbcType="VARCHAR" />
+		<result column="COMMENT_TYPE" property="commentType" jdbcType="INTEGER" />
+		<result column="COMMENT_RK_ID" property="commentRkId" jdbcType="VARCHAR" />
+		<result column="COMMENT_RK_NAME" property="commentRkName" jdbcType="VARCHAR" />
+		<result column="COMMENT_REMARK" property="commentRemark" jdbcType="LONGVARCHAR" />
+		<result column="COMMENT_TIME" property="commentTime" jdbcType="TIMESTAMP" />
+		<result column="COMMENT_USER_ID" property="commentUserId" jdbcType="VARCHAR" />
+		<result column="COMMENT_IS_TOP" property="commentIsTop" jdbcType="INTEGER" />
+		<result column="COMMENT_TOP_TIME" property="commentTopTime" jdbcType="TIMESTAMP" />
+		<result column="COMMENT_IMG_URL" property="commentImgUrl" jdbcType="LONGVARCHAR" />
+
+		<result column="activity_name" property="activityName" jdbcType="VARCHAR" />
+		<result column="activity_site" property="activitySite" jdbcType="VARCHAR" />
+		<result column="venue_id" property="venueId" jdbcType="VARCHAR" />
+		<result column="activity_id" property="activityId" jdbcType="VARCHAR" />
+		<result column="venue_name" property="venueName" jdbcType="VARCHAR" />
+		<result column="comment_user_name" property="commentUserName" jdbcType="VARCHAR" />
+		<result column="comment_user_nickName" property="commentUserNickName" jdbcType="VARCHAR" />
+		<result column="user_head_img_url" property="userHeadImgUrl" jdbcType="VARCHAR" />
+		<result column="user_sex" property="userSex" jdbcType="INTEGER" />
+		<result column="COMMENT_STAR" property="commentStar" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!--新增评论-->
+	<insert id="addComment" parameterType="com.sun3d.why.model.CmsComment">
+		insert into CMS_COMMENT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="commentId != null">
+				COMMENT_ID,
+			</if>
+			<if test="commentType != null">
+				COMMENT_TYPE,
+			</if>
+			<if test="commentRkId != null">
+				COMMENT_RK_ID,
+			</if>
+			<if test="commentRkName != null">
+				COMMENT_RK_Name,
+			</if>
+			<if test="commentRemark != null">
+				COMMENT_REMARK,
+			</if>
+			<if test="commentTime != null">
+				COMMENT_TIME,
+			</if>
+			<if test="commentUserId != null">
+				COMMENT_USER_ID,
+			</if>
+			<if test="commentImgUrl != null">
+				COMMENT_IMG_URL,
+			</if>
+			<if test="commentStar != null">
+				COMMENT_STAR,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="commentId != null">
+				#{commentId,jdbcType=VARCHAR},
+			</if>
+			<if test="commentType != null">
+				#{commentType,jdbcType=INTEGER},
+			</if>
+			<if test="commentRkId != null">
+				#{commentRkId,jdbcType=VARCHAR},
+			</if>
+			<if test="commentRkName != null">
+				#{commentRkName,jdbcType=VARCHAR},
+			</if>
+			<if test="commentRemark != null">
+				#{commentRemark,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="commentTime != null">
+				#{commentTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="commentUserId != null">
+				#{commentUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="commentImgUrl != null">
+				#{commentImgUrl,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="commentStar != null">
+				#{commentStar,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<!--符合条件的评论个数-->
+	<select id="queryCommentCountByCondition" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*) from cms_comment c
+		left join cms_terminal_user t on c.comment_user_id = t.user_id
+		left join cms_activity a on c.comment_rk_id = a.activity_id
+		left join cms_venue v on c.comment_rk_id = v.venue_id
+		LEFT JOIN mc_news q ON c.comment_rk_id = q.NEWS_ID
+		where 1=1
+		<if test="commentType != null" >
+			and c.comment_type = #{commentType,jdbcType=INTEGER}
+		</if>
+		<if test="commentRkId != null" >
+			and c.COMMENT_RK_ID = #{commentRkId,jdbcType=VARCHAR}
+		</if>
+		<if test="venueDept != null">
+			and (v.VENUE_DEPT like '${venueDept}%'
+			<if test="activityDepts != null">
+				or
+				<foreach item="item" index="index" collection="activityDepts"
+						 open="(" separator=" " close=")">
+					<if test="index != 0">
+						OR
+					</if>
+					a.ACTIVITY_DEPT like CONCAT('','${item.shareDepthPath}','%' )
+				</foreach>
+			</if>
+			or c.comment_type = '3'
+			or c.comment_type = '4'
+			or c.comment_type = '5'
+			or c.comment_type = '6'
+			or c.comment_type = '7'
+			or c.comment_type = '8'
+			)
+		</if>
+		<if test="venueDept == null">
+			<if test="activityDepts != null">
+				and
+				<foreach item="item" index="index" collection="activityDepts"
+						 open="(" separator=" " close=")">
+					<if test="index != 0">
+						OR
+					</if>
+					a.ACTIVITY_DEPT like CONCAT('','${item.shareDepthPath}','%' )
+				</foreach>
+			</if>
+		</if>
+	</select>
+	<!--符合条件的评论列表-->
+	<select id="queryCommentByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select c.comment_id,c.comment_type,c.comment_rk_id,c.comment_remark,c.comment_time,c.comment_user_id,t.user_name as comment_user_name,t.USER_SEX as user_sex,
+		t.USER_NICK_NAME as comment_user_nickName,t.user_head_img_url,c.comment_img_url,t.user_sex,c.comment_star
+		from cms_comment c
+		left join cms_terminal_user t on c.comment_user_id = t.user_id
+		left join cms_activity a on c.comment_rk_id = a.activity_id
+		left join cms_venue v on c.comment_rk_id = v.venue_id
+		where 1=1
+		<if test="commentType != null" >
+			and c.comment_type = #{commentType,jdbcType=INTEGER}
+		</if>
+		<if test="commentRkId != null" >
+			and c.COMMENT_RK_ID = #{commentRkId,jdbcType=VARCHAR}
+		</if>
+		<if test="venueDept != null">
+			and (v.VENUE_DEPT like '${venueDept}%'
+			<if test="activityDepts != null">
+				or
+				<foreach item="item" index="index" collection="activityDepts"
+						 open="(" separator=" " close=")">
+					<if test="index != 0">
+						OR
+					</if>
+					a.ACTIVITY_DEPT like CONCAT('','${item.shareDepthPath}','%' )
+				</foreach>
+			</if>
+			or c.comment_type = '3'
+			or c.comment_type = '4'
+			or c.comment_type = '5'
+			or c.comment_type = '6'
+			or c.comment_type = '7'
+			or c.comment_type = '8'
+			)
+		</if>
+		<if test="venueDept == null">
+			<if test="activityDepts != null">
+				and
+				<foreach item="item" index="index" collection="activityDepts"
+						 open="(" separator=" " close=")">
+					<if test="index != 0">
+						OR
+					</if>
+					a.ACTIVITY_DEPT like CONCAT('','${item.shareDepthPath}','%' )
+				</foreach>
+			</if>
+		</if>
+		order by c.comment_time desc
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</select>
+
+	<!--删除评论-->
+	<delete id="deleteCommentById" parameterType="java.lang.String">
+		delete from cms_comment where comment_id = #{commentId}
+	</delete>
+
+	<!--前端2.0判断用户评论数小于等于五-->
+	<select id="queryCommentCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*) from cms_comment
+		where 1=1
+		<if test="commentType != null" >
+			and comment_type = #{commentType,jdbcType=INTEGER}
+		</if>
+		<if test="commentRkId != null" >
+			and COMMENT_RK_ID = #{commentRkId,jdbcType=VARCHAR}
+		</if>
+		<if test="commentUserId != null">
+			and comment_user_id = #{commentUserId,jdbcType=VARCHAR}
+		</if>
+		<if test="startDate != null">
+			and comment_time >= #{startDate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endDate != null">
+			and comment_time &lt; #{endDate,jdbcType=TIMESTAMP}
+		</if>
+	</select>
+
+	<!--评论3.0条数-->
+	<select id="queryCmsCommentCountByCondition" resultType="java.lang.Integer" parameterType="java.util.Map">
+		SELECT count(*)
+		FROM cms_comment cc
+		left join cms_terminal_user ct on cc.comment_user_id = ct.user_id
+		WHERE 1 = 1
+		<if test="commentType != null">
+			AND cc.comment_type = #{commentType}
+		</if>
+		<if test="commentRkId != null">
+			AND cc.comment_rk_id = #{commentRkId}
+		</if>
+		<if test="commentRemark != null">
+			AND cc.comment_remark like #{commentRemark}
+		</if>
+	</select>
+	<!--评论3.0列表-->
+	<select id="queryCmsCommentByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+		cc.comment_id,cc.comment_remark,ct.user_name as comment_user_name, ct.USER_HEAD_IMG_URL userHeadImgUrl,
+		cc.COMMENT_IMG_URL,
+		cc.comment_time,cc.comment_is_top,cc.comment_star
+		FROM cms_comment cc
+		left join cms_terminal_user ct on cc.comment_user_id = ct.user_id
+		WHERE 1 = 1
+		<if test="commentType != null">
+			AND cc.comment_type = #{commentType}
+		</if>
+		<if test="commentRkId != null">
+			AND cc.comment_rk_id = #{commentRkId}
+		</if>
+		<if test="commentRemark != null">
+			AND cc.comment_remark like #{commentRemark}
+		</if>
+		<if test="commentIsTop != null">
+			AND cc.comment_is_top = #{commentIsTop}
+		</if>
+		<if test="commentStartTime != null">
+			AND cc.comment_time >= #{commentStartTime}
+		</if>
+		<if test="commentEndTime != null">
+			AND cc.comment_time &lt;= #{commentEndTime}
+		</if>
+		order by comment_time desc
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</select>
+
+	<!--评论3.0 更新置顶状态-->
+	<update id="editCommentTopState" parameterType="com.sun3d.why.model.CmsComment">
+		update cms_comment set comment_is_top = #{commentIsTop},comment_top_time = #{commentTopTime} where comment_id = #{commentId}
+	</update>
+
+	<!--评论3.0 查看详情-->
+	<select id="queryCommentById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select comment_id,comment_type,comment_rk_id,comment_remark,comment_time,comment_user_id,user_name as comment_user_name,comment_img_url,comment_star
+		from cms_comment left join cms_terminal_user on comment_user_id = user_id
+		where comment_id = #{commentId}
+	</select>
+
+	<!--why3.5 查询个人用户下所有活动评论-->
+	<select id="queryAppActivityCommentByUserId" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select cc.comment_id,ca.activity_id,ca.activity_name,cv.venue_id,cv.venue_name,
+		       cc.comment_remark,cc.comment_img_url,cc.comment_time,ca.activity_site
+		from cms_comment cc
+		inner join cms_activity ca on cc.comment_rk_id = ca.activity_id
+		left join cms_activity_venue_relevance cavr on ca.activity_id = cavr.activity_id
+		left join cms_venue cv on cavr.venue_id = cv.venue_id
+		where cc.comment_user_id=#{userId} and cc.comment_type = #{commentType}
+		order by cc.comment_time desc
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</select>
+
+	<!--why3.5 查询个人用户下所有场馆评论-->
+	<select id="queryAppVenueCommentByUserId" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select cc.comment_id,cv.venue_id,cv.venue_name,cc.comment_remark,cc.comment_img_url,cc.comment_time
+		from cms_comment cc
+		inner join cms_venue cv on cc.comment_rk_id = cv.venue_id
+		where cc.comment_user_id=#{userId} and cc.comment_type = #{commentType}
+		order by cc.comment_time desc
+		<if test="firstResult != null">
+			limit ${firstResult},${rows}
+		</if>
+	</select>
+
+	<!--why3.5 场馆及活动详情页评论个数-->
+	<select id="queryCmsCommentCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*) from cms_comment where 1=1
+		<if test="commentRkId != null">
+			and COMMENT_RK_ID = #{commentRkId}
+		</if>
+		<if test="commentType != null">
+			and COMMENT_TYPE = #{commentType}
+		</if>
+	</select>
+
+	<!--查询成员用户评论-->
+	<select id="queryMemberComment" resultMap="BaseResultMap">
+		SELECT * from cms_comment WHERE COMMENT_RK_ID=#{0} limit #{1},3
+	</select>
+
+</mapper>

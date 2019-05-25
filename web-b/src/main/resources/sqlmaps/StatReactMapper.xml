@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.StatReactMapper">
+    <resultMap id="BaseResultMap" type="com.sun3d.why.model.StatReact">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="datatype" property="datatype" jdbcType="VARCHAR"/>
+        <result column="platform" property="platform" jdbcType="VARCHAR"/>
+        <result column="city" property="city" jdbcType="VARCHAR"/>
+        <result column="ctype" property="ctype" jdbcType="VARCHAR"/>
+        <result column="carea" property="carea" jdbcType="VARCHAR"/>
+        <result column="vname" property="vname" jdbcType="VARCHAR"/>
+        <result column="pk" property="pk" jdbcType="VARCHAR"/>
+        <result column="cname" property="cname" jdbcType="VARCHAR"/>
+        <result column="pv" property="pv" jdbcType="INTEGER"/>
+        <result column="ip" property="ip" jdbcType="INTEGER"/>
+        <result column="uv" property="uv" jdbcType="INTEGER"/>
+        <result column="favorc" property="favorc" jdbcType="INTEGER"/>
+        <result column="collect" property="collect" jdbcType="INTEGER"/>
+        <result column="sharec" property="sharec" jdbcType="INTEGER"/>
+        <result column="commentc" property="commentc" jdbcType="INTEGER"/>
+        <result column="bookc" property="bookc" jdbcType="INTEGER"/>
+        <result column="enterc" property="enterc" jdbcType="INTEGER"/>
+        <result column="cdate" property="cdate" jdbcType="DATE"/>
+        <result column="week" property="week" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="selectByAdmin" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        substring(a.carea,4) as carea,
+        a.cname,
+        a.vname,
+        a.cdate,
+        sum(a.pv) as pv,
+        sum(a.ip) as ip,
+        sum(a.uv) as uv,
+        sum(a.favorc) as favorc,
+        sum(a.collect) as collect,
+        sum(a.sharec) as sharec,
+        sum(a.commentc) as commentc,
+        sum(a.bookc) as bookc,
+        sum(a.enterc) as enterc
+        FROM
+        stat_react a
+        WHERE 1=1
+        <if test="cType != null">
+            AND a.datatype = #{cType}
+        </if>
+        <if test="cname != null">
+            AND a.cname  like CONCAT('%',#{cname},'%' )
+        </if>
+        <if test="clevel != null">
+            AND a.platform = #{clevel}
+        </if>
+        <if test="carea != null and allArea != 0">
+            AND a.carea = #{carea,jdbcType=VARCHAR}
+        </if>
+        <if test="vname != null">
+            AND a.vname = #{vname}
+        </if>
+        <if test="startTime != null">
+            and a.cdate &gt;= #{startTime}
+        </if>
+        <if test="endTime != null">
+            and a.cdate &lt;= #{endTime}
+        </if>
+        <if test="cdate != null">
+            <if test="dateTpye == day">
+                AND a.cdate = #{cdate}
+            </if>
+            <if test="dateTpye == week">
+                AND week (a.cdate) = week (#{cdate})
+                AND YEAR (a.cdate) = YEAR (#{cdate})
+            </if>
+            <if test="dateTpye == month">
+                AND month (a.cdate) = month (#{cdate})
+                AND YEAR (a.cdate) = YEAR (#{cdate})
+            </if>
+        </if>
+        GROUP BY
+        <if test="cname != null">
+            a.cdate DESC
+        </if>
+        <if test="allArea == 0 and cname == null">
+            a.carea
+        </if>
+        <if test="allVenue == 0">
+            a.vname
+        </if>
+        <if test="cdate == null">
+            <if test="dateType==1">
+                a.cdate DESC
+            </if>
+            <if test="dateType==2">
+                WEEK (a.cdate) DESC
+            </if>
+            <if test="dateType==3">
+                MONTH (a.cdate) DESC
+            </if>
+        </if>
+        LIMIT 0,20
+    </select>
+    <insert id="insertSelective" parameterType="com.sun3d.why.model.StatReact">
+        insert into stat_react
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="datatype != null">
+                datatype,
+            </if>
+            <if test="platform != null">
+                platform,
+            </if>
+            <if test="city != null">
+                city,
+            </if>
+            <if test="ctype != null">
+                ctype,
+            </if>
+            <if test="carea != null">
+                carea,
+            </if>
+            <if test="vname != null">
+                vname,
+            </if>
+            <if test="pk != null">
+                pk,
+            </if>
+            <if test="cname != null">
+                cname,
+            </if>
+            <if test="pv != null">
+                pv,
+            </if>
+            <if test="ip != null">
+                ip,
+            </if>
+            <if test="uv != null">
+                uv,
+            </if>
+            <if test="favorc != null">
+                favorc,
+            </if>
+            <if test="collect != null">
+                collect,
+            </if>
+            <if test="sharec != null">
+                sharec,
+            </if>
+            <if test="commentc != null">
+                commentc,
+            </if>
+            <if test="bookc != null">
+                bookc,
+            </if>
+            <if test="enterc != null">
+                enterc,
+            </if>
+            <if test="cdate != null">
+                cdate,
+            </if>
+            <if test="week != null">
+                week,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="datatype != null">
+                #{datatype,jdbcType=VARCHAR},
+            </if>
+            <if test="platform != null">
+                #{platform,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="ctype != null">
+                #{ctype,jdbcType=VARCHAR},
+            </if>
+            <if test="carea != null">
+                #{carea,jdbcType=VARCHAR},
+            </if>
+            <if test="vname != null">
+                #{vname,jdbcType=INTEGER},
+            </if>
+            <if test="pk != null">
+                #{pk,jdbcType=VARCHAR},
+            </if>
+            <if test="cname != null">
+                #{cname,jdbcType=VARCHAR},
+            </if>
+            <if test="pv != null">
+                #{pv,jdbcType=INTEGER},
+            </if>
+            <if test="ip != null">
+                #{ip,jdbcType=INTEGER},
+            </if>
+            <if test="uv != null">
+                #{uv,jdbcType=INTEGER},
+            </if>
+            <if test="favorc != null">
+                #{favorc,jdbcType=INTEGER},
+            </if>
+            <if test="collect != null">
+                #{collect,jdbcType=INTEGER},
+            </if>
+            <if test="sharec != null">
+                #{sharec,jdbcType=INTEGER},
+            </if>
+            <if test="commentc != null">
+                #{commentc,jdbcType=INTEGER},
+            </if>
+            <if test="bookc != null">
+                #{bookc,jdbcType=INTEGER},
+            </if>
+            <if test="enterc != null">
+                #{enterc,jdbcType=INTEGER},
+            </if>
+            <if test="cdate != null">
+                #{cdate,jdbcType=DATE},
+            </if>
+            <if test="week != null">
+                #{week,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>

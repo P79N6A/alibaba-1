@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sun3d.why.dao.volunteer.VolunteerMapper">
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.volunteer.Volunteer">
+    <id column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="card_id" jdbcType="VARCHAR" property="cardId" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="region" jdbcType="VARCHAR" property="region" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="occupation" jdbcType="VARCHAR" property="occupation" />
+    <result column="brief" jdbcType="VARCHAR" property="brief" />
+    <result column="service_total" jdbcType="VARCHAR" property="serviceTotal" />
+    <result column="birthday" jdbcType="VARCHAR" property="birthday" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="education" jdbcType="INTEGER" property="education" />
+    <result column="political" jdbcType="INTEGER" property="political" />
+    <result column="native_place" jdbcType="VARCHAR" property="nativePlace" />
+    <result column="head" jdbcType="VARCHAR" property="head" />
+    <result column="recruits_number" jdbcType="VARCHAR" property="recruitsNumber" />
+
+    <result column="create_id" jdbcType="VARCHAR" property="createId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_id" jdbcType="VARCHAR" property="updateId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    uuid, user_id, type, status, card_id, sex, phone, email, region, address, occupation,
+    brief, service_total, birthday, name, education, political, native_place,head,recruits_number,create_id, create_time,
+    update_id, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_volunteer
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_volunteer
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sun3d.why.model.volunteer.Volunteer">
+    insert into t_volunteer (uuid, user_id, type,
+      status, card_id, sex,
+      phone, email, region,
+      address, occupation, brief,
+      service_total, birthday, name,
+      education, political,native_place,head,recruits_number, create_id,
+      create_time, update_id, update_time
+      )
+    values (#{uuid,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER},
+      #{status,jdbcType=INTEGER}, #{cardId,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER},
+      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR},
+      #{address,jdbcType=VARCHAR}, #{occupation,jdbcType=VARCHAR}, #{brief,jdbcType=VARCHAR},
+      #{serviceTotal,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+      #{education,jdbcType=INTEGER}, #{political,jdbcType=INTEGER},  #{nativePlace,jdbcType=INTEGER},
+       #{head,jdbcType=INTEGER}, #{recruitsNumber,jdbcType=INTEGER},#{createId,jdbcType=VARCHAR},
+      sysdate(), #{updateId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sun3d.why.model.volunteer.Volunteer">
+    insert into t_volunteer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="cardId != null">
+        card_id,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="region != null">
+        region,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="occupation != null">
+        occupation,
+      </if>
+      <if test="brief != null">
+        brief,
+      </if>
+      <if test="serviceTotal != null">
+        service_total,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="education != null">
+        education,
+      </if>
+      <if test="political != null">
+        political,
+      </if>
+      <if test="nativePlace != null">
+        nativePlace,
+      </if>
+      <if test="head != null">
+        head,
+      </if>
+      <if test="recruitsNumber != null">
+        recruitsNumber,
+      </if>
+
+
+      <if test="createId != null">
+        create_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateId != null">
+        update_id,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="cardId != null">
+        #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null">
+        #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="occupation != null">
+        #{occupation,jdbcType=VARCHAR},
+      </if>
+      <if test="brief != null">
+        #{brief,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceTotal != null">
+        #{serviceTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null">
+        #{education,jdbcType=INTEGER},
+      </if>
+      <if test="political != null">
+        #{political,jdbcType=INTEGER},
+      </if>
+      <if test="nativePlace != null">
+        #{nativePlace,jdbcType=INTEGER},
+
+      </if>
+      <if test="head != null">
+        #{ head,jdbcType=INTEGER},
+
+      </if>
+      <if test="recruitsNumber != null">
+        #{recruitsNumber,jdbcType=INTEGER},
+
+      </if>
+
+      <if test="createId != null">
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null">
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sun3d.why.model.volunteer.Volunteer">
+    update t_volunteer
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="cardId != null">
+        card_id = #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null">
+        region = #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="occupation != null">
+        occupation = #{occupation,jdbcType=VARCHAR},
+      </if>
+      <if test="brief != null">
+        brief = #{brief,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceTotal != null">
+        service_total = #{serviceTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null">
+        education = #{education,jdbcType=INTEGER},
+      </if>
+      <if test="political != null">
+        political = #{political,jdbcType=INTEGER},
+      </if>
+      <if test="nativePlace != null">
+        native_place = #{nativePlace,jdbcType=INTEGER},
+
+      </if>
+      <if test="head != null">
+        head = #{ head,jdbcType=INTEGER},
+
+      </if>
+      <if test="recruitsNumber != null">
+        recruits_number = #{recruitsNumber,jdbcType=INTEGER},
+
+      </if>
+
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null">
+        update_id = #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sun3d.why.model.volunteer.Volunteer">
+    update t_volunteer
+    set user_id = #{userId,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      card_id = #{cardId,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      region = #{region,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      occupation = #{occupation,jdbcType=VARCHAR},
+      brief = #{brief,jdbcType=VARCHAR},
+      service_total = #{serviceTotal,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      education = #{education,jdbcType=INTEGER},
+      political = #{political,jdbcType=INTEGER},
+      create_id = #{createId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_id = #{updateId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+
+  <select id="queryNewVolunteerList"  resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    from t_volunteer
+    where status = 2
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+
+  <select id="queryTotalVolunteer"  resultType="java.lang.Integer">
+    select
+     count(*)
+    from t_volunteer
+    where status = 2
+  </select>
+
+
+  <select id="queryNewVolunteerListByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_volunteer
+    where user_id = #{userId,jdbcType=VARCHAR}
+
+  </select>
+
+  <select id="queryNewVolunteer" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_volunteer
+    where user_id = #{userId,jdbcType=VARCHAR}
+    and type = #{type,jdbcType=INTEGER}
+
+  </select>
+
+
+</mapper>

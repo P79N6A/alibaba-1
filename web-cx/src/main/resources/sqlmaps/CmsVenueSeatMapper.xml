@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsVenueSeatMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsVenueSeat" >
+    <id column="SEAT_ID" property="seatId" jdbcType="VARCHAR" />
+    <result column="SEAT_AREA" property="seatArea" jdbcType="VARCHAR" />
+    <result column="SEAT_ROW" property="seatRow" jdbcType="INTEGER" />
+    <result column="SEAT_COLUMN" property="seatColumn" jdbcType="INTEGER" />
+    <result column="SEAT_CODE" property="seatCode" jdbcType="VARCHAR" />
+    <result column="SEAT_STATUS" property="seatStatus" jdbcType="INTEGER" />
+    <result column="SEAT_VAL" property="seatVal" jdbcType="VARCHAR" />
+    <result column="SEAT_CREATE_TIME" property="seatCreateTime" jdbcType="TIMESTAMP" />
+    <result column="SEAT_CREATE_USER" property="seatCreateUser" jdbcType="VARCHAR" />
+    <result column="SEAT_UPDATE_TIME" property="seatUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="SEAT_UPDATE_USER" property="seatUpdateUser" jdbcType="VARCHAR" />
+    <result column="TEMPLATE_ID" property="templateId" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <select id="queryCmsVenueSeatById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    SEAT_ID, SEAT_AREA, SEAT_ROW, SEAT_COLUMN, SEAT_CODE, SEAT_STATUS, SEAT_VAL,SEAT_CREATE_TIME,
+    SEAT_CREATE_USER, SEAT_UPDATE_TIME, SEAT_UPDATE_USER, TEMPLATE_ID
+    from cms_venue_seat
+    where SEAT_ID = #{seatId,jdbcType=VARCHAR}
+    limit 0,1
+  </select>
+
+  <select id="queryCmsVenueSeatByCondition" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select vs.* from cms_venue_seat vs left join cms_venue_seat_template v on vs.TEMPLATE_ID = v.TEMPLATE_ID
+    where 1=1
+    <if test="templateId != null" >
+      and vs.TEMPLATE_ID = #{templateId}
+    </if>
+    <if test="seatStatus != null" >
+      and vs.SEAT_STATUS = #{seatStatus}
+    </if>
+    <if test="seatCode != null" >
+      and vs.SEAT_CODE = #{seatCode}
+    </if>
+    order by SEAT_ROW,SEAT_COLUMN
+--     limit ${firstResult},${rows}
+  </select>
+
+  <select id="queryCmsVenueSeatCountByCondition" parameterType="java.util.Map" resultType="java.lang.Integer" >
+    select count(SEAT_ID) from cms_venue_seat vs left join cms_venue_seat_template v on vs.TEMPLATE_ID = v.TEMPLATE_ID
+    where 1=1
+    <if test="templateId != null" >
+      and vs.TEMPLATE_ID = #{templateId}
+    </if>
+    <if test="seatStatus != null" >
+      and vs.SEAT_STATUS = #{seatStatus}
+    </if>
+    <if test="seatCode != null" >
+      and vs.SEAT_CODE = #{seatCode}
+    </if>
+  </select>
+
+  <insert id="addCmsVenueSeat" parameterType="com.sun3d.why.model.CmsVenueSeat" >
+    insert into cms_venue_seat
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="seatId != null" >
+        SEAT_ID,
+      </if>
+      <if test="seatArea != null" >
+        SEAT_AREA,
+      </if>
+      <if test="seatRow != null" >
+        SEAT_ROW,
+      </if>
+      <if test="seatColumn != null" >
+        SEAT_COLUMN,
+      </if>
+      <if test="seatCode != null" >
+        SEAT_CODE,
+      </if>
+      <if test="seatStatus != null" >
+        SEAT_STATUS,
+      </if>
+      <if test="seatCreateTime != null" >
+        SEAT_CREATE_TIME,
+      </if>
+      <if test="seatCreateUser != null" >
+        SEAT_CREATE_USER,
+      </if>
+      <if test="seatUpdateTime != null" >
+        SEAT_UPDATE_TIME,
+      </if>
+      <if test="seatUpdateUser != null" >
+        SEAT_UPDATE_USER,
+      </if>
+      <if test="templateId != null" >
+        TEMPLATE_ID,
+      </if>
+      <if test="seatVal != null" >
+        SEAT_VAL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="seatId != null" >
+        #{seatId,jdbcType=VARCHAR},
+      </if>
+      <if test="seatArea != null" >
+        #{seatArea,jdbcType=VARCHAR},
+      </if>
+      <if test="seatRow != null" >
+        #{seatRow,jdbcType=INTEGER},
+      </if>
+      <if test="seatColumn != null" >
+        #{seatColumn,jdbcType=INTEGER},
+      </if>
+      <if test="seatCode != null" >
+        #{seatCode,jdbcType=VARCHAR},
+      </if>
+      <if test="seatStatus != null" >
+        #{seatStatus,jdbcType=INTEGER},
+      </if>
+      <if test="seatCreateTime != null" >
+        #{seatCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seatCreateUser != null" >
+        #{seatCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="seatUpdateTime != null" >
+        #{seatUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seatUpdateUser != null" >
+        #{seatUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="templateId != null" >
+        #{templateId,jdbcType=VARCHAR},
+      </if>
+      <if test="seatVal != null" >
+        #{seatVal,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="editCmsVenueSeat" parameterType="com.sun3d.why.model.CmsVenueSeat" >
+    update cms_venue_seat
+    <set >
+      <if test="seatArea != null" >
+        SEAT_AREA = #{seatArea,jdbcType=VARCHAR},
+      </if>
+      <if test="seatRow != null" >
+        SEAT_ROW = #{seatRow,jdbcType=INTEGER},
+      </if>
+      <if test="seatColumn != null" >
+        SEAT_COLUMN = #{seatColumn,jdbcType=INTEGER},
+      </if>
+      <if test="seatCode != null" >
+        SEAT_CODE = #{seatCode,jdbcType=VARCHAR},
+      </if>
+      <if test="seatStatus != null" >
+        SEAT_STATUS = #{seatStatus,jdbcType=INTEGER},
+      </if>
+      <if test="seatVal != null" >
+        SEAT_VAL = #{seatVal,jdbcType=VARCHAR},
+      </if>
+      <if test="seatCreateTime != null" >
+        SEAT_CREATE_TIME = #{seatCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seatCreateUser != null" >
+        SEAT_CREATE_USER = #{seatCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="seatUpdateTime != null" >
+        SEAT_UPDATE_TIME = #{seatUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seatUpdateUser != null" >
+        SEAT_UPDATE_USER = #{seatUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="templateId != null" >
+        TEMPLATE_ID = #{templateId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SEAT_ID = #{seatId,jdbcType=VARCHAR}
+  </update>
+
+  <delete id="deleteVenueSeat" parameterType="com.sun3d.why.model.CmsVenueSeat" >
+    delete from cms_venue_seat
+    where 1=1
+    <if test="seatArea != null" >
+      and SEAT_AREA = #{seatArea,jdbcType=VARCHAR}
+    </if>
+    <if test="seatRow != null" >
+      and SEAT_ROW = #{seatRow,jdbcType=INTEGER}
+    </if>
+    <if test="seatColumn != null" >
+      and SEAT_COLUMN = #{seatColumn,jdbcType=INTEGER}
+    </if>
+    <if test="seatCode != null" >
+      and SEAT_CODE = #{seatCode,jdbcType=VARCHAR}
+    </if>
+    <if test="seatStatus != null" >
+      and SEAT_STATUS = #{seatStatus,jdbcType=INTEGER}
+    </if>
+    <if test="templateId != null" >
+      and TEMPLATE_ID = #{templateId,jdbcType=VARCHAR}
+    </if>
+  </delete>
+
+</mapper>

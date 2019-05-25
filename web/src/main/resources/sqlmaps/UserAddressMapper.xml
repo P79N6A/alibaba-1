@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.UserAddressMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.UserAddress" >
+    <id column="ADDRESS_ID" property="addressId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_ADDRESS" property="activityAddress" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_SITE" property="activitySite" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_LON" property="activityLon" jdbcType="DOUBLE" />
+    <result column="ACTIVITY_LAT" property="activityLat" jdbcType="DOUBLE" />
+    <result column="ADDRESS_STATE" property="addressState" jdbcType="INTEGER" />
+    <result column="DEFAULT_ADDRESS" property="defaultAddress" jdbcType="INTEGER" />
+    <result column="CREAT_BY" property="creatBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ADDRESS_ID, USER_ID, ACTIVITY_ADDRESS, ACTIVITY_SITE, ACTIVITY_LON, ACTIVITY_LAT, 
+    ADDRESS_STATE, DEFAULT_ADDRESS, CREAT_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME
+  </sql>
+  <select id="addressList" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_address
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAddressById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from user_address
+    where ADDRESS_ID = #{addressId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAddress" resultMap="BaseResultMap" parameterType="com.sun3d.why.model.UserAddress" >
+    select
+    <include refid="Base_Column_List" />
+    from user_address
+    <where>
+      <if test="userId != null" >
+        USER_ID=#{userId}
+      </if>
+      <if test="defaultAddress != null" >
+        and DEFAULT_ADDRESS=#{defaultAddress}
+      </if>
+    </where>
+    limit 0,1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_address
+    where ADDRESS_ID = #{addressId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="com.sun3d.why.model.UserAddress" >
+    insert into user_address
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="addressId != null" >
+        ADDRESS_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="activityAddress != null" >
+        ACTIVITY_ADDRESS,
+      </if>
+      <if test="activitySite != null" >
+        ACTIVITY_SITE,
+      </if>
+      <if test="activityLon != null" >
+        ACTIVITY_LON,
+      </if>
+      <if test="activityLat != null" >
+        ACTIVITY_LAT,
+      </if>
+      <if test="addressState != null" >
+        ADDRESS_STATE,
+      </if>
+      <if test="defaultAddress != null" >
+        DEFAULT_ADDRESS,
+      </if>
+      <if test="creatBy != null" >
+        CREAT_BY,
+      </if>
+      <if test="updateBy != null" >
+        UPDATE_BY,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="addressId != null" >
+        #{addressId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="activityAddress != null" >
+        #{activityAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="activitySite != null" >
+        #{activitySite,jdbcType=VARCHAR},
+      </if>
+      <if test="activityLon != null" >
+        #{activityLon,jdbcType=DOUBLE},
+      </if>
+      <if test="activityLat != null" >
+        #{activityLat,jdbcType=DOUBLE},
+      </if>
+      <if test="addressState != null" >
+        #{addressState,jdbcType=INTEGER},
+      </if>
+      <if test="defaultAddress != null" >
+        #{defaultAddress,jdbcType=INTEGER},
+      </if>
+      <if test="creatBy != null" >
+        #{creatBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sun3d.why.model.UserAddress" >
+    update user_address
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="activityAddress != null" >
+        ACTIVITY_ADDRESS = #{activityAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="activitySite != null" >
+        ACTIVITY_SITE = #{activitySite,jdbcType=VARCHAR},
+      </if>
+      <if test="activityLon != null" >
+        ACTIVITY_LON = #{activityLon,jdbcType=DOUBLE},
+      </if>
+      <if test="activityLat != null" >
+        ACTIVITY_LAT = #{activityLat,jdbcType=DOUBLE},
+      </if>
+      <if test="addressState != null" >
+        ADDRESS_STATE = #{addressState,jdbcType=INTEGER},
+      </if>
+      <if test="defaultAddress != null" >
+        DEFAULT_ADDRESS = #{defaultAddress,jdbcType=INTEGER},
+      </if>
+      <if test="creatBy != null" >
+        CREAT_BY = #{creatBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null" >
+        UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ADDRESS_ID = #{addressId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateDefaultAddress"  parameterType="java.lang.String" >
+    update user_address
+      SET  DEFAULT_ADDRESS = 0
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="setDefaultAddress"  parameterType="java.lang.String" >
+    update user_address
+    SET  DEFAULT_ADDRESS = 1
+    where ADDRESS_ID = #{addressId,jdbcType=VARCHAR}
+  </update>
+</mapper>

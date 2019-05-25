@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsCulturalOrderMapper" >
+	<resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsCulturalOrder" >
+		<id column="cultural_order_id" property="culturalOrderId" jdbcType="VARCHAR" />
+		<result column="cultural_order_name" property="culturalOrderName" jdbcType="VARCHAR" />
+		<result column="cultural_order_large_type" property="culturalOrderLargeType" jdbcType="INTEGER" />
+		<result column="cultural_order_img" property="culturalOrderImg" jdbcType="VARCHAR" />
+		<result column="cultural_order_type" property="culturalOrderType" jdbcType="VARCHAR" />
+		<result column="cultural_order_area" property="culturalOrderArea" jdbcType="VARCHAR" />
+		<result column="cultural_order_venue_type" property="culturalOrderVenueType" jdbcType="VARCHAR" />
+		<result column="cultural_order_venue_id" property="culturalOrderVenueId" jdbcType="VARCHAR" />
+		<result column="cultural_order_town" property="culturalOrderTown" jdbcType="VARCHAR" />
+		<result column="cultural_order_address" property="culturalOrderAddress" jdbcType="VARCHAR" />
+		<result column="cultural_order_start_date" property="culturalOrderStartDate" jdbcType="DATE" />
+		<result column="cultural_order_end_date" property="culturalOrderEndDate" jdbcType="DATE" />
+		<result column="cultural_order_demand_limit" property="culturalOrderDemandLimit" jdbcType="VARCHAR" />
+		<result column="cultural_order_area_limit" property="culturalOrderAreaLimit" jdbcType="VARCHAR" />
+		<result column="cultural_order_linkman" property="culturalOrderLinkman" jdbcType="VARCHAR" />
+		<result column="cultural_order_linkno" property="culturalOrderLinkno" jdbcType="VARCHAR" />
+		<result column="cultural_order_must_know" property="culturalOrderMustKnow" jdbcType="VARCHAR" />
+		<result column="cultural_order_service_detail" property="culturalOrderServiceDetail" jdbcType="VARCHAR" />
+		<result column="user_dept_path" property="userDeptPath" jdbcType="VARCHAR" />
+		<result column="cultural_order_status" property="culturalOrderStatus" jdbcType="INTEGER" />
+		<result column="create_user" property="createUser" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<!-- 分页信息 -->
+	<sql id="pagination_condition">
+		LIMIT ${firstResult},${rows}
+	</sql>
+	
+	<select id="queryCulturalOrderList" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT 
+		<if test="culturalOrderLargeType == 1">
+		(SELECT max(cultural_order_event_date) FROM cms_cultural_order_event ccoe
+			WHERE ccoe.cultural_order_id = cco.cultural_order_id) as endDate,
+		(SELECT min(cultural_order_event_date) FROM cms_cultural_order_event ccoe
+			WHERE ccoe.cultural_order_id = cco.cultural_order_id) as startDate,
+		</if>
+		<if test="orderType == 2">
+		(SELECT COUNT(*) FROM cms_cultural_order_order ccoo 
+		WHERE ccoo.cultural_order_id = cco.cultural_order_id AND ccoo.cultural_order_order_status = 1) as orderNum,
+		</if>
+		cco.*
+		FROM cms_cultural_order cco
+		WHERE 1=1
+		AND cco.cultural_order_status = 1
+		AND cco.cultural_order_large_type = #{culturalOrderLargeType,jdbcType=INTEGER}
+		<if test="culturalOrderType != null">
+		AND cco.cultural_order_type = #{culturalOrderType,jdbcType=VARCHAR}
+		</if>
+		<if test="culturalOrderArea != null">
+		AND cco.cultural_order_area = #{culturalOrderArea,jdbcType=VARCHAR}
+		</if>
+		<if test="culturalOrderTown != null">
+		AND cco.cultural_order_town = #{culturalOrderTown,jdbcType=VARCHAR}
+		</if>
+		<if test="culturalOrderDemandLimit != null">
+		AND cco.cultural_order_demand_limit = #{culturalOrderDemandLimit,jdbcType=INTEGER}
+		</if>
+		<if test="memberId != null">
+		AND EXISTS(SELECT 1 FROM cms_member_relation cmr 
+			WHERE cmr.member_id = #{memberId,jdbcType=VARCHAR} 
+			and cmr.relation_id = cco.cultural_order_venue_id
+			and cmr.relation_type = 1)
+		</if>
+		<if test="orderType == 1 or orderType == null">
+		ORDER BY cco.update_time DESC
+		</if>
+		<if test="orderType == 2">
+		ORDER BY orderNum DESC
+		</if>
+		<if test="firstResult != null">
+			<include refid="pagination_condition"/>
+		</if>
+	</select>
+	
+	<select id="queryCulturalOrderListCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+		SELECT count(*)
+		FROM cms_cultural_order cco
+		WHERE 1=1
+		AND cco.cultural_order_status = 1
+		AND cco.cultural_order_large_type = #{culturalOrderLargeType,jdbcType=INTEGER}
+		<if test="culturalOrderType != null">
+		AND cco.cultural_order_type = #{culturalOrderType,jdbcType=VARCHAR}
+		</if>
+		<if test="culturalOrderArea != null">
+		AND cco.cultural_order_area = #{culturalOrderArea,jdbcType=VARCHAR}
+		</if>
+		<if test="culturalOrderTown != null">
+		AND cco.cultural_order_town = #{culturalOrderTown,jdbcType=VARCHAR}
+		</if>
+		<if test="culturalOrderDemandLimit != null">
+		AND cco.cultural_order_demand_limit = #{culturalOrderDemandLimit,jdbcType=INTEGER}
+		</if>
+		<if test="memberId != null">
+		AND EXISTS(SELECT 1 FROM cms_member_relation cmr 
+			WHERE cmr.member_id = #{memberId,jdbcType=VARCHAR} 
+			and cmr.relation_id = cco.cultural_order_venue_id
+			and cmr.relation_type = 1)
+		</if>
+	</select>
+	
+	<select id="queryCulturalOrderById" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT cco.*,
+		sd.dict_name as culturalOrderTypeName,
+		<if test="culturalOrderLargeType == 1">
+		(SELECT max(ccoe.cultural_order_event_date) FROM cms_cultural_order_event ccoe
+			WHERE ccoe.cultural_order_id = cco.cultural_order_id) as endDate,
+		(SELECT min(ccoe.cultural_order_event_date) FROM cms_cultural_order_event ccoe
+			WHERE ccoe.cultural_order_id = cco.cultural_order_id) as startDate,
+		(SELECT sum(ccoe.event_ticket_num) FROM cms_cultural_order_event ccoe
+			WHERE ccoe.cultural_order_id = cco.cultural_order_id) as totalTicketNum,
+		</if>
+		<if test = "userId != null">
+		IF ((SELECT COUNT(*) FROM cms_collect cc
+			WHERE cc.relate_id = cco.cultural_order_id 
+			and cc.USER_ID = #{userId,jdbcType=VARCHAR}
+			<if test="relateType != null">
+				and cc.type = #{type,jdbcType=INTEGER}
+			</if>
+		     )>0,1,0) AS userCollect,
+	    </if> 
+    	(SELECT COUNT(*) FROM cms_collect cc
+			WHERE cc.relate_id = cco.cultural_order_id 
+			<if test="relateType != null">
+			and cc.type	= #{type,jdbcType=INTEGER}
+			</if>) as collectCount
+		FROM cms_cultural_order cco
+		LEFT JOIN sys_dict sd ON sd.dict_id = cco.cultural_order_type
+		WHERE cco.cultural_order_id = #{culturalOrderId,jdbcType=VARCHAR}
+	</select>
+</mapper>

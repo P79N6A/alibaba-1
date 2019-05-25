@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun3d.why.dao.CmsActivityTemplateMapper" >
+  <resultMap id="BaseResultMap" type="com.sun3d.why.model.CmsActivityTemplate" >
+    <id column="TEMPL_ID" property="templId" jdbcType="VARCHAR" />
+    <result column="TEMPL_NAME" property="templName" jdbcType="VARCHAR" />
+    <result column="TEMPL_DESCR" property="templDescr" jdbcType="VARCHAR" />
+    <result column="FUNCTIONS" property="functions" jdbcType="VARCHAR" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    TEMPL_ID, TEMPL_NAME, TEMPL_DESCR, CREATE_USER, CREATE_TIME, UPDATE_USER, UPDATE_TIME
+  </sql>
+  
+  <select id="queryActivityTemplateById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+	    t.TEMPL_ID, t.TEMPL_NAME, t.TEMPL_DESCR, t.CREATE_USER, t.CREATE_TIME, t.UPDATE_USER, t.UPDATE_TIME, 
+	    GROUP_CONCAT(DISTINCT r.FUN_ID SEPARATOR ',') AS functions
+    from cms_activity_template t
+    left join cms_activity_template_rel r on r.TEMPL_ID = t.TEMPL_ID
+    where t.TEMPL_ID = #{templId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="queryActivityTemplateByCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select 
+    count(*)
+    from cms_activity_template
+  </select>
+  
+  <select id="queryActivityTemplateByCondition" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+	    t.TEMPL_ID, t.TEMPL_NAME, t.TEMPL_DESCR, su.USER_NICK_NAME as CREATE_USER, t.CREATE_TIME, t.UPDATE_USER, t.UPDATE_TIME,
+	    (select GROUP_CONCAT(rf.FUN_NAME SEPARATOR '，') FROM (select r.TEMPL_ID,r.FUN_ID,f.FUN_NAME from cms_activity_template_rel r left join cms_function f on r.FUN_ID = f.FUN_ID) rf  
+			where t.TEMPL_ID = rf.TEMPL_ID) as functions
+    from cms_activity_template t
+    LEFT JOIN sys_user su on t.CREATE_USER=su.USER_ID
+	ORDER BY t.UPDATE_TIME desc
+    <if test="firstResult != null">
+      limit ${firstResult},${rows}
+    </if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cms_activity_template
+    where TEMPL_ID = #{templId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="addActivityTemplate" parameterType="com.sun3d.why.model.CmsActivityTemplate" >
+    insert into cms_activity_template
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="templId != null" >
+        TEMPL_ID,
+      </if>
+      <if test="templName != null" >
+        TEMPL_NAME,
+      </if>
+      <if test="templDescr != null" >
+        TEMPL_DESCR,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="templId != null" >
+        #{templId,jdbcType=VARCHAR},
+      </if>
+      <if test="templName != null" >
+        #{templName,jdbcType=VARCHAR},
+      </if>
+      <if test="templDescr != null" >
+        #{templDescr,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="editActivityTemplate" parameterType="com.sun3d.why.model.CmsActivityTemplate" >
+    update cms_activity_template
+    <set >
+      <if test="templName != null" >
+        TEMPL_NAME = #{templName,jdbcType=VARCHAR},
+      </if>
+      <if test="templDescr != null" >
+        TEMPL_DESCR = #{templDescr,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where TEMPL_ID = #{templId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="checkRepeatByName" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select count(TEMPL_ID) from cms_activity_template where TEMPL_NAME = #{templateName,jdbcType=VARCHAR}
+  </select>
+</mapper>

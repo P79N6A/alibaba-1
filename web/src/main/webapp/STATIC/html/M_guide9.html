@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- <title>帮助与反馈</title> -->
+    <link rel="stylesheet" type="text/css" href="/STATIC/wx/css/reset-mc.css" />
+    <link rel="stylesheet" type="text/css" href="/STATIC/wx/css/mc-mobile.css" />
+    <!--移动端版本兼容 -->
+    <script type="text/javascript">
+        var phoneWidth =  parseInt(window.screen.width);
+        var phoneScale = phoneWidth/750;
+        var ua = navigator.userAgent;            //浏览器类型
+        if (/Android (\d+\.\d+)/.test(ua)){      //判断是否是安卓系统
+            var version = parseFloat(RegExp.$1); //安卓系统的版本号
+            if(version>2.3){
+                document.write('<meta name="viewport" content="width=750, minimum-scale = '+phoneScale+', maximum-scale = '+(phoneScale)+', target-densitydpi=device-dpi">');
+            }else{
+                document.write('<meta name="viewport" content="width=750, target-densitydpi=device-dpi">');
+            }
+        } else {
+            document.write('<meta name="viewport" content="width=750, user-scalable=no, target-densitydpi=device-dpi">');
+        }
+    </script>
+    <!--移动端版本兼容 end -->
+</head>
+<body>
+<!--head start-->
+<!--head end-->
+<div id="guide_list">
+    <h4>第三方登录账号如何绑定手机号</h4>
+    <p>点击首页左上角头像→进入个人中心，点击【个人设置】→点击【手机】→验证手机号→绑定成功</p>
+    <ul class="clearfix">
+      <li><img src="/STATIC/image/guide27.png" width="320" height="570"></li>
+      <li><img src="/STATIC/image/guide28.png" width="320" height="570"></li>
+      <li><img src="/STATIC/image/guide29.png" width="320" height="570"></li>
+    </ul>
+    <a href="mobileHelp.html" class="return_btn clearfix"></a>
+</div>
+</body>
+</html>
